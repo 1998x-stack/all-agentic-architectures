@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>#11 Meta-Controller — All Agentic Architectures</title>
+<link rel="stylesheet" href="base-dark.css">
+<style>
+  :root {
+    --c1: #28c840; --c1d: #1a7a2a;
+    --c2: #378add; --c2d: #1a5290;
+    --c3: #a259ff; --c3d: #5a2a8a;
+    --c4: #f0883e; --c4d: #9a4a1a;
+    --c5: #1db0a0; --c5d: #0f6e56;
+  }
+  .hero h1 em {
+    background: linear-gradient(90deg, var(--c1), var(--c2), var(--c3), var(--c4), var(--c5));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  }
+  .prevnext { display: flex; justify-content: space-between; padding: 32px 0; border-top: 1px solid var(--border); margin-top: 48px; }
+  .prevnext a { color: var(--muted); font-size: 13px; }
+  .prevnext a:hover { color: var(--text); text-decoration: none; }
+  .pn-strong { color: var(--text) !important; font-weight: 500; }
+  .coding { font-size: 11px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); margin-bottom: 4px; }
+  h2 { font-size: 22px; font-weight: 600; margin: 0 0 12px; letter-spacing: -.01em; }
+  h3 { font-size: 18px; font-weight: 600; margin: 32px 0 12px; }
+</style>
+
+</head>
+<body><nav>
+  <div class="nav-inner">
+    <span class="nav-brand">All Agentic Architectures <span>· 17 Patterns</span></span>
+    <a class="nl" href="index.html">Overview</a>
+  </div>
+</nav><div class="page">
+  <section class="hero" style="padding-bottom:32px">
+    <div class="hero-badge"><span class="dot" style="background:var(--c2)"></span> #11 · Multi-Agent Collaboration</div>
+    <h1 style="font-size:36px;color:var(--text)">Meta-Controller</h1>
+    <p style="margin-bottom:20px">Multi-Service AI Platforms, Adaptive Assistants</p>
+    <div class="tag-row">
+      <span class="ltag" style="color:var(--c2);background:rgba(55,138,221,.08);border-color:rgba(55,138,221,.25)">Part 2</span>
+    </div>
+  </section>
+
+  <section class="layer-sec" style="padding-top:16px;border-bottom:none">
+    <div class="layer-hdr">
+      <span class="layer-id-badge" style="background:#1a5290;color:rgba(255,255,255,.9)">Concept</span>
+      <div class="layer-title">How It Works</div>
+    </div>
+    <p class="layer-def" style="border-color:#378add">A supervisory agent analyzes incoming tasks and routes them to the most appropriate specialist sub-agent.</p>
+    <div style="font-size:14px;line-height:1.85;color:var(--text)">
+      <h2>📘 Agentic Architectures 11: Meta-Controller</h2>
+<p style="margin-bottom:12px;line-height:1.75;font-size:14px;color:var(--muted)">Welcome to the eleventh notebook in our series. Today, we&#x27;re building a <strong style="color:var(--text)">Meta-Controller</strong>, a supervisory agent architecture that orchestrates a team of specialized sub-agents. This pattern is fundamental to creating powerful, multi-talented AI systems.</p>
+<p style="margin-bottom:12px;line-height:1.75;font-size:14px;color:var(--muted)">Instead of building a single, monolithic agent that tries to do everything, the Meta-Controller acts as a smart dispatcher. It receives an incoming request, analyzes its nature, and routes it to the most appropriate specialist from a pool of available agents. This allows each sub-agent to be highly optimized for its specific task, leading to better performance and modularity.</p>
+<p style="margin-bottom:12px;line-height:1.75;font-size:14px;color:var(--muted)">We will demonstrate this by building a system with three distinct specialists:</p>
+<ol style="margin:0 0 16px 18px">
+<li style="margin-bottom:8px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Generalist Agent:</strong> Handles casual conversation and simple questions.</li>
+<li style="margin-bottom:8px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Research Agent:</strong> Equipped with a search tool to answer questions about recent events or complex topics.</li>
+<li style="margin-bottom:8px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Coding Agent:</strong> A specialist focused on generating Python code snippets.</li>
+</ol>
+<p style="margin-bottom:12px;line-height:1.75;font-size:14px;color:var(--muted)">The Meta-Controller will be the &quot;brain&quot; of the operation, examining each user query and deciding which agent is best suited to respond. This creates a flexible and easily extensible system where new capabilities can be added simply by creating a new specialist agent and teaching the controller about it.</p>
+<h4 style="color:var(--muted);margin:24px 0 8px;font-size:14px;text-transform:uppercase;letter-spacing:.06em">Definition</h4>
+<p style="margin-bottom:12px;line-height:1.75;font-size:14px;color:var(--muted)">A <strong style="color:var(--text)">Meta-Controller</strong> (or Router) is a supervisory agent in a multi-agent system that is responsible for analyzing incoming tasks and dispatching them to the appropriate specialized sub-agent or workflow. It acts as an intelligent routing layer, deciding which tool or expert is best suited for the job at hand.</p>
+<h4 style="color:var(--muted);margin:24px 0 8px;font-size:14px;text-transform:uppercase;letter-spacing:.06em">High-level Workflow</h4>
+<ol style="margin:0 0 16px 18px">
+<li style="margin-bottom:8px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Receive Input:</strong> The system receives a user request.</li>
+<li style="margin-bottom:8px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Meta-Controller Analysis:</strong> The Meta-Controller agent examines the request&#x27;s intent, complexity, and content.</li>
+<li style="margin-bottom:8px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Dispatch to Specialist:</strong> Based on its analysis, the Meta-Controller selects the best specialist agent (e.g., &#x27;Researcher&#x27;, &#x27;Coder&#x27;, &#x27;Chatbot&#x27;) from a predefined pool.</li>
+<li style="margin-bottom:8px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Execute Task:</strong> The chosen specialist agent executes the task and generates a result.</li>
+<li style="margin-bottom:8px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Return Result:</strong> The result from the specialist is returned to the user. In more complex workflows, control might return to the Meta-Controller for further steps or monitoring.</li>
+</ol>
+<h4 style="color:var(--muted);margin:24px 0 8px;font-size:14px;text-transform:uppercase;letter-spacing:.06em">When to Use / Applications</h4>
+<ul style="margin:0 0 16px 18px;list-style-type:disc">
+<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Multi-Service AI Platforms:</strong> A single entry point for a platform that offers diverse services like document analysis, data visualization, and creative writing.</li>
+<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Adaptive Personal Assistants:</strong> An assistant that can switch between different modes or tools, such as managing your calendar, searching the web, or controlling smart home devices.</li>
+<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Enterprise Workflows:</strong> Routing customer support tickets to the right department (technical, billing, sales) based on the ticket&#x27;s content.</li>
+</ul>
+<h4 style="color:var(--muted);margin:24px 0 8px;font-size:14px;text-transform:uppercase;letter-spacing:.06em">Strengths &amp; Weaknesses</h4>
+<ul style="margin:0 0 16px 18px;list-style-type:disc">
+<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Strengths:</strong></li>
+<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Flexibility &amp; Modularity:</strong> Extremely easy to add new capabilities by simply adding a new specialist agent and updating the controller&#x27;s routing logic.</li>
+<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Performance:</strong> Allows for highly optimized, expert agents instead of one jack-of-all-trades model that might be mediocre at everything.</li>
+<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Weaknesses:</strong></li>
+<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Controller as a Single Point of Failure:</strong> The quality of the entire system hinges on the controller&#x27;s ability to route tasks correctly. A poor routing decision leads to a suboptimal or incorrect outcome.</li>
+<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Potential for Increased Latency:</strong> The extra step of routing can add a small amount of latency compared to a direct call to a single agent.</li>
+</ul>
+    </div>
+  </section>
+
+  <section class="layer-sec" id="code">
+    <div class="layer-hdr">
+      <span class="layer-id-badge" style="background:#1a5290;color:rgba(255,255,255,.9)">Implementation</span>
+      <div class="layer-title">Code <small style="font-size:14px;font-weight:400;color:var(--muted)">LangChain + LangGraph</small></div>
+    </div>
+    <div class="codeblock">
+  <div class="cb-head">
+    <span class="cb-dot" style="background:#f85149"></span>
+    <span class="cb-dot" style="background:#e3b341"></span>
+    <span class="cb-dot" style="background:#28c840"></span>
+    src/src/... · 179 lines
+  </div>
+  <div class="cb-body"><span class="str">&quot;&quot;&quot;
+Meta-Controller - Agentic Architecture
+Extracted from: 11_meta_controller.ipynb
+&quot;&quot;&quot;</span>
+
+<span class="cm"># !pip install -q -U langchain-nebius langchain langgraph rich python-dotenv langchain-tavily</span>
+
+<span class="kw">import</span> os
+<span class="kw">from</span> typing <span class="kw">import</span> List, Dict, Any, Optional
+<span class="kw">from</span> dotenv <span class="kw">import</span> load_dotenv
+
+<span class="cm"># Pydantic for data modeling</span>
+<span class="kw">from</span> pydantic <span class="kw">import</span> BaseModel, Field
+
+<span class="cm"># LangChain components</span>
+<span class="kw">from</span> langchain_nebius <span class="kw">import</span> ChatNebius
+<span class="kw">from</span> langchain_tavily <span class="kw">import</span> TavilySearch
+<span class="kw">from</span> langchain_core.prompts <span class="kw">import</span> ChatPromptTemplate
+
+<span class="cm"># LangGraph components</span>
+<span class="kw">from</span> langgraph.graph <span class="kw">import</span> StateGraph, END
+<span class="kw">from</span> typing_extensions <span class="kw">import</span> TypedDict
+
+<span class="cm"># For pretty printing</span>
+<span class="kw">from</span> rich.console <span class="kw">import</span> Console
+<span class="kw">from</span> rich.markdown <span class="kw">import</span> Markdown
+
+<span class="cm"># --- API Key and Tracing Setup ---</span>
+<span class="fn">load_dotenv</span>()
+
+os.environ[<span class="str">&quot;LANGCHAIN_TRACING_V2&quot;</span>] <span class="op">=</span> <span class="str">&quot;true&quot;</span>
+os.environ[<span class="str">&quot;LANGCHAIN_PROJECT&quot;</span>] <span class="op">=</span> <span class="str">&quot;Agentic Architecture - Meta-Controller (Nebius)&quot;</span>
+
+required_vars <span class="op">=</span> [<span class="str">&quot;NEBIUS_API_KEY&quot;</span>, <span class="str">&quot;LANGCHAIN_API_KEY&quot;</span>, <span class="str">&quot;TAVILY_API_KEY&quot;</span>]
+<span class="kw">for</span> var <span class="kw">in</span> required_vars<span class="op">:</span>
+    <span class="kw">if</span> var <span class="kw">not</span> <span class="kw">in</span> os.environ<span class="op">:</span>
+        <span class="fn">print</span>(f<span class="str">&quot;Warning: Environment variable {var} not set.&quot;</span>)
+
+<span class="fn">print</span>(<span class="str">&quot;Environment variables loaded and tracing is set up.&quot;</span>)
+
+console <span class="op">=</span> <span class="fn">Console</span>()
+llm <span class="op">=</span> <span class="fn">ChatNebius</span>(model<span class="op">=</span><span class="str">&quot;mistralai/Mixtral-8x22B-Instruct-v0.1&quot;</span>, temperature<span class="op">=</span><span class="num">0</span>)
+search_tool <span class="op">=</span> <span class="fn">TavilySearch</span>(max_results<span class="op">=</span><span class="num">3</span>)
+
+<span class="cm"># Define the state for the overall graph</span>
+<span class="kw">class</span> <span class="fn">MetaAgentState</span>(TypedDict)<span class="op">:</span>
+    user_request<span class="op">:</span> <span class="fn">str</span>
+    next_agent_to_call<span class="op">:</span> Optional[<span class="fn">str</span>]
+    generation<span class="op">:</span> <span class="fn">str</span>
+
+<span class="cm"># A helper factory function to create specialist agent nodes</span>
+<span class="kw">def</span> <span class="fn">create_specialist_node</span>(persona<span class="op">:</span> <span class="fn">str</span>, tools<span class="op">:</span> <span class="fn">list</span> <span class="op">=</span> <span class="kw">None</span>)<span class="op">:</span>
+    <span class="str">&quot;&quot;&quot;Factory to create a specialist agent node.&quot;&quot;&quot;</span>
+    system_prompt <span class="op">=</span> f<span class="str">&quot;You are a specialist agent with the following persona: {persona}. Respond directly and concisely to the user&#x27;s request based on your role.&quot;</span>
+    prompt <span class="op">=</span> ChatPromptTemplate.<span class="fn">from_messages</span>([
+        (<span class="str">&quot;system&quot;</span>, system_prompt),
+        (<span class="str">&quot;human&quot;</span>, <span class="str">&quot;{user_request}&quot;</span>)
+    ])
+    
+    <span class="kw">if</span> tools<span class="op">:</span>
+        chain <span class="op">=</span> prompt <span class="op">|</span> llm.<span class="fn">bind_tools</span>(tools)
+    <span class="kw">else</span><span class="op">:</span>
+        chain <span class="op">=</span> prompt <span class="op">|</span> llm
+        
+    <span class="kw">def</span> <span class="fn">specialist_node</span>(state<span class="op">:</span> MetaAgentState) <span class="op">-</span><span class="op">&gt;</span> Dict[<span class="fn">str</span>, Any]<span class="op">:</span>
+        result <span class="op">=</span> chain.<span class="fn">invoke</span>({<span class="str">&quot;user_request&quot;</span><span class="op">:</span> state[<span class="str">&#x27;user_request&#x27;</span>]})
+        <span class="kw">return</span> {<span class="str">&quot;generation&quot;</span><span class="op">:</span> result.content}
+    
+    <span class="kw">return</span> specialist_node
+
+<span class="cm"># 1. Generalist Agent Node</span>
+generalist_node <span class="op">=</span> <span class="fn">create_specialist_node</span>(
+    <span class="str">&quot;You are a friendly and helpful generalist AI assistant. You handle casual conversation and simple questions.&quot;</span>
+)
+
+<span class="cm"># 2. Research Agent Node</span>
+research_agent_node <span class="op">=</span> <span class="fn">create_specialist_node</span>(
+    <span class="str">&quot;You are an expert researcher. You must use your search tool to find information to answer the user&#x27;s question.&quot;</span>,
+    tools<span class="op">=</span>[search_tool]
+)
+
+<span class="cm"># 3. Coding Agent Node</span>
+coding_agent_node <span class="op">=</span> <span class="fn">create_specialist_node</span>(
+    <span class="str">&quot;You are an expert Python programmer. Your task is to write clean, efficient Python code based on the user&#x27;s request. Provide only the code, wrapped in markdown code blocks, with minimal explanation.&quot;</span>
+)
+
+<span class="fn">print</span>(<span class="str">&quot;Specialist agents defined successfully.&quot;</span>)
+
+<span class="cm"># Pydantic model for the controller&#x27;s routing decision</span>
+<span class="kw">class</span> <span class="fn">ControllerDecision</span>(BaseModel)<span class="op">:</span>
+    next_agent<span class="op">:</span> <span class="fn">str</span> <span class="op">=</span> <span class="fn">Field</span>(description<span class="op">=</span><span class="str">&quot;The name of the specialist agent to call next. Must be one of [&#x27;Generalist&#x27;, &#x27;Researcher&#x27;, &#x27;Coder&#x27;].&quot;</span>)
+    reasoning<span class="op">:</span> <span class="fn">str</span> <span class="op">=</span> <span class="fn">Field</span>(description<span class="op">=</span><span class="str">&quot;A brief reason for choosing the next agent.&quot;</span>)
+
+<span class="kw">def</span> <span class="fn">meta_controller_node</span>(state<span class="op">:</span> MetaAgentState) <span class="op">-</span><span class="op">&gt;</span> Dict[<span class="fn">str</span>, Any]<span class="op">:</span>
+    <span class="str">&quot;&quot;&quot;The central controller that decides which specialist to call.&quot;&quot;&quot;</span>
+    console.<span class="fn">print</span>(<span class="str">&quot;--- 🧠 Meta-Controller Analyzing Request ---&quot;</span>)
+    
+    <span class="cm"># Define the specialists and their descriptions for the controller</span>
+    specialists <span class="op">=</span> {
+        <span class="str">&quot;Generalist&quot;</span><span class="op">:</span> <span class="str">&quot;Handles casual conversation, greetings, and simple questions.&quot;</span>,
+        <span class="str">&quot;Researcher&quot;</span><span class="op">:</span> <span class="str">&quot;Answers questions about recent events, complex topics, or anything requiring up-to-date information from the web.&quot;</span>,
+        <span class="str">&quot;Coder&quot;</span><span class="op">:</span> <span class="str">&quot;Writes Python code based on a user&#x27;s specification.&quot;</span>
+    }
+    
+    specialist_descriptions <span class="op">=</span> <span class="str">&quot;\n&quot;</span>.<span class="fn">join</span>([f<span class="str">&quot;- {name}: {desc}&quot;</span> <span class="kw">for</span> name, desc <span class="kw">in</span> specialists.<span class="fn">items</span>()])
+    
+    prompt <span class="op">=</span> ChatPromptTemplate.<span class="fn">from_template</span>(
+        f<span class="str">&quot;&quot;&quot;You are the meta-controller for a multi-agent AI system. Your job is to analyze the user&#x27;s request and route it to the most appropriate specialist agent.
+
+Here are the available specialists:
+{specialist_descriptions}
+
+Analyze the following user request and choose the best specialist to handle it. Provide your decision in the required format.
+
+User Request: &quot;{{user_request}}&quot;&quot;&quot;</span><span class="str">&quot;
+    )
+    
+    controller_llm = llm.with_structured_output(ControllerDecision)
+    chain = prompt | controller_llm
+    
+    decision = chain.invoke({&quot;</span>user_request<span class="str">&quot;: state[&#x27;user_request&#x27;]})
+    console.print(f&quot;</span>[yellow]Routing decision<span class="op">:</span>[<span class="op">/</span>yellow] Send to [bold]{decision.next_agent}[<span class="op">/</span>bold]. [italic]Reason<span class="op">:</span> {decision.reasoning}[<span class="op">/</span>italic]<span class="str">&quot;)
+    
+    return {&quot;</span>next_agent_to_call<span class="str">&quot;: decision.next_agent}
+
+print(&quot;</span>Meta<span class="op">-</span>Controller node defined successfully.<span class="str">&quot;)
+
+# Build the graph
+workflow = StateGraph(MetaAgentState)
+
+# Add nodes for the controller and each specialist
+workflow.add_node(&quot;</span>meta_controller<span class="str">&quot;, meta_controller_node)
+workflow.add_node(&quot;</span>Generalist<span class="str">&quot;, generalist_node)
+workflow.add_node(&quot;</span>Researcher<span class="str">&quot;, research_agent_node)
+workflow.add_node(&quot;</span>Coder<span class="str">&quot;, coding_agent_node)
+
+# Set the entry point
+workflow.set_entry_point(&quot;</span>meta_controller<span class="str">&quot;)
+
+# Define the conditional routing logic
+def route_to_specialist(state: MetaAgentState) -&gt; str:
+    &quot;</span><span class="str">&quot;&quot;</span>Reads the controller<span class="str">&#x27;s decision and returns the name of the node to route to.&quot;&quot;&quot;
+    return state[&quot;next_agent_to_call&quot;]
+
+workflow.add_conditional_edges(
+    &quot;meta_controller&quot;,
+    route_to_specialist,
+    {
+        &quot;Generalist&quot;: &quot;Generalist&quot;,
+        &quot;Researcher&quot;: &quot;Researcher&quot;,
+        &quot;Coder&quot;: &quot;Coder&quot;
+    }
+)
+
+# After any specialist runs, the process ends
+workflow.add_edge(&quot;Generalist&quot;, END)
+workflow.add_edge(&quot;Researcher&quot;, END)
+workflow.add_edge(&quot;Coder&quot;, END)
+
+meta_agent = workflow.compile()
+print(&quot;Meta-Controller agent graph compiled successfully.&quot;)
+
+def run_agent(query: str):
+    result = meta_agent.invoke({&quot;user_request&quot;: query})
+    console.print(&quot;\n[bold]Final Response:[/bold]&quot;)
+    console.print(Markdown(result[&#x27;</span>generation<span class="str">&#x27;]))
+
+# Test 1: Should be routed to the Generalist
+console.print(&quot;--- 💬 Test 1: General Conversation ---&quot;)
+run_agent(&quot;Hello, how are you today?&quot;)
+
+# Test 2: Should be routed to the Researcher
+console.print(&quot;\n--- 🔬 Test 2: Research Question ---&quot;)
+run_agent(&quot;What were NVIDIA&#x27;</span>s latest financial results?<span class="str">&quot;)
+
+# Test 3: Should be routed to the Coder
+console.print(&quot;</span>\n<span class="op">-</span><span class="op">-</span><span class="op">-</span> 💻 Test <span class="num">3</span><span class="op">:</span> Coding Request <span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="str">&quot;)
+run_agent(&quot;</span>Can you write me a python function to calculate the nth fibonacci number?<span class="str">&quot;)
+</span></div>
+</div>
+  </section>
+
+  <div class="prevnext"><a href="mental-loop.html"><span class="coding">Previous</span><br><span class="pn-strong">← Mental Loop (Simulator)</span></a><a href="graph.html" style="text-align:right"><span class="coding">Next</span><br><span class="pn-strong">Graph (World-Model Memory) →</span></a></div>
+</div><div class="footer">
+  <p>Built from <a href="https://github.com/1998x-stack/all-agentic-architectures" style="color:var(--text)">all-agentic-architectures</a></p>
+</div></body></html>

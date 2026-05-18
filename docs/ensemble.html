@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>#13 Ensemble — All Agentic Architectures</title>
+<link rel="stylesheet" href="base-dark.css">
+<style>
+  :root {
+    --c1: #28c840; --c1d: #1a7a2a;
+    --c2: #378add; --c2d: #1a5290;
+    --c3: #a259ff; --c3d: #5a2a8a;
+    --c4: #f0883e; --c4d: #9a4a1a;
+    --c5: #1db0a0; --c5d: #0f6e56;
+  }
+  .hero h1 em {
+    background: linear-gradient(90deg, var(--c1), var(--c2), var(--c3), var(--c4), var(--c5));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  }
+  .prevnext { display: flex; justify-content: space-between; padding: 32px 0; border-top: 1px solid var(--border); margin-top: 48px; }
+  .prevnext a { color: var(--muted); font-size: 13px; }
+  .prevnext a:hover { color: var(--text); text-decoration: none; }
+  .pn-strong { color: var(--text) !important; font-weight: 500; }
+  .coding { font-size: 11px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); margin-bottom: 4px; }
+  h2 { font-size: 22px; font-weight: 600; margin: 0 0 12px; letter-spacing: -.01em; }
+  h3 { font-size: 18px; font-weight: 600; margin: 32px 0 12px; }
+</style>
+
+</head>
+<body><nav>
+  <div class="nav-inner">
+    <span class="nav-brand">All Agentic Architectures <span>· 17 Patterns</span></span>
+    <a class="nl" href="index.html">Overview</a>
+  </div>
+</nav><div class="page">
+  <section class="hero" style="padding-bottom:32px">
+    <div class="hero-badge"><span class="dot" style="background:var(--c2)"></span> #13 · Multi-Agent Collaboration</div>
+    <h1 style="font-size:36px;color:var(--text)">Ensemble</h1>
+    <p style="margin-bottom:20px">High-Stakes Decision Support, Fact-Checking</p>
+    <div class="tag-row">
+      <span class="ltag" style="color:var(--c2);background:rgba(55,138,221,.08);border-color:rgba(55,138,221,.25)">Part 2</span>
+    </div>
+  </section>
+
+  <section class="layer-sec" style="padding-top:16px;border-bottom:none">
+    <div class="layer-hdr">
+      <span class="layer-id-badge" style="background:#1a5290;color:rgba(255,255,255,.9)">Concept</span>
+      <div class="layer-title">How It Works</div>
+    </div>
+    <p class="layer-def" style="border-color:#378add">Multiple independent agents analyze from different perspectives; an aggregator synthesizes for robust, less biased conclusions.</p>
+    <div style="font-size:14px;line-height:1.85;color:var(--text)">
+      <h2>📘 Agentic Architectures 13: Parallel Exploration + Ensemble Decision</h2>
+<p style="margin-bottom:12px;line-height:1.75;font-size:14px;color:var(--muted)">Welcome to a deep dive into one of the most robust and reliable reasoning architectures: <strong style="color:var(--text)">Parallel Exploration with Ensemble Decision-Making</strong>. This pattern addresses the inherent non-determinism and potential biases of a single LLM by leveraging the &quot;wisdom of the crowd&quot; principle, applied to AI agents.</p>
+<p style="margin-bottom:12px;line-height:1.75;font-size:14px;color:var(--muted)">Instead of relying on a single line of reasoning, this architecture spawns multiple, independent agents to analyze a problem from different perspectives simultaneously. Each agent follows its own reasoning path, much like different experts in a committee. Their individual conclusions are then collected and synthesized by a final &quot;aggregator&quot; agent, which weighs the different viewpoints, identifies consensus and conflict, and produces a final, more nuanced, and reliable answer.</p>
+<p style="margin-bottom:12px;line-height:1.75;font-size:14px;color:var(--muted)">To build a complex and powerful implementation, we will create a <strong style="color:var(--text)">mock AI Investment Committee</strong> tasked with answering a difficult, open-ended question: <strong style="color:var(--text)">&quot;Is NVIDIA (NVDA) a good long-term investment in mid-2024?&quot;</strong></p>
+<p style="margin-bottom:12px;line-height:1.75;font-size:14px;color:var(--muted)">Our committee will consist of three distinct, parallel agents:</p>
+<ol style="margin:0 0 16px 18px">
+<li style="margin-bottom:8px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">The Bullish Growth Analyst:</strong> An optimist who focuses on innovation, market domination, and future potential.</li>
+<li style="margin-bottom:8px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">The Cautious Value Analyst:</strong> A skeptic who scrutinizes financials, valuation, competition, and potential risks.</li>
+<li style="margin-bottom:8px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">The Quantitative Analyst (Quant):</strong> A data-driven expert who looks purely at financial metrics and technical stock indicators.</li>
+</ol>
+<p style="margin-bottom:12px;line-height:1.75;font-size:14px;color:var(--muted)">Finally, a <strong style="color:var(--text)">Chief Investment Officer (CIO)</strong> agent will synthesize their conflicting reports into a final, balanced investment thesis, providing a much more robust answer than any single agent could alone.</p>
+<h4 style="color:var(--muted);margin:24px 0 8px;font-size:14px;text-transform:uppercase;letter-spacing:.06em">Definition</h4>
+<p style="margin-bottom:12px;line-height:1.75;font-size:14px;color:var(--muted)"><strong style="color:var(--text)">Parallel Exploration + Ensemble Decision</strong> is an agentic architecture where a problem is simultaneously processed by multiple independent agents or reasoning paths. The individual outputs are then aggregated, often by a separate agent, through a method like voting, consensus-building, or synthesis to arrive at a final, more robust conclusion.</p>
+<h4 style="color:var(--muted);margin:24px 0 8px;font-size:14px;text-transform:uppercase;letter-spacing:.06em">High-level Workflow</h4>
+<ol style="margin:0 0 16px 18px">
+<li style="margin-bottom:8px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Fan-Out (Parallel Exploration):</strong> A user&#x27;s query is distributed to N independent specialist agents. Crucially, these agents are often given different instructions, personas, or tools to encourage diverse analytical approaches.</li>
+<li style="margin-bottom:8px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Independent Processing:</strong> Each agent works on the problem in isolation, generating its own complete analysis, conclusion, or answer.</li>
+<li style="margin-bottom:8px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Fan-In (Aggregation):</strong> The outputs from all N agents are collected.</li>
+<li style="margin-bottom:8px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Synthesize (Ensemble Decision):</strong> A final &quot;aggregator&quot; or &quot;judge&quot; agent receives all the individual outputs. Its task is to analyze these perspectives, identify common ground, weigh conflicting evidence, and synthesize a comprehensive final answer.</li>
+</ol>
+<h4 style="color:var(--muted);margin:24px 0 8px;font-size:14px;text-transform:uppercase;letter-spacing:.06em">When to Use / Applications</h4>
+<ul style="margin:0 0 16px 18px;list-style-type:disc">
+<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Hard Reasoning Q&amp;A:</strong> For complex, ambiguous questions where a single line of reasoning might easily miss the nuance (e.g., &quot;What was the primary cause of the 2008 financial crisis?&quot;).</li>
+<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Fact-Checking &amp; Verification:</strong> Having multiple agents search for and verify a fact from different sources can drastically reduce hallucinations.</li>
+<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">High-Stakes Decision Support:</strong> In fields like medicine or finance, getting a &quot;second opinion&quot; (or third, or fourth) from different AI personas before making a recommendation.</li>
+</ul>
+<h4 style="color:var(--muted);margin:24px 0 8px;font-size:14px;text-transform:uppercase;letter-spacing:.06em">Strengths &amp; Weaknesses</h4>
+<ul style="margin:0 0 16px 18px;list-style-type:disc">
+<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Strengths:</strong></li>
+<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Boosts Reliability &amp; Accuracy:</strong> Averages out the random errors or biases of a single agent, making the final answer much more likely to be correct and well-rounded.</li>
+<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Reduces Hallucinations:</strong> If one agent hallucinates a fact, the others are unlikely to do the same, and the aggregator can easily spot the outlier.</li>
+<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Weaknesses:</strong></li>
+<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Very High Cost:</strong> This is one of the most expensive architectures, as it multiplies the number of LLM calls by the number of agents in the ensemble (plus the final aggregation call).</li>
+<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Increased Latency:</strong> The system must wait for all parallel paths to complete before the final synthesis can begin.</li>
+</ul>
+    </div>
+  </section>
+
+  <section class="layer-sec" id="code">
+    <div class="layer-hdr">
+      <span class="layer-id-badge" style="background:#1a5290;color:rgba(255,255,255,.9)">Implementation</span>
+      <div class="layer-title">Code <small style="font-size:14px;font-weight:400;color:var(--muted)">LangChain + LangGraph</small></div>
+    </div>
+    <div class="codeblock">
+  <div class="cb-head">
+    <span class="cb-dot" style="background:#f85149"></span>
+    <span class="cb-dot" style="background:#e3b341"></span>
+    <span class="cb-dot" style="background:#28c840"></span>
+    src/src/... · 180 lines
+  </div>
+  <div class="cb-body"><span class="str">&quot;&quot;&quot;
+Ensemble - Agentic Architecture
+Extracted from: 13_ensemble.ipynb
+&quot;&quot;&quot;</span>
+
+<span class="cm"># !pip install -q -U langchain-nebius langchain langgraph rich python-dotenv langchain-tavily</span>
+
+<span class="kw">import</span> os
+<span class="kw">from</span> typing <span class="kw">import</span> List, Dict, Any, Optional
+<span class="kw">from</span> dotenv <span class="kw">import</span> load_dotenv
+
+<span class="cm"># Pydantic for data modeling</span>
+<span class="kw">from</span> pydantic <span class="kw">import</span> BaseModel, Field
+
+<span class="cm"># LangChain components</span>
+<span class="kw">from</span> langchain_nebius <span class="kw">import</span> ChatNebius
+<span class="kw">from</span> langchain_tavily <span class="kw">import</span> TavilySearch
+<span class="kw">from</span> langchain_core.prompts <span class="kw">import</span> ChatPromptTemplate
+
+<span class="cm"># LangGraph components</span>
+<span class="kw">from</span> langgraph.graph <span class="kw">import</span> StateGraph, END
+<span class="kw">from</span> typing_extensions <span class="kw">import</span> TypedDict
+
+<span class="cm"># For pretty printing</span>
+<span class="kw">from</span> rich.console <span class="kw">import</span> Console
+<span class="kw">from</span> rich.markdown <span class="kw">import</span> Markdown
+<span class="kw">from</span> rich.panel <span class="kw">import</span> Panel
+
+<span class="cm"># --- API Key and Tracing Setup ---</span>
+<span class="fn">load_dotenv</span>()
+
+os.environ[<span class="str">&quot;LANGCHAIN_TRACING_V2&quot;</span>] <span class="op">=</span> <span class="str">&quot;true&quot;</span>
+os.environ[<span class="str">&quot;LANGCHAIN_PROJECT&quot;</span>] <span class="op">=</span> <span class="str">&quot;Agentic Architecture - Parallel Ensemble (Nebius)&quot;</span>
+
+required_vars <span class="op">=</span> [<span class="str">&quot;NEBIUS_API_KEY&quot;</span>, <span class="str">&quot;LANGCHAIN_API_KEY&quot;</span>, <span class="str">&quot;TAVILY_API_KEY&quot;</span>]
+<span class="kw">for</span> var <span class="kw">in</span> required_vars<span class="op">:</span>
+    <span class="kw">if</span> var <span class="kw">not</span> <span class="kw">in</span> os.environ<span class="op">:</span>
+        <span class="fn">print</span>(f<span class="str">&quot;Warning: Environment variable {var} not set.&quot;</span>)
+
+<span class="fn">print</span>(<span class="str">&quot;Environment variables loaded and tracing is set up.&quot;</span>)
+
+console <span class="op">=</span> <span class="fn">Console</span>()
+<span class="cm"># A powerful model is needed for this complex task</span>
+llm <span class="op">=</span> <span class="fn">ChatNebius</span>(model<span class="op">=</span><span class="str">&quot;mistralai/Mixtral-8x22B-Instruct-v0.1&quot;</span>, temperature<span class="op">=</span><span class="num">0.3</span>)
+search_tool <span class="op">=</span> <span class="fn">TavilySearch</span>(max_results<span class="op">=</span><span class="num">5</span>)
+
+<span class="cm"># LangGraph State</span>
+<span class="kw">class</span> <span class="fn">EnsembleState</span>(TypedDict)<span class="op">:</span>
+    query<span class="op">:</span> <span class="fn">str</span>
+    <span class="cm"># The analyses dict will store the output from each parallel agent</span>
+    analyses<span class="op">:</span> Dict[<span class="fn">str</span>, <span class="fn">str</span>]
+    final_recommendation<span class="op">:</span> Optional[Any] <span class="cm"># Will store the structured output from the CIO</span>
+
+<span class="cm"># Helper factory to create our analyst nodes</span>
+<span class="kw">def</span> <span class="fn">create_analyst_node</span>(persona<span class="op">:</span> <span class="fn">str</span>, agent_name<span class="op">:</span> <span class="fn">str</span>)<span class="op">:</span>
+    <span class="str">&quot;&quot;&quot;Factory to create a specialist analyst node with a unique persona.&quot;&quot;&quot;</span>
+    system_prompt <span class="op">=</span> f<span class="str">&quot;You are an expert financial analyst. Your persona is &#x27;{persona}&#x27;. You must use your search tool to gather up-to-date information. Based on your persona and research, provide a detailed investment analysis for the user&#x27;s query. Conclude with a clear &#x27;Recommendation&#x27; (e.g., Buy, Hold, Sell) and a &#x27;Confidence Score&#x27; (1-10).&quot;</span>
+    
+    prompt <span class="op">=</span> ChatPromptTemplate.<span class="fn">from_messages</span>([
+        (<span class="str">&quot;system&quot;</span>, system_prompt),
+        (<span class="str">&quot;human&quot;</span>, <span class="str">&quot;{query}&quot;</span>)
+    ])
+    chain <span class="op">=</span> prompt <span class="op">|</span> llm.<span class="fn">bind_tools</span>([search_tool])
+    
+    <span class="kw">def</span> <span class="fn">analyst_node</span>(state<span class="op">:</span> EnsembleState) <span class="op">-</span><span class="op">&gt;</span> Dict[<span class="fn">str</span>, Any]<span class="op">:</span>
+        console.<span class="fn">print</span>(f<span class="str">&quot;--- 👨‍💻 Calling {agent_name} --- &quot;</span>)
+        result <span class="op">=</span> chain.<span class="fn">invoke</span>({<span class="str">&quot;query&quot;</span><span class="op">:</span> state[<span class="str">&#x27;query&#x27;</span>]})
+        <span class="cm"># The state update is carefully designed to add to the &#x27;analyses&#x27; dict</span>
+        <span class="cm"># without overwriting others. This is key for parallel execution.</span>
+        current_analyses <span class="op">=</span> state.<span class="fn">get</span>(<span class="str">&#x27;analyses&#x27;</span>, {})
+        current_analyses[agent_name] <span class="op">=</span> result.content
+        <span class="kw">return</span> {<span class="str">&quot;analyses&quot;</span><span class="op">:</span> current_analyses}
+    
+    <span class="kw">return</span> analyst_node
+
+<span class="cm"># 1. The Bullish Growth Analyst</span>
+bullish_persona <span class="op">=</span> <span class="str">&quot;The Bullish Growth Analyst: You are extremely optimistic about technology and innovation. You focus on Total Addressable Market (TAM), visionary leadership, technological moats, and future growth potential. Downplay short-term volatility and valuation concerns in favor of the long-term disruptive story.&quot;</span>
+bullish_analyst_node <span class="op">=</span> <span class="fn">create_analyst_node</span>(bullish_persona, <span class="str">&quot;BullishAnalyst&quot;</span>)
+
+<span class="cm"># 2. The Cautious Value Analyst</span>
+value_persona <span class="op">=</span> <span class="str">&quot;The Cautious Value Analyst: You are a skeptical investor focused on fundamentals and risk. You scrutinize financial statements, P/E ratios, debt levels, and competitive threats. You are wary of hype and market bubbles. Highlight potential risks, downside scenarios, and reasons for caution.&quot;</span>
+value_analyst_node <span class="op">=</span> <span class="fn">create_analyst_node</span>(value_persona, <span class="str">&quot;ValueAnalyst&quot;</span>)
+
+<span class="cm"># 3. The Quantitative Analyst</span>
+quant_persona <span class="op">=</span> <span class="str">&quot;The Quantitative Analyst (Quant): You are purely data-driven. You ignore narratives and focus on hard numbers. Report on key financial metrics (YoY revenue growth, EPS, margins), valuation multiples (P/E, P/S), and technical indicators (RSI, moving averages). Your analysis must be objective and based on the data you find.&quot;</span>
+quant_analyst_node <span class="op">=</span> <span class="fn">create_analyst_node</span>(quant_persona, <span class="str">&quot;QuantAnalyst&quot;</span>)
+
+<span class="fn">print</span>(<span class="str">&quot;Specialist analyst agents defined successfully.&quot;</span>)
+
+<span class="cm"># Pydantic model for the final, structured recommendation</span>
+<span class="kw">class</span> <span class="fn">FinalRecommendation</span>(BaseModel)<span class="op">:</span>
+    <span class="str">&quot;&quot;&quot;The final, synthesized investment thesis from the CIO.&quot;&quot;&quot;</span>
+    final_recommendation<span class="op">:</span> <span class="fn">str</span> <span class="op">=</span> <span class="fn">Field</span>(description<span class="op">=</span><span class="str">&quot;The final investment decision, must be one of &#x27;Strong Buy&#x27;, &#x27;Buy&#x27;, &#x27;Hold&#x27;, &#x27;Sell&#x27;, &#x27;Strong Sell&#x27;.&quot;</span>)
+    confidence_score<span class="op">:</span> <span class="fn">float</span> <span class="op">=</span> <span class="fn">Field</span>(description<span class="op">=</span><span class="str">&quot;The CIO&#x27;s confidence in this recommendation, from 1.0 to 10.0.&quot;</span>)
+    synthesis_summary<span class="op">:</span> <span class="fn">str</span> <span class="op">=</span> <span class="fn">Field</span>(description<span class="op">=</span><span class="str">&quot;A detailed summary synthesizing the analysts&#x27; viewpoints, highlighting points of agreement and contention.&quot;</span>)
+    identified_opportunities<span class="op">:</span> List[<span class="fn">str</span>] <span class="op">=</span> <span class="fn">Field</span>(description<span class="op">=</span><span class="str">&quot;A bulleted list of the primary opportunities or bullish points.&quot;</span>)
+    identified_risks<span class="op">:</span> List[<span class="fn">str</span>] <span class="op">=</span> <span class="fn">Field</span>(description<span class="op">=</span><span class="str">&quot;A bulleted list of the primary risks or bearish points.&quot;</span>)
+
+<span class="kw">def</span> <span class="fn">cio_synthesizer_node</span>(state<span class="op">:</span> EnsembleState) <span class="op">-</span><span class="op">&gt;</span> Dict[<span class="fn">str</span>, Any]<span class="op">:</span>
+    <span class="str">&quot;&quot;&quot;The final node that synthesizes all analyses into a single recommendation.&quot;&quot;&quot;</span>
+    console.<span class="fn">print</span>(<span class="str">&quot;--- 🏛️ Calling Chief Investment Officer for Final Decision ---&quot;</span>)
+    
+    <span class="cm"># Combine all the individual analyses into a single string for the prompt</span>
+    all_analyses <span class="op">=</span> <span class="str">&quot;\n\n---\n\n&quot;</span>.<span class="fn">join</span>(
+        f<span class="str">&quot;**Analysis from {name}:**\n{analysis}&quot;</span>
+        <span class="kw">for</span> name, analysis <span class="kw">in</span> state[<span class="str">&#x27;analyses&#x27;</span>].<span class="fn">items</span>()
+    )
+    
+    cio_prompt <span class="op">=</span> ChatPromptTemplate.<span class="fn">from_messages</span>([
+        (<span class="str">&quot;system&quot;</span>, <span class="str">&quot;You are the Chief Investment Officer (CIO) of a major investment fund. You have received reports from your team of specialist analysts. Your task is to synthesize these diverse and often conflicting viewpoints into a single, final, and actionable investment thesis. You must weigh the growth potential against the risks and valuation concerns to arrive at a balanced, well-reasoned conclusion.&quot;</span>),
+        (<span class="str">&quot;human&quot;</span>, <span class="str">&quot;Here are the reports from your team regarding the query: &#x27;{query}&#x27;\n\n{analyses}\n\nBased on all these perspectives, provide your final, synthesized investment thesis.&quot;</span>)
+    ])
+    
+    cio_llm <span class="op">=</span> llm.<span class="fn">with_structured_output</span>(FinalRecommendation)
+    chain <span class="op">=</span> cio_prompt <span class="op">|</span> cio_llm
+    
+    final_decision <span class="op">=</span> chain.<span class="fn">invoke</span>({<span class="str">&quot;query&quot;</span><span class="op">:</span> state[<span class="str">&#x27;query&#x27;</span>], <span class="str">&quot;analyses&quot;</span><span class="op">:</span> all_analyses})
+    
+    <span class="kw">return</span> {<span class="str">&quot;final_recommendation&quot;</span><span class="op">:</span> final_decision}
+
+<span class="fn">print</span>(<span class="str">&quot;CIO Aggregator agent defined successfully.&quot;</span>)
+
+<span class="cm"># The entry node simply takes the query and prepares the state.</span>
+<span class="kw">def</span> <span class="fn">start_analysis_node</span>(state<span class="op">:</span> EnsembleState) <span class="op">-</span><span class="op">&gt;</span> Dict[<span class="fn">str</span>, Any]<span class="op">:</span>
+    <span class="cm"># Initialize the analyses dictionary</span>
+    <span class="kw">return</span> {<span class="str">&quot;analyses&quot;</span><span class="op">:</span> {}}
+
+<span class="cm"># Build the graph</span>
+workflow <span class="op">=</span> <span class="fn">StateGraph</span>(EnsembleState)
+
+workflow.<span class="fn">add_node</span>(<span class="str">&quot;start_analysis&quot;</span>, start_analysis_node)
+
+<span class="cm"># Add the parallel analyst nodes</span>
+workflow.<span class="fn">add_node</span>(<span class="str">&quot;bullish_analyst&quot;</span>, bullish_analyst_node)
+workflow.<span class="fn">add_node</span>(<span class="str">&quot;value_analyst&quot;</span>, value_analyst_node)
+workflow.<span class="fn">add_node</span>(<span class="str">&quot;quant_analyst&quot;</span>, quant_analyst_node)
+
+<span class="cm"># Add the final synthesizer node</span>
+workflow.<span class="fn">add_node</span>(<span class="str">&quot;cio_synthesizer&quot;</span>, cio_synthesizer_node)
+
+<span class="cm"># Set the entry point</span>
+workflow.<span class="fn">set_entry_point</span>(<span class="str">&quot;start_analysis&quot;</span>)
+
+<span class="cm"># FAN-OUT: From the start, run all three analysts in parallel</span>
+workflow.<span class="fn">add_edge</span>(<span class="str">&quot;start_analysis&quot;</span>, [<span class="str">&quot;bullish_analyst&quot;</span>, <span class="str">&quot;value_analyst&quot;</span>, <span class="str">&quot;quant_analyst&quot;</span>])
+
+<span class="cm"># FAN-IN: After all analysts are done, call the CIO synthesizer</span>
+workflow.<span class="fn">add_edge</span>([<span class="str">&quot;bullish_analyst&quot;</span>, <span class="str">&quot;value_analyst&quot;</span>, <span class="str">&quot;quant_analyst&quot;</span>], <span class="str">&quot;cio_synthesizer&quot;</span>)
+
+workflow.<span class="fn">add_edge</span>(<span class="str">&quot;cio_synthesizer&quot;</span>, END)
+
+ensemble_agent <span class="op">=</span> workflow.<span class="fn">compile</span>()
+<span class="fn">print</span>(<span class="str">&quot;Parallel Ensemble agent graph compiled successfully.&quot;</span>)
+
+query <span class="op">=</span> <span class="str">&quot;Based on recent news, financial performance, and future outlook, is NVIDIA (NVDA) a good long-term investment in mid-2024?&quot;</span>
+console.<span class="fn">print</span>(f<span class="str">&quot;--- 📈 Running Investment Committee for: {query} ---&quot;</span>)
+
+result <span class="op">=</span> ensemble_agent.<span class="fn">invoke</span>({<span class="str">&quot;query&quot;</span><span class="op">:</span> query})
+
+<span class="cm"># Display the individual reports</span>
+console.<span class="fn">print</span>(<span class="str">&quot;\n--- Individual Analyst Reports ---&quot;</span>)
+<span class="kw">for</span> name, analysis <span class="kw">in</span> result[<span class="str">&#x27;analyses&#x27;</span>].<span class="fn">items</span>()<span class="op">:</span>
+    console.<span class="fn">print</span>(<span class="fn">Panel</span>(<span class="fn">Markdown</span>(analysis), title<span class="op">=</span>f<span class="str">&quot;[bold yellow]{name}[/bold yellow]&quot;</span>, border_style<span class="op">=</span><span class="str">&quot;yellow&quot;</span>))
+
+<span class="cm"># Display the final synthesized recommendation</span>
+console.<span class="fn">print</span>(<span class="str">&quot;\n--- Final CIO Recommendation ---&quot;</span>)
+final_rec <span class="op">=</span> result[<span class="str">&#x27;final_recommendation&#x27;</span>]
+<span class="kw">if</span> final_rec<span class="op">:</span>
+    rec_panel <span class="op">=</span> <span class="fn">Panel</span>(
+        f<span class="str">&quot;[bold]Final Recommendation:[/bold] {final_rec.final_recommendation}\n&quot;</span>
+        f<span class="str">&quot;[bold]Confidence Score:[/bold] {final_rec.confidence_score}/10\n\n&quot;</span>
+        f<span class="str">&quot;[bold]Synthesis Summary:[/bold]\n{final_rec.synthesis_summary}\n\n&quot;</span>
+        f<span class="str">&quot;[bold]Identified Opportunities:[/bold]\n* {&#x27;\n* &#x27;.join(final_rec.identified_opportunities)}\n\n&quot;</span>
+        f<span class="str">&quot;[bold]Identified Risks:[/bold]\n* {&#x27;\n* &#x27;.join(final_rec.identified_risks)}&quot;</span>,
+        title<span class="op">=</span><span class="str">&quot;[bold green]Chief Investment Officer&#x27;s Thesis[/bold green]&quot;</span>,
+        border_style<span class="op">=</span><span class="str">&quot;green&quot;</span>
+    )
+    console.<span class="fn">print</span>(rec_panel)
+
+</div>
+</div>
+  </section>
+
+  <div class="prevnext"><a href="graph.html"><span class="coding">Previous</span><br><span class="pn-strong">← Graph (World-Model Memory)</span></a><a href="dry-run.html" style="text-align:right"><span class="coding">Next</span><br><span class="pn-strong">Dry-Run Harness →</span></a></div>
+</div><div class="footer">
+  <p>Built from <a href="https://github.com/1998x-stack/all-agentic-architectures" style="color:var(--text)">all-agentic-architectures</a></p>
+</div></body></html>

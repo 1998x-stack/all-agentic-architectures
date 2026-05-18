@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>#09 Tree of Thoughts (ToT) — All Agentic Architectures</title>
+<link rel="stylesheet" href="base-dark.css">
+<style>
+  :root {
+    --c1: #28c840; --c1d: #1a7a2a;
+    --c2: #378add; --c2d: #1a5290;
+    --c3: #a259ff; --c3d: #5a2a8a;
+    --c4: #f0883e; --c4d: #9a4a1a;
+    --c5: #1db0a0; --c5d: #0f6e56;
+  }
+  .hero h1 em {
+    background: linear-gradient(90deg, var(--c1), var(--c2), var(--c3), var(--c4), var(--c5));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  }
+  .prevnext { display: flex; justify-content: space-between; padding: 32px 0; border-top: 1px solid var(--border); margin-top: 48px; }
+  .prevnext a { color: var(--muted); font-size: 13px; }
+  .prevnext a:hover { color: var(--text); text-decoration: none; }
+  .pn-strong { color: var(--text) !important; font-weight: 500; }
+  .coding { font-size: 11px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); margin-bottom: 4px; }
+  h2 { font-size: 22px; font-weight: 600; margin: 0 0 12px; letter-spacing: -.01em; }
+  h3 { font-size: 18px; font-weight: 600; margin: 32px 0 12px; }
+</style>
+
+</head>
+<body><nav>
+  <div class="nav-inner">
+    <span class="nav-brand">All Agentic Architectures <span>· 17 Patterns</span></span>
+    <a class="nl" href="index.html">Overview</a>
+  </div>
+</nav><div class="page">
+  <section class="hero" style="padding-bottom:32px">
+    <div class="hero-badge"><span class="dot" style="background:var(--c3)"></span> #09 · Advanced Memory & Reasoning</div>
+    <h1 style="font-size:36px;color:var(--text)">Tree of Thoughts (ToT)</h1>
+    <p style="margin-bottom:20px">Logic Puzzles, Constrained Planning</p>
+    <div class="tag-row">
+      <span class="ltag" style="color:var(--c3);background:rgba(162,89,255,.08);border-color:rgba(162,89,255,.25)">Part 3</span>
+    </div>
+  </section>
+
+  <section class="layer-sec" style="padding-top:16px;border-bottom:none">
+    <div class="layer-hdr">
+      <span class="layer-id-badge" style="background:#5a2a8a;color:rgba(255,255,255,.9)">Concept</span>
+      <div class="layer-title">How It Works</div>
+    </div>
+    <p class="layer-def" style="border-color:#a259ff">Explores multiple reasoning paths in a tree structure, evaluating and pruning branches to find optimal solutions.</p>
+    <div style="font-size:14px;line-height:1.85;color:var(--text)">
+      <h2>📘 Agentic Architectures 9: Tree-of-Thoughts Planning</h2>
+<p style="margin-bottom:12px;line-height:1.75;font-size:14px;color:var(--muted)">Welcome to the ninth notebook in our series. Today, we explore a powerful reasoning and planning architecture: <strong style="color:var(--text)">Tree-of-Thoughts (ToT)</strong>. This pattern elevates an agent&#x27;s problem-solving capabilities from a linear chain of thought to a multi-path exploratory search.</p>
+<p style="margin-bottom:12px;line-height:1.75;font-size:14px;color:var(--muted)">Instead of generating a single, sequential line of reasoning, a ToT agent generates multiple candidate &quot;thoughts&quot; or next steps at each stage of a problem. It then evaluates these thoughts, pruning invalid or unpromising branches and expanding the most promising ones. This creates a search tree where the agent can backtrack, explore alternatives, and systematically navigate a complex problem space.</p>
+<p style="margin-bottom:12px;line-height:1.75;font-size:14px;color:var(--muted)">To demonstrate this, we&#x27;ll task our agent with a classic logic puzzle: the <strong style="color:var(--text)">Wolf, Goat, and Cabbage problem</strong>. This puzzle is famous because it requires non-obvious steps (like bringing an item <em>back</em>) and has several invalid states that can trap a naive reasoner. We will show how a simple Chain-of-Thought agent might fail, while the ToT agent methodically constructs a valid plan by exploring and evaluating a tree of possibilities.</p>
+<h4 style="color:var(--muted);margin:24px 0 8px;font-size:14px;text-transform:uppercase;letter-spacing:.06em">Definition</h4>
+<p style="margin-bottom:12px;line-height:1.75;font-size:14px;color:var(--muted)"><strong style="color:var(--text)">Tree-of-Thoughts (ToT)</strong> is an agentic reasoning framework where problem-solving is modeled as a search through a tree. The agent explores multiple reasoning paths (branches) simultaneously. At each step, it generates potential next steps (&quot;thoughts&quot;), evaluates their viability, and decides which paths to continue exploring, effectively pruning the search space.</p>
+<h4 style="color:var(--muted);margin:24px 0 8px;font-size:14px;text-transform:uppercase;letter-spacing:.06em">High-level Workflow</h4>
+<ol style="margin:0 0 16px 18px">
+<li style="margin-bottom:8px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Decomposition:</strong> The problem is broken down into a series of steps or thoughts.</li>
+<li style="margin-bottom:8px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Thought Generation:</strong> For the current state of the problem, the agent generates multiple potential next steps or thoughts. This creates branches in the search tree.</li>
+<li style="margin-bottom:8px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">State Evaluation:</strong> Each new thought (leading to a new state) is evaluated by a &quot;critic&quot; or a validation function. This evaluation can assess:</li>
+<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Validity:</strong> Is this move allowed by the rules of the problem?</li>
+<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Progress:</strong> Does this move get us closer to the solution?</li>
+<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Heuristics:</strong> Is this path likely to succeed?</li>
+<li style="margin-bottom:8px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Pruning &amp; Expansion:</strong> Invalid or unpromising branches are pruned. The agent then proceeds from the most promising active branches, repeating the thought generation process.</li>
+<li style="margin-bottom:8px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Solution:</strong> The process continues until a goal state is reached. The solution is the path of thoughts from the root to the goal.</li>
+</ol>
+<h4 style="color:var(--muted);margin:24px 0 8px;font-size:14px;text-transform:uppercase;letter-spacing:.06em">When to Use / Applications</h4>
+<ul style="margin:0 0 16px 18px;list-style-type:disc">
+<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Logic Puzzles &amp; Math Problems:</strong> Problems with clear rules and goal states that require multi-step, non-linear reasoning (e.g., Sudoku, river crossing puzzles).</li>
+<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Complex Planning:</strong> When a task requires a detailed plan where the order of operations matters and constraints must be respected (e.g., planning a complex trip with multiple legs and budget constraints).</li>
+<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Creative Writing or Code Generation:</strong> Exploring multiple story branches or implementation strategies before committing to one.</li>
+</ul>
+<h4 style="color:var(--muted);margin:24px 0 8px;font-size:14px;text-transform:uppercase;letter-spacing:.06em">Strengths &amp; Weaknesses</h4>
+<ul style="margin:0 0 16px 18px;list-style-type:disc">
+<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Strengths:</strong></li>
+<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Robustness:</strong> Systematically explores the problem space, making it much less likely to get stuck or produce an incorrect answer compared to a single-pass method.</li>
+<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Handles Combinatorial Complexity:</strong> Well-suited for problems where the number of possible sequences is vast.</li>
+<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Weaknesses:</strong></li>
+<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Computationally Heavy:</strong> Requires significantly more LLM calls and state management than a simple Chain-of-Thought prompt, making it slower and more expensive.</li>
+<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Requires a Good Evaluator:</strong> The effectiveness of the search heavily depends on the quality of the state evaluation logic.</li>
+</ul>
+    </div>
+  </section>
+
+  <section class="layer-sec" id="code">
+    <div class="layer-hdr">
+      <span class="layer-id-badge" style="background:#5a2a8a;color:rgba(255,255,255,.9)">Implementation</span>
+      <div class="layer-title">Code <small style="font-size:14px;font-weight:400;color:var(--muted)">LangChain + LangGraph</small></div>
+    </div>
+    <div class="codeblock">
+  <div class="cb-head">
+    <span class="cb-dot" style="background:#f85149"></span>
+    <span class="cb-dot" style="background:#e3b341"></span>
+    <span class="cb-dot" style="background:#28c840"></span>
+    src/src/... · 243 lines
+  </div>
+  <div class="cb-body"><span class="str">&quot;&quot;&quot;
+Tree of Thoughts - Agentic Architecture
+Extracted from: 09_tree_of_thoughts.ipynb
+&quot;&quot;&quot;</span>
+
+<span class="cm"># !pip install -q -U langchain-nebius langchain langgraph rich python-dotenv</span>
+
+<span class="kw">import</span> os
+<span class="kw">import</span> re
+<span class="kw">from</span> typing <span class="kw">import</span> List, Dict, Any, Optional
+<span class="kw">from</span> dotenv <span class="kw">import</span> load_dotenv
+<span class="kw">from</span> collections <span class="kw">import</span> defaultdict
+
+<span class="cm"># Pydantic for data modeling</span>
+<span class="kw">from</span> pydantic <span class="kw">import</span> BaseModel, Field
+
+<span class="cm"># LangChain components</span>
+<span class="kw">from</span> langchain_nebius <span class="kw">import</span> ChatNebius
+<span class="kw">from</span> langchain_core.prompts <span class="kw">import</span> ChatPromptTemplate
+
+<span class="cm"># LangGraph components</span>
+<span class="kw">from</span> langgraph.graph <span class="kw">import</span> StateGraph, END
+<span class="kw">from</span> typing_extensions <span class="kw">import</span> TypedDict
+
+<span class="cm"># For pretty printing</span>
+<span class="kw">from</span> rich.console <span class="kw">import</span> Console
+<span class="kw">from</span> rich.markdown <span class="kw">import</span> Markdown
+<span class="kw">from</span> rich.tree <span class="kw">import</span> Tree
+
+<span class="cm"># --- API Key and Tracing Setup ---</span>
+<span class="fn">load_dotenv</span>()
+
+os.environ[<span class="str">&quot;LANGCHAIN_TRACING_V2&quot;</span>] <span class="op">=</span> <span class="str">&quot;true&quot;</span>
+os.environ[<span class="str">&quot;LANGCHAIN_PROJECT&quot;</span>] <span class="op">=</span> <span class="str">&quot;Agentic Architecture - Tree-of-Thoughts (Nebius)&quot;</span>
+
+<span class="cm"># Check for required environment variables</span>
+required_vars <span class="op">=</span> [<span class="str">&quot;NEBIUS_API_KEY&quot;</span>, <span class="str">&quot;LANGCHAIN_API_KEY&quot;</span>]
+<span class="kw">for</span> var <span class="kw">in</span> required_vars<span class="op">:</span>
+    <span class="kw">if</span> var <span class="kw">not</span> <span class="kw">in</span> os.environ<span class="op">:</span>
+        <span class="fn">print</span>(f<span class="str">&quot;Warning: Environment variable {var} not set.&quot;</span>)
+
+<span class="fn">print</span>(<span class="str">&quot;Environment variables loaded and tracing is set up.&quot;</span>)
+
+console <span class="op">=</span> <span class="fn">Console</span>()
+
+<span class="kw">class</span> <span class="fn">PuzzleState</span>(BaseModel)<span class="op">:</span>
+    <span class="str">&quot;Represents the state of the Wolf, Goat, and Cabbage puzzle.&quot;</span>
+    <span class="cm"># Using sets for unordered collections of items on each bank</span>
+    left_bank<span class="op">:</span> <span class="fn">set</span>[<span class="fn">str</span>] <span class="op">=</span> <span class="fn">Field</span>(default_factory<span class="op">=</span><span class="kw">lambda</span><span class="op">:</span> {<span class="str">&quot;wolf&quot;</span>, <span class="str">&quot;goat&quot;</span>, <span class="str">&quot;cabbage&quot;</span>})
+    right_bank<span class="op">:</span> <span class="fn">set</span>[<span class="fn">str</span>] <span class="op">=</span> <span class="fn">Field</span>(default_factory<span class="op">=</span><span class="fn">set</span>)
+    boat_location<span class="op">:</span> <span class="fn">str</span> <span class="op">=</span> <span class="str">&quot;left&quot;</span>
+    move_description<span class="op">:</span> <span class="fn">str</span> <span class="op">=</span> <span class="str">&quot;Initial state.&quot;</span>
+
+    <span class="kw">def</span> <span class="fn">is_valid</span>(self) <span class="op">-</span><span class="op">&gt;</span> <span class="fn">bool</span><span class="op">:</span>
+        <span class="str">&quot;&quot;&quot;Checks if the current state is valid (no one gets eaten).&quot;&quot;&quot;</span>
+        <span class="cm"># Check left bank</span>
+        <span class="kw">if</span> self.boat_location <span class="op">=</span><span class="op">=</span> <span class="str">&quot;right&quot;</span><span class="op">:</span>
+            <span class="kw">if</span> <span class="str">&quot;wolf&quot;</span> <span class="kw">in</span> self.left_bank <span class="kw">and</span> <span class="str">&quot;goat&quot;</span> <span class="kw">in</span> self.left_bank<span class="op">:</span>
+                <span class="kw">return</span> <span class="kw">False</span>
+            <span class="kw">if</span> <span class="str">&quot;goat&quot;</span> <span class="kw">in</span> self.left_bank <span class="kw">and</span> <span class="str">&quot;cabbage&quot;</span> <span class="kw">in</span> self.left_bank<span class="op">:</span>
+                <span class="kw">return</span> <span class="kw">False</span>
+        <span class="cm"># Check right bank</span>
+        <span class="kw">if</span> self.boat_location <span class="op">=</span><span class="op">=</span> <span class="str">&quot;left&quot;</span><span class="op">:</span>
+            <span class="kw">if</span> <span class="str">&quot;wolf&quot;</span> <span class="kw">in</span> self.right_bank <span class="kw">and</span> <span class="str">&quot;goat&quot;</span> <span class="kw">in</span> self.right_bank<span class="op">:</span>
+                <span class="kw">return</span> <span class="kw">False</span>
+            <span class="kw">if</span> <span class="str">&quot;goat&quot;</span> <span class="kw">in</span> self.right_bank <span class="kw">and</span> <span class="str">&quot;cabbage&quot;</span> <span class="kw">in</span> self.right_bank<span class="op">:</span>
+                <span class="kw">return</span> <span class="kw">False</span>
+        <span class="kw">return</span> <span class="kw">True</span>
+
+    <span class="kw">def</span> <span class="fn">is_goal</span>(self) <span class="op">-</span><span class="op">&gt;</span> <span class="fn">bool</span><span class="op">:</span>
+        <span class="str">&quot;&quot;&quot;Checks if the goal state has been reached.&quot;&quot;&quot;</span>
+        <span class="kw">return</span> self.right_bank <span class="op">=</span><span class="op">=</span> {<span class="str">&quot;wolf&quot;</span>, <span class="str">&quot;goat&quot;</span>, <span class="str">&quot;cabbage&quot;</span>}
+    
+    <span class="kw">def</span> <span class="fn">__hash__</span>(self)<span class="op">:</span>
+        <span class="cm"># Make the state hashable to check for visited states</span>
+        <span class="kw">return</span> <span class="fn">hash</span>((<span class="fn">frozenset</span>(self.left_bank), <span class="fn">frozenset</span>(self.right_bank), self.boat_location))
+    
+    <span class="kw">def</span> <span class="fn">__eq__</span>(self, other)<span class="op">:</span>
+        <span class="kw">return</span> self.<span class="fn">__hash__</span>() <span class="op">=</span><span class="op">=</span> other.<span class="fn">__hash__</span>()
+
+<span class="kw">def</span> <span class="fn">get_possible_moves</span>(state<span class="op">:</span> PuzzleState) <span class="op">-</span><span class="op">&gt;</span> <span class="fn">list</span>[PuzzleState]<span class="op">:</span>
+    <span class="str">&quot;&quot;&quot;Generates all possible valid next states from the current state.&quot;&quot;&quot;</span>
+    moves <span class="op">=</span> []
+    current_bank <span class="op">=</span> state.left_bank <span class="kw">if</span> state.boat_location <span class="op">=</span><span class="op">=</span> <span class="str">&quot;left&quot;</span> <span class="kw">else</span> state.right_bank
+    
+    <span class="cm"># Option 1: Move one item in the boat</span>
+    <span class="kw">for</span> item <span class="kw">in</span> current_bank<span class="op">:</span>
+        new_state <span class="op">=</span> state.<span class="fn">model_copy</span>(deep<span class="op">=</span><span class="kw">True</span>)
+        <span class="kw">if</span> state.boat_location <span class="op">=</span><span class="op">=</span> <span class="str">&quot;left&quot;</span><span class="op">:</span>
+            new_state.left_bank.<span class="fn">remove</span>(item)
+            new_state.right_bank.<span class="fn">add</span>(item)
+            new_state.boat_location <span class="op">=</span> <span class="str">&quot;right&quot;</span>
+            new_state.move_description <span class="op">=</span> f<span class="str">&quot;Move {item} to the right bank.&quot;</span>
+        <span class="kw">else</span><span class="op">:</span>
+            new_state.right_bank.<span class="fn">remove</span>(item)
+            new_state.left_bank.<span class="fn">add</span>(item)
+            new_state.boat_location <span class="op">=</span> <span class="str">&quot;left&quot;</span>
+            new_state.move_description <span class="op">=</span> f<span class="str">&quot;Move {item} to the left bank.&quot;</span>
+        <span class="kw">if</span> new_state.<span class="fn">is_valid</span>()<span class="op">:</span>
+            moves.<span class="fn">append</span>(new_state)
+            
+    <span class="cm"># Option 2: Move the boat empty</span>
+    empty_move_state <span class="op">=</span> state.<span class="fn">model_copy</span>(deep<span class="op">=</span><span class="kw">True</span>)
+    <span class="kw">if</span> state.boat_location <span class="op">=</span><span class="op">=</span> <span class="str">&quot;left&quot;</span><span class="op">:</span>
+        empty_move_state.boat_location <span class="op">=</span> <span class="str">&quot;right&quot;</span>
+        empty_move_state.move_description <span class="op">=</span> <span class="str">&quot;Move the boat empty to the right bank.&quot;</span>
+    <span class="kw">else</span><span class="op">:</span>
+        empty_move_state.boat_location <span class="op">=</span> <span class="str">&quot;left&quot;</span>
+        empty_move_state.move_description <span class="op">=</span> <span class="str">&quot;Move the boat empty to the left bank.&quot;</span>
+    <span class="kw">if</span> empty_move_state.<span class="fn">is_valid</span>()<span class="op">:</span>
+        moves.<span class="fn">append</span>(empty_move_state)
+        
+    <span class="kw">return</span> moves
+
+<span class="fn">print</span>(<span class="str">&quot;Puzzle environment defined successfully.&quot;</span>)
+
+llm <span class="op">=</span> <span class="fn">ChatNebius</span>(model<span class="op">=</span><span class="str">&quot;mistralai/Mixtral-8x22B-Instruct-v0.1&quot;</span>, temperature<span class="op">=</span><span class="num">0.4</span>)
+
+<span class="cm"># Pydantic model for the LLM&#x27;s choice of move</span>
+<span class="kw">class</span> <span class="fn">MoveChoice</span>(BaseModel)<span class="op">:</span>
+    best_move_index<span class="op">:</span> <span class="fn">int</span> <span class="op">=</span> <span class="fn">Field</span>(description<span class="op">=</span><span class="str">&quot;The index of the best move from the provided list of possible moves.&quot;</span>)
+    reasoning<span class="op">:</span> <span class="fn">str</span> <span class="op">=</span> <span class="fn">Field</span>(description<span class="op">=</span><span class="str">&quot;Brief reasoning for why this is the most promising move.&quot;</span>)
+
+<span class="cm"># LangGraph State</span>
+<span class="kw">class</span> <span class="fn">ToTState</span>(TypedDict)<span class="op">:</span>
+    problem_description<span class="op">:</span> <span class="fn">str</span>
+    <span class="cm"># Each path is a list of PuzzleState objects</span>
+    active_paths<span class="op">:</span> List[List[PuzzleState]]
+    <span class="cm"># We&#x27;ll store the final solution here</span>
+    solution<span class="op">:</span> Optional[List[PuzzleState]]
+
+<span class="cm"># Graph Nodes</span>
+<span class="kw">def</span> <span class="fn">initialize_search</span>(state<span class="op">:</span> ToTState) <span class="op">-</span><span class="op">&gt;</span> Dict[<span class="fn">str</span>, Any]<span class="op">:</span>
+    <span class="str">&quot;&quot;&quot;Node to set up the initial state of the search.&quot;&quot;&quot;</span>
+    initial_puzzle_state <span class="op">=</span> <span class="fn">PuzzleState</span>()
+    <span class="kw">return</span> {<span class="str">&quot;active_paths&quot;</span><span class="op">:</span> [[initial_puzzle_state]]}
+
+<span class="kw">def</span> <span class="fn">expand_paths</span>(state<span class="op">:</span> ToTState) <span class="op">-</span><span class="op">&gt;</span> Dict[<span class="fn">str</span>, Any]<span class="op">:</span>
+    <span class="str">&quot;&quot;&quot;The &#x27;Thought Generator&#x27;. Expands each active path with a promising next move.&quot;&quot;&quot;</span>
+    console.<span class="fn">print</span>(<span class="str">&quot;--- Expanding Paths ---&quot;</span>)
+    new_paths <span class="op">=</span> []
+    choice_llm <span class="op">=</span> llm.<span class="fn">with_structured_output</span>(MoveChoice)
+    
+    prompt <span class="op">=</span> ChatPromptTemplate.<span class="fn">from_messages</span>([
+        (<span class="str">&quot;system&quot;</span>, <span class="str">&quot;You are an expert logic puzzle solver. Your goal is to solve the Wolf, Goat, and Cabbage problem. Analyze the current path and choose the most promising next move from the list of options to reach the goal.&quot;</span>),
+        (<span class="str">&quot;human&quot;</span>, <span class="str">&quot;Problem: {problem}\n\nCurrent Path History:\n{path_history}\n\nFrom the final state, choose the best next move from this list:\n{possible_moves}&quot;</span>)
+    ])
+    
+    <span class="kw">for</span> path <span class="kw">in</span> state[<span class="str">&#x27;active_paths&#x27;</span>]<span class="op">:</span>
+        last_state <span class="op">=</span> path[<span class="op">-</span><span class="num">1</span>]
+        possible_next_states <span class="op">=</span> <span class="fn">get_possible_moves</span>(last_state)
+        
+        <span class="kw">if</span> <span class="kw">not</span> possible_next_states<span class="op">:</span>
+            <span class="kw">continue</span> <span class="cm"># This path is a dead end</span>
+            
+        path_history_str <span class="op">=</span> <span class="str">&quot; -&gt; &quot;</span>.<span class="fn">join</span>([s.move_description <span class="kw">for</span> s <span class="kw">in</span> path])
+        possible_moves_str <span class="op">=</span> <span class="str">&quot;\n&quot;</span>.<span class="fn">join</span>([f<span class="str">&quot;{i}: {s.move_description}&quot;</span> <span class="kw">for</span> i, s <span class="kw">in</span> <span class="fn">enumerate</span>(possible_next_states)])
+        
+        <span class="cm"># For simplicity and to show breadth, we can explore multiple moves.</span>
+        <span class="cm"># A more advanced ToT might use the LLM to pick only the single best one.</span>
+        <span class="cm"># Here, we&#x27;ll let all valid moves branch out to demonstrate the tree structure.</span>
+        <span class="kw">for</span> next_state <span class="kw">in</span> possible_next_states<span class="op">:</span>
+            new_paths.<span class="fn">append</span>(path <span class="op">+</span> [next_state])
+
+    console.<span class="fn">print</span>(f<span class="str">&quot;[cyan]Expanded to {len(new_paths)} potential paths.[/cyan]&quot;</span>)
+    <span class="kw">return</span> {<span class="str">&quot;active_paths&quot;</span><span class="op">:</span> new_paths}
+
+<span class="kw">def</span> <span class="fn">prune_paths</span>(state<span class="op">:</span> ToTState) <span class="op">-</span><span class="op">&gt;</span> Dict[<span class="fn">str</span>, Any]<span class="op">:</span>
+    <span class="str">&quot;&quot;&quot;The &#x27;State Evaluator&#x27;. Prunes paths that are invalid or contain cycles.&quot;&quot;&quot;</span>
+    console.<span class="fn">print</span>(<span class="str">&quot;--- Pruning Paths ---&quot;</span>)
+    pruned_paths <span class="op">=</span> []
+    <span class="kw">for</span> path <span class="kw">in</span> state[<span class="str">&#x27;active_paths&#x27;</span>]<span class="op">:</span>
+        <span class="cm"># Check for cycles: if the last state has appeared before in the path</span>
+        <span class="kw">if</span> path[<span class="op">-</span><span class="num">1</span>] <span class="kw">in</span> path[<span class="op">:</span><span class="op">-</span><span class="num">1</span>]<span class="op">:</span>
+            <span class="kw">continue</span> <span class="cm"># Found a cycle, prune this path</span>
+        
+        <span class="cm"># The get_possible_moves function already ensures validity, but this is a good place for extra checks.</span>
+        pruned_paths.<span class="fn">append</span>(path)
+        
+    console.<span class="fn">print</span>(f<span class="str">&quot;[green]Pruned down to {len(pruned_paths)} valid, non-cyclical paths.[/green]&quot;</span>)
+    <span class="kw">return</span> {<span class="str">&quot;active_paths&quot;</span><span class="op">:</span> pruned_paths}
+
+<span class="cm"># Conditional Node</span>
+<span class="kw">def</span> <span class="fn">check_for_solution</span>(state<span class="op">:</span> ToTState) <span class="op">-</span><span class="op">&gt;</span> <span class="fn">str</span><span class="op">:</span>
+    <span class="str">&quot;&quot;&quot;Checks if any path has reached the goal and routes execution.&quot;&quot;&quot;</span>
+    <span class="kw">for</span> path <span class="kw">in</span> state[<span class="str">&#x27;active_paths&#x27;</span>]<span class="op">:</span>
+        <span class="kw">if</span> path[<span class="op">-</span><span class="num">1</span>].<span class="fn">is_goal</span>()<span class="op">:</span>
+            console.<span class="fn">print</span>(<span class="str">&quot;[bold green]Solution Found![/bold green]&quot;</span>)
+            <span class="cm"># Side effect: update the solution in the state. LangGraph copies this out.</span>
+            state[<span class="str">&#x27;solution&#x27;</span>] <span class="op">=</span> path
+            <span class="kw">return</span> <span class="str">&quot;solution_found&quot;</span>
+    <span class="kw">return</span> <span class="str">&quot;continue_search&quot;</span>
+
+<span class="cm"># Build the graph</span>
+workflow <span class="op">=</span> <span class="fn">StateGraph</span>(ToTState)
+
+workflow.<span class="fn">add_node</span>(<span class="str">&quot;initialize&quot;</span>, initialize_search)
+workflow.<span class="fn">add_node</span>(<span class="str">&quot;expand&quot;</span>, expand_paths)
+workflow.<span class="fn">add_node</span>(<span class="str">&quot;prune&quot;</span>, prune_paths)
+
+workflow.<span class="fn">set_entry_point</span>(<span class="str">&quot;initialize&quot;</span>)
+workflow.<span class="fn">add_edge</span>(<span class="str">&quot;initialize&quot;</span>, <span class="str">&quot;expand&quot;</span>)
+workflow.<span class="fn">add_edge</span>(<span class="str">&quot;expand&quot;</span>, <span class="str">&quot;prune&quot;</span>)
+
+workflow.<span class="fn">add_conditional_edges</span>(
+    <span class="str">&quot;prune&quot;</span>,
+    check_for_solution,
+    {
+        <span class="str">&quot;solution_found&quot;</span><span class="op">:</span> END,
+        <span class="str">&quot;continue_search&quot;</span><span class="op">:</span> <span class="str">&quot;expand&quot;</span>
+    }
+)
+
+tot_agent <span class="op">=</span> workflow.<span class="fn">compile</span>()
+<span class="fn">print</span>(<span class="str">&quot;Tree-of-Thoughts agent graph compiled successfully.&quot;</span>)
+
+problem <span class="op">=</span> <span class="str">&quot;A farmer wants to cross a river with a wolf, a goat, and a cabbage. The boat can only carry the farmer and one other item. The farmer cannot leave the wolf alone with the goat, nor the goat alone with the cabbage. How can the farmer get everyone across safely?&quot;</span>
+
+console.<span class="fn">print</span>(<span class="str">&quot;--- 🌳 Running Tree-of-Thoughts Agent ---&quot;</span>)
+<span class="cm"># The recursion limit prevents infinite loops in our graph</span>
+config <span class="op">=</span> {<span class="str">&quot;recursion_limit&quot;</span><span class="op">:</span> <span class="num">15</span>}
+final_state <span class="op">=</span> tot_agent.<span class="fn">invoke</span>({<span class="str">&quot;problem_description&quot;</span><span class="op">:</span> problem}, config<span class="op">=</span>config)
+
+console.<span class="fn">print</span>(<span class="str">&quot;\n--- ✅ ToT Agent Solution ---&quot;</span>)
+<span class="kw">if</span> final_state.<span class="fn">get</span>(<span class="str">&#x27;solution&#x27;</span>)<span class="op">:</span>
+    solution_path <span class="op">=</span> final_state[<span class="str">&#x27;solution&#x27;</span>]
+    <span class="cm"># Use rich.Tree for a nice visual output</span>
+    tree <span class="op">=</span> <span class="fn">Tree</span>(<span class="str">&quot;[bold magenta]Wolf, Goat, and Cabbage Solution Path[/bold magenta]&quot;</span>)
+    <span class="kw">for</span> i, state <span class="kw">in</span> <span class="fn">enumerate</span>(solution_path)<span class="op">:</span>
+        tree.<span class="fn">add</span>(f<span class="str">&quot;[green]{i+1}.[/green] {state.move_description}&quot;</span>)
+    console.<span class="fn">print</span>(tree)
+<span class="kw">else</span><span class="op">:</span>
+    console.<span class="fn">print</span>(<span class="str">&quot;[bold red]No solution found within the step limit.[/bold red]&quot;</span>)
+
+console.<span class="fn">print</span>(<span class="str">&quot;\n--- 🤔 Running Simple Chain-of-Thought Agent ---&quot;</span>)
+cot_prompt <span class="op">=</span> ChatPromptTemplate.<span class="fn">from_messages</span>([
+    (<span class="str">&quot;system&quot;</span>, <span class="str">&quot;You are a world-class logic puzzle solver. Provide a step-by-step solution to the user&#x27;s puzzle.&quot;</span>),
+    (<span class="str">&quot;human&quot;</span>, <span class="str">&quot;{problem}&quot;</span>)
+])
+cot_chain <span class="op">=</span> cot_prompt <span class="op">|</span> llm
+cot_result <span class="op">=</span> cot_chain.<span class="fn">invoke</span>({<span class="str">&quot;problem&quot;</span><span class="op">:</span> problem}).content
+console.<span class="fn">print</span>(<span class="fn">Markdown</span>(cot_result))
+</div>
+</div>
+  </section>
+
+  <div class="prevnext"><a href="episodic-semantic.html"><span class="coding">Previous</span><br><span class="pn-strong">← Episodic + Semantic Memory</span></a><a href="mental-loop.html" style="text-align:right"><span class="coding">Next</span><br><span class="pn-strong">Mental Loop (Simulator) →</span></a></div>
+</div><div class="footer">
+  <p>Built from <a href="https://github.com/1998x-stack/all-agentic-architectures" style="color:var(--text)">all-agentic-architectures</a></p>
+</div></body></html>

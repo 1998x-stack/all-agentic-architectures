@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>#05 Multi-Agent Systems — All Agentic Architectures</title>
+<link rel="stylesheet" href="base-dark.css">
+<style>
+  :root {
+    --c1: #28c840; --c1d: #1a7a2a;
+    --c2: #378add; --c2d: #1a5290;
+    --c3: #a259ff; --c3d: #5a2a8a;
+    --c4: #f0883e; --c4d: #9a4a1a;
+    --c5: #1db0a0; --c5d: #0f6e56;
+  }
+  .hero h1 em {
+    background: linear-gradient(90deg, var(--c1), var(--c2), var(--c3), var(--c4), var(--c5));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  }
+  .prevnext { display: flex; justify-content: space-between; padding: 32px 0; border-top: 1px solid var(--border); margin-top: 48px; }
+  .prevnext a { color: var(--muted); font-size: 13px; }
+  .prevnext a:hover { color: var(--text); text-decoration: none; }
+  .pn-strong { color: var(--text) !important; font-weight: 500; }
+  .coding { font-size: 11px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); margin-bottom: 4px; }
+  h2 { font-size: 22px; font-weight: 600; margin: 0 0 12px; letter-spacing: -.01em; }
+  h3 { font-size: 18px; font-weight: 600; margin: 32px 0 12px; }
+</style>
+
+</head>
+<body><nav>
+  <div class="nav-inner">
+    <span class="nav-brand">All Agentic Architectures <span>· 17 Patterns</span></span>
+    <a class="nl" href="index.html">Overview</a>
+  </div>
+</nav><div class="page">
+  <section class="hero" style="padding-bottom:32px">
+    <div class="hero-badge"><span class="dot" style="background:var(--c2)"></span> #05 · Multi-Agent Collaboration</div>
+    <h1 style="font-size:36px;color:var(--text)">Multi-Agent Systems</h1>
+    <p style="margin-bottom:20px">Software Dev Pipelines, Creative Brainstorming</p>
+    <div class="tag-row">
+      <span class="ltag" style="color:var(--c2);background:rgba(55,138,221,.08);border-color:rgba(55,138,221,.25)">Part 2</span>
+    </div>
+  </section>
+
+  <section class="layer-sec" style="padding-top:16px;border-bottom:none">
+    <div class="layer-hdr">
+      <span class="layer-id-badge" style="background:#1a5290;color:rgba(255,255,255,.9)">Concept</span>
+      <div class="layer-title">How It Works</div>
+    </div>
+    <p class="layer-def" style="border-color:#378add">A team of specialized agents collaborates, dividing labor across roles for superior depth, quality, and structure.</p>
+    <div style="font-size:14px;line-height:1.85;color:var(--text)">
+      <h2>📘 Agentic Architectures 5: Multi-Agent Systems</h2>
+<p style="margin-bottom:12px;line-height:1.75;font-size:14px;color:var(--muted)">In this notebook, we advance to one of the most powerful and flexible architectures: the <strong style="color:var(--text)">Multi-Agent System</strong>. This pattern moves beyond the concept of a single agent, no matter how complex, and instead models a team of specialized agents that collaborate to solve a problem. Each agent has a distinct role, persona, and set of skills, mirroring how human expert teams work.</p>
+<p style="margin-bottom:12px;line-height:1.75;font-size:14px;color:var(--muted)">This approach allows for a profound &#x27;division of labor&#x27;, where complex problems are broken down into sub-tasks and assigned to the agent best suited for the job. To showcase its power, we will conduct a direct comparison. First, we&#x27;ll task a single <strong style="color:var(--text)">monolithic &#x27;generalist&#x27; agent</strong> with creating a comprehensive market analysis report. Then, we will assemble a <strong style="color:var(--text)">specialist team</strong>—a Technical Analyst, a News Analyst, and a Financial Analyst—and have a fourth &#x27;Manager&#x27; agent synthesize their expert inputs into a final report. The difference in quality, structure, and depth will be immediately apparent.</p>
+<h4 style="color:var(--muted);margin:24px 0 8px;font-size:14px;text-transform:uppercase;letter-spacing:.06em">Definition</h4>
+<p style="margin-bottom:12px;line-height:1.75;font-size:14px;color:var(--muted)">A <strong style="color:var(--text)">Multi-Agent System</strong> is an architecture where a group of distinct, specialized agents collaborate (or sometimes compete) to achieve a common goal. A central controller or a defined workflow protocol is used to manage communication and route tasks between the agents.</p>
+<h4 style="color:var(--muted);margin:24px 0 8px;font-size:14px;text-transform:uppercase;letter-spacing:.06em">High-level Workflow</h4>
+<ol style="margin:0 0 16px 18px">
+<li style="margin-bottom:8px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Decomposition:</strong> A main controller or the user provides a complex task.</li>
+<li style="margin-bottom:8px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Role Definition:</strong> The system assigns sub-tasks to specialized agents based on their defined roles (e.g., &#x27;Researcher&#x27;, &#x27;Coder&#x27;, &#x27;Critic&#x27;, &#x27;Writer&#x27;).</li>
+<li style="margin-bottom:8px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Collaboration:</strong> Agents execute their tasks, often in parallel or sequence. They pass their outputs to each other or to a central &#x27;blackboard&#x27;.</li>
+<li style="margin-bottom:8px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Synthesis:</strong> A final &#x27;manager&#x27; or &#x27;synthesizer&#x27; agent collects the outputs from the specialist agents and assembles the final, consolidated response.</li>
+</ol>
+<h4 style="color:var(--muted);margin:24px 0 8px;font-size:14px;text-transform:uppercase;letter-spacing:.06em">When to Use / Applications</h4>
+<ul style="margin:0 0 16px 18px;list-style-type:disc">
+<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Complex Report Generation:</strong> Creating detailed reports that require expertise from multiple domains (e.g., financial analysis, scientific research).</li>
+<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Software Development Pipelines:</strong> Simulating a dev team with a programmer, a code reviewer, a tester, and a project manager.</li>
+<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Creative Brainstorming:</strong> A team of agents with different &#x27;personalities&#x27; (e.g., one optimistic, one cautious, one wildly creative) can generate a more diverse set of ideas.</li>
+</ul>
+<h4 style="color:var(--muted);margin:24px 0 8px;font-size:14px;text-transform:uppercase;letter-spacing:.06em">Strengths &amp; Weaknesses</h4>
+<ul style="margin:0 0 16px 18px;list-style-type:disc">
+<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Strengths:</strong></li>
+<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Specialization &amp; Depth:</strong> Each agent can be fine-tuned with a specific persona and tools, leading to higher-quality work in its domain.</li>
+<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Modularity &amp; Scalability:</strong> It&#x27;s easy to add, remove, or upgrade individual agents without redesigning the entire system.</li>
+<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Parallelism:</strong> Multiple agents can work on their sub-tasks simultaneously, potentially reducing overall task time.</li>
+<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Weaknesses:</strong></li>
+<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Coordination Overhead:</strong> Managing the communication and workflow between agents adds complexity to the system design.</li>
+<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Increased Cost &amp; Latency:</strong> Running multiple agents involves more LLM calls, which can be more expensive and slower than a single-agent approach.</li>
+</ul>
+    </div>
+  </section>
+
+  <section class="layer-sec" id="code">
+    <div class="layer-hdr">
+      <span class="layer-id-badge" style="background:#1a5290;color:rgba(255,255,255,.9)">Implementation</span>
+      <div class="layer-title">Code <small style="font-size:14px;font-weight:400;color:var(--muted)">LangChain + LangGraph</small></div>
+    </div>
+    <div class="codeblock">
+  <div class="cb-head">
+    <span class="cb-dot" style="background:#f85149"></span>
+    <span class="cb-dot" style="background:#e3b341"></span>
+    <span class="cb-dot" style="background:#28c840"></span>
+    src/src/... · 216 lines
+  </div>
+  <div class="cb-body"><span class="str">&quot;&quot;&quot;
+Multi-Agent - Agentic Architecture
+Extracted from: 05_multi_agent.ipynb
+&quot;&quot;&quot;</span>
+
+<span class="cm"># !pip install -q -U langchain-nebius langchain langgraph rich python-dotenv langchain-tavily</span>
+
+<span class="kw">import</span> os
+<span class="kw">from</span> typing <span class="kw">import</span> List, Annotated, TypedDict, Optional
+<span class="kw">from</span> dotenv <span class="kw">import</span> load_dotenv
+
+<span class="cm"># LangChain components</span>
+<span class="kw">from</span> langchain_nebius <span class="kw">import</span> ChatNebius
+<span class="kw">from</span> langchain_tavily <span class="kw">import</span> TavilySearch
+<span class="kw">from</span> langchain_core.messages <span class="kw">import</span> BaseMessage, SystemMessage, HumanMessage
+<span class="kw">from</span> pydantic <span class="kw">import</span> BaseModel, Field
+<span class="kw">from</span> langchain_core.prompts <span class="kw">import</span> ChatPromptTemplate
+
+<span class="cm"># LangGraph components</span>
+<span class="kw">from</span> langgraph.graph <span class="kw">import</span> StateGraph, END
+<span class="kw">from</span> langgraph.graph.message <span class="kw">import</span> AnyMessage, add_messages
+<span class="kw">from</span> langgraph.prebuilt <span class="kw">import</span> ToolNode, tools_condition
+
+<span class="cm"># For pretty printing</span>
+<span class="kw">from</span> rich.console <span class="kw">import</span> Console
+<span class="kw">from</span> rich.markdown <span class="kw">import</span> Markdown
+
+<span class="cm"># --- API Key and Tracing Setup ---</span>
+<span class="fn">load_dotenv</span>()
+
+os.environ[<span class="str">&quot;LANGCHAIN_TRACING_V2&quot;</span>] <span class="op">=</span> <span class="str">&quot;true&quot;</span>
+os.environ[<span class="str">&quot;LANGCHAIN_PROJECT&quot;</span>] <span class="op">=</span> <span class="str">&quot;Agentic Architecture - Multi-Agent (Nebius)&quot;</span>
+
+<span class="kw">for</span> key <span class="kw">in</span> [<span class="str">&quot;NEBIUS_API_KEY&quot;</span>, <span class="str">&quot;LANGCHAIN_API_KEY&quot;</span>, <span class="str">&quot;TAVILY_API_KEY&quot;</span>]<span class="op">:</span>
+    <span class="kw">if</span> <span class="kw">not</span> os.environ.<span class="fn">get</span>(key)<span class="op">:</span>
+        <span class="fn">print</span>(f<span class="str">&quot;{key} not found. Please create a .env file and set it.&quot;</span>)
+
+<span class="fn">print</span>(<span class="str">&quot;Environment variables loaded and tracing is set up.&quot;</span>)
+
+console <span class="op">=</span> <span class="fn">Console</span>()
+
+<span class="cm"># Define the shared state for both agents</span>
+<span class="kw">class</span> <span class="fn">AgentState</span>(TypedDict)<span class="op">:</span>
+    messages<span class="op">:</span> Annotated[<span class="fn">list</span>[AnyMessage], add_messages]
+
+<span class="cm"># Define the tool and LLM</span>
+search_tool <span class="op">=</span> <span class="fn">TavilySearch</span>(max_results<span class="op">=</span><span class="num">3</span>, name<span class="op">=</span><span class="str">&quot;web_search&quot;</span>)
+llm <span class="op">=</span> <span class="fn">ChatNebius</span>(model<span class="op">=</span><span class="str">&quot;meta-llama/Meta-Llama-3.1-8B-Instruct&quot;</span>, temperature<span class="op">=</span><span class="num">0</span>)
+llm_with_tools <span class="op">=</span> llm.<span class="fn">bind_tools</span>([search_tool])
+
+<span class="cm"># Define the monolithic agent node</span>
+<span class="kw">def</span> <span class="fn">monolithic_agent_node</span>(state<span class="op">:</span> AgentState)<span class="op">:</span>
+    console.<span class="fn">print</span>(<span class="str">&quot;--- MONOLITHIC AGENT: Thinking... ---&quot;</span>)
+    response <span class="op">=</span> llm_with_tools.<span class="fn">invoke</span>(state[<span class="str">&quot;messages&quot;</span>])
+    <span class="kw">return</span> {<span class="str">&quot;messages&quot;</span><span class="op">:</span> [response]}
+
+tool_node <span class="op">=</span> <span class="fn">ToolNode</span>([search_tool])
+
+<span class="cm"># Build the ReAct graph for the monolithic agent</span>
+mono_graph_builder <span class="op">=</span> <span class="fn">StateGraph</span>(AgentState)
+mono_graph_builder.<span class="fn">add_node</span>(<span class="str">&quot;agent&quot;</span>, monolithic_agent_node)
+mono_graph_builder.<span class="fn">add_node</span>(<span class="str">&quot;tools&quot;</span>, tool_node)
+mono_graph_builder.<span class="fn">set_entry_point</span>(<span class="str">&quot;agent&quot;</span>)
+
+<span class="kw">def</span> <span class="fn">tools_condition_with_end</span>(state)<span class="op">:</span>
+    result <span class="op">=</span> <span class="fn">tools_condition</span>(state)
+    <span class="kw">if</span> <span class="fn">isinstance</span>(result, <span class="fn">str</span>)<span class="op">:</span>
+        <span class="cm"># Older versions return just &quot;tools&quot; or &quot;agent&quot;</span>
+        <span class="kw">return</span> {result<span class="op">:</span> <span class="str">&quot;tools&quot;</span>, <span class="str">&quot;__default__&quot;</span><span class="op">:</span> END}
+    <span class="kw">elif</span> <span class="fn">isinstance</span>(result, <span class="fn">dict</span>)<span class="op">:</span>
+        <span class="cm"># Newer versions return a mapping</span>
+        result[<span class="str">&quot;__default__&quot;</span>] <span class="op">=</span> END
+        <span class="kw">return</span> result
+    <span class="kw">else</span><span class="op">:</span>
+        <span class="kw">raise</span> <span class="fn">TypeError</span>(f<span class="str">&quot;Unexpected type from tools_condition: {type(result)}&quot;</span>)
+
+mono_graph_builder.<span class="fn">add_conditional_edges</span>(<span class="str">&quot;agent&quot;</span>, tools_condition_with_end)
+mono_graph_builder.<span class="fn">add_edge</span>(<span class="str">&quot;tools&quot;</span>, <span class="str">&quot;agent&quot;</span>)
+
+monolithic_agent_app <span class="op">=</span> mono_graph_builder.<span class="fn">compile</span>()
+
+<span class="fn">print</span>(<span class="str">&quot;Monolithic &#x27;generalist&#x27; agent compiled successfully.&quot;</span>)
+
+company <span class="op">=</span> <span class="str">&quot;NVIDIA (NVDA)&quot;</span>
+monolithic_query <span class="op">=</span> f<span class="str">&quot;Create a brief but comprehensive market analysis report for {company}. The report should include three sections: 1. A summary of recent news and market sentiment. 2. A basic technical analysis of the stock&#x27;s price trend. 3. A look at the company&#x27;s recent financial performance.&quot;</span>
+
+console.<span class="fn">print</span>(f<span class="str">&quot;[bold yellow]Testing MONOLITHIC agent on a multi-faceted task:[/bold yellow]\n&#x27;{monolithic_query}&#x27;\n&quot;</span>)
+
+final_mono_output <span class="op">=</span> monolithic_agent_app.<span class="fn">invoke</span>({
+    <span class="str">&quot;messages&quot;</span><span class="op">:</span> [
+        <span class="fn">SystemMessage</span>(content<span class="op">=</span><span class="str">&quot;You are a single, expert financial analyst. You must create a comprehensive report covering all aspects of the user&#x27;s request.&quot;</span>),
+        <span class="fn">HumanMessage</span>(content<span class="op">=</span>monolithic_query)
+    ]
+})
+
+console.<span class="fn">print</span>(<span class="str">&quot;\n--- [bold red]Final Report from Monolithic Agent[/bold red] ---&quot;</span>)
+console.<span class="fn">print</span>(<span class="fn">Markdown</span>(final_mono_output[<span class="str">&#x27;messages&#x27;</span>][<span class="op">-</span><span class="num">1</span>].content))
+
+<span class="cm"># The state for our multi-agent system will hold the outputs of each specialist</span>
+<span class="kw">class</span> <span class="fn">MultiAgentState</span>(TypedDict)<span class="op">:</span>
+    user_request<span class="op">:</span> <span class="fn">str</span>
+    news_report<span class="op">:</span> Optional[<span class="fn">str</span>]
+    technical_report<span class="op">:</span> Optional[<span class="fn">str</span>]
+    financial_report<span class="op">:</span> Optional[<span class="fn">str</span>]
+    final_report<span class="op">:</span> Optional[<span class="fn">str</span>]
+
+<span class="kw">def</span> <span class="fn">create_specialist_node</span>(persona<span class="op">:</span> <span class="fn">str</span>, output_key<span class="op">:</span> <span class="fn">str</span>)<span class="op">:</span>
+    <span class="str">&quot;&quot;&quot;Factory function to create a specialist agent node.&quot;&quot;&quot;</span>
+    system_prompt <span class="op">=</span> persona <span class="op">+</span> <span class="str">&quot;\n\nYou have access to a web search tool. Your output MUST be a concise report section, formatted in markdown, focusing only on your area of expertise.&quot;</span>
+
+    <span class="cm"># ✅ Build a ChatPromptTemplate instead of a plain list</span>
+    prompt_template <span class="op">=</span> ChatPromptTemplate.<span class="fn">from_messages</span>([
+        (<span class="str">&quot;system&quot;</span>, system_prompt),
+        (<span class="str">&quot;human&quot;</span>, <span class="str">&quot;{user_request}&quot;</span>)
+    ])
+
+    agent <span class="op">=</span> prompt_template <span class="op">|</span> llm_with_tools
+
+    <span class="kw">def</span> <span class="fn">specialist_node</span>(state<span class="op">:</span> MultiAgentState)<span class="op">:</span>
+        console.<span class="fn">print</span>(f<span class="str">&quot;--- CALLING {output_key.replace(&#x27;_report&#x27;,&#x27;&#x27;).upper()} ANALYST ---&quot;</span>)
+        result <span class="op">=</span> agent.<span class="fn">invoke</span>({<span class="str">&quot;user_request&quot;</span><span class="op">:</span> state[<span class="str">&quot;user_request&quot;</span>]})
+        content <span class="op">=</span> result.content <span class="kw">if</span> result.content <span class="kw">else</span> f<span class="str">&quot;No direct content, tool calls: {result.tool_calls}&quot;</span>
+        <span class="kw">return</span> {output_key<span class="op">:</span> content}
+
+    <span class="kw">return</span> specialist_node
+
+
+<span class="cm"># Create the specialist nodes</span>
+news_analyst_node <span class="op">=</span> <span class="fn">create_specialist_node</span>(
+    <span class="str">&quot;You are an expert News Analyst. Your specialty is scouring the web for the latest news, articles, and social media sentiment about a company.&quot;</span>,
+    <span class="str">&quot;news_report&quot;</span>
+)
+technical_analyst_node <span class="op">=</span> <span class="fn">create_specialist_node</span>(
+    <span class="str">&quot;You are an expert Technical Analyst. You specialize in analyzing stock price charts, trends, and technical indicators.&quot;</span>,
+    <span class="str">&quot;technical_report&quot;</span>
+)
+financial_analyst_node <span class="op">=</span> <span class="fn">create_specialist_node</span>(
+    <span class="str">&quot;You are an expert Financial Analyst. You specialize in interpreting financial statements and performance metrics.&quot;</span>,
+    <span class="str">&quot;financial_report&quot;</span>
+)
+
+<span class="kw">def</span> <span class="fn">report_writer_node</span>(state<span class="op">:</span> MultiAgentState)<span class="op">:</span>
+    <span class="str">&quot;&quot;&quot;The manager agent that synthesizes the specialist reports.&quot;&quot;&quot;</span>
+    console.<span class="fn">print</span>(<span class="str">&quot;--- CALLING REPORT WRITER ---&quot;</span>)
+    prompt <span class="op">=</span> f<span class="str">&quot;&quot;&quot;You are an expert financial editor. Your task is to combine the following specialist reports into a single, professional, and cohesive market analysis report. Add a brief introductory and concluding paragraph.
+    
+    News &amp; Sentiment Report:
+    {state[&#x27;news_report&#x27;]}
+    
+    Technical Analysis Report:
+    {state[&#x27;technical_report&#x27;]}
+    
+    Financial Performance Report:
+    {state[&#x27;financial_report&#x27;]}
+    &quot;&quot;&quot;</span>
+    final_report <span class="op">=</span> llm.<span class="fn">invoke</span>(prompt).content
+    <span class="kw">return</span> {<span class="str">&quot;final_report&quot;</span><span class="op">:</span> final_report}
+
+<span class="fn">print</span>(<span class="str">&quot;Specialist agent nodes and Report Writer node defined.&quot;</span>)
+
+multi_agent_graph_builder <span class="op">=</span> <span class="fn">StateGraph</span>(MultiAgentState)
+
+<span class="cm"># Add all the nodes</span>
+multi_agent_graph_builder.<span class="fn">add_node</span>(<span class="str">&quot;news_analyst&quot;</span>, news_analyst_node)
+multi_agent_graph_builder.<span class="fn">add_node</span>(<span class="str">&quot;technical_analyst&quot;</span>, technical_analyst_node)
+multi_agent_graph_builder.<span class="fn">add_node</span>(<span class="str">&quot;financial_analyst&quot;</span>, financial_analyst_node)
+multi_agent_graph_builder.<span class="fn">add_node</span>(<span class="str">&quot;report_writer&quot;</span>, report_writer_node)
+
+<span class="cm"># Define the workflow sequence</span>
+multi_agent_graph_builder.<span class="fn">set_entry_point</span>(<span class="str">&quot;news_analyst&quot;</span>)
+multi_agent_graph_builder.<span class="fn">add_edge</span>(<span class="str">&quot;news_analyst&quot;</span>, <span class="str">&quot;technical_analyst&quot;</span>)
+multi_agent_graph_builder.<span class="fn">add_edge</span>(<span class="str">&quot;technical_analyst&quot;</span>, <span class="str">&quot;financial_analyst&quot;</span>)
+multi_agent_graph_builder.<span class="fn">add_edge</span>(<span class="str">&quot;financial_analyst&quot;</span>, <span class="str">&quot;report_writer&quot;</span>)
+multi_agent_graph_builder.<span class="fn">add_edge</span>(<span class="str">&quot;report_writer&quot;</span>, END)
+
+multi_agent_app <span class="op">=</span> multi_agent_graph_builder.<span class="fn">compile</span>()
+<span class="fn">print</span>(<span class="str">&quot;Multi-agent specialist team compiled successfully.&quot;</span>)
+
+multi_agent_query <span class="op">=</span> f<span class="str">&quot;Create a brief but comprehensive market analysis report for {company}.&quot;</span>
+initial_multi_agent_input <span class="op">=</span> {<span class="str">&quot;user_request&quot;</span><span class="op">:</span> multi_agent_query}
+
+console.<span class="fn">print</span>(f<span class="str">&quot;[bold green]Testing MULTI-AGENT TEAM on the same task:[/bold green]\n&#x27;{multi_agent_query}&#x27;\n&quot;</span>)
+
+final_multi_agent_output <span class="op">=</span> multi_agent_app.<span class="fn">invoke</span>(initial_multi_agent_input)
+
+console.<span class="fn">print</span>(<span class="str">&quot;\n--- [bold green]Final Report from Multi-Agent Team[/bold green] ---&quot;</span>)
+console.<span class="fn">print</span>(<span class="fn">Markdown</span>(final_multi_agent_output[<span class="str">&#x27;final_report&#x27;</span>]))
+
+<span class="kw">class</span> <span class="fn">ReportEvaluation</span>(BaseModel)<span class="op">:</span>
+    <span class="str">&quot;&quot;&quot;Schema for evaluating a financial report.&quot;&quot;&quot;</span>
+    clarity_and_structure_score<span class="op">:</span> <span class="fn">int</span> <span class="op">=</span> <span class="fn">Field</span>(description<span class="op">=</span><span class="str">&quot;Score 1-10 on the report&#x27;s organization, structure, and clarity.&quot;</span>)
+    analytical_depth_score<span class="op">:</span> <span class="fn">int</span> <span class="op">=</span> <span class="fn">Field</span>(description<span class="op">=</span><span class="str">&quot;Score 1-10 on the depth and quality of the analysis in each section.&quot;</span>)
+    completeness_score<span class="op">:</span> <span class="fn">int</span> <span class="op">=</span> <span class="fn">Field</span>(description<span class="op">=</span><span class="str">&quot;Score 1-10 on how well the report addressed all parts of the user&#x27;s request.&quot;</span>)
+    justification<span class="op">:</span> <span class="fn">str</span> <span class="op">=</span> <span class="fn">Field</span>(description<span class="op">=</span><span class="str">&quot;A brief justification for the scores.&quot;</span>)
+
+judge_llm <span class="op">=</span> llm.<span class="fn">with_structured_output</span>(ReportEvaluation)
+
+<span class="kw">def</span> <span class="fn">evaluate_report</span>(query<span class="op">:</span> <span class="fn">str</span>, report<span class="op">:</span> <span class="fn">str</span>)<span class="op">:</span>
+    prompt <span class="op">=</span> f<span class="str">&quot;&quot;&quot;You are an expert judge of financial analysis reports. Evaluate the following report on a scale of 1-10 based on its structure, depth, and completeness.
+    
+    **Original User Request:**
+    {query}
+    
+    **Report to Evaluate:**\n
+    {report}
+    &quot;&quot;&quot;</span>
+    <span class="kw">return</span> judge_llm.<span class="fn">invoke</span>(prompt)
+
+console.<span class="fn">print</span>(<span class="str">&quot;--- Evaluating Monolithic Agent&#x27;s Report ---&quot;</span>)
+mono_agent_evaluation <span class="op">=</span> <span class="fn">evaluate_report</span>(monolithic_query, final_mono_output[<span class="str">&#x27;messages&#x27;</span>][<span class="op">-</span><span class="num">1</span>].content)
+console.<span class="fn">print</span>(mono_agent_evaluation.<span class="fn">model_dump</span>())
+
+console.<span class="fn">print</span>(<span class="str">&quot;\n--- Evaluating Multi-Agent Team&#x27;s Report ---&quot;</span>)
+multi_agent_evaluation <span class="op">=</span> <span class="fn">evaluate_report</span>(multi_agent_query, final_multi_agent_output[<span class="str">&#x27;final_report&#x27;</span>])
+console.<span class="fn">print</span>(multi_agent_evaluation.<span class="fn">model_dump</span>())
+</div>
+</div>
+  </section>
+
+  <div class="prevnext"><a href="planning.html"><span class="coding">Previous</span><br><span class="pn-strong">← Planning</span></a><a href="pev.html" style="text-align:right"><span class="coding">Next</span><br><span class="pn-strong">PEV (Plan, Execute, Verify) →</span></a></div>
+</div><div class="footer">
+  <p>Built from <a href="https://github.com/1998x-stack/all-agentic-architectures" style="color:var(--text)">all-agentic-architectures</a></p>
+</div></body></html>

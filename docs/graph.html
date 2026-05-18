@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>#12 Graph (World-Model Memory) — All Agentic Architectures</title>
+<link rel="stylesheet" href="base-dark.css">
+<style>
+  :root {
+    --c1: #28c840; --c1d: #1a7a2a;
+    --c2: #378add; --c2d: #1a5290;
+    --c3: #a259ff; --c3d: #5a2a8a;
+    --c4: #f0883e; --c4d: #9a4a1a;
+    --c5: #1db0a0; --c5d: #0f6e56;
+  }
+  .hero h1 em {
+    background: linear-gradient(90deg, var(--c1), var(--c2), var(--c3), var(--c4), var(--c5));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  }
+  .prevnext { display: flex; justify-content: space-between; padding: 32px 0; border-top: 1px solid var(--border); margin-top: 48px; }
+  .prevnext a { color: var(--muted); font-size: 13px; }
+  .prevnext a:hover { color: var(--text); text-decoration: none; }
+  .pn-strong { color: var(--text) !important; font-weight: 500; }
+  .coding { font-size: 11px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); margin-bottom: 4px; }
+  h2 { font-size: 22px; font-weight: 600; margin: 0 0 12px; letter-spacing: -.01em; }
+  h3 { font-size: 18px; font-weight: 600; margin: 32px 0 12px; }
+</style>
+
+</head>
+<body><nav>
+  <div class="nav-inner">
+    <span class="nav-brand">All Agentic Architectures <span>· 17 Patterns</span></span>
+    <a class="nl" href="index.html">Overview</a>
+  </div>
+</nav><div class="page">
+  <section class="hero" style="padding-bottom:32px">
+    <div class="hero-badge"><span class="dot" style="background:var(--c3)"></span> #12 · Advanced Memory & Reasoning</div>
+    <h1 style="font-size:36px;color:var(--text)">Graph (World-Model Memory)</h1>
+    <p style="margin-bottom:20px">Corporate Intelligence, Advanced Research</p>
+    <div class="tag-row">
+      <span class="ltag" style="color:var(--c3);background:rgba(162,89,255,.08);border-color:rgba(162,89,255,.25)">Part 3</span>
+    </div>
+  </section>
+
+  <section class="layer-sec" style="padding-top:16px;border-bottom:none">
+    <div class="layer-hdr">
+      <span class="layer-id-badge" style="background:#5a2a8a;color:rgba(255,255,255,.9)">Concept</span>
+      <div class="layer-title">How It Works</div>
+    </div>
+    <p class="layer-def" style="border-color:#a259ff">Stores knowledge as a structured graph of entities and relationships, enabling complex multi-hop reasoning.</p>
+    <div style="font-size:14px;line-height:1.85;color:var(--text)">
+      <h2>📘 Agentic Architectures 12: Graph / World-Model Memory</h2>
+<p style="margin-bottom:12px;line-height:1.75;font-size:14px;color:var(--muted)">Welcome to this detailed exploration of one of the most powerful memory structures for AI agents: the <strong style="color:var(--text)">Graph-based World Model</strong>. This architecture moves beyond simple document retrieval or chat history to build a structured, interconnected understanding of the world, much like a human&#x27;s semantic memory.</p>
+<p style="margin-bottom:12px;line-height:1.75;font-size:14px;color:var(--muted)">Instead of storing information as isolated chunks of text, a graph-based agent parses incoming data into <strong style="color:var(--text)">entities (nodes)</strong> and <strong style="color:var(--text)">relationships (edges)</strong>. This creates a rich, queryable knowledge graph. The agent can then answer complex questions by traversing this graph, uncovering insights that would be hidden in unstructured text.</p>
+<p style="margin-bottom:12px;line-height:1.75;font-size:14px;color:var(--muted)">To showcase this in detail, we will build a <strong style="color:var(--text)">Corporate Intelligence Agent</strong>. This agent will:</p>
+<ol style="margin:0 0 16px 18px">
+<li style="margin-bottom:8px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Ingest Unstructured Reports:</strong> Read text documents about companies, people, and products.</li>
+<li style="margin-bottom:8px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Construct a Knowledge Graph:</strong> Use an LLM to extract entities (e.g., <code style="font-family:var(--mono);font-size:12px;background:var(--bg3);padding:1px 6px;border-radius:4px;color:var(--code-text)">Company</code>, <code style="font-family:var(--mono);font-size:12px;background:var(--bg3);padding:1px 6px;border-radius:4px;color:var(--code-text)">Person</code>) and relationships (e.g., <code style="font-family:var(--mono);font-size:12px;background:var(--bg3);padding:1px 6px;border-radius:4px;color:var(--code-text)">ACQUIRED</code>, <code style="font-family:var(--mono);font-size:12px;background:var(--bg3);padding:1px 6px;border-radius:4px;color:var(--code-text)">WORKS_FOR</code>, <code style="font-family:var(--mono);font-size:12px;background:var(--bg3);padding:1px 6px;border-radius:4px;color:var(--code-text)">COMPETES_WITH</code>) and populate a Neo4j graph database.</li>
+<li style="margin-bottom:8px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Answer Complex, Multi-Hop Questions:</strong> Use the graph to answer questions that require connecting multiple pieces of information, such as &quot;<em>Who works for the company that acquired BetaSolutions?</em>&quot;—a query that is extremely difficult for standard vector search.</li>
+</ol>
+<h4 style="color:var(--muted);margin:24px 0 8px;font-size:14px;text-transform:uppercase;letter-spacing:.06em">Definition</h4>
+<p style="margin-bottom:12px;line-height:1.75;font-size:14px;color:var(--muted)">A <strong style="color:var(--text)">Graph / World-Model Memory</strong> is an agentic architecture where knowledge is stored in a structured graph database. Information is represented as nodes (entities like people, places, concepts) and edges (the relationships between them). This creates a dynamic &quot;world model&quot; that the agent can reason over.</p>
+<h4 style="color:var(--muted);margin:24px 0 8px;font-size:14px;text-transform:uppercase;letter-spacing:.06em">High-level Workflow</h4>
+<ol style="margin:0 0 16px 18px">
+<li style="margin-bottom:8px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Information Ingestion:</strong> The agent receives unstructured or semi-structured data (text, documents, API responses).</li>
+<li style="margin-bottom:8px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Knowledge Extraction:</strong> An LLM-powered process parses the information, identifying key entities and the relationships that connect them.</li>
+<li style="margin-bottom:8px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Graph Update:</strong> The extracted nodes and edges are added to or updated in a persistent graph database (like Neo4j).</li>
+<li style="margin-bottom:8px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Question Answering / Reasoning:</strong> When asked a question, the agent:</li>
+</ol>
+<p style="margin-bottom:12px;line-height:1.75;font-size:14px;color:var(--muted)">a. Converts the natural language question into a formal graph query language (e.g., Cypher for Neo4j).</p>
+<p style="margin-bottom:12px;line-height:1.75;font-size:14px;color:var(--muted)">b. Executes the query against the graph to retrieve relevant subgraphs or facts.</p>
+<p style="margin-bottom:12px;line-height:1.75;font-size:14px;color:var(--muted)">c. Synthesizes the query results into a natural language answer.</p>
+<h4 style="color:var(--muted);margin:24px 0 8px;font-size:14px;text-transform:uppercase;letter-spacing:.06em">When to Use / Applications</h4>
+<ul style="margin:0 0 16px 18px;list-style-type:disc">
+<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Enterprise Knowledge Assistants:</strong> Building a queryable model of a company&#x27;s projects, employees, and customers from internal documents.</li>
+<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Advanced Research Assistants:</strong> Creating a dynamic knowledge base of a scientific field by ingesting research papers.</li>
+<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Complex System Diagnostics:</strong> Modeling a system&#x27;s components and their dependencies to diagnose failures.</li>
+</ul>
+<h4 style="color:var(--muted);margin:24px 0 8px;font-size:14px;text-transform:uppercase;letter-spacing:.06em">Strengths &amp; Weaknesses</h4>
+<ul style="margin:0 0 16px 18px;list-style-type:disc">
+<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Strengths:</strong></li>
+<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Structured &amp; Explainable:</strong> The knowledge is highly organized. An answer can be explained by showing the exact path in the graph that led to it.</li>
+<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Enables Complex Reasoning:</strong> Excels at answering &quot;multi-hop&quot; questions that require connecting disparate pieces of information through relationships.</li>
+<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Weaknesses:</strong></li>
+<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Upfront Complexity:</strong> Requires a well-defined schema and a robust extraction process.</li>
+<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Keeping the Graph Updated:</strong> Can be challenging to manage updates, resolve conflicting information, and prune outdated facts over time (knowledge lifecycle management).</li>
+</ul>
+    </div>
+  </section>
+
+  <section class="layer-sec" id="code">
+    <div class="layer-hdr">
+      <span class="layer-id-badge" style="background:#5a2a8a;color:rgba(255,255,255,.9)">Implementation</span>
+      <div class="layer-title">Code <small style="font-size:14px;font-weight:400;color:var(--muted)">LangChain + LangGraph</small></div>
+    </div>
+    <div class="codeblock">
+  <div class="cb-head">
+    <span class="cb-dot" style="background:#f85149"></span>
+    <span class="cb-dot" style="background:#e3b341"></span>
+    <span class="cb-dot" style="background:#28c840"></span>
+    src/src/... · 164 lines
+  </div>
+  <div class="cb-body"><span class="str">&quot;&quot;&quot;
+Graph - Agentic Architecture
+Extracted from: 12_graph.ipynb
+&quot;&quot;&quot;</span>
+
+<span class="cm"># !pip install -q -U langchain-nebius langchain langgraph rich python-dotenv langchain_community neo4j</span>
+
+<span class="kw">import</span> os
+<span class="kw">from</span> typing <span class="kw">import</span> List, Dict, Any, Optional
+<span class="kw">from</span> dotenv <span class="kw">import</span> load_dotenv
+
+<span class="cm"># Pydantic for data modeling</span>
+<span class="kw">from</span> pydantic <span class="kw">import</span> BaseModel, Field
+
+<span class="cm"># LangChain components</span>
+<span class="kw">from</span> langchain_nebius <span class="kw">import</span> ChatNebius
+<span class="kw">from</span> langchain_community.graphs <span class="kw">import</span> Neo4jGraph
+<span class="kw">from</span> langchain.chains <span class="kw">import</span> GraphCypherQAChain
+<span class="kw">from</span> langchain_core.prompts <span class="kw">import</span> ChatPromptTemplate
+<span class="kw">from</span> langchain_core.pydantic_v1 <span class="kw">import</span> BaseModel <span class="kw">as</span> V1BaseModel
+
+<span class="cm"># For pretty printing</span>
+<span class="kw">from</span> rich.console <span class="kw">import</span> Console
+<span class="kw">from</span> rich.markdown <span class="kw">import</span> Markdown
+
+<span class="cm"># --- API Key and Tracing Setup ---</span>
+<span class="fn">load_dotenv</span>()
+
+os.environ[<span class="str">&quot;LANGCHAIN_TRACING_V2&quot;</span>] <span class="op">=</span> <span class="str">&quot;true&quot;</span>
+os.environ[<span class="str">&quot;LANGCHAIN_PROJECT&quot;</span>] <span class="op">=</span> <span class="str">&quot;Agentic Architecture - Graph Memory (Nebius)&quot;</span>
+
+required_vars <span class="op">=</span> [<span class="str">&quot;NEBIUS_API_KEY&quot;</span>, <span class="str">&quot;LANGCHAIN_API_KEY&quot;</span>, <span class="str">&quot;NEO4J_URI&quot;</span>, <span class="str">&quot;NEO4J_USERNAME&quot;</span>, <span class="str">&quot;NEO4J_PASSWORD&quot;</span>]
+<span class="kw">for</span> var <span class="kw">in</span> required_vars<span class="op">:</span>
+    <span class="kw">if</span> var <span class="kw">not</span> <span class="kw">in</span> os.environ<span class="op">:</span>
+        <span class="fn">print</span>(f<span class="str">&quot;Warning: Environment variable {var} not set.&quot;</span>)
+
+<span class="fn">print</span>(<span class="str">&quot;Environment variables loaded and tracing is set up.&quot;</span>)
+
+console <span class="op">=</span> <span class="fn">Console</span>()
+llm <span class="op">=</span> <span class="fn">ChatNebius</span>(model<span class="op">=</span><span class="str">&quot;mistralai/Mixtral-8x22B-Instruct-v0.1&quot;</span>, temperature<span class="op">=</span><span class="num">0</span>)
+
+<span class="cm"># Connect to our Neo4j database</span>
+<span class="kw">try</span><span class="op">:</span>
+    graph <span class="op">=</span> <span class="fn">Neo4jGraph</span>()
+    <span class="cm"># Clear the graph for a clean run</span>
+    graph.<span class="fn">query</span>(<span class="str">&quot;MATCH (n) DETACH DELETE n&quot;</span>)
+<span class="kw">except</span> Exception <span class="kw">as</span> e<span class="op">:</span>
+    console.<span class="fn">print</span>(f<span class="str">&quot;[bold red]Failed to connect to Neo4j: {e}. Please check your credentials and connection.[/bold red]&quot;</span>)
+    graph <span class="op">=</span> <span class="kw">None</span>
+
+<span class="cm"># Pydantic models for structured extraction (using LangChain&#x27;s v1 BaseModel for compatibility with older structured output methods)</span>
+<span class="kw">class</span> <span class="fn">Node</span>(V1BaseModel)<span class="op">:</span>
+    id<span class="op">:</span> <span class="fn">str</span> <span class="op">=</span> <span class="fn">Field</span>(description<span class="op">=</span><span class="str">&quot;Unique name or identifier for the entity.&quot;</span>)
+    <span class="fn">type</span><span class="op">:</span> <span class="fn">str</span> <span class="op">=</span> <span class="fn">Field</span>(description<span class="op">=</span><span class="str">&quot;The type or label of the entity (e.g., Person, Company, Product).&quot;</span>)
+
+<span class="kw">class</span> <span class="fn">Relationship</span>(V1BaseModel)<span class="op">:</span>
+    source<span class="op">:</span> Node
+    target<span class="op">:</span> Node
+    <span class="fn">type</span><span class="op">:</span> <span class="fn">str</span> <span class="op">=</span> <span class="fn">Field</span>(description<span class="op">=</span><span class="str">&quot;The type of relationship (e.g., WORKS_FOR, ACQUIRED).&quot;</span>)
+
+<span class="kw">class</span> <span class="fn">KnowledgeGraph</span>(V1BaseModel)<span class="op">:</span>
+    <span class="str">&quot;&quot;&quot;A graph of nodes and relationships.&quot;&quot;&quot;</span>
+    relationships<span class="op">:</span> List[Relationship]
+
+<span class="cm"># The Graph Maker Agent</span>
+<span class="kw">def</span> <span class="fn">get_graph_maker_chain</span>()<span class="op">:</span>
+    extractor_llm <span class="op">=</span> llm.<span class="fn">with_structured_output</span>(KnowledgeGraph)
+    prompt <span class="op">=</span> ChatPromptTemplate.<span class="fn">from_messages</span>([
+        (<span class="str">&quot;system&quot;</span>, <span class="str">&quot;You are an expert at extracting information from text and building a knowledge graph. Extract all entities (nodes) and relationships from the provided text. The relationship type should be a verb in all caps, like &#x27;WORKS_FOR&#x27; or &#x27;ACQUIRED&#x27;.&quot;</span>),
+        (<span class="str">&quot;human&quot;</span>, <span class="str">&quot;Extract a knowledge graph from the following text:\n\n{text}&quot;</span>)
+    ])
+    <span class="kw">return</span> prompt <span class="op">|</span> extractor_llm
+
+graph_maker_agent <span class="op">=</span> <span class="fn">get_graph_maker_chain</span>()
+<span class="fn">print</span>(<span class="str">&quot;Successfully connected to Neo4j and defined the Graph Maker Agent.&quot;</span>)
+
+unstructured_documents <span class="op">=</span> [
+    <span class="str">&quot;On May 15, 2023, global tech giant AlphaCorp announced its acquisition of startup BetaSolutions, a leader in cloud-native database technology.&quot;</span>,
+    <span class="str">&quot;Dr. Evelyn Reed, a renowned AI researcher, has been the Chief Science Officer at AlphaCorp since 2021. She leads the team responsible for the QuantumLeap AI platform.&quot;</span>,
+    <span class="str">&quot;Innovate Inc.&#x27;s flagship product, NeuraGen, is seen as a direct competitor to AlphaCorp&#x27;s QuantumLeap AI. Meanwhile, Innovate Inc. recently hired Johnathan Miles as their new CTO.&quot;</span>
+]
+<span class="kw">for</span> i, doc <span class="kw">in</span> <span class="fn">enumerate</span>(unstructured_documents)<span class="op">:</span>
+    console.<span class="fn">print</span>(f<span class="str">&quot;--- Ingesting Document {i+1} ---&quot;</span>)
+    <span class="kw">try</span><span class="op">:</span>
+        kg_data <span class="op">=</span> graph_maker_agent.<span class="fn">invoke</span>({<span class="str">&quot;text&quot;</span><span class="op">:</span> doc})
+        <span class="kw">if</span> kg_data.relationships<span class="op">:</span>
+            graph.<span class="fn">add_graph_documents</span>(graph_documents<span class="op">=</span>kg_data.relationships, include_source<span class="op">=</span><span class="kw">False</span>)
+            console.<span class="fn">print</span>(f<span class="str">&quot;[green]Successfully added {len(kg_data.relationships)} relationships to the graph.[/green]&quot;</span>)
+        <span class="kw">else</span><span class="op">:</span>
+             console.<span class="fn">print</span>(<span class="str">&quot;[yellow]No relationships extracted.[/yellow]&quot;</span>)
+    <span class="kw">except</span> Exception <span class="kw">as</span> e<span class="op">:</span>
+        console.<span class="fn">print</span>(f<span class="str">&quot;[red]Failed to process document: {e}[/red]&quot;</span>)
+
+console.<span class="fn">print</span>(<span class="str">&quot;--- ✅ Knowledge Graph Ingestion Complete ---&quot;</span>)
+console.<span class="fn">print</span>(<span class="str">&quot;\n--- Graph Schema ---&quot;</span>)
+console.<span class="fn">print</span>(graph.schema)
+
+<span class="cm"># LangChain has a built-in chain for this, but we&#x27;ll inspect the components</span>
+<span class="cm"># to understand how it works.</span>
+cypher_generation_prompt <span class="op">=</span> ChatPromptTemplate.<span class="fn">from_template</span>(
+    <span class="str">&quot;&quot;&quot;You are an expert Neo4j Cypher query developer. Your task is to convert a user&#x27;s natural language question into a valid Cypher query.
+You must use the provided graph schema to construct the query. Do not use any node labels or relationship types that are not in the schema.
+Return ONLY the Cypher query, with no additional text or explanations.
+
+Graph Schema:
+{schema}
+
+User Question:
+{question}
+&quot;&quot;&quot;</span>
+)
+
+cypher_response_prompt <span class="op">=</span> ChatPromptTemplate.<span class="fn">from_template</span>(
+    <span class="str">&quot;&quot;&quot;You are an assistant that provides clear, natural language answers based on query results from a knowledge graph.
+Use the context from the graph query result to answer the user&#x27;s original question.
+
+User Question: {question}
+Query Result: {context}
+&quot;&quot;&quot;</span>
+)
+
+<span class="kw">def</span> <span class="fn">query_graph</span>(question<span class="op">:</span> <span class="fn">str</span>) <span class="op">-</span><span class="op">&gt;</span> Dict[<span class="fn">str</span>, Any]<span class="op">:</span>
+    <span class="str">&quot;&quot;&quot;The full Text-to-Cypher and synthesis pipeline.&quot;&quot;&quot;</span>
+    console.<span class="fn">print</span>(f<span class="str">&quot;\n[bold]Question:[/bold] {question}&quot;</span>)
+    
+    <span class="cm"># 1. Generate Cypher Query</span>
+    console.<span class="fn">print</span>(<span class="str">&quot;--- ➡️ Generating Cypher Query ---&quot;</span>)
+    cypher_chain <span class="op">=</span> cypher_generation_prompt <span class="op">|</span> llm
+    generated_cypher <span class="op">=</span> cypher_chain.<span class="fn">invoke</span>({<span class="str">&quot;schema&quot;</span><span class="op">:</span> graph.schema, <span class="str">&quot;question&quot;</span><span class="op">:</span> question}).content
+    console.<span class="fn">print</span>(f<span class="str">&quot;[cyan]Generated Cypher:\n{generated_cypher}[/cyan]&quot;</span>)
+    
+    <span class="cm"># 2. Execute Cypher Query</span>
+    console.<span class="fn">print</span>(<span class="str">&quot;--- ⚡ Executing Query ---&quot;</span>)
+    <span class="kw">try</span><span class="op">:</span>
+        context <span class="op">=</span> graph.<span class="fn">query</span>(generated_cypher)
+        console.<span class="fn">print</span>(f<span class="str">&quot;[yellow]Query Result:\n{context}[/yellow]&quot;</span>)
+    <span class="kw">except</span> Exception <span class="kw">as</span> e<span class="op">:</span>
+        console.<span class="fn">print</span>(f<span class="str">&quot;[red]Cypher Query Failed: {e}[/red]&quot;</span>)
+        <span class="kw">return</span> {<span class="str">&quot;answer&quot;</span><span class="op">:</span> <span class="str">&quot;I was unable to execute a query to find the answer to your question.&quot;</span>}
+    
+    <span class="cm"># 3. Synthesize Final Answer</span>
+    console.<span class="fn">print</span>(<span class="str">&quot;--- 🗣️ Synthesizing Final Answer ---&quot;</span>)
+    synthesis_chain <span class="op">=</span> cypher_response_prompt <span class="op">|</span> llm
+    answer <span class="op">=</span> synthesis_chain.<span class="fn">invoke</span>({<span class="str">&quot;question&quot;</span><span class="op">:</span> question, <span class="str">&quot;context&quot;</span><span class="op">:</span> context}).content
+    
+    <span class="kw">return</span> {<span class="str">&quot;answer&quot;</span><span class="op">:</span> answer}
+
+<span class="fn">print</span>(<span class="str">&quot;Graph-Querying Agent defined successfully.&quot;</span>)
+
+<span class="cm"># Test 1: Simple fact retrieval (requires info from doc 2)</span>
+result1 <span class="op">=</span> <span class="fn">query_graph</span>(<span class="str">&quot;Who works for AlphaCorp?&quot;</span>)
+console.<span class="fn">print</span>(<span class="str">&quot;\n--- Final Answer ---&quot;</span>)
+console.<span class="fn">print</span>(<span class="fn">Markdown</span>(result1[<span class="str">&#x27;answer&#x27;</span>]))
+
+<span class="cm"># Test 2: Another simple fact retrieval (requires info from doc 1)</span>
+result2 <span class="op">=</span> <span class="fn">query_graph</span>(<span class="str">&quot;What company did AlphaCorp acquire?&quot;</span>)
+console.<span class="fn">print</span>(<span class="str">&quot;\n--- Final Answer ---&quot;</span>)
+console.<span class="fn">print</span>(<span class="fn">Markdown</span>(result2[<span class="str">&#x27;answer&#x27;</span>]))
+
+<span class="cm"># Test 3: The multi-hop reasoning question (requires info from all 3 docs)</span>
+result3 <span class="op">=</span> <span class="fn">query_graph</span>(<span class="str">&quot;What companies compete with the products made by the company that acquired BetaSolutions?&quot;</span>)
+console.<span class="fn">print</span>(<span class="str">&quot;\n--- Final Answer ---&quot;</span>)
+console.<span class="fn">print</span>(<span class="fn">Markdown</span>(result3[<span class="str">&#x27;answer&#x27;</span>]))
+</div>
+</div>
+  </section>
+
+  <div class="prevnext"><a href="meta-controller.html"><span class="coding">Previous</span><br><span class="pn-strong">← Meta-Controller</span></a><a href="ensemble.html" style="text-align:right"><span class="coding">Next</span><br><span class="pn-strong">Ensemble →</span></a></div>
+</div><div class="footer">
+  <p>Built from <a href="https://github.com/1998x-stack/all-agentic-architectures" style="color:var(--text)">all-agentic-architectures</a></p>
+</div></body></html>

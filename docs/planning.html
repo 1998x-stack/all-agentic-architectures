@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>#04 Planning — All Agentic Architectures</title>
+<link rel="stylesheet" href="base-dark.css">
+<style>
+  :root {
+    --c1: #28c840; --c1d: #1a7a2a;
+    --c2: #378add; --c2d: #1a5290;
+    --c3: #a259ff; --c3d: #5a2a8a;
+    --c4: #f0883e; --c4d: #9a4a1a;
+    --c5: #1db0a0; --c5d: #0f6e56;
+  }
+  .hero h1 em {
+    background: linear-gradient(90deg, var(--c1), var(--c2), var(--c3), var(--c4), var(--c5));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  }
+  .prevnext { display: flex; justify-content: space-between; padding: 32px 0; border-top: 1px solid var(--border); margin-top: 48px; }
+  .prevnext a { color: var(--muted); font-size: 13px; }
+  .prevnext a:hover { color: var(--text); text-decoration: none; }
+  .pn-strong { color: var(--text) !important; font-weight: 500; }
+  .coding { font-size: 11px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); margin-bottom: 4px; }
+  h2 { font-size: 22px; font-weight: 600; margin: 0 0 12px; letter-spacing: -.01em; }
+  h3 { font-size: 18px; font-weight: 600; margin: 32px 0 12px; }
+</style>
+
+</head>
+<body><nav>
+  <div class="nav-inner">
+    <span class="nav-brand">All Agentic Architectures <span>· 17 Patterns</span></span>
+    <a class="nl" href="index.html">Overview</a>
+  </div>
+</nav><div class="page">
+  <section class="hero" style="padding-bottom:32px">
+    <div class="hero-badge"><span class="dot" style="background:var(--c1)"></span> #04 · Foundational Patterns</div>
+    <h1 style="font-size:36px;color:var(--text)">Planning</h1>
+    <p style="margin-bottom:20px">Predictable Report Generation, Project Management</p>
+    <div class="tag-row">
+      <span class="ltag" style="color:var(--c1);background:rgba(40,200,64,.08);border-color:rgba(40,200,64,.25)">Part 1</span>
+    </div>
+  </section>
+
+  <section class="layer-sec" style="padding-top:16px;border-bottom:none">
+    <div class="layer-hdr">
+      <span class="layer-id-badge" style="background:#1a7a2a;color:rgba(255,255,255,.9)">Concept</span>
+      <div class="layer-title">How It Works</div>
+    </div>
+    <p class="layer-def" style="border-color:#28c840">Proactively decomposes a complex task into a detailed, step-by-step plan before execution.</p>
+    <div style="font-size:14px;line-height:1.85;color:var(--text)">
+      <h2>📘 Agentic Architectures 4: Planning</h2>
+<p style="margin-bottom:12px;line-height:1.75;font-size:14px;color:var(--muted)">In this notebook, we explore the <strong style="color:var(--text)">Planning</strong> architecture. This pattern introduces a crucial layer of foresight into an agent&#x27;s reasoning process. Instead of reacting to information step-by-step as in the ReAct model, a planning agent first decomposes a complex task into a sequence of smaller, manageable sub-goals. It creates a full &#x27;battle plan&#x27; <em>before</em> taking any action.</p>
+<p style="margin-bottom:12px;line-height:1.75;font-size:14px;color:var(--muted)">This proactive approach brings structure, predictability, and efficiency to multi-step tasks. To highlight its benefits, we will directly compare the performance of a <strong style="color:var(--text)">reactive agent (ReAct)</strong> against our new <strong style="color:var(--text)">planning agent</strong>. We will present both with a task that requires gathering multiple pieces of information before performing a final calculation, demonstrating how a pre-computed plan can lead to a more robust and direct solution.</p>
+<h4 style="color:var(--muted);margin:24px 0 8px;font-size:14px;text-transform:uppercase;letter-spacing:.06em">Definition</h4>
+<p style="margin-bottom:12px;line-height:1.75;font-size:14px;color:var(--muted)">The <strong style="color:var(--text)">Planning</strong> architecture involves an agent that explicitly breaks down a complex goal into a detailed sequence of sub-tasks <em>before</em> beginning execution. The output of this initial planning phase is a concrete, step-by-step plan that the agent then follows methodically to reach the solution.</p>
+<h4 style="color:var(--muted);margin:24px 0 8px;font-size:14px;text-transform:uppercase;letter-spacing:.06em">High-level Workflow</h4>
+<ol style="margin:0 0 16px 18px">
+<li style="margin-bottom:8px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Receive Goal:</strong> The agent is given a complex task.</li>
+<li style="margin-bottom:8px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Plan:</strong> A dedicated &#x27;Planner&#x27; component analyzes the goal and generates an ordered list of sub-tasks required to achieve it. For example: <code style="font-family:var(--mono);font-size:12px;background:var(--bg3);padding:1px 6px;border-radius:4px;color:var(--code-text)">[&quot;Find fact A&quot;, &quot;Find fact B&quot;, &quot;Calculate C using A and B&quot;]</code>.</li>
+<li style="margin-bottom:8px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Execute:</strong> An &#x27;Executor&#x27; component takes the plan and carries out each sub-task in sequence, using tools as needed.</li>
+<li style="margin-bottom:8px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Synthesize:</strong> Once all steps in the plan are complete, a final component synthesizes the results from the executed steps into a coherent final answer.</li>
+</ol>
+<h4 style="color:var(--muted);margin:24px 0 8px;font-size:14px;text-transform:uppercase;letter-spacing:.06em">When to Use / Applications</h4>
+<ul style="margin:0 0 16px 18px;list-style-type:disc">
+<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Multi-Step Workflows:</strong> Ideal for tasks where the sequence of operations is known and critical, such as generating a report that requires fetching data, processing it, and then summarizing it.</li>
+<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Project Management Assistants:</strong> Decomposing a large goal like &quot;launch a new feature&quot; into sub-tasks for different teams.</li>
+<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Educational Tutoring:</strong> Creating a lesson plan to teach a student a specific concept, from foundational principles to advanced application.</li>
+</ul>
+<h4 style="color:var(--muted);margin:24px 0 8px;font-size:14px;text-transform:uppercase;letter-spacing:.06em">Strengths &amp; Weaknesses</h4>
+<ul style="margin:0 0 16px 18px;list-style-type:disc">
+<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Strengths:</strong></li>
+<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Structured &amp; Traceable:</strong> The entire workflow is laid out in advance, making the agent&#x27;s process transparent and easy to debug.</li>
+<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Efficient:</strong> Can be more efficient than ReAct for predictable tasks, as it avoids unnecessary reasoning loops between steps.</li>
+<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Weaknesses:</strong></li>
+<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Brittle to Change:</strong> A pre-made plan can fail if the environment changes unexpectedly during execution. It&#x27;s less adaptive than a ReAct agent, which can change its mind after every step.</li>
+</ul>
+    </div>
+  </section>
+
+  <section class="layer-sec" id="code">
+    <div class="layer-hdr">
+      <span class="layer-id-badge" style="background:#1a7a2a;color:rgba(255,255,255,.9)">Implementation</span>
+      <div class="layer-title">Code <small style="font-size:14px;font-weight:400;color:var(--muted)">LangChain + LangGraph</small></div>
+    </div>
+    <div class="codeblock">
+  <div class="cb-head">
+    <span class="cb-dot" style="background:#f85149"></span>
+    <span class="cb-dot" style="background:#e3b341"></span>
+    <span class="cb-dot" style="background:#28c840"></span>
+    src/src/... · 260 lines
+  </div>
+  <div class="cb-body"><span class="str">&quot;&quot;&quot;
+Planning - Agentic Architecture
+Extracted from: 04_planning.ipynb
+&quot;&quot;&quot;</span>
+
+<span class="cm"># !pip install -q -U langchain-nebius langchain langgraph rich python-dotenv langchain-tavily</span>
+
+<span class="kw">import</span> os
+<span class="kw">import</span> re
+<span class="kw">from</span> typing <span class="kw">import</span> List, Annotated, TypedDict, Optional
+<span class="kw">from</span> dotenv <span class="kw">import</span> load_dotenv
+
+<span class="cm"># LangChain components</span>
+<span class="kw">from</span> langchain_nebius <span class="kw">import</span> ChatNebius
+<span class="kw">from</span> langchain_core.messages <span class="kw">import</span> BaseMessage, ToolMessage
+<span class="kw">from</span> pydantic <span class="kw">import</span> BaseModel, Field
+<span class="kw">from</span> langchain_core.tools <span class="kw">import</span> tool
+<span class="kw">from</span> langchain_core.messages <span class="kw">import</span> SystemMessage
+<span class="kw">from</span> langchain_tavily <span class="kw">import</span> TavilySearch
+
+<span class="cm"># LangGraph components</span>
+<span class="kw">from</span> langgraph.graph <span class="kw">import</span> StateGraph, END
+<span class="kw">from</span> langgraph.graph.message <span class="kw">import</span> AnyMessage, add_messages
+<span class="kw">from</span> langgraph.prebuilt <span class="kw">import</span> ToolNode, tools_condition
+
+<span class="cm"># For pretty printing</span>
+<span class="kw">from</span> rich.console <span class="kw">import</span> Console
+<span class="kw">from</span> rich.markdown <span class="kw">import</span> Markdown
+
+<span class="cm"># --- API Key and Tracing Setup ---</span>
+<span class="fn">load_dotenv</span>()
+
+os.environ[<span class="str">&quot;LANGCHAIN_TRACING_V2&quot;</span>] <span class="op">=</span> <span class="str">&quot;true&quot;</span>
+os.environ[<span class="str">&quot;LANGCHAIN_PROJECT&quot;</span>] <span class="op">=</span> <span class="str">&quot;Agentic Architecture - Planning (Nebius)&quot;</span>
+
+<span class="cm"># Check that the keys are set</span>
+<span class="kw">for</span> key <span class="kw">in</span> [<span class="str">&quot;NEBIUS_API_KEY&quot;</span>, <span class="str">&quot;LANGCHAIN_API_KEY&quot;</span>, <span class="str">&quot;TAVILY_API_KEY&quot;</span>]<span class="op">:</span>
+    <span class="kw">if</span> <span class="kw">not</span> os.environ.<span class="fn">get</span>(key)<span class="op">:</span>
+        <span class="fn">print</span>(f<span class="str">&quot;{key} not found. Please create a .env file and set it.&quot;</span>)
+
+<span class="fn">print</span>(<span class="str">&quot;Environment variables loaded and tracing is set up.&quot;</span>)
+
+console <span class="op">=</span> <span class="fn">Console</span>()
+
+<span class="cm"># Define the state for our graphs</span>
+<span class="kw">class</span> <span class="fn">AgentState</span>(TypedDict)<span class="op">:</span>
+    messages<span class="op">:</span> Annotated[<span class="fn">list</span>[AnyMessage], add_messages]
+
+<span class="cm"># 1. Define the base tool from the tavily package</span>
+tavily_search_tool <span class="op">=</span> <span class="fn">TavilySearch</span>(max_results<span class="op">=</span><span class="num">2</span>)
+
+<span class="cm"># 2. THE FIX: Simplify the custom tool. </span>
+<span class="cm">#    The .invoke() method already returns a clean string, so we just pass it through.</span>
+<span class="op">@tool</span>
+<span class="kw">def</span> <span class="fn">web_search</span>(query<span class="op">:</span> <span class="fn">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="fn">str</span><span class="op">:</span>
+    <span class="str">&quot;&quot;&quot;Performs a web search using Tavily and returns the results as a string.&quot;&quot;&quot;</span>
+    console.<span class="fn">print</span>(f<span class="str">&quot;--- TOOL: Searching for &#x27;{query}&#x27;...&quot;</span>)
+    results <span class="op">=</span> tavily_search_tool.<span class="fn">invoke</span>(query)
+    <span class="kw">return</span> results
+
+<span class="cm"># 3. Define the LLM and bind it to our custom tool</span>
+llm <span class="op">=</span> <span class="fn">ChatNebius</span>(model<span class="op">=</span><span class="str">&quot;meta-llama/Meta-Llama-3.1-8B-Instruct&quot;</span>, temperature<span class="op">=</span><span class="num">0</span>)
+llm_with_tools <span class="op">=</span> llm.<span class="fn">bind_tools</span>([web_search])
+
+<span class="cm"># 4. Agent node with a system prompt to force one tool call at a time</span>
+<span class="kw">def</span> <span class="fn">react_agent_node</span>(state<span class="op">:</span> AgentState)<span class="op">:</span>
+    console.<span class="fn">print</span>(<span class="str">&quot;--- REACTIVE AGENT: Thinking... ---&quot;</span>)
+    
+    messages_with_system_prompt <span class="op">=</span> [
+        <span class="fn">SystemMessage</span>(content<span class="op">=</span><span class="str">&quot;You are a helpful research assistant. You must call one and only one tool at a time. Do not call multiple tools in a single turn. After receiving the result from a tool, you will decide on the next step.&quot;</span>)
+    ] <span class="op">+</span> state[<span class="str">&quot;messages&quot;</span>]
+
+    response <span class="op">=</span> llm_with_tools.<span class="fn">invoke</span>(messages_with_system_prompt)
+    
+    <span class="kw">return</span> {<span class="str">&quot;messages&quot;</span><span class="op">:</span> [response]}
+
+<span class="cm"># 5. Use our corrected custom tool in the ToolNode</span>
+tool_node <span class="op">=</span> <span class="fn">ToolNode</span>([web_search])
+
+<span class="cm"># The ReAct graph with its characteristic loop</span>
+react_graph_builder <span class="op">=</span> <span class="fn">StateGraph</span>(AgentState)
+react_graph_builder.<span class="fn">add_node</span>(<span class="str">&quot;agent&quot;</span>, react_agent_node)
+react_graph_builder.<span class="fn">add_node</span>(<span class="str">&quot;tools&quot;</span>, tool_node)
+react_graph_builder.<span class="fn">set_entry_point</span>(<span class="str">&quot;agent&quot;</span>)
+react_graph_builder.<span class="fn">add_conditional_edges</span>(<span class="str">&quot;agent&quot;</span>, tools_condition)
+react_graph_builder.<span class="fn">add_edge</span>(<span class="str">&quot;tools&quot;</span>, <span class="str">&quot;agent&quot;</span>)
+
+react_agent_app <span class="op">=</span> react_graph_builder.<span class="fn">compile</span>()
+<span class="fn">print</span>(<span class="str">&quot;Reactive (ReAct) agent compiled successfully.&quot;</span>)
+
+plan_centric_query <span class="op">=</span> <span class="str">&quot;&quot;&quot;
+Find the population of the capital cities of France, Germany, and Italy. 
+Then calculate their combined total. 
+Finally, compare that combined total to the population of the United States, and say which is larger.
+&quot;&quot;&quot;</span>
+
+console.<span class="fn">print</span>(f<span class="str">&quot;[bold yellow]Testing REACTIVE agent on a plan-centric query:[/bold yellow] &#x27;{plan_centric_query}&#x27;\n&quot;</span>)
+
+final_react_output <span class="op">=</span> <span class="kw">None</span>
+<span class="kw">for</span> chunk <span class="kw">in</span> react_agent_app.<span class="fn">stream</span>({<span class="str">&quot;messages&quot;</span><span class="op">:</span> [(<span class="str">&quot;user&quot;</span>, plan_centric_query)]}, stream_mode<span class="op">=</span><span class="str">&quot;values&quot;</span>)<span class="op">:</span>
+    final_react_output <span class="op">=</span> chunk
+    console.<span class="fn">print</span>(f<span class="str">&quot;--- [bold purple]Current State Update[/bold purple] ---&quot;</span>)
+    chunk[<span class="str">&#x27;messages&#x27;</span>][<span class="op">-</span><span class="num">1</span>].<span class="fn">pretty_print</span>()
+    console.<span class="fn">print</span>(<span class="str">&quot;\n&quot;</span>)
+
+console.<span class="fn">print</span>(<span class="str">&quot;\n--- [bold red]Final Output from Reactive Agent[/bold red] ---&quot;</span>)
+console.<span class="fn">print</span>(<span class="fn">Markdown</span>(final_react_output[<span class="str">&#x27;messages&#x27;</span>][<span class="op">-</span><span class="num">1</span>].content))
+
+<span class="cm"># Pydantic model to ensure the planner&#x27;s output is a structured list of steps</span>
+<span class="kw">class</span> <span class="fn">Plan</span>(BaseModel)<span class="op">:</span>
+    <span class="str">&quot;&quot;&quot;A plan of tool calls to execute to answer the user&#x27;s query.&quot;&quot;&quot;</span>
+    steps<span class="op">:</span> List[<span class="fn">str</span>] <span class="op">=</span> <span class="fn">Field</span>(description<span class="op">=</span><span class="str">&quot;A list of tool calls that, when executed, will answer the query.&quot;</span>)
+
+<span class="cm"># Define the state for the planning agent</span>
+<span class="kw">class</span> <span class="fn">PlanningState</span>(TypedDict)<span class="op">:</span>
+    user_request<span class="op">:</span> <span class="fn">str</span>
+    plan<span class="op">:</span> Optional[List[<span class="fn">str</span>]]
+    intermediate_steps<span class="op">:</span> List[ToolMessage]
+    final_answer<span class="op">:</span> Optional[<span class="fn">str</span>]
+
+<span class="kw">def</span> <span class="fn">planner_node</span>(state<span class="op">:</span> PlanningState)<span class="op">:</span>
+    <span class="str">&quot;&quot;&quot;Generates a plan of action to answer the user&#x27;s request.&quot;&quot;&quot;</span>
+    console.<span class="fn">print</span>(<span class="str">&quot;--- PLANNER: Decomposing task... ---&quot;</span>)
+    planner_llm <span class="op">=</span> llm.<span class="fn">with_structured_output</span>(Plan)
+    
+    <span class="cm"># THE FIX: A much more explicit prompt with a clear example (few-shot prompting)</span>
+    prompt <span class="op">=</span> f<span class="str">&quot;&quot;&quot;You are an expert planner. Your job is to create a step-by-step plan to answer the user&#x27;s request.
+        Each step in the plan must be a single call to the `web_search` tool.
+
+        **Instructions:**
+        1. Analyze the user&#x27;s request.
+        2. Break it down into a sequence of simple, logical search queries.
+        3. Format the output as a list of strings, where each string is a single valid tool call.
+
+        **Example:**
+        Request: &quot;What is the capital of France and what is its population?&quot;
+        Correct Plan Output:
+        [
+            &quot;web_search(&#x27;capital of France&#x27;)&quot;,
+            &quot;web_search(&#x27;population of Paris&#x27;)&quot;
+        ]
+
+        **User&#x27;s Request:**
+        {state[&#x27;user_request&#x27;]}
+    &quot;&quot;&quot;</span>
+
+    plan_result <span class="op">=</span> planner_llm.<span class="fn">invoke</span>(prompt)
+    <span class="cm"># Use plan_result.steps, not plan.steps to avoid confusion with the variable name &#x27;plan&#x27;</span>
+    console.<span class="fn">print</span>(f<span class="str">&quot;--- PLANNER: Generated Plan: {plan_result.steps} ---&quot;</span>)
+    <span class="kw">return</span> {<span class="str">&quot;plan&quot;</span><span class="op">:</span> plan_result.steps}
+
+<span class="kw">def</span> <span class="fn">executor_node</span>(state<span class="op">:</span> PlanningState)<span class="op">:</span>
+    <span class="str">&quot;&quot;&quot;Executes the next step in the plan.&quot;&quot;&quot;</span>
+    console.<span class="fn">print</span>(<span class="str">&quot;--- EXECUTOR: Running next step... ---&quot;</span>)
+    plan <span class="op">=</span> state[<span class="str">&quot;plan&quot;</span>]
+    next_step <span class="op">=</span> plan[<span class="num">0</span>]
+    
+    <span class="cm"># Robust regex to handle both single and double quotes</span>
+    match <span class="op">=</span> re.<span class="fn">search</span>(r<span class="str">&quot;(\w+)\((?:\&quot;|\&#x27;)(.*?)(?:\&quot;|\&#x27;)\)&quot;</span>, next_step)
+    <span class="kw">if</span> <span class="kw">not</span> match<span class="op">:</span>
+        tool_name <span class="op">=</span> <span class="str">&quot;web_search&quot;</span>
+        query <span class="op">=</span> next_step
+    <span class="kw">else</span><span class="op">:</span>
+        tool_name, query <span class="op">=</span> match.<span class="fn">groups</span>()[<span class="num">0</span>], match.<span class="fn">groups</span>()[<span class="num">1</span>]
+    
+    console.<span class="fn">print</span>(f<span class="str">&quot;--- EXECUTOR: Calling tool &#x27;{tool_name}&#x27; with query &#x27;{query}&#x27; ---&quot;</span>)
+    
+    result <span class="op">=</span> tavily_search_tool.<span class="fn">invoke</span>(query)
+    
+    <span class="cm"># We still create a ToolMessage, but the tool call itself is now safe.</span>
+    tool_message <span class="op">=</span> <span class="fn">ToolMessage</span>(
+    content<span class="op">=</span><span class="fn">str</span>(result),
+    name<span class="op">=</span>tool_name,
+    tool_call_id<span class="op">=</span>f<span class="str">&quot;manual-{hash(query)}&quot;</span>
+    )
+    
+    <span class="kw">return</span> {
+        <span class="str">&quot;plan&quot;</span><span class="op">:</span> plan[<span class="num">1</span><span class="op">:</span>], <span class="cm"># Pop the executed step from the plan</span>
+        <span class="str">&quot;intermediate_steps&quot;</span><span class="op">:</span> state[<span class="str">&quot;intermediate_steps&quot;</span>] <span class="op">+</span> [tool_message]
+    }
+
+<span class="kw">def</span> <span class="fn">synthesizer_node</span>(state<span class="op">:</span> PlanningState)<span class="op">:</span>
+    <span class="str">&quot;&quot;&quot;Synthesizes the final answer from the intermediate steps.&quot;&quot;&quot;</span>
+    console.<span class="fn">print</span>(<span class="str">&quot;--- SYNTHESIZER: Generating final answer... ---&quot;</span>)
+    
+    context <span class="op">=</span> <span class="str">&quot;\n&quot;</span>.<span class="fn">join</span>([f<span class="str">&quot;Tool {msg.name} returned: {msg.content}&quot;</span> <span class="kw">for</span> msg <span class="kw">in</span> state[<span class="str">&quot;intermediate_steps&quot;</span>]])
+    
+    prompt <span class="op">=</span> f<span class="str">&quot;&quot;&quot;You are an expert synthesizer. Based on the user&#x27;s request and the collected data, provide a comprehensive final answer.
+    
+    Request: {state[&#x27;user_request&#x27;]}
+    Collected Data:
+    {context}
+    &quot;&quot;&quot;</span>
+    final_answer <span class="op">=</span> llm.<span class="fn">invoke</span>(prompt).content
+    <span class="kw">return</span> {<span class="str">&quot;final_answer&quot;</span><span class="op">:</span> final_answer}
+
+<span class="fn">print</span>(<span class="str">&quot;Planner, Executor, and Synthesizer nodes defined.&quot;</span>)
+
+<span class="kw">def</span> <span class="fn">planning_router</span>(state<span class="op">:</span> PlanningState)<span class="op">:</span>
+    <span class="kw">if</span> <span class="kw">not</span> state[<span class="str">&quot;plan&quot;</span>]<span class="op">:</span>
+        console.<span class="fn">print</span>(<span class="str">&quot;--- ROUTER: Plan complete. Moving to synthesizer. ---&quot;</span>)
+        <span class="kw">return</span> <span class="str">&quot;synthesize&quot;</span>
+    <span class="kw">else</span><span class="op">:</span>
+        console.<span class="fn">print</span>(<span class="str">&quot;--- ROUTER: Plan has more steps. Continuing execution. ---&quot;</span>)
+        <span class="kw">return</span> <span class="str">&quot;execute&quot;</span>
+
+planning_graph_builder <span class="op">=</span> <span class="fn">StateGraph</span>(PlanningState)
+planning_graph_builder.<span class="fn">add_node</span>(<span class="str">&quot;plan&quot;</span>, planner_node)
+planning_graph_builder.<span class="fn">add_node</span>(<span class="str">&quot;execute&quot;</span>, executor_node)
+planning_graph_builder.<span class="fn">add_node</span>(<span class="str">&quot;synthesize&quot;</span>, synthesizer_node)
+
+planning_graph_builder.<span class="fn">set_entry_point</span>(<span class="str">&quot;plan&quot;</span>)
+planning_graph_builder.<span class="fn">add_conditional_edges</span>(<span class="str">&quot;plan&quot;</span>, planning_router, {<span class="str">&quot;execute&quot;</span><span class="op">:</span> <span class="str">&quot;execute&quot;</span>, <span class="str">&quot;synthesize&quot;</span><span class="op">:</span> <span class="str">&quot;synthesize&quot;</span>}) <span class="cm"># Route after planning</span>
+planning_graph_builder.<span class="fn">add_conditional_edges</span>(<span class="str">&quot;execute&quot;</span>, planning_router, {<span class="str">&quot;execute&quot;</span><span class="op">:</span> <span class="str">&quot;execute&quot;</span>, <span class="str">&quot;synthesize&quot;</span><span class="op">:</span> <span class="str">&quot;synthesize&quot;</span>})
+planning_graph_builder.<span class="fn">add_edge</span>(<span class="str">&quot;synthesize&quot;</span>, END)
+
+planning_agent_app <span class="op">=</span> planning_graph_builder.<span class="fn">compile</span>()
+<span class="fn">print</span>(<span class="str">&quot;Planning agent compiled successfully.&quot;</span>)
+
+console.<span class="fn">print</span>(f<span class="str">&quot;[bold green]Testing PLANNING agent on the same plan-centric query:[/bold green] &#x27;{plan_centric_query}&#x27;\n&quot;</span>)
+
+<span class="cm"># Remember to initialize the state correctly, especially the list for intermediate steps</span>
+initial_planning_input <span class="op">=</span> {<span class="str">&quot;user_request&quot;</span><span class="op">:</span> plan_centric_query, <span class="str">&quot;intermediate_steps&quot;</span><span class="op">:</span> []}
+
+final_planning_output <span class="op">=</span> planning_agent_app.<span class="fn">invoke</span>(initial_planning_input)
+
+console.<span class="fn">print</span>(<span class="str">&quot;\n--- [bold green]Final Output from Planning Agent[/bold green] ---&quot;</span>)
+console.<span class="fn">print</span>(<span class="fn">Markdown</span>(final_planning_output[<span class="str">&#x27;final_answer&#x27;</span>]))
+
+<span class="kw">class</span> <span class="fn">ProcessEvaluation</span>(BaseModel)<span class="op">:</span>
+    <span class="str">&quot;&quot;&quot;Schema for evaluating an agent&#x27;s problem-solving process.&quot;&quot;&quot;</span>
+    task_completion_score<span class="op">:</span> <span class="fn">int</span> <span class="op">=</span> <span class="fn">Field</span>(description<span class="op">=</span><span class="str">&quot;Score 1-10 on whether the agent successfully completed the task.&quot;</span>)
+    process_efficiency_score<span class="op">:</span> <span class="fn">int</span> <span class="op">=</span> <span class="fn">Field</span>(description<span class="op">=</span><span class="str">&quot;Score 1-10 on the efficiency and directness of the agent&#x27;s process. A higher score means a more logical and less roundabout path.&quot;</span>)
+    justification<span class="op">:</span> <span class="fn">str</span> <span class="op">=</span> <span class="fn">Field</span>(description<span class="op">=</span><span class="str">&quot;A brief justification for the scores.&quot;</span>)
+
+judge_llm <span class="op">=</span> llm.<span class="fn">with_structured_output</span>(ProcessEvaluation)
+
+<span class="kw">def</span> <span class="fn">evaluate_agent_process</span>(query<span class="op">:</span> <span class="fn">str</span>, final_state<span class="op">:</span> <span class="fn">dict</span>)<span class="op">:</span>
+    <span class="cm"># For the ReAct agent, the trace is in &#x27;messages&#x27;. For Planning, it&#x27;s in &#x27;intermediate_steps&#x27;.</span>
+    <span class="kw">if</span> <span class="str">&#x27;messages&#x27;</span> <span class="kw">in</span> final_state<span class="op">:</span>
+        trace <span class="op">=</span> <span class="str">&quot;\n&quot;</span>.<span class="fn">join</span>([f<span class="str">&quot;{m.type}: {str(m.content)}&quot;</span> <span class="kw">for</span> m <span class="kw">in</span> final_state[<span class="str">&#x27;messages&#x27;</span>]])
+    <span class="kw">else</span><span class="op">:</span>
+        trace <span class="op">=</span> f<span class="str">&quot;Plan: {final_state.get(&#x27;plan&#x27;, [])}\nSteps: {final_state.get(&#x27;intermediate_steps&#x27;, [])}&quot;</span>
+        
+    prompt <span class="op">=</span> f<span class="str">&quot;&quot;&quot;You are an expert judge of AI agents. Evaluate the agent&#x27;s process for solving the task on a scale of 1-10.
+    Focus on whether the process was logical and efficient.
+    
+    **User&#x27;s Task:** {query}
+    **Full Agent Trace:**\n```\n{trace}\n```
+    &quot;&quot;&quot;</span>
+    <span class="kw">return</span> judge_llm.<span class="fn">invoke</span>(prompt)
+
+console.<span class="fn">print</span>(<span class="str">&quot;--- Evaluating Reactive Agent&#x27;s Process ---&quot;</span>)
+react_agent_evaluation <span class="op">=</span> <span class="fn">evaluate_agent_process</span>(plan_centric_query, final_react_output)
+console.<span class="fn">print</span>(react_agent_evaluation.<span class="fn">model_dump</span>())
+
+console.<span class="fn">print</span>(<span class="str">&quot;\n--- Evaluating Planning Agent&#x27;s Process ---&quot;</span>)
+planning_agent_evaluation <span class="op">=</span> <span class="fn">evaluate_agent_process</span>(plan_centric_query, final_planning_output)
+console.<span class="fn">print</span>(planning_agent_evaluation.<span class="fn">model_dump</span>())
+</div>
+</div>
+  </section>
+
+  <div class="prevnext"><a href="react.html"><span class="coding">Previous</span><br><span class="pn-strong">← ReAct</span></a><a href="multi-agent.html" style="text-align:right"><span class="coding">Next</span><br><span class="pn-strong">Multi-Agent Systems →</span></a></div>
+</div><div class="footer">
+  <p>Built from <a href="https://github.com/1998x-stack/all-agentic-architectures" style="color:var(--text)">all-agentic-architectures</a></p>
+</div></body></html>

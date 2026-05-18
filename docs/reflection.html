@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>#01 Reflection — All Agentic Architectures</title>
+<link rel="stylesheet" href="base-dark.css">
+<style>
+  :root {
+    --c1: #28c840; --c1d: #1a7a2a;
+    --c2: #378add; --c2d: #1a5290;
+    --c3: #a259ff; --c3d: #5a2a8a;
+    --c4: #f0883e; --c4d: #9a4a1a;
+    --c5: #1db0a0; --c5d: #0f6e56;
+  }
+  .hero h1 em {
+    background: linear-gradient(90deg, var(--c1), var(--c2), var(--c3), var(--c4), var(--c5));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  }
+  .prevnext { display: flex; justify-content: space-between; padding: 32px 0; border-top: 1px solid var(--border); margin-top: 48px; }
+  .prevnext a { color: var(--muted); font-size: 13px; }
+  .prevnext a:hover { color: var(--text); text-decoration: none; }
+  .pn-strong { color: var(--text) !important; font-weight: 500; }
+  .coding { font-size: 11px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); margin-bottom: 4px; }
+  h2 { font-size: 22px; font-weight: 600; margin: 0 0 12px; letter-spacing: -.01em; }
+  h3 { font-size: 18px; font-weight: 600; margin: 32px 0 12px; }
+</style>
+
+</head>
+<body><nav>
+  <div class="nav-inner">
+    <span class="nav-brand">All Agentic Architectures <span>· 17 Patterns</span></span>
+    <a class="nl" href="index.html">Overview</a>
+  </div>
+</nav><div class="page">
+  <section class="hero" style="padding-bottom:32px">
+    <div class="hero-badge"><span class="dot" style="background:var(--c1)"></span> #01 · Foundational Patterns</div>
+    <h1 style="font-size:36px;color:var(--text)">Reflection</h1>
+    <p style="margin-bottom:20px">High-Quality Code Generation, Complex Summarization</p>
+    <div class="tag-row">
+      <span class="ltag" style="color:var(--c1);background:rgba(40,200,64,.08);border-color:rgba(40,200,64,.25)">Part 1</span>
+    </div>
+  </section>
+
+  <section class="layer-sec" style="padding-top:16px;border-bottom:none">
+    <div class="layer-hdr">
+      <span class="layer-id-badge" style="background:#1a7a2a;color:rgba(255,255,255,.9)">Concept</span>
+      <div class="layer-title">How It Works</div>
+    </div>
+    <p class="layer-def" style="border-color:#28c840">Critiques and refines its own output in a multi-step internal monologue: produce, evaluate, improve.</p>
+    <div style="font-size:14px;line-height:1.85;color:var(--text)">
+      <h2>📘 Agentic Architectures 1: Reflection</h2>
+<p style="margin-bottom:12px;line-height:1.75;font-size:14px;color:var(--muted)">Welcome to the first notebook in our deep dive into the 21 key agentic architectures. We begin with one of the most fundamental and powerful patterns: <strong style="color:var(--text)">Reflection</strong>.</p>
+<p style="margin-bottom:12px;line-height:1.75;font-size:14px;color:var(--muted)">This pattern elevates a Large Language Model (LLM) from a simple, single-pass generator into a more deliberate and robust reasoner. Instead of just providing the first answer it comes up with, a reflective agent takes a step back to critique, analyze, and refine its own work. This iterative process of self-improvement is a cornerstone of building more reliable and higher-quality AI systems.</p>
+<h4 style="color:var(--muted);margin:24px 0 8px;font-size:14px;text-transform:uppercase;letter-spacing:.06em">Definition</h4>
+<p style="margin-bottom:12px;line-height:1.75;font-size:14px;color:var(--muted)">The <strong style="color:var(--text)">Reflection</strong> architecture involves an agent critiquing and revising its own output before returning a final answer. Instead of a single-pass generation, it engages in a multi-step internal monologue: produce, evaluate, and improve. This mimics the human process of drafting, reviewing, and editing to catch errors and enhance quality.</p>
+<h4 style="color:var(--muted);margin:24px 0 8px;font-size:14px;text-transform:uppercase;letter-spacing:.06em">High-level Workflow</h4>
+<ol style="margin:0 0 16px 18px">
+<li style="margin-bottom:8px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Generate:</strong> The agent produces an initial draft or solution based on the user&#x27;s prompt.</li>
+<li style="margin-bottom:8px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Critique:</strong> The agent then switches roles to become a critic. It asks itself questions like: <em>&quot;What could be wrong with this answer?&quot;</em>, <em>&quot;What is missing?&quot;</em>, <em>&quot;Is this solution optimal?&quot;</em>, or <em>&quot;Are there any logical flaws or bugs?&quot;</em>.</li>
+<li style="margin-bottom:8px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Refine:</strong> Using the insights from its self-critique, the agent generates a final, improved version of the output.</li>
+</ol>
+<h4 style="color:var(--muted);margin:24px 0 8px;font-size:14px;text-transform:uppercase;letter-spacing:.06em">When to Use / Applications</h4>
+<ul style="margin:0 0 16px 18px;list-style-type:disc">
+<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Code Generation:</strong> The initial code might have bugs, be inefficient, or lack comments. Reflection allows the agent to act as its own code reviewer, catching errors and improving style before presenting the final script.</li>
+<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Complex Summarization:</strong> When summarizing dense documents, a first pass might miss nuances or omit key details. A reflection step helps ensure the summary is comprehensive and accurate.</li>
+<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Creative Writing &amp; Content Creation:</strong> The first draft of an email, blog post, or story can always be improved. Reflection allows the agent to refine its tone, clarity, and impact.</li>
+</ul>
+<h4 style="color:var(--muted);margin:24px 0 8px;font-size:14px;text-transform:uppercase;letter-spacing:.06em">Strengths &amp; Weaknesses</h4>
+<ul style="margin:0 0 16px 18px;list-style-type:disc">
+<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Strengths:</strong></li>
+<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Improved Quality:</strong> Directly addresses and corrects errors, leading to more accurate, robust, and well-reasoned outputs.</li>
+<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Low Overhead:</strong> It&#x27;s a conceptually simple pattern that can be implemented with a single LLM and doesn&#x27;t require complex external tools.</li>
+<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Weaknesses:</strong></li>
+<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Self-Bias:</strong> The agent is still limited by its own knowledge and biases. If it doesn&#x27;t know a better way to solve a problem, it can&#x27;t critique its way to a better solution. It can fix flaws it recognizes but can&#x27;t invent knowledge it lacks.</li>
+<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Increased Latency &amp; Cost:</strong> The process involves at least two LLM calls (generation + critique/refinement), making it slower and more expensive than a single-pass approach.</li>
+</ul>
+    </div>
+  </section>
+
+  <section class="layer-sec" id="code">
+    <div class="layer-hdr">
+      <span class="layer-id-badge" style="background:#1a7a2a;color:rgba(255,255,255,.9)">Implementation</span>
+      <div class="layer-title">Code <small style="font-size:14px;font-weight:400;color:var(--muted)">LangChain + LangGraph</small></div>
+    </div>
+    <div class="codeblock">
+  <div class="cb-head">
+    <span class="cb-dot" style="background:#f85149"></span>
+    <span class="cb-dot" style="background:#e3b341"></span>
+    <span class="cb-dot" style="background:#28c840"></span>
+    src/src/... · 224 lines
+  </div>
+  <div class="cb-body"><span class="str">&quot;&quot;&quot;
+Reflection - Agentic Architecture
+Extracted from: 01_reflection.ipynb
+&quot;&quot;&quot;</span>
+
+<span class="cm"># !pip install -q -U langchain-nebius langchain langgraph rich python-dotenv</span>
+
+<span class="kw">import</span> os
+<span class="kw">import</span> json
+<span class="kw">from</span> typing <span class="kw">import</span> List, TypedDict, Optional
+<span class="kw">from</span> dotenv <span class="kw">import</span> load_dotenv
+
+<span class="cm"># Nebius and LangChain components</span>
+<span class="kw">from</span> langchain_nebius <span class="kw">import</span> ChatNebius
+<span class="kw">from</span> pydantic <span class="kw">import</span> BaseModel, Field <span class="cm"># Corrected import for Pydantic v2</span>
+<span class="kw">from</span> langgraph.graph <span class="kw">import</span> StateGraph, END
+
+<span class="cm"># For pretty printing</span>
+<span class="kw">from</span> rich.console <span class="kw">import</span> Console
+<span class="kw">from</span> rich.markdown <span class="kw">import</span> Markdown
+<span class="kw">from</span> rich.syntax <span class="kw">import</span> Syntax
+
+<span class="cm"># --- API Key and Tracing Setup ---</span>
+<span class="fn">load_dotenv</span>()
+
+<span class="cm"># Set up LangSmith tracing</span>
+os.environ[<span class="str">&quot;LANGCHAIN_TRACING_V2&quot;</span>] <span class="op">=</span> <span class="str">&quot;true&quot;</span>
+os.environ[<span class="str">&quot;LANGCHAIN_PROJECT&quot;</span>] <span class="op">=</span> <span class="str">&quot;Agentic Architecture - Reflection (Nebius)&quot;</span>
+
+<span class="cm"># Check that the keys are set</span>
+<span class="kw">if</span> <span class="kw">not</span> os.environ.<span class="fn">get</span>(<span class="str">&quot;NEBIUS_API_KEY&quot;</span>)<span class="op">:</span>
+    <span class="fn">print</span>(<span class="str">&quot;NEBIUS_API_KEY not found. Please create a .env file and set it.&quot;</span>)
+<span class="kw">if</span> <span class="kw">not</span> os.environ.<span class="fn">get</span>(<span class="str">&quot;LANGCHAIN_API_KEY&quot;</span>)<span class="op">:</span>
+    <span class="fn">print</span>(<span class="str">&quot;LANGCHAIN_API_KEY not found. Please create a .env file and set it for tracing.&quot;</span>)
+
+<span class="fn">print</span>(<span class="str">&quot;Environment variables loaded and tracing is set up.&quot;</span>)
+
+<span class="kw">class</span> <span class="fn">DraftCode</span>(BaseModel)<span class="op">:</span>
+    <span class="str">&quot;&quot;&quot;Schema for the initial code draft generated by the agent.&quot;&quot;&quot;</span>
+    code<span class="op">:</span> <span class="fn">str</span> <span class="op">=</span> <span class="fn">Field</span>(description<span class="op">=</span><span class="str">&quot;The Python code generated to solve the user&#x27;s request.&quot;</span>)
+    explanation<span class="op">:</span> <span class="fn">str</span> <span class="op">=</span> <span class="fn">Field</span>(description<span class="op">=</span><span class="str">&quot;A brief explanation of how the code works.&quot;</span>)
+
+<span class="kw">class</span> <span class="fn">Critique</span>(BaseModel)<span class="op">:</span>
+    <span class="str">&quot;&quot;&quot;Schema for the self-critique of the generated code.&quot;&quot;&quot;</span>
+    has_errors<span class="op">:</span> <span class="fn">bool</span> <span class="op">=</span> <span class="fn">Field</span>(description<span class="op">=</span><span class="str">&quot;Does the code have any potential bugs or logical errors?&quot;</span>)
+    is_efficient<span class="op">:</span> <span class="fn">bool</span> <span class="op">=</span> <span class="fn">Field</span>(description<span class="op">=</span><span class="str">&quot;Is the code written in an efficient and optimal way?&quot;</span>)
+    suggested_improvements<span class="op">:</span> List[<span class="fn">str</span>] <span class="op">=</span> <span class="fn">Field</span>(description<span class="op">=</span><span class="str">&quot;Specific, actionable suggestions for improving the code.&quot;</span>)
+    critique_summary<span class="op">:</span> <span class="fn">str</span> <span class="op">=</span> <span class="fn">Field</span>(description<span class="op">=</span><span class="str">&quot;A summary of the critique.&quot;</span>)
+
+<span class="kw">class</span> <span class="fn">RefinedCode</span>(BaseModel)<span class="op">:</span>
+    <span class="str">&quot;&quot;&quot;Schema for the final, refined code after incorporating the critique.&quot;&quot;&quot;</span>
+    refined_code<span class="op">:</span> <span class="fn">str</span> <span class="op">=</span> <span class="fn">Field</span>(description<span class="op">=</span><span class="str">&quot;The final, improved Python code.&quot;</span>)
+    refinement_summary<span class="op">:</span> <span class="fn">str</span> <span class="op">=</span> <span class="fn">Field</span>(description<span class="op">=</span><span class="str">&quot;A summary of the changes made based on the critique.&quot;</span>)
+
+<span class="fn">print</span>(<span class="str">&quot;Pydantic models for Draft, Critique, and RefinedCode have been defined.&quot;</span>)
+
+<span class="cm"># Use a powerful Nebius model for generation and critique</span>
+llm <span class="op">=</span> <span class="fn">ChatNebius</span>(model<span class="op">=</span><span class="str">&quot;meta-llama/Meta-Llama-3.1-8B-Instruct&quot;</span>, temperature<span class="op">=</span><span class="num">0.2</span>)
+
+<span class="cm"># Initialize console for pretty printing</span>
+console <span class="op">=</span> <span class="fn">Console</span>()
+
+<span class="fn">print</span>(<span class="str">&quot;Nebius LLM and Console are initialized.&quot;</span>)
+
+<span class="kw">def</span> <span class="fn">generator_node</span>(state)<span class="op">:</span>
+    <span class="str">&quot;&quot;&quot;Generates the initial draft of the code.&quot;&quot;&quot;</span>
+    console.<span class="fn">print</span>(<span class="str">&quot;--- 1. Generating Initial Draft ---&quot;</span>)
+    generator_llm <span class="op">=</span> llm.<span class="fn">with_structured_output</span>(DraftCode)
+    
+    prompt <span class="op">=</span> f<span class="str">&quot;&quot;&quot;You are an expert Python programmer. Write a Python function to solve the following request.
+    Provide a simple, clear implementation and an explanation.
+    
+    Request: {state[&#x27;user_request&#x27;]}
+    &quot;&quot;&quot;</span>
+    
+    draft <span class="op">=</span> generator_llm.<span class="fn">invoke</span>(prompt)
+    <span class="kw">return</span> {<span class="str">&quot;draft&quot;</span><span class="op">:</span> draft.<span class="fn">model_dump</span>()} <span class="cm"># Corrected: use .model_dump()</span>
+
+<span class="kw">def</span> <span class="fn">critic_node</span>(state)<span class="op">:</span>
+    <span class="str">&quot;&quot;&quot;Critiques the generated code for errors and inefficiencies.&quot;&quot;&quot;</span>
+    console.<span class="fn">print</span>(<span class="str">&quot;--- 2. Critiquing Draft ---&quot;</span>)
+    critic_llm <span class="op">=</span> llm.<span class="fn">with_structured_output</span>(Critique)
+    
+    code_to_critique <span class="op">=</span> state[<span class="str">&#x27;draft&#x27;</span>][<span class="str">&#x27;code&#x27;</span>]
+    
+    prompt <span class="op">=</span> f<span class="str">&quot;&quot;&quot;You are an expert code reviewer and senior Python developer. Your task is to perform a thorough critique of the following code.
+    
+    Analyze the code for:
+    1.  **Bugs and Errors:** Are there any potential runtime errors, logical flaws, or edge cases that are not handled?
+    2.  **Efficiency and Best Practices:** Is this the most efficient way to solve the problem? Does it follow standard Python conventions (PEP 8)?
+    
+    Provide a structured critique with specific, actionable suggestions.
+    
+    Code to Review:
+    ```python
+    {code_to_critique}
+    ```
+    &quot;&quot;&quot;</span>
+    
+    critique <span class="op">=</span> critic_llm.<span class="fn">invoke</span>(prompt)
+    <span class="kw">return</span> {<span class="str">&quot;critique&quot;</span><span class="op">:</span> critique.<span class="fn">model_dump</span>()} <span class="cm"># Corrected: use .model_dump()</span>
+
+<span class="kw">def</span> <span class="fn">refiner_node</span>(state)<span class="op">:</span>
+    <span class="str">&quot;&quot;&quot;Refines the code based on the critique.&quot;&quot;&quot;</span>
+    console.<span class="fn">print</span>(<span class="str">&quot;--- 3. Refining Code ---&quot;</span>)
+    refiner_llm <span class="op">=</span> llm.<span class="fn">with_structured_output</span>(RefinedCode)
+    
+    draft_code <span class="op">=</span> state[<span class="str">&#x27;draft&#x27;</span>][<span class="str">&#x27;code&#x27;</span>]
+    critique_suggestions <span class="op">=</span> json.<span class="fn">dumps</span>(state[<span class="str">&#x27;critique&#x27;</span>], indent<span class="op">=</span><span class="num">2</span>)
+    
+    prompt <span class="op">=</span> f<span class="str">&quot;&quot;&quot;You are an expert Python programmer tasked with refining a piece of code based on a critique.
+    
+    Your goal is to rewrite the original code, implementing all the suggested improvements from the critique.
+    
+    **Original Code:**
+    ```python
+    {draft_code}
+    ```
+    
+    **Critique and Suggestions:**
+    {critique_suggestions}
+    
+    Please provide the final, refined code and a summary of the changes you made.
+    &quot;&quot;&quot;</span>
+    
+    refined_code <span class="op">=</span> refiner_llm.<span class="fn">invoke</span>(prompt)
+    <span class="kw">return</span> {<span class="str">&quot;refined_code&quot;</span><span class="op">:</span> refined_code.<span class="fn">model_dump</span>()} <span class="cm"># Corrected: use .model_dump()</span>
+
+<span class="kw">class</span> <span class="fn">ReflectionState</span>(TypedDict)<span class="op">:</span>
+    <span class="str">&quot;&quot;&quot;Represents the state of our reflection graph.&quot;&quot;&quot;</span>
+    user_request<span class="op">:</span> <span class="fn">str</span>
+    draft<span class="op">:</span> Optional[<span class="fn">dict</span>]
+    critique<span class="op">:</span> Optional[<span class="fn">dict</span>]
+    refined_code<span class="op">:</span> Optional[<span class="fn">dict</span>]
+
+<span class="fn">print</span>(<span class="str">&quot;ReflectionState TypedDict defined.&quot;</span>)
+
+graph_builder <span class="op">=</span> <span class="fn">StateGraph</span>(ReflectionState)
+
+<span class="cm"># Add the nodes to the graph</span>
+graph_builder.<span class="fn">add_node</span>(<span class="str">&quot;generator&quot;</span>, generator_node)
+graph_builder.<span class="fn">add_node</span>(<span class="str">&quot;critic&quot;</span>, critic_node)
+graph_builder.<span class="fn">add_node</span>(<span class="str">&quot;refiner&quot;</span>, refiner_node)
+
+<span class="cm"># Define the workflow edges</span>
+graph_builder.<span class="fn">set_entry_point</span>(<span class="str">&quot;generator&quot;</span>)
+graph_builder.<span class="fn">add_edge</span>(<span class="str">&quot;generator&quot;</span>, <span class="str">&quot;critic&quot;</span>)
+graph_builder.<span class="fn">add_edge</span>(<span class="str">&quot;critic&quot;</span>, <span class="str">&quot;refiner&quot;</span>)
+graph_builder.<span class="fn">add_edge</span>(<span class="str">&quot;refiner&quot;</span>, END)
+
+<span class="cm"># Compile the graph</span>
+reflection_app <span class="op">=</span> graph_builder.<span class="fn">compile</span>()
+
+<span class="fn">print</span>(<span class="str">&quot;Reflection graph compiled successfully!&quot;</span>)
+
+<span class="cm"># Visualize the graph</span>
+<span class="kw">try</span><span class="op">:</span>
+    <span class="kw">from</span> IPython.display <span class="kw">import</span> Image, display
+    png_image <span class="op">=</span> reflection_app.<span class="fn">get_graph</span>().<span class="fn">draw_png</span>()
+    <span class="fn">display</span>(<span class="fn">Image</span>(png_image))
+<span class="kw">except</span> Exception <span class="kw">as</span> e<span class="op">:</span>
+    <span class="fn">print</span>(f<span class="str">&quot;Graph visualization failed: {e}. Please ensure pygraphviz is installed.&quot;</span>)
+
+user_request <span class="op">=</span> <span class="str">&quot;Write a Python function to find the nth Fibonacci number.&quot;</span>
+initial_input <span class="op">=</span> {<span class="str">&quot;user_request&quot;</span><span class="op">:</span> user_request}
+
+console.<span class="fn">print</span>(f<span class="str">&quot;[bold cyan]🚀 Kicking off Reflection workflow for request:[/bold cyan] &#x27;{user_request}&#x27;\n&quot;</span>)
+
+<span class="cm"># Corrected: This loop correctly captures the final, fully-populated state</span>
+final_state <span class="op">=</span> <span class="kw">None</span>
+<span class="kw">for</span> state_update <span class="kw">in</span> reflection_app.<span class="fn">stream</span>(initial_input, stream_mode<span class="op">=</span><span class="str">&quot;values&quot;</span>)<span class="op">:</span>
+    final_state <span class="op">=</span> state_update
+
+console.<span class="fn">print</span>(<span class="str">&quot;\n[bold green]✅ Reflection workflow complete![/bold green]&quot;</span>)
+
+<span class="cm"># Check if final_state is available and has the expected keys</span>
+<span class="kw">if</span> final_state <span class="kw">and</span> <span class="str">&#x27;draft&#x27;</span> <span class="kw">in</span> final_state <span class="kw">and</span> <span class="str">&#x27;critique&#x27;</span> <span class="kw">in</span> final_state <span class="kw">and</span> <span class="str">&#x27;refined_code&#x27;</span> <span class="kw">in</span> final_state<span class="op">:</span>
+    console.<span class="fn">print</span>(<span class="fn">Markdown</span>(<span class="str">&quot;--- ### Initial Draft ---&quot;</span>))
+    console.<span class="fn">print</span>(<span class="fn">Markdown</span>(f<span class="str">&quot;**Explanation:** {final_state[&#x27;draft&#x27;][&#x27;explanation&#x27;]}&quot;</span>))
+    <span class="cm"># Use rich&#x27;s Syntax for proper code highlighting</span>
+    console.<span class="fn">print</span>(<span class="fn">Syntax</span>(final_state[<span class="str">&#x27;draft&#x27;</span>][<span class="str">&#x27;code&#x27;</span>], <span class="str">&quot;python&quot;</span>, theme<span class="op">=</span><span class="str">&quot;monokai&quot;</span>, line_numbers<span class="op">=</span><span class="kw">True</span>))
+
+    console.<span class="fn">print</span>(<span class="fn">Markdown</span>(<span class="str">&quot;\n--- ### Critique ---&quot;</span>))
+    console.<span class="fn">print</span>(<span class="fn">Markdown</span>(f<span class="str">&quot;**Summary:** {final_state[&#x27;critique&#x27;][&#x27;critique_summary&#x27;]}&quot;</span>))
+    console.<span class="fn">print</span>(<span class="fn">Markdown</span>(f<span class="str">&quot;**Improvements Suggested:**&quot;</span>))
+    <span class="kw">for</span> improvement <span class="kw">in</span> final_state[<span class="str">&#x27;critique&#x27;</span>][<span class="str">&#x27;suggested_improvements&#x27;</span>]<span class="op">:</span>
+        console.<span class="fn">print</span>(<span class="fn">Markdown</span>(f<span class="str">&quot;- {improvement}&quot;</span>))
+
+    console.<span class="fn">print</span>(<span class="fn">Markdown</span>(<span class="str">&quot;\n--- ### Final Refined Code ---&quot;</span>))
+    console.<span class="fn">print</span>(<span class="fn">Markdown</span>(f<span class="str">&quot;**Refinement Summary:** {final_state[&#x27;refined_code&#x27;][&#x27;refinement_summary&#x27;]}&quot;</span>))
+    console.<span class="fn">print</span>(<span class="fn">Syntax</span>(final_state[<span class="str">&#x27;refined_code&#x27;</span>][<span class="str">&#x27;refined_code&#x27;</span>], <span class="str">&quot;python&quot;</span>, theme<span class="op">=</span><span class="str">&quot;monokai&quot;</span>, line_numbers<span class="op">=</span><span class="kw">True</span>))
+<span class="kw">else</span><span class="op">:</span>
+    console.<span class="fn">print</span>(<span class="str">&quot;[bold red]Error: The `final_state` is not available or is incomplete. Please check the execution of the previous cells.[/bold red]&quot;</span>)
+
+<span class="kw">class</span> <span class="fn">CodeEvaluation</span>(BaseModel)<span class="op">:</span>
+    <span class="str">&quot;&quot;&quot;Schema for evaluating a piece of code.&quot;&quot;&quot;</span>
+    correctness_score<span class="op">:</span> <span class="fn">int</span> <span class="op">=</span> <span class="fn">Field</span>(description<span class="op">=</span><span class="str">&quot;Score from 1-10 on whether the code is logically correct.&quot;</span>)
+    efficiency_score<span class="op">:</span> <span class="fn">int</span> <span class="op">=</span> <span class="fn">Field</span>(description<span class="op">=</span><span class="str">&quot;Score from 1-10 on the code&#x27;s algorithmic efficiency.&quot;</span>)
+    style_score<span class="op">:</span> <span class="fn">int</span> <span class="op">=</span> <span class="fn">Field</span>(description<span class="op">=</span><span class="str">&quot;Score from 1-10 on code style and readability (PEP 8). &quot;</span>)
+    justification<span class="op">:</span> <span class="fn">str</span> <span class="op">=</span> <span class="fn">Field</span>(description<span class="op">=</span><span class="str">&quot;A brief justification for the scores.&quot;</span>)
+
+judge_llm <span class="op">=</span> llm.<span class="fn">with_structured_output</span>(CodeEvaluation)
+
+<span class="kw">def</span> <span class="fn">evaluate_code</span>(code_to_evaluate<span class="op">:</span> <span class="fn">str</span>)<span class="op">:</span>
+    prompt <span class="op">=</span> f<span class="str">&quot;&quot;&quot;You are an expert judge of Python code. Evaluate the following function on a scale of 1-10 for correctness, efficiency, and style. Provide a brief justification.
+    
+    Code:
+    ```python
+    {code_to_evaluate}
+    ```
+    &quot;&quot;&quot;</span>
+    <span class="kw">return</span> judge_llm.<span class="fn">invoke</span>(prompt)
+
+<span class="kw">if</span> final_state <span class="kw">and</span> <span class="str">&#x27;draft&#x27;</span> <span class="kw">in</span> final_state <span class="kw">and</span> <span class="str">&#x27;refined_code&#x27;</span> <span class="kw">in</span> final_state<span class="op">:</span>
+    console.<span class="fn">print</span>(<span class="str">&quot;--- Evaluating Initial Draft ---&quot;</span>)
+    initial_draft_evaluation <span class="op">=</span> <span class="fn">evaluate_code</span>(final_state[<span class="str">&#x27;draft&#x27;</span>][<span class="str">&#x27;code&#x27;</span>])
+    console.<span class="fn">print</span>(initial_draft_evaluation.<span class="fn">model_dump</span>()) <span class="cm"># Corrected: use .model_dump()</span>
+
+    console.<span class="fn">print</span>(<span class="str">&quot;\n--- Evaluating Refined Code ---&quot;</span>)
+    refined_code_evaluation <span class="op">=</span> <span class="fn">evaluate_code</span>(final_state[<span class="str">&#x27;refined_code&#x27;</span>][<span class="str">&#x27;refined_code&#x27;</span>])
+    console.<span class="fn">print</span>(refined_code_evaluation.<span class="fn">model_dump</span>()) <span class="cm"># Corrected: use .model_dump()</span>
+<span class="kw">else</span><span class="op">:</span>
+    console.<span class="fn">print</span>(<span class="str">&quot;[bold red]Error: Cannot perform evaluation because the `final_state` is incomplete.[/bold red]&quot;</span>)
+</div>
+</div>
+  </section>
+
+  <div class="prevnext"><span></span><a href="tool-use.html" style="text-align:right"><span class="coding">Next</span><br><span class="pn-strong">Tool Use →</span></a></div>
+</div><div class="footer">
+  <p>Built from <a href="https://github.com/1998x-stack/all-agentic-architectures" style="color:var(--text)">all-agentic-architectures</a></p>
+</div></body></html>

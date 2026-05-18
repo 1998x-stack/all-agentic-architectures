@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>#02 Tool Use — All Agentic Architectures</title>
+<link rel="stylesheet" href="base-dark.css">
+<style>
+  :root {
+    --c1: #28c840; --c1d: #1a7a2a;
+    --c2: #378add; --c2d: #1a5290;
+    --c3: #a259ff; --c3d: #5a2a8a;
+    --c4: #f0883e; --c4d: #9a4a1a;
+    --c5: #1db0a0; --c5d: #0f6e56;
+  }
+  .hero h1 em {
+    background: linear-gradient(90deg, var(--c1), var(--c2), var(--c3), var(--c4), var(--c5));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  }
+  .prevnext { display: flex; justify-content: space-between; padding: 32px 0; border-top: 1px solid var(--border); margin-top: 48px; }
+  .prevnext a { color: var(--muted); font-size: 13px; }
+  .prevnext a:hover { color: var(--text); text-decoration: none; }
+  .pn-strong { color: var(--text) !important; font-weight: 500; }
+  .coding { font-size: 11px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); margin-bottom: 4px; }
+  h2 { font-size: 22px; font-weight: 600; margin: 0 0 12px; letter-spacing: -.01em; }
+  h3 { font-size: 18px; font-weight: 600; margin: 32px 0 12px; }
+</style>
+
+</head>
+<body><nav>
+  <div class="nav-inner">
+    <span class="nav-brand">All Agentic Architectures <span>· 17 Patterns</span></span>
+    <a class="nl" href="index.html">Overview</a>
+  </div>
+</nav><div class="page">
+  <section class="hero" style="padding-bottom:32px">
+    <div class="hero-badge"><span class="dot" style="background:var(--c1)"></span> #02 · Foundational Patterns</div>
+    <h1 style="font-size:36px;color:var(--text)">Tool Use</h1>
+    <p style="margin-bottom:20px">Real-time Research Assistants, Enterprise Bots</p>
+    <div class="tag-row">
+      <span class="ltag" style="color:var(--c1);background:rgba(40,200,64,.08);border-color:rgba(40,200,64,.25)">Part 1</span>
+    </div>
+  </section>
+
+  <section class="layer-sec" style="padding-top:16px;border-bottom:none">
+    <div class="layer-hdr">
+      <span class="layer-id-badge" style="background:#1a7a2a;color:rgba(255,255,255,.9)">Concept</span>
+      <div class="layer-title">How It Works</div>
+    </div>
+    <p class="layer-def" style="border-color:#28c840">Overcomes knowledge cutoffs by autonomously calling external APIs and functions when needed.</p>
+    <div style="font-size:14px;line-height:1.85;color:var(--text)">
+      <h2>📘 Agentic Architectures 2: Tool Use</h2>
+<p style="margin-bottom:12px;line-height:1.75;font-size:14px;color:var(--muted)">This notebook covers the second, and arguably one of the most transformative, agentic architectures: <strong style="color:var(--text)">Tool Use</strong>. This pattern is the bridge that connects a Large Language Model&#x27;s reasoning capabilities to the real, dynamic world.</p>
+<p style="margin-bottom:12px;line-height:1.75;font-size:14px;color:var(--muted)">Without tools, an LLM is a closed system, limited by the knowledge frozen into its training data. It cannot know today&#x27;s weather, the current price of a stock, or the status of an order in your company&#x27;s database. By giving an agent the ability to use tools, we empower it to overcome this fundamental limitation, allowing it to query APIs, search databases, and access live information to provide answers that are not just reasoned, but also factual, timely, and relevant.</p>
+<h4 style="color:var(--muted);margin:24px 0 8px;font-size:14px;text-transform:uppercase;letter-spacing:.06em">Definition</h4>
+<p style="margin-bottom:12px;line-height:1.75;font-size:14px;color:var(--muted)">The <strong style="color:var(--text)">Tool Use</strong> architecture equips an LLM-powered agent with the ability to call external functions or APIs (the &quot;tools&quot;). The agent autonomously decides when a user&#x27;s query cannot be answered by its internal knowledge alone and determines which tool is appropriate to call to find the necessary information.</p>
+<h4 style="color:var(--muted);margin:24px 0 8px;font-size:14px;text-transform:uppercase;letter-spacing:.06em">High-level Workflow</h4>
+<ol style="margin:0 0 16px 18px">
+<li style="margin-bottom:8px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Receive Query:</strong> The agent receives a request from the user.</li>
+<li style="margin-bottom:8px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Decision:</strong> The agent analyzes the query and its available tools. It decides if a tool is needed to answer the question accurately.</li>
+<li style="margin-bottom:8px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Action:</strong> If a tool is needed, the agent formats a call to that tool (e.g., a specific function with the right arguments).</li>
+<li style="margin-bottom:8px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Observation:</strong> The system executes the tool call, and the result (the &quot;observation&quot;) is returned to the agent.</li>
+<li style="margin-bottom:8px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Synthesis:</strong> The agent integrates the tool&#x27;s output into its reasoning process to generate a final, grounded answer for the user.</li>
+</ol>
+<h4 style="color:var(--muted);margin:24px 0 8px;font-size:14px;text-transform:uppercase;letter-spacing:.06em">When to Use / Applications</h4>
+<ul style="margin:0 0 16px 18px;list-style-type:disc">
+<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Research Assistants:</strong> Answering questions that require up-to-the-minute information by using a web search API.</li>
+<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Enterprise Assistants:</strong> Querying internal company databases to answer questions like &quot;How many new users signed up last week?&quot;</li>
+<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Scientific &amp; Mathematical Tasks:</strong> Using a calculator or a computational engine like WolframAlpha for precise calculations that LLMs often struggle with.</li>
+</ul>
+<h4 style="color:var(--muted);margin:24px 0 8px;font-size:14px;text-transform:uppercase;letter-spacing:.06em">Strengths &amp; Weaknesses</h4>
+<ul style="margin:0 0 16px 18px;list-style-type:disc">
+<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Strengths:</strong></li>
+<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Factual Grounding:</strong> Drastically reduces hallucinations by fetching real, live data.</li>
+<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Extensibility:</strong> The agent&#x27;s capabilities can be continuously expanded by simply adding new tools.</li>
+<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Weaknesses:</strong></li>
+<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Integration Overhead:</strong> Requires careful &quot;plumbing&quot; to define tools, handle API keys, and manage potential tool failures.</li>
+<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Tool Trust:</strong> The quality of the agent&#x27;s answer is dependent on the reliability and accuracy of the tools it uses. The agent must trust that its tools provide correct information.</li>
+</ul>
+    </div>
+  </section>
+
+  <section class="layer-sec" id="code">
+    <div class="layer-hdr">
+      <span class="layer-id-badge" style="background:#1a7a2a;color:rgba(255,255,255,.9)">Implementation</span>
+      <div class="layer-title">Code <small style="font-size:14px;font-weight:400;color:var(--muted)">LangChain + LangGraph</small></div>
+    </div>
+    <div class="codeblock">
+  <div class="cb-head">
+    <span class="cb-dot" style="background:#f85149"></span>
+    <span class="cb-dot" style="background:#e3b341"></span>
+    <span class="cb-dot" style="background:#28c840"></span>
+    src/src/... · 166 lines
+  </div>
+  <div class="cb-body"><span class="str">&quot;&quot;&quot;
+Tool Use - Agentic Architecture
+Extracted from: 02_tool_use.ipynb
+&quot;&quot;&quot;</span>
+
+<span class="cm"># !pip install -q -U langchain-nebius langchain langgraph rich python-dotenv tavily-python</span>
+
+<span class="kw">import</span> os
+<span class="kw">import</span> json
+<span class="kw">from</span> typing <span class="kw">import</span> List, Annotated, TypedDict, Optional
+<span class="kw">from</span> dotenv <span class="kw">import</span> load_dotenv
+
+<span class="cm"># LangChain components</span>
+<span class="kw">from</span> langchain_nebius <span class="kw">import</span> ChatNebius
+<span class="kw">from</span> langchain_community.tools.tavily_search <span class="kw">import</span> TavilySearchResults
+<span class="kw">from</span> langchain_core.messages <span class="kw">import</span> BaseMessage, ToolMessage
+<span class="kw">from</span> pydantic <span class="kw">import</span> BaseModel, Field
+
+<span class="cm"># LangGraph components</span>
+<span class="kw">from</span> langgraph.graph <span class="kw">import</span> StateGraph, END
+<span class="kw">from</span> langgraph.graph.message <span class="kw">import</span> AnyMessage, add_messages
+<span class="kw">from</span> langgraph.prebuilt <span class="kw">import</span> ToolNode
+
+<span class="cm"># For pretty printing</span>
+<span class="kw">from</span> rich.console <span class="kw">import</span> Console
+<span class="kw">from</span> rich.markdown <span class="kw">import</span> Markdown
+
+<span class="cm"># --- API Key and Tracing Setup ---</span>
+<span class="fn">load_dotenv</span>()
+
+os.environ[<span class="str">&quot;LANGCHAIN_TRACING_V2&quot;</span>] <span class="op">=</span> <span class="str">&quot;true&quot;</span>
+os.environ[<span class="str">&quot;LANGCHAIN_PROJECT&quot;</span>] <span class="op">=</span> <span class="str">&quot;Agentic Architecture - Tool Use (Nebius)&quot;</span>
+
+<span class="cm"># Check that the keys are set</span>
+<span class="kw">for</span> key <span class="kw">in</span> [<span class="str">&quot;NEBIUS_API_KEY&quot;</span>, <span class="str">&quot;LANGCHAIN_API_KEY&quot;</span>, <span class="str">&quot;TAVILY_API_KEY&quot;</span>]<span class="op">:</span>
+    <span class="kw">if</span> <span class="kw">not</span> os.environ.<span class="fn">get</span>(key)<span class="op">:</span>
+        <span class="fn">print</span>(f<span class="str">&quot;{key} not found. Please create a .env file and set it.&quot;</span>)
+
+<span class="fn">print</span>(<span class="str">&quot;Environment variables loaded and tracing is set up.&quot;</span>)
+
+<span class="cm"># Initialize the tool. We can set the max number of results to keep the context concise.</span>
+search_tool <span class="op">=</span> <span class="fn">TavilySearchResults</span>(max_results<span class="op">=</span><span class="num">2</span>)
+
+<span class="cm"># It&#x27;s crucial to give the tool a clear name and description for the agent</span>
+search_tool.name <span class="op">=</span> <span class="str">&quot;web_search&quot;</span>
+search_tool.description <span class="op">=</span> <span class="str">&quot;A tool that can be used to search the internet for up-to-date information on any topic, including news, events, and current affairs.&quot;</span>
+
+tools <span class="op">=</span> [search_tool]
+<span class="fn">print</span>(f<span class="str">&quot;Tool &#x27;{search_tool.name}&#x27; created with description: &#x27;{search_tool.description}&#x27;&quot;</span>)
+
+console <span class="op">=</span> <span class="fn">Console</span>()
+
+<span class="cm"># Let&#x27;s test the tool directly to see its output format</span>
+<span class="fn">print</span>(<span class="str">&quot;\n--- Testing the tool directly ---&quot;</span>)
+test_query <span class="op">=</span> <span class="str">&quot;What was the score of the last Super Bowl?&quot;</span>
+test_result <span class="op">=</span> search_tool.<span class="fn">invoke</span>({<span class="str">&quot;query&quot;</span><span class="op">:</span> test_query})
+console.<span class="fn">print</span>(f<span class="str">&quot;[bold green]Query:[/bold green] {test_query}&quot;</span>)
+console.<span class="fn">print</span>(<span class="str">&quot;\n[bold green]Result:[/bold green]&quot;</span>)
+console.<span class="fn">print</span>(test_result)
+
+<span class="kw">class</span> <span class="fn">AgentState</span>(TypedDict)<span class="op">:</span>
+    messages<span class="op">:</span> Annotated[<span class="fn">list</span>[AnyMessage], add_messages]
+
+<span class="fn">print</span>(<span class="str">&quot;AgentState TypedDict defined to manage conversation history.&quot;</span>)
+
+llm <span class="op">=</span> <span class="fn">ChatNebius</span>(model<span class="op">=</span><span class="str">&quot;meta-llama/Meta-Llama-3.1-8B-Instruct&quot;</span>, temperature<span class="op">=</span><span class="num">0</span>)
+
+<span class="cm"># Bind the tools to the LLM, making it tool-aware</span>
+llm_with_tools <span class="op">=</span> llm.<span class="fn">bind_tools</span>(tools)
+
+<span class="fn">print</span>(<span class="str">&quot;LLM has been bound with the provided tools.&quot;</span>)
+
+<span class="kw">def</span> <span class="fn">agent_node</span>(state<span class="op">:</span> AgentState)<span class="op">:</span>
+    <span class="str">&quot;&quot;&quot;The primary node that calls the LLM to decide the next action.&quot;&quot;&quot;</span>
+    console.<span class="fn">print</span>(<span class="str">&quot;--- AGENT: Thinking... ---&quot;</span>)
+    response <span class="op">=</span> llm_with_tools.<span class="fn">invoke</span>(state[<span class="str">&quot;messages&quot;</span>])
+    <span class="kw">return</span> {<span class="str">&quot;messages&quot;</span><span class="op">:</span> [response]}
+
+<span class="cm"># The ToolNode is a pre-built node from LangGraph that executes tools</span>
+tool_node <span class="op">=</span> <span class="fn">ToolNode</span>(tools)
+
+<span class="fn">print</span>(<span class="str">&quot;Agent node and Tool node have been defined.&quot;</span>)
+
+<span class="kw">def</span> <span class="fn">router_function</span>(state<span class="op">:</span> AgentState) <span class="op">-</span><span class="op">&gt;</span> <span class="fn">str</span><span class="op">:</span>
+    <span class="str">&quot;&quot;&quot;Inspects the agent&#x27;s last message to decide the next step.&quot;&quot;&quot;</span>
+    last_message <span class="op">=</span> state[<span class="str">&quot;messages&quot;</span>][<span class="op">-</span><span class="num">1</span>]
+    <span class="kw">if</span> last_message.tool_calls<span class="op">:</span>
+        <span class="cm"># The agent has requested a tool call</span>
+        console.<span class="fn">print</span>(<span class="str">&quot;--- ROUTER: Decision is to call a tool. ---&quot;</span>)
+        <span class="kw">return</span> <span class="str">&quot;call_tool&quot;</span>
+    <span class="kw">else</span><span class="op">:</span>
+        <span class="cm"># The agent has provided a final answer</span>
+        console.<span class="fn">print</span>(<span class="str">&quot;--- ROUTER: Decision is to finish. ---&quot;</span>)
+        <span class="kw">return</span> <span class="str">&quot;__end__&quot;</span>
+
+<span class="fn">print</span>(<span class="str">&quot;Router function defined.&quot;</span>)
+
+graph_builder <span class="op">=</span> <span class="fn">StateGraph</span>(AgentState)
+
+<span class="cm"># Add the nodes</span>
+graph_builder.<span class="fn">add_node</span>(<span class="str">&quot;agent&quot;</span>, agent_node)
+graph_builder.<span class="fn">add_node</span>(<span class="str">&quot;call_tool&quot;</span>, tool_node)
+
+<span class="cm"># Set the entry point</span>
+graph_builder.<span class="fn">set_entry_point</span>(<span class="str">&quot;agent&quot;</span>)
+
+<span class="cm"># Add the conditional router</span>
+graph_builder.<span class="fn">add_conditional_edges</span>(
+    <span class="str">&quot;agent&quot;</span>,
+    router_function,
+)
+
+<span class="cm"># Add the edge from the tool node back to the agent to complete the loop</span>
+graph_builder.<span class="fn">add_edge</span>(<span class="str">&quot;call_tool&quot;</span>, <span class="str">&quot;agent&quot;</span>)
+
+<span class="cm"># Compile the graph</span>
+tool_agent_app <span class="op">=</span> graph_builder.<span class="fn">compile</span>()
+
+<span class="fn">print</span>(<span class="str">&quot;Tool-using agent graph compiled successfully!&quot;</span>)
+
+<span class="cm"># Visualize the graph</span>
+<span class="kw">try</span><span class="op">:</span>
+    <span class="kw">from</span> IPython.display <span class="kw">import</span> Image, display
+    png_image <span class="op">=</span> tool_agent_app.<span class="fn">get_graph</span>().<span class="fn">draw_png</span>()
+    <span class="fn">display</span>(<span class="fn">Image</span>(png_image))
+<span class="kw">except</span> Exception <span class="kw">as</span> e<span class="op">:</span>
+    <span class="fn">print</span>(f<span class="str">&quot;Graph visualization failed: {e}. Please ensure pygraphviz is installed.&quot;</span>)
+
+user_query <span class="op">=</span> <span class="str">&quot;What were the main announcements from Apple&#x27;s latest WWDC event?&quot;</span>
+initial_input <span class="op">=</span> {<span class="str">&quot;messages&quot;</span><span class="op">:</span> [(<span class="str">&quot;user&quot;</span>, user_query)]}
+
+console.<span class="fn">print</span>(f<span class="str">&quot;[bold cyan]🚀 Kicking off Tool Use workflow for request:[/bold cyan] &#x27;{user_query}&#x27;\n&quot;</span>)
+
+<span class="kw">for</span> chunk <span class="kw">in</span> tool_agent_app.<span class="fn">stream</span>(initial_input, stream_mode<span class="op">=</span><span class="str">&quot;values&quot;</span>)<span class="op">:</span>
+    chunk[<span class="str">&quot;messages&quot;</span>][<span class="op">-</span><span class="num">1</span>].<span class="fn">pretty_print</span>()
+    console.<span class="fn">print</span>(<span class="str">&quot;\n---\n&quot;</span>)
+
+console.<span class="fn">print</span>(<span class="str">&quot;\n[bold green]✅ Tool Use workflow complete![/bold green]&quot;</span>)
+
+<span class="kw">class</span> <span class="fn">ToolUseEvaluation</span>(BaseModel)<span class="op">:</span>
+    <span class="str">&quot;&quot;&quot;Schema for evaluating the agent&#x27;s tool use and final answer.&quot;&quot;&quot;</span>
+    tool_selection_score<span class="op">:</span> <span class="fn">int</span> <span class="op">=</span> <span class="fn">Field</span>(description<span class="op">=</span><span class="str">&quot;Score 1-5 on whether the agent chose the correct tool for the task.&quot;</span>)
+    tool_input_score<span class="op">:</span> <span class="fn">int</span> <span class="op">=</span> <span class="fn">Field</span>(description<span class="op">=</span><span class="str">&quot;Score 1-5 on how well-formed and relevant the input to the tool was.&quot;</span>)
+    synthesis_quality_score<span class="op">:</span> <span class="fn">int</span> <span class="op">=</span> <span class="fn">Field</span>(description<span class="op">=</span><span class="str">&quot;Score 1-5 on how well the agent integrated the tool&#x27;s output into its final answer.&quot;</span>)
+    justification<span class="op">:</span> <span class="fn">str</span> <span class="op">=</span> <span class="fn">Field</span>(description<span class="op">=</span><span class="str">&quot;A brief justification for the scores.&quot;</span>)
+
+judge_llm <span class="op">=</span> llm.<span class="fn">with_structured_output</span>(ToolUseEvaluation)
+
+<span class="cm"># To evaluate, we need to reconstruct the full conversation trace</span>
+final_answer <span class="op">=</span> tool_agent_app.<span class="fn">invoke</span>(initial_input)
+conversation_trace <span class="op">=</span> <span class="str">&quot;\n&quot;</span>.<span class="fn">join</span>([f<span class="str">&quot;{m.type}: {m.content or &#x27;&#x27;} {getattr(m, &#x27;tool_calls&#x27;, &#x27;&#x27;)}&quot;</span> <span class="kw">for</span> m <span class="kw">in</span> final_answer[<span class="str">&#x27;messages&#x27;</span>]])
+
+<span class="kw">def</span> <span class="fn">evaluate_tool_use</span>(trace<span class="op">:</span> <span class="fn">str</span>)<span class="op">:</span>
+    prompt <span class="op">=</span> f<span class="str">&quot;&quot;&quot;You are an expert judge of AI agents. Evaluate the following conversation trace based on the agent&#x27;s tool use on a scale of 1-5. Provide a brief justification.
+    
+    Conversation Trace:
+    ```
+    {trace}
+    ```
+    &quot;&quot;&quot;</span>
+    <span class="kw">return</span> judge_llm.<span class="fn">invoke</span>(prompt)
+
+console.<span class="fn">print</span>(<span class="str">&quot;--- Evaluating Tool Use Performance ---&quot;</span>)
+evaluation <span class="op">=</span> <span class="fn">evaluate_tool_use</span>(conversation_trace)
+console.<span class="fn">print</span>(evaluation.<span class="fn">model_dump</span>())
+</div>
+</div>
+  </section>
+
+  <div class="prevnext"><a href="reflection.html"><span class="coding">Previous</span><br><span class="pn-strong">← Reflection</span></a><a href="react.html" style="text-align:right"><span class="coding">Next</span><br><span class="pn-strong">ReAct →</span></a></div>
+</div><div class="footer">
+  <p>Built from <a href="https://github.com/1998x-stack/all-agentic-architectures" style="color:var(--text)">all-agentic-architectures</a></p>
+</div></body></html>

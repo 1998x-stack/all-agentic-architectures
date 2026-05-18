@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>#06 PEV (Plan, Execute, Verify) — All Agentic Architectures</title>
+<link rel="stylesheet" href="base-dark.css">
+<style>
+  :root {
+    --c1: #28c840; --c1d: #1a7a2a;
+    --c2: #378add; --c2d: #1a5290;
+    --c3: #a259ff; --c3d: #5a2a8a;
+    --c4: #f0883e; --c4d: #9a4a1a;
+    --c5: #1db0a0; --c5d: #0f6e56;
+  }
+  .hero h1 em {
+    background: linear-gradient(90deg, var(--c1), var(--c2), var(--c3), var(--c4), var(--c5));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  }
+  .prevnext { display: flex; justify-content: space-between; padding: 32px 0; border-top: 1px solid var(--border); margin-top: 48px; }
+  .prevnext a { color: var(--muted); font-size: 13px; }
+  .prevnext a:hover { color: var(--text); text-decoration: none; }
+  .pn-strong { color: var(--text) !important; font-weight: 500; }
+  .coding { font-size: 11px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); margin-bottom: 4px; }
+  h2 { font-size: 22px; font-weight: 600; margin: 0 0 12px; letter-spacing: -.01em; }
+  h3 { font-size: 18px; font-weight: 600; margin: 32px 0 12px; }
+</style>
+
+</head>
+<body><nav>
+  <div class="nav-inner">
+    <span class="nav-brand">All Agentic Architectures <span>· 17 Patterns</span></span>
+    <a class="nl" href="index.html">Overview</a>
+  </div>
+</nav><div class="page">
+  <section class="hero" style="padding-bottom:32px">
+    <div class="hero-badge"><span class="dot" style="background:var(--c4)"></span> #06 · Safety & Reliability</div>
+    <h1 style="font-size:36px;color:var(--text)">PEV (Plan, Execute, Verify)</h1>
+    <p style="margin-bottom:20px">High-Stakes Automation, Finance, Unreliable Tools</p>
+    <div class="tag-row">
+      <span class="ltag" style="color:var(--c4);background:rgba(240,136,62,.08);border-color:rgba(240,136,62,.25)">Part 4</span>
+    </div>
+  </section>
+
+  <section class="layer-sec" style="padding-top:16px;border-bottom:none">
+    <div class="layer-hdr">
+      <span class="layer-id-badge" style="background:#9a4a1a;color:rgba(255,255,255,.9)">Concept</span>
+      <div class="layer-title">How It Works</div>
+    </div>
+    <p class="layer-def" style="border-color:#f0883e">A self-correcting loop where a Verifier agent checks each action&#x27;s outcome, enabling error detection and dynamic recovery.</p>
+    <div style="font-size:14px;line-height:1.85;color:var(--text)">
+      <h2>📘 Agentic Architectures 6: Planner → Executor → Verifier (PEV)</h2>
+<p style="margin-bottom:12px;line-height:1.75;font-size:14px;color:var(--muted)">In this notebook, we explore the <strong style="color:var(--text)">Planner → Executor → Verifier (PEV)</strong> architecture, a pattern that introduces a critical layer of robustness and self-correction into agentic systems. This architecture is inspired by rigorous software engineering and quality assurance processes, where work is not considered &#x27;done&#x27; until it has been verified.</p>
+<p style="margin-bottom:12px;line-height:1.75;font-size:14px;color:var(--muted)">While a standard Planning agent brings structure and predictability, it operates on a crucial assumption: that its tools will work perfectly and return valid data every time. In the real world, APIs fail, searches return no results, and data can be malformed. The PEV pattern addresses this by adding a dedicated <strong style="color:var(--text)">Verifier</strong> agent that acts as a quality assurance check after every action, enabling the system to detect failures and dynamically recover.</p>
+<p style="margin-bottom:12px;line-height:1.75;font-size:14px;color:var(--muted)">To demonstrate its value, we will first build a standard <strong style="color:var(--text)">Planner-Executor agent</strong> and show how it fails when a tool returns an error. Then, we will build a full <strong style="color:var(--text)">PEV agent</strong> to show how the Verifier catches the error, triggers a re-planning loop, and ultimately guides the system to a successful outcome.</p>
+<h4 style="color:var(--muted);margin:24px 0 8px;font-size:14px;text-transform:uppercase;letter-spacing:.06em">Definition</h4>
+<p style="margin-bottom:12px;line-height:1.75;font-size:14px;color:var(--muted)">The <strong style="color:var(--text)">Planner → Executor → Verifier (PEV)</strong> architecture is a three-stage workflow that explicitly separates the acts of planning, executing, and verifying. It ensures that the output of each step is validated before the agent proceeds, creating a robust, self-correcting loop.</p>
+<h4 style="color:var(--muted);margin:24px 0 8px;font-size:14px;text-transform:uppercase;letter-spacing:.06em">High-level Workflow</h4>
+<ol style="margin:0 0 16px 18px">
+<li style="margin-bottom:8px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Plan:</strong> A &#x27;Planner&#x27; agent decomposes a high-level goal into a sequence of concrete, executable steps.</li>
+<li style="margin-bottom:8px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Execute:</strong> An &#x27;Executor&#x27; agent takes the <em>next</em> step from the plan and calls the appropriate tool.</li>
+<li style="margin-bottom:8px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Verify:</strong> A &#x27;Verifier&#x27; agent examines the output from the Executor. It checks for correctness, relevance, and potential errors. It then produces a judgment: did the step succeed or fail?</li>
+<li style="margin-bottom:8px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Route &amp; Iterate:</strong> Based on the Verifier&#x27;s judgment, a router decides the next move:</li>
+<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)">If the step <strong style="color:var(--text)">succeeded</strong> and the plan is not complete, loop back to the Executor for the next step.</li>
+<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)">If the step <strong style="color:var(--text)">failed</strong>, loop back to the Planner to create a <em>new</em> plan, often providing the failure context so the new plan can be smarter.</li>
+<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)">If the step <strong style="color:var(--text)">succeeded</strong> and the plan is complete, proceed to a final synthesis step.</li>
+</ol>
+<h4 style="color:var(--muted);margin:24px 0 8px;font-size:14px;text-transform:uppercase;letter-spacing:.06em">When to Use / Applications</h4>
+<ul style="margin:0 0 16px 18px;list-style-type:disc">
+<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Safety-Critical Applications (Finance, Healthcare):</strong> When the cost of an error is high, PEV provides essential guardrails to prevent the agent from acting on bad data.</li>
+<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Systems with Unreliable Tools:</strong> When dealing with external APIs that might be flaky or return inconsistent data, the Verifier can catch failures gracefully.</li>
+<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">High-Precision Tasks (Legal, Scientific):</strong> For tasks requiring a high degree of factual accuracy, the Verifier ensures each piece of retrieved information is valid before it&#x27;s used in downstream reasoning.</li>
+</ul>
+<h4 style="color:var(--muted);margin:24px 0 8px;font-size:14px;text-transform:uppercase;letter-spacing:.06em">Strengths &amp; Weaknesses</h4>
+<ul style="margin:0 0 16px 18px;list-style-type:disc">
+<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Strengths:</strong></li>
+<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Robustness &amp; Reliability:</strong> Its core strength is the ability to detect and recover from errors.</li>
+<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Modularity:</strong> The separation of concerns makes the system easier to debug and maintain.</li>
+<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Weaknesses:</strong></li>
+<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Increased Latency &amp; Cost:</strong> The addition of a verification step after every action adds more LLM calls, making it the slowest and most expensive of the architectures we&#x27;ve covered so far.</li>
+<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Verifier Complexity:</strong> Designing an effective Verifier can be challenging. It needs to be smart enough to distinguish between minor issues and critical failures.</li>
+</ul>
+    </div>
+  </section>
+
+  <section class="layer-sec" id="code">
+    <div class="layer-hdr">
+      <span class="layer-id-badge" style="background:#9a4a1a;color:rgba(255,255,255,.9)">Implementation</span>
+      <div class="layer-title">Code <small style="font-size:14px;font-weight:400;color:var(--muted)">LangChain + LangGraph</small></div>
+    </div>
+    <div class="codeblock">
+  <div class="cb-head">
+    <span class="cb-dot" style="background:#f85149"></span>
+    <span class="cb-dot" style="background:#e3b341"></span>
+    <span class="cb-dot" style="background:#28c840"></span>
+    src/src/... · 280 lines
+  </div>
+  <div class="cb-body"><span class="str">&quot;&quot;&quot;
+PEV - Agentic Architecture
+Extracted from: 06_PEV.ipynb
+&quot;&quot;&quot;</span>
+
+<span class="cm"># !pip install -q -U langchain-nebius langchain langgraph rich python-dotenv langchain-tavily</span>
+
+<span class="kw">import</span> os
+<span class="kw">import</span> re
+<span class="kw">from</span> typing <span class="kw">import</span> List, Annotated, TypedDict, Optional
+<span class="kw">from</span> dotenv <span class="kw">import</span> load_dotenv
+<span class="kw">import</span> json
+
+<span class="cm"># LangChain components</span>
+<span class="kw">from</span> langchain_nebius <span class="kw">import</span> ChatNebius
+<span class="kw">from</span> langchain_tavily <span class="kw">import</span> TavilySearch
+<span class="kw">from</span> langchain_core.messages <span class="kw">import</span> BaseMessage, ToolMessage
+<span class="kw">from</span> pydantic <span class="kw">import</span> BaseModel, Field
+
+<span class="cm"># LangGraph components</span>
+<span class="kw">from</span> langgraph.graph <span class="kw">import</span> StateGraph, END
+
+<span class="cm"># For pretty printing</span>
+<span class="kw">from</span> rich.console <span class="kw">import</span> Console
+<span class="kw">from</span> rich.markdown <span class="kw">import</span> Markdown
+
+<span class="cm"># --- API Key and Tracing Setup ---</span>
+<span class="fn">load_dotenv</span>()
+
+os.environ[<span class="str">&quot;LANGCHAIN_TRACING_V2&quot;</span>] <span class="op">=</span> <span class="str">&quot;true&quot;</span>
+os.environ[<span class="str">&quot;LANGCHAIN_PROJECT&quot;</span>] <span class="op">=</span> <span class="str">&quot;Agentic Architecture - PEV (Nebius)&quot;</span>
+
+<span class="kw">for</span> key <span class="kw">in</span> [<span class="str">&quot;NEBIUS_API_KEY&quot;</span>, <span class="str">&quot;LANGCHAIN_API_KEY&quot;</span>, <span class="str">&quot;TAVILY_API_KEY&quot;</span>]<span class="op">:</span>
+    <span class="kw">if</span> <span class="kw">not</span> os.environ.<span class="fn">get</span>(key)<span class="op">:</span>
+        <span class="fn">print</span>(f<span class="str">&quot;{key} not found. Please create a .env file and set it.&quot;</span>)
+
+<span class="fn">print</span>(<span class="str">&quot;Environment variables loaded and tracing is set up.&quot;</span>)
+
+console <span class="op">=</span> <span class="fn">Console</span>()
+llm <span class="op">=</span> <span class="fn">ChatNebius</span>(model<span class="op">=</span><span class="str">&quot;meta-llama/Meta-Llama-3.1-8B-Instruct&quot;</span>, temperature<span class="op">=</span><span class="num">0</span>)
+
+<span class="cm"># Define a &#x27;flaky&#x27; tool that will fail for a specific query</span>
+<span class="kw">def</span> <span class="fn">flaky_web_search</span>(query<span class="op">:</span> <span class="fn">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="fn">str</span><span class="op">:</span>
+    <span class="str">&quot;&quot;&quot;Performs a web search, but is designed to fail for a specific query.&quot;&quot;&quot;</span>
+    console.<span class="fn">print</span>(f<span class="str">&quot;--- TOOL: Searching for &#x27;{query}&#x27;... ---&quot;</span>)
+    <span class="kw">if</span> <span class="str">&quot;employee count&quot;</span> <span class="kw">in</span> query.<span class="fn">lower</span>()<span class="op">:</span>
+        console.<span class="fn">print</span>(<span class="str">&quot;--- TOOL: [bold red]Simulating API failure![/bold red] ---&quot;</span>)
+        <span class="kw">return</span> <span class="str">&quot;Error: Could not retrieve data. The API endpoint is currently unavailable.&quot;</span>
+    <span class="kw">else</span><span class="op">:</span>
+        result <span class="op">=</span> <span class="fn">TavilySearch</span>(max_results<span class="op">=</span><span class="num">2</span>).<span class="fn">invoke</span>(query)
+        <span class="cm"># 🔑 Ensure result is always a string</span>
+        <span class="kw">if</span> <span class="fn">isinstance</span>(result, (<span class="fn">dict</span>, <span class="fn">list</span>))<span class="op">:</span>
+            <span class="kw">return</span> json.<span class="fn">dumps</span>(result, indent<span class="op">=</span><span class="num">2</span>)
+        <span class="kw">return</span> <span class="fn">str</span>(result)
+
+<span class="cm"># Define the state for the basic P-E agent</span>
+<span class="kw">class</span> <span class="fn">BasicPEState</span>(TypedDict)<span class="op">:</span>
+    user_request<span class="op">:</span> <span class="fn">str</span>
+    plan<span class="op">:</span> Optional[List[<span class="fn">str</span>]]
+    intermediate_steps<span class="op">:</span> List[<span class="fn">str</span>]
+    final_answer<span class="op">:</span> Optional[<span class="fn">str</span>]
+
+<span class="kw">class</span> <span class="fn">Plan</span>(BaseModel)<span class="op">:</span>
+    steps<span class="op">:</span> List[<span class="fn">str</span>] <span class="op">=</span> <span class="fn">Field</span>(description<span class="op">=</span><span class="str">&quot;A list of tool calls to execute.&quot;</span>)
+
+<span class="kw">def</span> <span class="fn">basic_planner_node</span>(state<span class="op">:</span> BasicPEState)<span class="op">:</span>
+    console.<span class="fn">print</span>(<span class="str">&quot;--- (Basic) PLANNER: Creating plan... ---&quot;</span>)
+    planner_llm <span class="op">=</span> llm.<span class="fn">with_structured_output</span>(Plan)
+
+    prompt <span class="op">=</span> f<span class="str">&quot;&quot;&quot;
+    You are a planning agent. 
+    Your job is to decompose the user&#x27;s request into a list of clear tool queries.
+
+    - Only return JSON that matches this schema: {{ &quot;steps&quot;: [ &quot;query1&quot;, &quot;query2&quot;, ... ] }}
+    - Do NOT return any prose or explanation.
+    - Always use the &#x27;flaky_web_search&#x27; tool for queries.
+
+    User&#x27;s request: &quot;{state[&#x27;user_request&#x27;]}&quot;
+    &quot;&quot;&quot;</span>
+    plan <span class="op">=</span> planner_llm.<span class="fn">invoke</span>(prompt)
+    <span class="kw">return</span> {<span class="str">&quot;plan&quot;</span><span class="op">:</span> plan.steps}
+
+<span class="kw">def</span> <span class="fn">basic_executor_node</span>(state<span class="op">:</span> BasicPEState)<span class="op">:</span>
+    console.<span class="fn">print</span>(<span class="str">&quot;--- (Basic) EXECUTOR: Running next step... ---&quot;</span>)
+    next_step <span class="op">=</span> state[<span class="str">&quot;plan&quot;</span>][<span class="num">0</span>]
+    result <span class="op">=</span> <span class="fn">flaky_web_search</span>(next_step)
+    <span class="kw">return</span> {<span class="str">&quot;plan&quot;</span><span class="op">:</span> state[<span class="str">&quot;plan&quot;</span>][<span class="num">1</span><span class="op">:</span>], <span class="str">&quot;intermediate_steps&quot;</span><span class="op">:</span> state[<span class="str">&quot;intermediate_steps&quot;</span>] <span class="op">+</span> [result]}
+
+<span class="kw">def</span> <span class="fn">basic_synthesizer_node</span>(state<span class="op">:</span> BasicPEState)<span class="op">:</span>
+    console.<span class="fn">print</span>(<span class="str">&quot;--- (Basic) SYNTHESIZER: Generating final answer... ---&quot;</span>)
+    context <span class="op">=</span> <span class="str">&quot;\n&quot;</span>.<span class="fn">join</span>(state[<span class="str">&quot;intermediate_steps&quot;</span>])
+    prompt <span class="op">=</span> f<span class="str">&quot;Synthesize an answer for &#x27;{state[&#x27;user_request&#x27;]}&#x27; using this data:\n{context}&quot;</span>
+    answer <span class="op">=</span> llm.<span class="fn">invoke</span>(prompt).content
+    <span class="kw">return</span> {<span class="str">&quot;final_answer&quot;</span><span class="op">:</span> answer}
+
+<span class="cm"># Build the graph</span>
+pe_graph_builder <span class="op">=</span> <span class="fn">StateGraph</span>(BasicPEState)
+pe_graph_builder.<span class="fn">add_node</span>(<span class="str">&quot;plan&quot;</span>, basic_planner_node)
+pe_graph_builder.<span class="fn">add_node</span>(<span class="str">&quot;execute&quot;</span>, basic_executor_node)
+pe_graph_builder.<span class="fn">add_node</span>(<span class="str">&quot;synthesize&quot;</span>, basic_synthesizer_node)
+
+pe_graph_builder.<span class="fn">set_entry_point</span>(<span class="str">&quot;plan&quot;</span>)
+pe_graph_builder.<span class="fn">add_conditional_edges</span>(<span class="str">&quot;plan&quot;</span>, <span class="kw">lambda</span> s<span class="op">:</span> <span class="str">&quot;execute&quot;</span> <span class="kw">if</span> s[<span class="str">&quot;plan&quot;</span>] <span class="kw">else</span> <span class="str">&quot;synthesize&quot;</span>)
+pe_graph_builder.<span class="fn">add_conditional_edges</span>(<span class="str">&quot;execute&quot;</span>, <span class="kw">lambda</span> s<span class="op">:</span> <span class="str">&quot;execute&quot;</span> <span class="kw">if</span> s[<span class="str">&quot;plan&quot;</span>] <span class="kw">else</span> <span class="str">&quot;synthesize&quot;</span>)
+pe_graph_builder.<span class="fn">add_edge</span>(<span class="str">&quot;synthesize&quot;</span>, END)
+
+basic_pe_app <span class="op">=</span> pe_graph_builder.<span class="fn">compile</span>()
+<span class="fn">print</span>(<span class="str">&quot;Basic Planner-Executor agent compiled successfully.&quot;</span>)
+
+flaky_query <span class="op">=</span> <span class="str">&quot;What was Apple&#x27;s R&amp;D spend in their last fiscal year, and what was their total employee count? Calculate the R&amp;D spend per employee.&quot;</span>
+
+console.<span class="fn">print</span>(f<span class="str">&quot;[bold yellow]Testing BASIC P-E agent on a flaky query:[/bold yellow]\n&#x27;{flaky_query}&#x27;\n&quot;</span>)
+
+initial_pe_input <span class="op">=</span> {<span class="str">&quot;user_request&quot;</span><span class="op">:</span> flaky_query, <span class="str">&quot;intermediate_steps&quot;</span><span class="op">:</span> []}
+final_pe_output <span class="op">=</span> basic_pe_app.<span class="fn">invoke</span>(initial_pe_input)
+
+console.<span class="fn">print</span>(<span class="str">&quot;\n--- [bold red]Final Output from Basic P-E Agent[/bold red] ---&quot;</span>)
+console.<span class="fn">print</span>(<span class="fn">Markdown</span>(final_pe_output[<span class="str">&#x27;final_answer&#x27;</span>]))
+
+<span class="kw">class</span> <span class="fn">VerificationResult</span>(BaseModel)<span class="op">:</span>
+    <span class="str">&quot;&quot;&quot;Schema for the Verifier&#x27;s output.&quot;&quot;&quot;</span>
+    is_successful<span class="op">:</span> <span class="fn">bool</span> <span class="op">=</span> <span class="fn">Field</span>(description<span class="op">=</span><span class="str">&quot;True if the tool execution was successful and the data is valid.&quot;</span>)
+    reasoning<span class="op">:</span> <span class="fn">str</span> <span class="op">=</span> <span class="fn">Field</span>(description<span class="op">=</span><span class="str">&quot;Reasoning for the verification decision.&quot;</span>)
+
+<span class="kw">class</span> <span class="fn">PEVState</span>(TypedDict)<span class="op">:</span>
+    user_request<span class="op">:</span> <span class="fn">str</span>
+    plan<span class="op">:</span> Optional[List[<span class="fn">str</span>]]
+    last_tool_result<span class="op">:</span> Optional[<span class="fn">str</span>]
+    intermediate_steps<span class="op">:</span> List[<span class="fn">str</span>]
+    final_answer<span class="op">:</span> Optional[<span class="fn">str</span>]
+    retries<span class="op">:</span> <span class="fn">int</span>  <span class="cm"># count how many times we’ve replanned</span>
+
+<span class="kw">from</span> langchain_core.exceptions <span class="kw">import</span> OutputParserException
+
+<span class="kw">class</span> <span class="fn">Plan</span>(BaseModel)<span class="op">:</span>
+    steps<span class="op">:</span> List[<span class="fn">str</span>] <span class="op">=</span> <span class="fn">Field</span>(
+        description<span class="op">=</span><span class="str">&quot;List of queries (max 5).&quot;</span>,
+        max_items<span class="op">=</span><span class="num">5</span>
+    )
+
+<span class="kw">def</span> <span class="fn">pev_planner_node</span>(state<span class="op">:</span> PEVState)<span class="op">:</span>
+    retries <span class="op">=</span> state.<span class="fn">get</span>(<span class="str">&quot;retries&quot;</span>, <span class="num">0</span>)
+    <span class="kw">if</span> retries <span class="op">&gt;</span> <span class="num">3</span><span class="op">:</span>  <span class="cm"># stop after 3 replans</span>
+        console.<span class="fn">print</span>(<span class="str">&quot;--- (PEV) PLANNER: Retry limit reached. Stopping. ---&quot;</span>)
+        <span class="kw">return</span> {
+            <span class="str">&quot;plan&quot;</span><span class="op">:</span> [],
+            <span class="str">&quot;final_answer&quot;</span><span class="op">:</span> <span class="str">&quot;Error: Unable to complete task after multiple retries.&quot;</span>
+        }
+
+    console.<span class="fn">print</span>(f<span class="str">&quot;--- (PEV) PLANNER: Creating/revising plan (retry {retries})... ---&quot;</span>)
+
+    planner_llm <span class="op">=</span> llm.<span class="fn">with_structured_output</span>(Plan, strict<span class="op">=</span><span class="kw">True</span>)  <span class="cm"># ✅ strict schema</span>
+
+    past_context <span class="op">=</span> <span class="str">&quot;\n&quot;</span>.<span class="fn">join</span>(state[<span class="str">&quot;intermediate_steps&quot;</span>])
+    base_prompt <span class="op">=</span> f<span class="str">&quot;&quot;&quot;
+    You are a planning agent. 
+    Create a plan to answer: &#x27;{state[&#x27;user_request&#x27;]}&#x27;. 
+    Use the &#x27;flaky_web_search&#x27; tool.
+
+    Rules:
+    - Return ONLY valid JSON in this exact format: {{ &quot;steps&quot;: [&quot;query1&quot;, &quot;query2&quot;] }}
+    - Maximum 5 steps.
+    - Do NOT repeat failed queries or endless variations.
+    - Do NOT output explanations, only JSON.
+
+    Previous attempts and results:
+    {past_context}
+    &quot;&quot;&quot;</span>
+
+    <span class="cm"># ✅ retry wrapper for bad JSON</span>
+    <span class="kw">for</span> attempt <span class="kw">in</span> <span class="fn">range</span>(<span class="num">2</span>)<span class="op">:</span>
+        <span class="kw">try</span><span class="op">:</span>
+            plan <span class="op">=</span> planner_llm.<span class="fn">invoke</span>(base_prompt)
+            <span class="kw">return</span> {<span class="str">&quot;plan&quot;</span><span class="op">:</span> plan.steps, <span class="str">&quot;retries&quot;</span><span class="op">:</span> retries <span class="op">+</span> <span class="num">1</span>}
+        <span class="kw">except</span> OutputParserException <span class="kw">as</span> e<span class="op">:</span>
+            console.<span class="fn">print</span>(f<span class="str">&quot;[red]Planner parsing failed (attempt {attempt+1}): {e}[/red]&quot;</span>)
+            base_prompt <span class="op">=</span> f<span class="str">&quot;Return ONLY valid JSON with {{&#x27;steps&#x27;: [&#x27;...&#x27;]}}. {base_prompt}&quot;</span>
+
+    <span class="cm"># ultimate fallback to avoid crashing</span>
+    <span class="kw">return</span> {<span class="str">&quot;plan&quot;</span><span class="op">:</span> [<span class="str">&quot;Apple R&amp;D spend last fiscal year&quot;</span>], <span class="str">&quot;retries&quot;</span><span class="op">:</span> retries <span class="op">+</span> <span class="num">1</span>}
+
+
+
+<span class="kw">def</span> <span class="fn">pev_executor_node</span>(state<span class="op">:</span> PEVState)<span class="op">:</span>
+    <span class="kw">if</span> <span class="kw">not</span> state.<span class="fn">get</span>(<span class="str">&quot;plan&quot;</span>)<span class="op">:</span>  <span class="cm"># ✅ guard against empty plan</span>
+        console.<span class="fn">print</span>(<span class="str">&quot;--- (PEV) EXECUTOR: No steps left, skipping execution. ---&quot;</span>)
+        <span class="kw">return</span> {}
+    
+    console.<span class="fn">print</span>(<span class="str">&quot;--- (PEV) EXECUTOR: Running next step... ---&quot;</span>)
+    next_step <span class="op">=</span> state[<span class="str">&quot;plan&quot;</span>][<span class="num">0</span>]
+    result <span class="op">=</span> <span class="fn">flaky_web_search</span>(next_step)
+    <span class="kw">return</span> {<span class="str">&quot;plan&quot;</span><span class="op">:</span> state[<span class="str">&quot;plan&quot;</span>][<span class="num">1</span><span class="op">:</span>], <span class="str">&quot;last_tool_result&quot;</span><span class="op">:</span> result}
+
+<span class="kw">def</span> <span class="fn">verifier_node</span>(state<span class="op">:</span> PEVState)<span class="op">:</span>
+    console.<span class="fn">print</span>(<span class="str">&quot;--- VERIFIER: Checking last tool result... ---&quot;</span>)
+    verifier_llm <span class="op">=</span> llm.<span class="fn">with_structured_output</span>(VerificationResult)
+    prompt <span class="op">=</span> f<span class="str">&quot;Verify if the following tool output is a successful result or an error message. The task was &#x27;{state[&#x27;user_request&#x27;]}&#x27;.\n\nTool Output: &#x27;{state[&#x27;last_tool_result&#x27;]}&#x27;&quot;</span>
+    verification <span class="op">=</span> verifier_llm.<span class="fn">invoke</span>(prompt)
+    console.<span class="fn">print</span>(f<span class="str">&quot;--- VERIFIER: Judgment is &#x27;{&#x27;Success&#x27; if verification.is_successful else &#x27;Failure&#x27;}&#x27; ---&quot;</span>)
+    <span class="kw">if</span> verification.is_successful<span class="op">:</span>
+        <span class="cm"># If successful, add the valid result to our list of good steps</span>
+        <span class="kw">return</span> {<span class="str">&quot;intermediate_steps&quot;</span><span class="op">:</span> state[<span class="str">&quot;intermediate_steps&quot;</span>] <span class="op">+</span> [state[<span class="str">&#x27;last_tool_result&#x27;</span>]]}
+    <span class="kw">else</span><span class="op">:</span>
+        <span class="cm"># If failed, add the failure reason and trigger re-planning by clearing the plan</span>
+        <span class="kw">return</span> {<span class="str">&quot;plan&quot;</span><span class="op">:</span> [], <span class="str">&quot;intermediate_steps&quot;</span><span class="op">:</span> state[<span class="str">&quot;intermediate_steps&quot;</span>] <span class="op">+</span> [f<span class="str">&quot;Verification Failed: {state[&#x27;last_tool_result&#x27;]}&quot;</span>]}
+
+pev_synthesizer_node <span class="op">=</span> basic_synthesizer_node <span class="cm"># We can reuse the same synthesizer</span>
+
+<span class="kw">def</span> <span class="fn">pev_router</span>(state<span class="op">:</span> PEVState)<span class="op">:</span>
+    <span class="cm"># ✅ If we already have a final answer (e.g. retry limit reached), stop</span>
+    <span class="kw">if</span> state.<span class="fn">get</span>(<span class="str">&quot;final_answer&quot;</span>)<span class="op">:</span>
+        console.<span class="fn">print</span>(<span class="str">&quot;--- ROUTER: Final answer available. Moving to synthesizer. ---&quot;</span>)
+        <span class="kw">return</span> <span class="str">&quot;synthesize&quot;</span>
+
+    <span class="kw">if</span> <span class="kw">not</span> state[<span class="str">&quot;plan&quot;</span>]<span class="op">:</span>
+        <span class="cm"># Check if plan is empty because of verification failure</span>
+        <span class="kw">if</span> state[<span class="str">&quot;intermediate_steps&quot;</span>] <span class="kw">and</span> <span class="str">&quot;Verification Failed&quot;</span> <span class="kw">in</span> state[<span class="str">&quot;intermediate_steps&quot;</span>][<span class="op">-</span><span class="num">1</span>]<span class="op">:</span>
+            console.<span class="fn">print</span>(<span class="str">&quot;--- ROUTER: Verification failed. Re-planning... ---&quot;</span>)
+            <span class="kw">return</span> <span class="str">&quot;plan&quot;</span>
+        <span class="kw">else</span><span class="op">:</span>
+            console.<span class="fn">print</span>(<span class="str">&quot;--- ROUTER: Plan complete. Moving to synthesizer. ---&quot;</span>)
+            <span class="kw">return</span> <span class="str">&quot;synthesize&quot;</span>
+    <span class="kw">else</span><span class="op">:</span>
+        console.<span class="fn">print</span>(<span class="str">&quot;--- ROUTER: Plan has more steps. Continuing execution. ---&quot;</span>)
+        <span class="kw">return</span> <span class="str">&quot;execute&quot;</span>
+
+
+<span class="cm"># Build the PEV graph</span>
+pev_graph_builder <span class="op">=</span> <span class="fn">StateGraph</span>(PEVState)
+pev_graph_builder.<span class="fn">add_node</span>(<span class="str">&quot;plan&quot;</span>, pev_planner_node)
+pev_graph_builder.<span class="fn">add_node</span>(<span class="str">&quot;execute&quot;</span>, pev_executor_node)
+pev_graph_builder.<span class="fn">add_node</span>(<span class="str">&quot;verify&quot;</span>, verifier_node)
+pev_graph_builder.<span class="fn">add_node</span>(<span class="str">&quot;synthesize&quot;</span>, pev_synthesizer_node)
+
+pev_graph_builder.<span class="fn">set_entry_point</span>(<span class="str">&quot;plan&quot;</span>)
+pev_graph_builder.<span class="fn">add_edge</span>(<span class="str">&quot;plan&quot;</span>, <span class="str">&quot;execute&quot;</span>)
+pev_graph_builder.<span class="fn">add_edge</span>(<span class="str">&quot;execute&quot;</span>, <span class="str">&quot;verify&quot;</span>)
+pev_graph_builder.<span class="fn">add_conditional_edges</span>(<span class="str">&quot;verify&quot;</span>, pev_router)
+pev_graph_builder.<span class="fn">add_edge</span>(<span class="str">&quot;synthesize&quot;</span>, END)
+
+pev_agent_app <span class="op">=</span> pev_graph_builder.<span class="fn">compile</span>()
+<span class="fn">print</span>(<span class="str">&quot;Planner-Executor-Verifier (PEV) agent compiled successfully.&quot;</span>)
+
+console.<span class="fn">print</span>(f<span class="str">&quot;[bold green]Testing PEV agent on the same flaky query:[/bold green]\n&#x27;{flaky_query}&#x27;\n&quot;</span>)
+
+initial_pev_input <span class="op">=</span> {<span class="str">&quot;user_request&quot;</span><span class="op">:</span> flaky_query, <span class="str">&quot;intermediate_steps&quot;</span><span class="op">:</span> [], <span class="str">&quot;retries&quot;</span><span class="op">:</span> <span class="num">0</span>}
+
+final_pev_output <span class="op">=</span> pev_agent_app.<span class="fn">invoke</span>(initial_pev_input)
+
+console.<span class="fn">print</span>(<span class="str">&quot;\n--- [bold green]Final Output from PEV Agent[/bold green] ---&quot;</span>)
+console.<span class="fn">print</span>(<span class="fn">Markdown</span>(final_pev_output[<span class="str">&#x27;final_answer&#x27;</span>]))
+
+<span class="kw">class</span> <span class="fn">RobustnessEvaluation</span>(BaseModel)<span class="op">:</span>
+    <span class="str">&quot;&quot;&quot;Schema for evaluating an agent&#x27;s robustness and error handling.&quot;&quot;&quot;</span>
+    task_completion_score<span class="op">:</span> <span class="fn">int</span> <span class="op">=</span> <span class="fn">Field</span>(description<span class="op">=</span><span class="str">&quot;Score 1-10 on whether the agent successfully completed the task, ignoring data errors.&quot;</span>)
+    error_handling_score<span class="op">:</span> <span class="fn">int</span> <span class="op">=</span> <span class="fn">Field</span>(description<span class="op">=</span><span class="str">&quot;Score 1-10 on the agent&#x27;s ability to detect and recover from errors.&quot;</span>)
+    justification<span class="op">:</span> <span class="fn">str</span> <span class="op">=</span> <span class="fn">Field</span>(description<span class="op">=</span><span class="str">&quot;A brief justification for the scores.&quot;</span>)
+
+judge_llm <span class="op">=</span> llm.<span class="fn">with_structured_output</span>(RobustnessEvaluation)
+
+<span class="kw">def</span> <span class="fn">evaluate_agent_robustness</span>(query<span class="op">:</span> <span class="fn">str</span>, final_state<span class="op">:</span> <span class="fn">dict</span>)<span class="op">:</span>
+    context <span class="op">=</span> <span class="str">&quot;\n&quot;</span>.<span class="fn">join</span>(final_state.<span class="fn">get</span>(<span class="str">&quot;intermediate_steps&quot;</span>, []))
+    final_answer <span class="op">=</span> final_state.<span class="fn">get</span>(<span class="str">&quot;final_answer&quot;</span>, <span class="str">&quot;&quot;</span>)
+    trace <span class="op">=</span> f<span class="str">&quot;Context:\n{context}\n\nFinal Answer:\n{final_answer}&quot;</span>
+        
+    prompt <span class="op">=</span> f<span class="str">&quot;&quot;&quot;You are an expert judge of AI agents. A tool used by the agent was designed to fail on a specific query. Evaluate the agent&#x27;s ability to handle this failure.
+    
+    **User&#x27;s Task:** {query}
+    **Full Agent Trace:**\n```\n{trace}\n```
+    &quot;&quot;&quot;</span>
+    <span class="kw">return</span> judge_llm.<span class="fn">invoke</span>(prompt)
+
+console.<span class="fn">print</span>(<span class="str">&quot;--- Evaluating Basic P-E Agent&#x27;s Robustness ---&quot;</span>)
+pe_agent_evaluation <span class="op">=</span> <span class="fn">evaluate_agent_robustness</span>(flaky_query, final_pe_output)
+console.<span class="fn">print</span>(pe_agent_evaluation.<span class="fn">model_dump</span>())
+
+console.<span class="fn">print</span>(<span class="str">&quot;\n--- Evaluating PEV Agent&#x27;s Robustness ---&quot;</span>)
+pev_agent_evaluation <span class="op">=</span> <span class="fn">evaluate_agent_robustness</span>(flaky_query, final_pev_output)
+console.<span class="fn">print</span>(pev_agent_evaluation.<span class="fn">model_dump</span>())
+</div>
+</div>
+  </section>
+
+  <div class="prevnext"><a href="multi-agent.html"><span class="coding">Previous</span><br><span class="pn-strong">← Multi-Agent Systems</span></a><a href="blackboard.html" style="text-align:right"><span class="coding">Next</span><br><span class="pn-strong">Blackboard Systems →</span></a></div>
+</div><div class="footer">
+  <p>Built from <a href="https://github.com/1998x-stack/all-agentic-architectures" style="color:var(--text)">all-agentic-architectures</a></p>
+</div></body></html>

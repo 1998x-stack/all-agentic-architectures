@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>#15 RLHF (Self-Improvement) — All Agentic Architectures</title>
+<link rel="stylesheet" href="base-dark.css">
+<style>
+  :root {
+    --c1: #28c840; --c1d: #1a7a2a;
+    --c2: #378add; --c2d: #1a5290;
+    --c3: #a259ff; --c3d: #5a2a8a;
+    --c4: #f0883e; --c4d: #9a4a1a;
+    --c5: #1db0a0; --c5d: #0f6e56;
+  }
+  .hero h1 em {
+    background: linear-gradient(90deg, var(--c1), var(--c2), var(--c3), var(--c4), var(--c5));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  }
+  .prevnext { display: flex; justify-content: space-between; padding: 32px 0; border-top: 1px solid var(--border); margin-top: 48px; }
+  .prevnext a { color: var(--muted); font-size: 13px; }
+  .prevnext a:hover { color: var(--text); text-decoration: none; }
+  .pn-strong { color: var(--text) !important; font-weight: 500; }
+  .coding { font-size: 11px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); margin-bottom: 4px; }
+  h2 { font-size: 22px; font-weight: 600; margin: 0 0 12px; letter-spacing: -.01em; }
+  h3 { font-size: 18px; font-weight: 600; margin: 32px 0 12px; }
+</style>
+
+</head>
+<body><nav>
+  <div class="nav-inner">
+    <span class="nav-brand">All Agentic Architectures <span>· 17 Patterns</span></span>
+    <a class="nl" href="index.html">Overview</a>
+  </div>
+</nav><div class="page">
+  <section class="hero" style="padding-bottom:32px">
+    <div class="hero-badge"><span class="dot" style="background:var(--c5)"></span> #15 · Learning & Adaptation</div>
+    <h1 style="font-size:36px;color:var(--text)">RLHF (Self-Improvement)</h1>
+    <p style="margin-bottom:20px">High-Quality Content Generation, Continual Learning</p>
+    <div class="tag-row">
+      <span class="ltag" style="color:var(--c5);background:rgba(29,176,160,.08);border-color:rgba(29,176,160,.25)">Part 5</span>
+    </div>
+  </section>
+
+  <section class="layer-sec" style="padding-top:16px;border-bottom:none">
+    <div class="layer-hdr">
+      <span class="layer-id-badge" style="background:#0f6e56;color:rgba(255,255,255,.9)">Concept</span>
+      <div class="layer-title">How It Works</div>
+    </div>
+    <p class="layer-def" style="border-color:#1db0a0">Output is critiqued by an editor agent; feedback drives iterative revision. High-quality outputs saved for future improvement.</p>
+    <div style="font-size:14px;line-height:1.85;color:var(--text)">
+      <h2>📘 Agentic Architectures 15: Self-Improvement Loop (Self-Refine &amp; RLHF Analogy)</h2>
+<p style="margin-bottom:12px;line-height:1.75;font-size:14px;color:var(--muted)">Welcome to a deep dive into what is arguably the most advanced agentic pattern: the <strong style="color:var(--text)">Self-Improvement Loop</strong>. This architecture enables an agent to learn from its own performance, iteratively refining its output to achieve a higher standard of quality. It&#x27;s the mechanism that allows an agent to go from a good baseline to expert-level performance over time.</p>
+<p style="margin-bottom:12px;line-height:1.75;font-size:14px;color:var(--muted)">This process mimics the human learning cycle of <code style="font-family:var(--mono);font-size:12px;background:var(--bg3);padding:1px 6px;border-radius:4px;color:var(--code-text)">do -&gt; get feedback -&gt; improve</code>. We will implement this through a <strong style="color:var(--text)">Self-Refine</strong> workflow, where an agent&#x27;s output is immediately evaluated by a critical sub-agent, and if it&#x27;s found lacking, the original agent is tasked with revising its work based on the actionable feedback.</p>
+<p style="margin-bottom:12px;line-height:1.75;font-size:14px;color:var(--muted)">To make this concept tangible and detailed, we will build a <strong style="color:var(--text)">Marketing Copywriter Agent</strong>. The workflow will be:</p>
+<ol style="margin:0 0 16px 18px">
+<li style="margin-bottom:8px;line-height:1.65;font-size:14px;color:var(--text)">A <code style="font-family:var(--mono);font-size:12px;background:var(--bg3);padding:1px 6px;border-radius:4px;color:var(--code-text)">JuniorCopywriter</code> agent generates a first draft of a marketing email.</li>
+<li style="margin-bottom:8px;line-height:1.65;font-size:14px;color:var(--text)">A <code style="font-family:var(--mono);font-size:12px;background:var(--bg3);padding:1px 6px;border-radius:4px;color:var(--code-text)">SeniorEditor</code> agent critiques the draft against a strict rubric (clarity, persuasiveness, call-to-action).</li>
+<li style="margin-bottom:8px;line-height:1.65;font-size:14px;color:var(--text)">If the draft&#x27;s score is below a quality threshold, the <code style="font-family:var(--mono);font-size:12px;background:var(--bg3);padding:1px 6px;border-radius:4px;color:var(--code-text)">JuniorCopywriter</code> is invoked again, but this time with the editor&#x27;s specific feedback, to create a revised draft.</li>
+<li style="margin-bottom:8px;line-height:1.65;font-size:14px;color:var(--text)">This loop continues until the email is approved or a maximum number of revisions is reached.</li>
+</ol>
+<p style="margin-bottom:12px;line-height:1.75;font-size:14px;color:var(--muted)">Furthermore, we will explore how this pattern forms the conceptual basis for <strong style="color:var(--text)">long-term learning</strong>, analogous to RLHF, by saving the best-performing outputs to a persistent memory that informs future generations, creating a system that truly learns.</p>
+<h4 style="color:var(--muted);margin:24px 0 8px;font-size:14px;text-transform:uppercase;letter-spacing:.06em">Definition</h4>
+<p style="margin-bottom:12px;line-height:1.75;font-size:14px;color:var(--muted)">A <strong style="color:var(--text)">Self-Improvement Loop</strong> is an agentic architecture where an agent&#x27;s output is evaluated, either by itself or by another agent, and this evaluation is used as feedback to generate a revised, higher-quality output. When this feedback is stored and used to improve the agent&#x27;s baseline performance over time, it becomes a form of continual learning.</p>
+<h4 style="color:var(--muted);margin:24px 0 8px;font-size:14px;text-transform:uppercase;letter-spacing:.06em">High-level Workflow (Self-Refine)</h4>
+<ol style="margin:0 0 16px 18px">
+<li style="margin-bottom:8px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Generate Initial Output:</strong> The primary agent produces a first version of the solution (the &quot;draft&quot;).</li>
+<li style="margin-bottom:8px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Critique Output:</strong> A critic agent (or the primary agent in a &quot;critique mode&quot;) evaluates the draft against a set of predefined criteria or a general rubric.</li>
+<li style="margin-bottom:8px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Decision:</strong> The system checks if the critique is positive enough to accept the output.</li>
+<li style="margin-bottom:8px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Revise (Loop):</strong> If the output is not accepted, the original draft <em>and</em> the critic&#x27;s feedback are passed back to the primary agent, which is instructed to generate a revised version that addresses the feedback.</li>
+<li style="margin-bottom:8px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Accept:</strong> Once the output meets the quality standard, the loop terminates, and the final version is returned.</li>
+</ol>
+<h4 style="color:var(--muted);margin:24px 0 8px;font-size:14px;text-transform:uppercase;letter-spacing:.06em">When to Use / Applications</h4>
+<ul style="margin:0 0 16px 18px;list-style-type:disc">
+<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">High-Quality Content Generation:</strong> For tasks where a generic first draft is insufficient, such as writing legal documents, detailed technical reports, or persuasive marketing copy.</li>
+<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Continual Learning &amp; Personalization:</strong> An agent that learns a user&#x27;s preferences by generating responses, getting implicit or explicit feedback, and refining its internal strategy for the next interaction.</li>
+<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Complex Problem Solving:</strong> An agent can propose a plan, critique it for flaws or inefficiencies, and then revise the plan before execution.</li>
+</ul>
+<h4 style="color:var(--muted);margin:24px 0 8px;font-size:14px;text-transform:uppercase;letter-spacing:.06em">Strengths &amp; Weaknesses</h4>
+<ul style="margin:0 0 16px 18px;list-style-type:disc">
+<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Strengths:</strong></li>
+<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Dramatically Increases Output Quality:</strong> Iterative refinement consistently produces better results than single-shot generation.</li>
+<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Enables Continual Learning:</strong> Provides a framework for the agent to get better over time, adapting to new information or feedback.</li>
+<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Weaknesses:</strong></li>
+<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Risk of Reinforcing Biases:</strong> If the critic agent has flawed logic or biases, the system can get stuck in a loop that reinforces its own mistakes.</li>
+<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Computationally Expensive:</strong> The iterative nature means multiple LLM calls per task, increasing cost and latency.</li>
+</ul>
+    </div>
+  </section>
+
+  <section class="layer-sec" id="code">
+    <div class="layer-hdr">
+      <span class="layer-id-badge" style="background:#0f6e56;color:rgba(255,255,255,.9)">Implementation</span>
+      <div class="layer-title">Code <small style="font-size:14px;font-weight:400;color:var(--muted)">LangChain + LangGraph</small></div>
+    </div>
+    <div class="codeblock">
+  <div class="cb-head">
+    <span class="cb-dot" style="background:#f85149"></span>
+    <span class="cb-dot" style="background:#e3b341"></span>
+    <span class="cb-dot" style="background:#28c840"></span>
+    src/src/... · 252 lines
+  </div>
+  <div class="cb-body"><span class="str">&quot;&quot;&quot;
+RLHF - Agentic Architecture
+Extracted from: 15_RLHF.ipynb
+&quot;&quot;&quot;</span>
+
+<span class="cm"># !pip install -q -U langchain-nebius langchain langgraph rich python-dotenv</span>
+
+<span class="kw">import</span> os
+<span class="kw">from</span> typing <span class="kw">import</span> List, Dict, Any, Optional
+<span class="kw">from</span> dotenv <span class="kw">import</span> load_dotenv
+
+<span class="cm"># Pydantic for data modeling</span>
+<span class="kw">from</span> pydantic <span class="kw">import</span> BaseModel, Field
+
+<span class="cm"># LangChain components</span>
+<span class="kw">from</span> langchain_nebius <span class="kw">import</span> ChatNebius
+<span class="kw">from</span> langchain_core.prompts <span class="kw">import</span> ChatPromptTemplate
+
+<span class="cm"># LangGraph components</span>
+<span class="kw">from</span> langgraph.graph <span class="kw">import</span> StateGraph, END
+<span class="kw">from</span> typing_extensions <span class="kw">import</span> TypedDict
+
+<span class="cm"># For pretty printing</span>
+<span class="kw">from</span> rich.console <span class="kw">import</span> Console
+<span class="kw">from</span> rich.markdown <span class="kw">import</span> Markdown
+<span class="kw">from</span> rich.panel <span class="kw">import</span> Panel
+
+<span class="cm"># --- API Key and Tracing Setup ---</span>
+<span class="fn">load_dotenv</span>()
+
+os.environ[<span class="str">&quot;LANGCHAIN_TRACING_V2&quot;</span>] <span class="op">=</span> <span class="str">&quot;true&quot;</span>
+os.environ[<span class="str">&quot;LANGCHAIN_PROJECT&quot;</span>] <span class="op">=</span> <span class="str">&quot;Agentic Architecture - Self-Improvement Loop (Nebius)&quot;</span>
+
+required_vars <span class="op">=</span> [<span class="str">&quot;NEBIUS_API_KEY&quot;</span>, <span class="str">&quot;LANGCHAIN_API_KEY&quot;</span>]
+<span class="kw">for</span> var <span class="kw">in</span> required_vars<span class="op">:</span>
+    <span class="kw">if</span> var <span class="kw">not</span> <span class="kw">in</span> os.environ<span class="op">:</span>
+        <span class="fn">print</span>(f<span class="str">&quot;Warning: Environment variable {var} not set.&quot;</span>)
+
+<span class="fn">print</span>(<span class="str">&quot;Environment variables loaded and tracing is set up.&quot;</span>)
+
+console <span class="op">=</span> <span class="fn">Console</span>()
+llm <span class="op">=</span> <span class="fn">ChatNebius</span>(model<span class="op">=</span><span class="str">&quot;mistralai/Mixtral-8x22B-Instruct-v0.1&quot;</span>, temperature<span class="op">=</span><span class="num">0.4</span>)
+
+<span class="cm"># --- Pydantic Models for Structured Data ---</span>
+<span class="kw">class</span> <span class="fn">MarketingEmail</span>(BaseModel)<span class="op">:</span>
+    <span class="str">&quot;&quot;&quot;Represents a marketing email draft.&quot;&quot;&quot;</span>
+    subject<span class="op">:</span> <span class="fn">str</span> <span class="op">=</span> <span class="fn">Field</span>(description<span class="op">=</span><span class="str">&quot;A catchy and concise subject line for the email.&quot;</span>)
+    body<span class="op">:</span> <span class="fn">str</span> <span class="op">=</span> <span class="fn">Field</span>(description<span class="op">=</span><span class="str">&quot;The full body text of the email, written in markdown.&quot;</span>)
+
+<span class="kw">class</span> <span class="fn">Critique</span>(BaseModel)<span class="op">:</span>
+    <span class="str">&quot;&quot;&quot;A structured critique of the marketing email draft.&quot;&quot;&quot;</span>
+    score<span class="op">:</span> <span class="fn">int</span> <span class="op">=</span> <span class="fn">Field</span>(description<span class="op">=</span><span class="str">&quot;Overall quality score from 1 (poor) to 10 (excellent).&quot;</span>)
+    feedback_points<span class="op">:</span> List[<span class="fn">str</span>] <span class="op">=</span> <span class="fn">Field</span>(description<span class="op">=</span><span class="str">&quot;A bulleted list of specific, actionable feedback points for improvement.&quot;</span>)
+    is_approved<span class="op">:</span> <span class="fn">bool</span> <span class="op">=</span> <span class="fn">Field</span>(description<span class="op">=</span><span class="str">&quot;A boolean indicating if the draft is approved (score &gt;= 8). This is redundant with the score but useful for routing.&quot;</span>)
+
+<span class="cm"># --- 1. The Generator: Junior Copywriter ---</span>
+<span class="kw">def</span> <span class="fn">get_generator_chain</span>()<span class="op">:</span>
+    prompt <span class="op">=</span> ChatPromptTemplate.<span class="fn">from_messages</span>([
+        (<span class="str">&quot;system&quot;</span>, <span class="str">&quot;You are a junior marketing copywriter. Your task is to write a first draft of a marketing email based on the user&#x27;s request. Be creative, but focus on getting the core message across.&quot;</span>),
+        (<span class="str">&quot;human&quot;</span>, <span class="str">&quot;Write a marketing email about the following topic:\n\n{request}&quot;</span>)
+    ])
+    <span class="kw">return</span> prompt <span class="op">|</span> llm.<span class="fn">with_structured_output</span>(MarketingEmail)
+
+<span class="cm"># --- 2. The Critic: Senior Editor ---</span>
+<span class="kw">def</span> <span class="fn">get_critic_chain</span>()<span class="op">:</span>
+    prompt <span class="op">=</span> ChatPromptTemplate.<span class="fn">from_messages</span>([
+        (<span class="str">&quot;system&quot;</span>, <span class="str">&quot;&quot;&quot;You are a senior marketing editor and brand manager. Your job is to critique an email draft written by a junior copywriter. 
+        Evaluate the draft against the following criteria:
+        1.  **Catchy Subject:** Is the subject line engaging and likely to get opened?
+        2.  **Clarity &amp; Persuasiveness:** Is the body text clear, compelling, and persuasive?
+        3.  **Strong Call-to-Action (CTA):** Is there a clear, single action for the user to take?
+        4.  **Brand Voice:** Is the tone professional yet approachable?
+        Provide a score from 1-10. A score of 8 or higher means the draft is approved for sending. Provide specific, actionable feedback to help the writer improve.&quot;&quot;&quot;</span>
+        ),
+        (<span class="str">&quot;human&quot;</span>, <span class="str">&quot;Please critique the following email draft:\n\n**Subject:** {subject}\n\n**Body:**\n{body}&quot;</span>)
+    ])
+    <span class="kw">return</span> prompt <span class="op">|</span> llm.<span class="fn">with_structured_output</span>(Critique)
+
+<span class="cm"># --- 3. The Reviser (Generator in &#x27;Revise&#x27; Mode) ---</span>
+<span class="kw">def</span> <span class="fn">get_reviser_chain</span>()<span class="op">:</span>
+    prompt <span class="op">=</span> ChatPromptTemplate.<span class="fn">from_messages</span>([
+        (<span class="str">&quot;system&quot;</span>, <span class="str">&quot;You are the junior marketing copywriter who wrote the original draft. You have just received feedback from your senior editor. Your task is to carefully revise your draft to address every single point of feedback. Produce a new, improved version of the email.&quot;</span>),
+        (<span class="str">&quot;human&quot;</span>, <span class="str">&quot;Original Request: {request}\n\nHere is your original draft:\n**Subject:** {original_subject}\n**Body:**\n{original_body}\n\nHere is the feedback from your editor:\n{feedback}\n\nPlease provide the revised email.&quot;</span>)
+    ])
+    <span class="kw">return</span> prompt <span class="op">|</span> llm.<span class="fn">with_structured_output</span>(MarketingEmail)
+
+<span class="fn">print</span>(<span class="str">&quot;Generator and Critic components defined successfully.&quot;</span>)
+
+<span class="cm"># LangGraph State</span>
+<span class="kw">class</span> <span class="fn">AgentState</span>(TypedDict)<span class="op">:</span>
+    user_request<span class="op">:</span> <span class="fn">str</span>
+    draft_email<span class="op">:</span> Optional[MarketingEmail]
+    critique<span class="op">:</span> Optional[Critique]
+    revision_number<span class="op">:</span> <span class="fn">int</span>
+
+<span class="cm"># Graph Nodes</span>
+<span class="kw">def</span> <span class="fn">generate_node</span>(state<span class="op">:</span> AgentState) <span class="op">-</span><span class="op">&gt;</span> Dict[<span class="fn">str</span>, Any]<span class="op">:</span>
+    console.<span class="fn">print</span>(<span class="fn">Panel</span>(<span class="str">&quot;📝 Junior Copywriter is generating the initial draft.&quot;</span>, title<span class="op">=</span><span class="str">&quot;[yellow]Step: Generate[/yellow]&quot;</span>, border_style<span class="op">=</span><span class="str">&quot;yellow&quot;</span>))
+    chain <span class="op">=</span> <span class="fn">get_generator_chain</span>()
+    draft <span class="op">=</span> chain.<span class="fn">invoke</span>({<span class="str">&quot;request&quot;</span><span class="op">:</span> state[<span class="str">&#x27;user_request&#x27;</span>]})
+    console.<span class="fn">print</span>(<span class="fn">Panel</span>(f<span class="str">&quot;[bold]Subject:[/bold] {draft.subject}\n\n{draft.body}&quot;</span>, title<span class="op">=</span><span class="str">&quot;Draft 1&quot;</span>))
+    <span class="kw">return</span> {<span class="str">&quot;draft_email&quot;</span><span class="op">:</span> draft, <span class="str">&quot;revision_number&quot;</span><span class="op">:</span> <span class="num">1</span>}
+
+<span class="kw">def</span> <span class="fn">critique_node</span>(state<span class="op">:</span> AgentState) <span class="op">-</span><span class="op">&gt;</span> Dict[<span class="fn">str</span>, Any]<span class="op">:</span>
+    title <span class="op">=</span> f<span class="str">&quot;[yellow]Step: Critique (Revision #{state[&#x27;revision_number&#x27;]})[/yellow]&quot;</span>
+    console.<span class="fn">print</span>(<span class="fn">Panel</span>(f<span class="str">&quot;🧐 Senior Editor is critiquing draft #{state[&#x27;revision_number&#x27;]}.&quot;</span>, title<span class="op">=</span>title, border_style<span class="op">=</span><span class="str">&quot;yellow&quot;</span>))
+    chain <span class="op">=</span> <span class="fn">get_critic_chain</span>()
+    critique_result <span class="op">=</span> chain.<span class="fn">invoke</span>(state[<span class="str">&#x27;draft_email&#x27;</span>].<span class="fn">dict</span>())
+    feedback_text <span class="op">=</span> <span class="str">&quot;\n- &quot;</span>.<span class="fn">join</span>(critique_result.feedback_points)
+    console.<span class="fn">print</span>(<span class="fn">Panel</span>(f<span class="str">&quot;[bold]Score:[/bold] {critique_result.score}/10\n[bold]Feedback:[/bold]\n- {feedback_text}&quot;</span>, title<span class="op">=</span><span class="str">&quot;Critique Result&quot;</span>))
+    <span class="kw">return</span> {<span class="str">&quot;critique&quot;</span><span class="op">:</span> critique_result}
+
+<span class="kw">def</span> <span class="fn">revise_node</span>(state<span class="op">:</span> AgentState) <span class="op">-</span><span class="op">&gt;</span> Dict[<span class="fn">str</span>, Any]<span class="op">:</span>
+    console.<span class="fn">print</span>(<span class="fn">Panel</span>(<span class="str">&quot;✍️ Junior Copywriter is revising the draft based on feedback.&quot;</span>, title<span class="op">=</span><span class="str">&quot;[yellow]Step: Revise[/yellow]&quot;</span>, border_style<span class="op">=</span><span class="str">&quot;yellow&quot;</span>))
+    chain <span class="op">=</span> <span class="fn">get_reviser_chain</span>()
+    feedback_str <span class="op">=</span> <span class="str">&quot;\n- &quot;</span>.<span class="fn">join</span>(state[<span class="str">&#x27;critique&#x27;</span>].feedback_points)
+    revised_draft <span class="op">=</span> chain.<span class="fn">invoke</span>({
+        <span class="str">&quot;request&quot;</span><span class="op">:</span> state[<span class="str">&#x27;user_request&#x27;</span>],
+        <span class="str">&quot;original_subject&quot;</span><span class="op">:</span> state[<span class="str">&#x27;draft_email&#x27;</span>].subject,
+        <span class="str">&quot;original_body&quot;</span><span class="op">:</span> state[<span class="str">&#x27;draft_email&#x27;</span>].body,
+        <span class="str">&quot;feedback&quot;</span><span class="op">:</span> feedback_str,
+    })
+    console.<span class="fn">print</span>(<span class="fn">Panel</span>(f<span class="str">&quot;[bold]Subject:[/bold] {revised_draft.subject}\n\n{revised_draft.body}&quot;</span>, title<span class="op">=</span>f<span class="str">&quot;Draft {state[&#x27;revision_number&#x27;] + 1}&quot;</span>))
+    <span class="kw">return</span> {<span class="str">&quot;draft_email&quot;</span><span class="op">:</span> revised_draft, <span class="str">&quot;revision_number&quot;</span><span class="op">:</span> state[<span class="str">&#x27;revision_number&#x27;</span>] <span class="op">+</span> <span class="num">1</span>}
+
+<span class="cm"># Conditional Edge</span>
+<span class="kw">def</span> <span class="fn">should_continue</span>(state<span class="op">:</span> AgentState) <span class="op">-</span><span class="op">&gt;</span> <span class="fn">str</span><span class="op">:</span>
+    console.<span class="fn">print</span>(<span class="fn">Panel</span>(<span class="str">&quot;⚖️ Decision Point: Does the draft meet quality standards?&quot;</span>, title<span class="op">=</span><span class="str">&quot;[yellow]Step: Decide[/yellow]&quot;</span>, border_style<span class="op">=</span><span class="str">&quot;yellow&quot;</span>))
+    <span class="kw">if</span> state[<span class="str">&#x27;critique&#x27;</span>].is_approved<span class="op">:</span>
+        console.<span class="fn">print</span>(<span class="str">&quot;[green]Conclusion: Critique APPROVED! Finishing process.[/green]&quot;</span>)
+        <span class="kw">return</span> <span class="str">&quot;end&quot;</span>
+    <span class="kw">if</span> state[<span class="str">&#x27;revision_number&#x27;</span>] <span class="op">&gt;</span><span class="op">=</span> <span class="num">3</span><span class="op">:</span> <span class="cm"># Set a max revision limit</span>
+        console.<span class="fn">print</span>(<span class="str">&quot;[red]Conclusion: Max revisions reached. Finishing with last draft.[/red]&quot;</span>)
+        <span class="kw">return</span> <span class="str">&quot;end&quot;</span>
+    <span class="kw">else</span><span class="op">:</span>
+        console.<span class="fn">print</span>(<span class="str">&quot;[yellow]Conclusion: Critique requires revision. Looping back.[/yellow]&quot;</span>)
+        <span class="kw">return</span> <span class="str">&quot;continue&quot;</span>
+
+<span class="cm"># Build the graph</span>
+workflow <span class="op">=</span> <span class="fn">StateGraph</span>(AgentState)
+workflow.<span class="fn">add_node</span>(<span class="str">&quot;generate&quot;</span>, generate_node)
+workflow.<span class="fn">add_node</span>(<span class="str">&quot;critique&quot;</span>, critique_node)
+workflow.<span class="fn">add_node</span>(<span class="str">&quot;revise&quot;</span>, revise_node)
+
+workflow.<span class="fn">set_entry_point</span>(<span class="str">&quot;generate&quot;</span>)
+workflow.<span class="fn">add_edge</span>(<span class="str">&quot;generate&quot;</span>, <span class="str">&quot;critique&quot;</span>)
+workflow.<span class="fn">add_conditional_edges</span>(
+    <span class="str">&quot;critique&quot;</span>,
+    should_continue,
+    {<span class="str">&quot;continue&quot;</span><span class="op">:</span> <span class="str">&quot;revise&quot;</span>, <span class="str">&quot;end&quot;</span><span class="op">:</span> END}
+)
+workflow.<span class="fn">add_edge</span>(<span class="str">&quot;revise&quot;</span>, <span class="str">&quot;critique&quot;</span>)
+
+self_refine_agent <span class="op">=</span> workflow.<span class="fn">compile</span>()
+<span class="fn">print</span>(<span class="str">&quot;Self-Refinement agent graph compiled successfully.&quot;</span>)
+
+<span class="kw">def</span> <span class="fn">run_agent</span>(request<span class="op">:</span> <span class="fn">str</span>)<span class="op">:</span>
+    initial_state <span class="op">=</span> {<span class="str">&quot;user_request&quot;</span><span class="op">:</span> request}
+    <span class="cm"># stream() allows us to see the intermediate steps</span>
+    final_state <span class="op">=</span> <span class="kw">None</span>
+    <span class="kw">for</span> step <span class="kw">in</span> self_refine_agent.<span class="fn">stream</span>(initial_state)<span class="op">:</span>
+        <span class="cm"># The final state is the one just before END is called</span>
+        <span class="kw">if</span> END <span class="kw">not</span> <span class="kw">in</span> step<span class="op">:</span>
+            final_state <span class="op">=</span> <span class="fn">list</span>(step.<span class="fn">values</span>())[<span class="num">0</span>]
+    <span class="kw">return</span> final_state
+
+request <span class="op">=</span> <span class="str">&quot;Write a marketing email announcing our new revolutionary AI-powered data analytics platform, &#x27;InsightSphere&#x27;.&quot;</span>
+console.<span class="fn">print</span>(f<span class="str">&quot;--- 🚀 Kicking off the Self-Refinement Process ---&quot;</span>)
+final_result <span class="op">=</span> <span class="fn">run_agent</span>(request)
+
+<span class="cm"># Display the final, approved result</span>
+console.<span class="fn">print</span>(<span class="str">&quot;\n--- Final Approved Email ---&quot;</span>)
+final_email <span class="op">=</span> final_result[<span class="str">&#x27;draft_email&#x27;</span>]
+final_critique <span class="op">=</span> final_result[<span class="str">&#x27;critique&#x27;</span>]
+email_panel <span class="op">=</span> <span class="fn">Panel</span>(
+    f<span class="str">&quot;[bold]Subject:[/bold] {final_email.subject}\n\n---\n\n{final_email.body}&quot;</span>,
+    title<span class="op">=</span><span class="str">&quot;[bold green]Approved Email[/bold green]&quot;</span>,
+    subtitle<span class="op">=</span>f<span class="str">&quot;[green]Final Score: {final_critique.score}/10[/green]&quot;</span>,
+    border_style<span class="op">=</span><span class="str">&quot;green&quot;</span>
+)
+console.<span class="fn">print</span>(email_panel)
+
+<span class="kw">class</span> GoldStandardMemory<span class="op">:</span>
+    <span class="str">&quot;&quot;&quot;A simple in-memory store for high-quality examples.&quot;&quot;&quot;</span>
+    <span class="kw">def</span> <span class="fn">__init__</span>(self)<span class="op">:</span>
+        self.examples<span class="op">:</span> List[MarketingEmail] <span class="op">=</span> []
+        
+    <span class="kw">def</span> <span class="fn">add_example</span>(self, email<span class="op">:</span> MarketingEmail)<span class="op">:</span>
+        self.examples.<span class="fn">append</span>(email)
+        
+    <span class="kw">def</span> <span class="fn">get_formatted_examples</span>(self) <span class="op">-</span><span class="op">&gt;</span> <span class="fn">str</span><span class="op">:</span>
+        <span class="kw">if</span> <span class="kw">not</span> self.examples<span class="op">:</span>
+            <span class="kw">return</span> <span class="str">&quot;No examples available yet.&quot;</span>
+        formatted <span class="op">=</span> <span class="str">&quot;\n\n---\n\n&quot;</span>.<span class="fn">join</span>([
+            f<span class="str">&quot;Example Subject: {ex.subject}\nExample Body:\n{ex.body}&quot;</span>
+            <span class="kw">for</span> ex <span class="kw">in</span> self.examples
+        ])
+        <span class="kw">return</span> formatted
+
+<span class="cm"># Instantiate our persistent memory</span>
+gold_standard_memory <span class="op">=</span> <span class="fn">GoldStandardMemory</span>()
+
+<span class="cm"># New generator node that uses the memory</span>
+<span class="kw">def</span> <span class="fn">generate_node_with_memory</span>(state<span class="op">:</span> AgentState) <span class="op">-</span><span class="op">&gt;</span> Dict[<span class="fn">str</span>, Any]<span class="op">:</span>
+    title <span class="op">=</span> <span class="str">&quot;[yellow]Step: Generate[/yellow]&quot;</span>
+    console.<span class="fn">print</span>(<span class="fn">Panel</span>(<span class="str">&quot;📝 Junior Copywriter is generating the initial draft (Informed by Past Successes).&quot;</span>, title<span class="op">=</span>title, border_style<span class="op">=</span><span class="str">&quot;yellow&quot;</span>))
+    examples <span class="op">=</span> gold_standard_memory.<span class="fn">get_formatted_examples</span>()
+    
+    prompt <span class="op">=</span> ChatPromptTemplate.<span class="fn">from_messages</span>([
+        (<span class="str">&quot;system&quot;</span>, <span class="str">&quot;You are a junior marketing copywriter. Your task is to write a first draft of a marketing email based on the user&#x27;s request. You should learn from the style and quality of past successful examples.&quot;</span>),
+        (<span class="str">&quot;human&quot;</span>, <span class="str">&quot;Here are some examples of high-quality emails that were approved by your editor:\n\n{examples}\n\nNow, write a marketing email about the following topic:\n\n{request}&quot;</span>)
+    ])
+    chain <span class="op">=</span> prompt <span class="op">|</span> llm.<span class="fn">with_structured_output</span>(MarketingEmail)
+    draft <span class="op">=</span> chain.<span class="fn">invoke</span>({<span class="str">&quot;request&quot;</span><span class="op">:</span> state[<span class="str">&#x27;user_request&#x27;</span>], <span class="str">&quot;examples&quot;</span><span class="op">:</span> examples})
+    console.<span class="fn">print</span>(<span class="fn">Panel</span>(f<span class="str">&quot;[bold]Subject:[/bold] {draft.subject}\n\n{draft.body}&quot;</span>, title<span class="op">=</span>f<span class="str">&quot;Draft {state.get(&#x27;revision_number&#x27;, 1)}&quot;</span>))
+    <span class="kw">return</span> {<span class="str">&quot;draft_email&quot;</span><span class="op">:</span> draft, <span class="str">&quot;revision_number&quot;</span><span class="op">:</span> <span class="num">1</span>}
+
+<span class="cm"># Build the new graph with the memory-enabled generator</span>
+workflow_with_memory <span class="op">=</span> <span class="fn">StateGraph</span>(AgentState)
+workflow_with_memory.<span class="fn">add_node</span>(<span class="str">&quot;generate&quot;</span>, generate_node_with_memory)
+workflow_with_memory.<span class="fn">add_node</span>(<span class="str">&quot;critique&quot;</span>, critique_node)
+workflow_with_memory.<span class="fn">add_node</span>(<span class="str">&quot;revise&quot;</span>, revise_node)
+workflow_with_memory.<span class="fn">set_entry_point</span>(<span class="str">&quot;generate&quot;</span>)
+workflow_with_memory.<span class="fn">add_edge</span>(<span class="str">&quot;generate&quot;</span>, <span class="str">&quot;critique&quot;</span>)
+workflow_with_memory.<span class="fn">add_conditional_edges</span>(<span class="str">&quot;critique&quot;</span>, should_continue, {<span class="str">&quot;continue&quot;</span><span class="op">:</span> <span class="str">&quot;revise&quot;</span>, <span class="str">&quot;end&quot;</span><span class="op">:</span> END})
+workflow_with_memory.<span class="fn">add_edge</span>(<span class="str">&quot;revise&quot;</span>, <span class="str">&quot;critique&quot;</span>)
+self_improving_agent <span class="op">=</span> workflow_with_memory.<span class="fn">compile</span>()
+<span class="fn">print</span>(<span class="str">&quot;Persistent memory components defined successfully.&quot;</span>)
+
+<span class="cm"># --- DEMONSTRATION OF LONG-TERM IMPROVEMENT ---</span>
+
+<span class="cm"># 1. Save our previously approved email to the memory</span>
+console.<span class="fn">print</span>(<span class="fn">Panel</span>(<span class="str">&quot;The high-quality, editor-approved email for &#x27;InsightSphere&#x27; has been saved. It will now be used as a reference for future generations.&quot;</span>, title<span class="op">=</span><span class="str">&quot;[bold]🏆 Saving approved email to Gold Standard Memory[/bold]&quot;</span>, border_style<span class="op">=</span><span class="str">&quot;magenta&quot;</span>))
+gold_standard_memory.<span class="fn">add_example</span>(final_result[<span class="str">&#x27;draft_email&#x27;</span>])
+
+<span class="cm"># 2. Run the agent again on a NEW task</span>
+new_request <span class="op">=</span> <span class="str">&quot;Write a promotional email for our new AI-powered CRM called &#x27;Visionary&#x27;.&quot;</span>
+console.<span class="fn">print</span>(<span class="str">&quot;\n--- 🚀 Kicking off the Self-Refinement Process with Memory ---&quot;</span>)
+new_final_result <span class="op">=</span> <span class="fn">run_agent</span>(new_request)
+
+<span class="cm"># 3. Display the new result. The key thing to notice is if it gets approved faster.</span>
+console.<span class="fn">print</span>(<span class="str">&quot;\n--- Final Approved Email (Generated with Memory) ---&quot;</span>)
+new_final_email <span class="op">=</span> new_final_result[<span class="str">&#x27;draft_email&#x27;</span>]
+new_critique <span class="op">=</span> new_final_result[<span class="str">&#x27;critique&#x27;</span>]
+email_panel_2 <span class="op">=</span> <span class="fn">Panel</span>(
+    f<span class="str">&quot;[bold]Subject:[/bold] {new_final_email.subject}\n\n---\n\n{new_final_email.body}&quot;</span>,
+    title<span class="op">=</span><span class="str">&quot;[bold green]Approved Email[/bold green]&quot;</span>,
+    subtitle<span class="op">=</span>f<span class="str">&quot;[green]Final Score: {new_critique.score}/10[/green]&quot;</span>,
+    border_style<span class="op">=</span><span class="str">&quot;green&quot;</span>
+)
+console.<span class="fn">print</span>(email_panel_2)
+</div>
+</div>
+  </section>
+
+  <div class="prevnext"><a href="dry-run.html"><span class="coding">Previous</span><br><span class="pn-strong">← Dry-Run Harness</span></a><a href="cellular-automata.html" style="text-align:right"><span class="coding">Next</span><br><span class="pn-strong">Cellular Automata →</span></a></div>
+</div><div class="footer">
+  <p>Built from <a href="https://github.com/1998x-stack/all-agentic-architectures" style="color:var(--text)">all-agentic-architectures</a></p>
+</div></body></html>

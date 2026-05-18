@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>#08 Episodic + Semantic Memory — All Agentic Architectures</title>
+<link rel="stylesheet" href="base-dark.css">
+<style>
+  :root {
+    --c1: #28c840; --c1d: #1a7a2a;
+    --c2: #378add; --c2d: #1a5290;
+    --c3: #a259ff; --c3d: #5a2a8a;
+    --c4: #f0883e; --c4d: #9a4a1a;
+    --c5: #1db0a0; --c5d: #0f6e56;
+  }
+  .hero h1 em {
+    background: linear-gradient(90deg, var(--c1), var(--c2), var(--c3), var(--c4), var(--c5));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  }
+  .prevnext { display: flex; justify-content: space-between; padding: 32px 0; border-top: 1px solid var(--border); margin-top: 48px; }
+  .prevnext a { color: var(--muted); font-size: 13px; }
+  .prevnext a:hover { color: var(--text); text-decoration: none; }
+  .pn-strong { color: var(--text) !important; font-weight: 500; }
+  .coding { font-size: 11px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); margin-bottom: 4px; }
+  h2 { font-size: 22px; font-weight: 600; margin: 0 0 12px; letter-spacing: -.01em; }
+  h3 { font-size: 18px; font-weight: 600; margin: 32px 0 12px; }
+</style>
+
+</head>
+<body><nav>
+  <div class="nav-inner">
+    <span class="nav-brand">All Agentic Architectures <span>· 17 Patterns</span></span>
+    <a class="nl" href="index.html">Overview</a>
+  </div>
+</nav><div class="page">
+  <section class="hero" style="padding-bottom:32px">
+    <div class="hero-badge"><span class="dot" style="background:var(--c3)"></span> #08 · Advanced Memory & Reasoning</div>
+    <h1 style="font-size:36px;color:var(--text)">Episodic + Semantic Memory</h1>
+    <p style="margin-bottom:20px">Long-Term Personal Assistants, Personalized Tutors</p>
+    <div class="tag-row">
+      <span class="ltag" style="color:var(--c3);background:rgba(162,89,255,.08);border-color:rgba(162,89,255,.25)">Part 3</span>
+    </div>
+  </section>
+
+  <section class="layer-sec" style="padding-top:16px;border-bottom:none">
+    <div class="layer-hdr">
+      <span class="layer-id-badge" style="background:#5a2a8a;color:rgba(255,255,255,.9)">Concept</span>
+      <div class="layer-title">How It Works</div>
+    </div>
+    <p class="layer-def" style="border-color:#a259ff">Dual-memory system: vector store for past conversations (episodic) + graph DB for structured facts (semantic).</p>
+    <div style="font-size:14px;line-height:1.85;color:var(--text)">
+      <h2>📘 Agentic Architectures 8: Episodic + Semantic Memory Stack</h2>
+<p style="margin-bottom:12px;line-height:1.75;font-size:14px;color:var(--muted)">Welcome to the eighth notebook in our series. Today, we&#x27;re tackling one of the most critical challenges in creating truly intelligent, long-term assistants: <strong style="color:var(--text)">persistent memory</strong>. Standard chatbot memory is ephemeral, lasting only for a single session. To build a personalized agent that learns and grows with a user, we need a more robust solution.</p>
+<p style="margin-bottom:12px;line-height:1.75;font-size:14px;color:var(--muted)">We will implement a structured memory architecture that mirrors human cognition, combining two distinct types of memory:</p>
+<ol style="margin:0 0 16px 18px">
+<li style="margin-bottom:8px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Episodic Memory:</strong> This is the memory of specific events or past interactions. It answers the question, &quot;What happened?&quot; (e.g., &quot;Last week, the user asked me about NVIDIA&#x27;s stock price.&quot;). We&#x27;ll use a <strong style="color:var(--text)">vector database</strong> for this to find past conversations relevant to the current topic.</li>
+<li style="margin-bottom:8px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Semantic Memory:</strong> This is the memory of structured facts, concepts, and relationships extracted from those events. It answers the question, &quot;What do I know?&quot; (e.g., &quot;User Alex is a conservative investor.&quot;, &quot;Alex is interested in Tech Stocks.&quot;). We&#x27;ll use a <strong style="color:var(--text)">graph database (Neo4j)</strong> for this, as it excels at managing and querying complex relationships.</li>
+</ol>
+<p style="margin-bottom:12px;line-height:1.75;font-size:14px;color:var(--muted)">By combining these, our agent can not only recall past conversations but also build a rich, interconnected knowledge base about the user and the world, leading to deeply personalized and context-aware interactions.</p>
+<h4 style="color:var(--muted);margin:24px 0 8px;font-size:14px;text-transform:uppercase;letter-spacing:.06em">Definition</h4>
+<p style="margin-bottom:12px;line-height:1.75;font-size:14px;color:var(--muted)">An <strong style="color:var(--text)">Episodic + Semantic Memory Stack</strong> is an agent architecture that maintains two types of long-term memory. <strong style="color:var(--text)">Episodic memory</strong> stores a chronological log of experiences (e.g., chat history summaries) and is typically searched based on semantic similarity. <strong style="color:var(--text)">Semantic memory</strong> stores extracted, structured knowledge (facts, entities, relationships) in a knowledge base, often a graph.</p>
+<h4 style="color:var(--muted);margin:24px 0 8px;font-size:14px;text-transform:uppercase;letter-spacing:.06em">High-level Workflow</h4>
+<ol style="margin:0 0 16px 18px">
+<li style="margin-bottom:8px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Interaction:</strong> The agent has a conversation with the user.</li>
+<li style="margin-bottom:8px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Memory Retrieval (Recall):</strong> For a new user query, the agent first queries both memory systems.</li>
+<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)">It searches the <strong style="color:var(--text)">episodic</strong> vector store for similar past conversations.</li>
+<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)">It queries the <strong style="color:var(--text)">semantic</strong> graph database for entities and facts related to the query.</li>
+<li style="margin-bottom:8px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Augmented Generation:</strong> The retrieved memories are added to the prompt&#x27;s context, allowing the LLM to generate a response that is aware of past interactions and learned facts.</li>
+<li style="margin-bottom:8px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Memory Creation (Encoding):</strong> After the interaction is complete, a background process analyzes the conversation.</li>
+<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)">It creates a concise summary of the turn (the new <strong style="color:var(--text)">episodic</strong> memory).</li>
+<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)">It extracts key entities and relationships (the new <strong style="color:var(--text)">semantic</strong> memory).</li>
+<li style="margin-bottom:8px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Memory Storage:</strong> The new episodic summary is embedded and saved to the vector store. The new semantic facts are written as nodes and edges in the graph database.</li>
+</ol>
+<h4 style="color:var(--muted);margin:24px 0 8px;font-size:14px;text-transform:uppercase;letter-spacing:.06em">When to Use / Applications</h4>
+<ul style="margin:0 0 16px 18px;list-style-type:disc">
+<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Long-Term Personal Assistants:</strong> An assistant that remembers your preferences, projects, and personal details over weeks or months.</li>
+<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Personalized Systems:</strong> E-commerce bots that remember your style, or educational tutors that remember your learning progress and weak spots.</li>
+<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Complex Research Agents:</strong> An agent that builds a knowledge graph of a topic as it explores documents, allowing it to answer complex, multi-hop questions.</li>
+</ul>
+<h4 style="color:var(--muted);margin:24px 0 8px;font-size:14px;text-transform:uppercase;letter-spacing:.06em">Strengths &amp; Weaknesses</h4>
+<ul style="margin:0 0 16px 18px;list-style-type:disc">
+<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Strengths:</strong></li>
+<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">True Personalization:</strong> Enables context and learning that persists indefinitely, far beyond a single session&#x27;s context window.</li>
+<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Rich Understanding:</strong> A graph database allows the agent to understand and reason about complex relationships between entities.</li>
+<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Weaknesses:</strong></li>
+<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Complexity:</strong> This is a significantly more complex architecture to build and maintain than a simple stateless agent.</li>
+<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Memory Bloat &amp; Pruning:</strong> Over time, the memory stores can become massive. Strategies for summarizing, consolidating, or pruning old/irrelevant memories are essential for long-term performance.</li>
+</ul>
+    </div>
+  </section>
+
+  <section class="layer-sec" id="code">
+    <div class="layer-hdr">
+      <span class="layer-id-badge" style="background:#5a2a8a;color:rgba(255,255,255,.9)">Implementation</span>
+      <div class="layer-title">Code <small style="font-size:14px;font-weight:400;color:var(--muted)">LangChain + LangGraph</small></div>
+    </div>
+    <div class="codeblock">
+  <div class="cb-head">
+    <span class="cb-dot" style="background:#f85149"></span>
+    <span class="cb-dot" style="background:#e3b341"></span>
+    <span class="cb-dot" style="background:#28c840"></span>
+    src/src/... · 221 lines
+  </div>
+  <div class="cb-body"><span class="str">&quot;&quot;&quot;
+Episodic + Semantic - Agentic Architecture
+Extracted from: 08_episodic_with_semantic.ipynb
+&quot;&quot;&quot;</span>
+
+<span class="cm"># !pip install -q -U langchain-nebius langchain langgraph rich python-dotenv langchain_community langchain-openai neo4j faiss-cpu tiktoken</span>
+
+<span class="kw">import</span> os
+<span class="kw">import</span> uuid
+<span class="kw">from</span> typing <span class="kw">import</span> List, Dict, Any, Optional, Tuple
+<span class="kw">from</span> dotenv <span class="kw">import</span> load_dotenv
+
+<span class="cm"># Pydantic for data modeling</span>
+<span class="kw">from</span> pydantic <span class="kw">import</span> BaseModel, Field
+
+<span class="cm"># LangChain components</span>
+<span class="kw">from</span> langchain_nebius <span class="kw">import</span> ChatNebius, NebiusEmbeddings
+<span class="kw">from</span> langchain_community.graphs <span class="kw">import</span> Neo4jGraph
+<span class="kw">from</span> langchain_community.vectorstores <span class="kw">import</span> FAISS
+<span class="kw">from</span> langchain.docstore.document <span class="kw">import</span> Document
+<span class="kw">from</span> langchain_core.prompts <span class="kw">import</span> ChatPromptTemplate
+
+<span class="cm"># LangGraph components</span>
+<span class="kw">from</span> langgraph.graph <span class="kw">import</span> StateGraph, END
+<span class="kw">from</span> typing_extensions <span class="kw">import</span> TypedDict
+
+<span class="cm"># For pretty printing</span>
+<span class="kw">from</span> rich.console <span class="kw">import</span> Console
+<span class="kw">from</span> rich.markdown <span class="kw">import</span> Markdown
+
+<span class="cm"># --- API Key and Tracing Setup ---</span>
+<span class="fn">load_dotenv</span>()
+
+os.environ[<span class="str">&quot;LANGCHAIN_TRACING_V2&quot;</span>] <span class="op">=</span> <span class="str">&quot;true&quot;</span>
+os.environ[<span class="str">&quot;LANGCHAIN_PROJECT&quot;</span>] <span class="op">=</span> <span class="str">&quot;Agentic Architecture - Memory Stack (Nebius)&quot;</span>
+
+<span class="cm"># Check for required environment variables</span>
+required_vars <span class="op">=</span> [<span class="str">&quot;NEBIUS_API_KEY&quot;</span>, <span class="str">&quot;LANGCHAIN_API_KEY&quot;</span>, <span class="str">&quot;NEO4J_URI&quot;</span>, <span class="str">&quot;NEO4J_USERNAME&quot;</span>, <span class="str">&quot;NEO4J_PASSWORD&quot;</span>]
+<span class="kw">for</span> var <span class="kw">in</span> required_vars<span class="op">:</span>
+    <span class="kw">if</span> var <span class="kw">not</span> <span class="kw">in</span> os.environ<span class="op">:</span>
+        <span class="fn">print</span>(f<span class="str">&quot;Warning: Environment variable {var} not set.&quot;</span>)
+
+<span class="fn">print</span>(<span class="str">&quot;Environment variables loaded and tracing is set up.&quot;</span>)
+
+console <span class="op">=</span> <span class="fn">Console</span>()
+llm <span class="op">=</span> <span class="fn">ChatNebius</span>(model<span class="op">=</span><span class="str">&quot;mistralai/Mixtral-8x22B-Instruct-v0.1&quot;</span>, temperature<span class="op">=</span><span class="num">0</span>)
+embeddings <span class="op">=</span> <span class="fn">NebiusEmbeddings</span>()
+
+<span class="cm"># --- 1. Vector Store for Episodic Memory ---</span>
+<span class="cm"># In a real application, you&#x27;d persist this. For this example, it&#x27;s in-memory.</span>
+<span class="kw">try</span><span class="op">:</span>
+    episodic_vector_store <span class="op">=</span> FAISS.<span class="fn">from_texts</span>([<span class="str">&quot;Initial document to bootstrap the store&quot;</span>], embeddings)
+<span class="kw">except</span> ImportError<span class="op">:</span>
+    console.<span class="fn">print</span>(<span class="str">&quot;[bold red]FAISS not installed. Please run `pip install faiss-cpu`.&quot;</span>)[<span class="op">/</span>bold red]
+    episodic_vector_store <span class="op">=</span> <span class="kw">None</span>
+
+<span class="cm"># --- 2. Graph DB for Semantic Memory ---</span>
+<span class="kw">try</span><span class="op">:</span>
+    graph <span class="op">=</span> <span class="fn">Neo4jGraph</span>(
+        url<span class="op">=</span>os.environ.<span class="fn">get</span>(<span class="str">&quot;NEO4J_URI&quot;</span>),
+        username<span class="op">=</span>os.environ.<span class="fn">get</span>(<span class="str">&quot;NEO4J_USERNAME&quot;</span>),
+        password<span class="op">=</span>os.environ.<span class="fn">get</span>(<span class="str">&quot;NEO4J_PASSWORD&quot;</span>)
+    )
+    <span class="cm"># Clear the graph for a clean run</span>
+    graph.<span class="fn">query</span>(<span class="str">&quot;MATCH (n) DETACH DELETE n&quot;</span>)
+<span class="kw">except</span> Exception <span class="kw">as</span> e<span class="op">:</span>
+    console.<span class="fn">print</span>(f<span class="str">&quot;[bold red]Failed to connect to Neo4j: {e}. Please check your credentials and connection.[/bold red]&quot;</span>)
+    graph <span class="op">=</span> <span class="kw">None</span>
+
+<span class="cm"># --- 3. Pydantic Models for the &quot;Memory Maker&quot; ---</span>
+<span class="cm"># Define the structure of knowledge we want to extract.</span>
+<span class="kw">class</span> <span class="fn">Node</span>(BaseModel)<span class="op">:</span>
+    id<span class="op">:</span> <span class="fn">str</span> <span class="op">=</span> <span class="fn">Field</span>(description<span class="op">=</span><span class="str">&quot;Unique identifier for the node, which can be a person&#x27;s name, a company ticker, or a concept.&quot;</span>)
+    <span class="fn">type</span><span class="op">:</span> <span class="fn">str</span> <span class="op">=</span> <span class="fn">Field</span>(description<span class="op">=</span><span class="str">&quot;The type of the node (e.g., &#x27;User&#x27;, &#x27;Company&#x27;, &#x27;InvestmentPhilosophy&#x27;).&quot;</span>)
+    properties<span class="op">:</span> Dict[<span class="fn">str</span>, Any] <span class="op">=</span> <span class="fn">Field</span>(description<span class="op">=</span><span class="str">&quot;A dictionary of properties for the node.&quot;</span>)
+
+<span class="kw">class</span> <span class="fn">Relationship</span>(BaseModel)<span class="op">:</span>
+    source<span class="op">:</span> Node <span class="op">=</span> <span class="fn">Field</span>(description<span class="op">=</span><span class="str">&quot;The source node of the relationship.&quot;</span>)
+    target<span class="op">:</span> Node <span class="op">=</span> <span class="fn">Field</span>(description<span class="op">=</span><span class="str">&quot;The target node of the relationship.&quot;</span>)
+    <span class="fn">type</span><span class="op">:</span> <span class="fn">str</span> <span class="op">=</span> <span class="fn">Field</span>(description<span class="op">=</span><span class="str">&quot;The type of the relationship (e.g., &#x27;IS_A&#x27;, &#x27;INTERESTED_IN&#x27;).&quot;</span>)
+    properties<span class="op">:</span> Dict[<span class="fn">str</span>, Any] <span class="op">=</span> <span class="fn">Field</span>(description<span class="op">=</span><span class="str">&quot;A dictionary of properties for the relationship.&quot;</span>)
+
+<span class="kw">class</span> <span class="fn">KnowledgeGraph</span>(BaseModel)<span class="op">:</span>
+    <span class="str">&quot;&quot;&quot;Represents the structured knowledge extracted from a conversation.&quot;&quot;&quot;</span>
+    relationships<span class="op">:</span> List[Relationship] <span class="op">=</span> <span class="fn">Field</span>(description<span class="op">=</span><span class="str">&quot;A list of relationships to be added to the knowledge graph.&quot;</span>)
+
+<span class="cm"># --- 4. The &quot;Memory Maker&quot; Agent ---</span>
+<span class="kw">def</span> <span class="fn">create_memories</span>(user_input<span class="op">:</span> <span class="fn">str</span>, assistant_output<span class="op">:</span> <span class="fn">str</span>)<span class="op">:</span>
+    conversation <span class="op">=</span> f<span class="str">&quot;User: {user_input}\nAssistant: {assistant_output}&quot;</span>
+    
+    <span class="cm"># 4a. Create Episodic Memory (Summarization)</span>
+    console.<span class="fn">print</span>(<span class="str">&quot;--- Creating Episodic Memory (Summary) ---&quot;</span>)
+    summary_prompt <span class="op">=</span> ChatPromptTemplate.<span class="fn">from_messages</span>([
+        (<span class="str">&quot;system&quot;</span>, <span class="str">&quot;You are a summarization expert. Create a concise, one-sentence summary of the following user-assistant interaction. This summary will be used as a memory for future recall.&quot;</span>),
+        (<span class="str">&quot;human&quot;</span>, <span class="str">&quot;Interaction:\n{interaction}&quot;</span>)
+    ])
+    summarizer <span class="op">=</span> summary_prompt <span class="op">|</span> llm
+    episodic_summary <span class="op">=</span> summarizer.<span class="fn">invoke</span>({<span class="str">&quot;interaction&quot;</span><span class="op">:</span> conversation}).content
+    
+    new_doc <span class="op">=</span> <span class="fn">Document</span>(page_content<span class="op">=</span>episodic_summary, metadata<span class="op">=</span>{<span class="str">&quot;created_at&quot;</span><span class="op">:</span> uuid.<span class="fn">uuid4</span>().hex})
+    episodic_vector_store.<span class="fn">add_documents</span>([new_doc])
+    console.<span class="fn">print</span>(f<span class="str">&quot;[green]Episodic memory created:[/green] &#x27;{episodic_summary}&#x27;&quot;</span>)
+    
+    <span class="cm"># 4b. Create Semantic Memory (Fact Extraction)</span>
+    console.<span class="fn">print</span>(<span class="str">&quot;--- Creating Semantic Memory (Graph) ---&quot;</span>)
+    extraction_llm <span class="op">=</span> llm.<span class="fn">with_structured_output</span>(KnowledgeGraph)
+    extraction_prompt <span class="op">=</span> ChatPromptTemplate.<span class="fn">from_messages</span>([
+        (<span class="str">&quot;system&quot;</span>, <span class="str">&quot;You are a knowledge extraction expert. Your task is to identify key entities and their relationships from a conversation and model them as a graph. Focus on user preferences, goals, and stated facts.&quot;</span>),
+        (<span class="str">&quot;human&quot;</span>, <span class="str">&quot;Extract all relationships from this interaction:\n{interaction}&quot;</span>)
+    ])
+    extractor <span class="op">=</span> extraction_prompt <span class="op">|</span> extraction_llm
+    <span class="kw">try</span><span class="op">:</span>
+        kg_data <span class="op">=</span> extractor.<span class="fn">invoke</span>({<span class="str">&quot;interaction&quot;</span><span class="op">:</span> conversation})
+        <span class="kw">if</span> kg_data.relationships<span class="op">:</span>
+            <span class="kw">for</span> rel <span class="kw">in</span> kg_data.relationships<span class="op">:</span>
+                graph.<span class="fn">add_graph_documents</span>([rel], include_source<span class="op">=</span><span class="kw">True</span>)
+            console.<span class="fn">print</span>(f<span class="str">&quot;[green]Semantic memory created:[/green] Added {len(kg_data.relationships)} relationships to the graph.&quot;</span>)
+        <span class="kw">else</span><span class="op">:</span>
+            console.<span class="fn">print</span>(<span class="str">&quot;[yellow]No new semantic memories identified in this interaction.[/yellow]&quot;</span>)
+    <span class="kw">except</span> Exception <span class="kw">as</span> e<span class="op">:</span>
+        console.<span class="fn">print</span>(f<span class="str">&quot;[red]Could not extract or save semantic memory: {e}[/red]&quot;</span>)
+
+<span class="kw">if</span> episodic_vector_store <span class="kw">and</span> graph<span class="op">:</span>
+    <span class="fn">print</span>(<span class="str">&quot;Memory components initialized successfully.&quot;</span>)
+
+<span class="cm"># Define the state for our LangGraph agent</span>
+<span class="kw">class</span> <span class="fn">AgentState</span>(TypedDict)<span class="op">:</span>
+    user_input<span class="op">:</span> <span class="fn">str</span>
+    retrieved_memories<span class="op">:</span> Optional[<span class="fn">str</span>]
+    generation<span class="op">:</span> <span class="fn">str</span>
+
+<span class="cm"># Define the nodes of the graph</span>
+
+<span class="kw">def</span> <span class="fn">retrieve_memory</span>(state<span class="op">:</span> AgentState) <span class="op">-</span><span class="op">&gt;</span> Dict[<span class="fn">str</span>, Any]<span class="op">:</span>
+    <span class="str">&quot;&quot;&quot;Node that retrieves memories from both episodic and semantic stores.&quot;&quot;&quot;</span>
+    console.<span class="fn">print</span>(<span class="str">&quot;--- Retrieving Memories ---&quot;</span>)
+    user_input <span class="op">=</span> state[<span class="str">&#x27;user_input&#x27;</span>]
+    
+    <span class="cm"># Retrieve from episodic memory</span>
+    retrieved_docs <span class="op">=</span> episodic_vector_store.<span class="fn">similarity_search</span>(user_input, k<span class="op">=</span><span class="num">2</span>)
+    episodic_memories <span class="op">=</span> <span class="str">&quot;\n&quot;</span>.<span class="fn">join</span>([doc.page_content <span class="kw">for</span> doc <span class="kw">in</span> retrieved_docs])
+    
+    <span class="cm"># Retrieve from semantic memory</span>
+    <span class="cm"># This is a simple retrieval; more advanced would involve entity extraction from the query</span>
+    <span class="kw">try</span><span class="op">:</span>
+        graph_schema <span class="op">=</span> graph.get_schema
+        <span class="cm"># Using a fulltext index for better retrieval. Neo4j automatically creates one on node properties.</span>
+        <span class="cm"># A more robust solution might involve extracting entities from user_input first.</span>
+        semantic_memories <span class="op">=</span> <span class="fn">str</span>(graph.<span class="fn">query</span>(<span class="str">&quot;&quot;&quot;
+            UNWIND $keywords AS keyword
+            CALL db.index.fulltext.queryNodes(&quot;entity&quot;, keyword) YIELD node, score
+            MATCH (node)-[r]-(related_node)
+            RETURN node, r, related_node LIMIT 5
+            &quot;&quot;&quot;</span>, {<span class="str">&#x27;keywords&#x27;</span><span class="op">:</span> user_input.<span class="fn">split</span>()}))
+    <span class="kw">except</span> Exception <span class="kw">as</span> e<span class="op">:</span>
+        semantic_memories <span class="op">=</span> f<span class="str">&quot;Could not query graph: {e}&quot;</span>
+        
+    retrieved_content <span class="op">=</span> f<span class="str">&quot;Relevant Past Conversations (Episodic Memory):\n{episodic_memories}\n\nRelevant Facts (Semantic Memory):\n{semantic_memories}&quot;</span>
+    console.<span class="fn">print</span>(f<span class="str">&quot;[cyan]Retrieved Context:\n{retrieved_content}[/cyan]&quot;</span>)
+    
+    <span class="kw">return</span> {<span class="str">&quot;retrieved_memories&quot;</span><span class="op">:</span> retrieved_content}
+
+<span class="kw">def</span> <span class="fn">generate_response</span>(state<span class="op">:</span> AgentState) <span class="op">-</span><span class="op">&gt;</span> Dict[<span class="fn">str</span>, Any]<span class="op">:</span>
+    <span class="str">&quot;&quot;&quot;Node that generates a response using the retrieved memories.&quot;&quot;&quot;</span>
+    console.<span class="fn">print</span>(<span class="str">&quot;--- Generating Response ---&quot;</span>)
+    prompt <span class="op">=</span> ChatPromptTemplate.<span class="fn">from_messages</span>([
+        (<span class="str">&quot;system&quot;</span>, <span class="str">&quot;You are a helpful and personalized financial assistant. Use the retrieved memories to inform your response and tailor it to the user. If the memories indicate a user&#x27;s preference (e.g., they are a conservative investor), you MUST respect it.&quot;</span>),
+        (<span class="str">&quot;human&quot;</span>, <span class="str">&quot;My question is: {user_input}\n\nHere are some memories that might be relevant:\n{retrieved_memories}&quot;</span>)
+    ])
+    generator <span class="op">=</span> prompt <span class="op">|</span> llm
+    generation <span class="op">=</span> generator.<span class="fn">invoke</span>(state).content
+    console.<span class="fn">print</span>(f<span class="str">&quot;[green]Generated Response:\n{generation}[/green]&quot;</span>)
+    <span class="kw">return</span> {<span class="str">&quot;generation&quot;</span><span class="op">:</span> generation}
+
+<span class="kw">def</span> <span class="fn">update_memory</span>(state<span class="op">:</span> AgentState) <span class="op">-</span><span class="op">&gt;</span> Dict[<span class="fn">str</span>, Any]<span class="op">:</span>
+    <span class="str">&quot;&quot;&quot;Node that updates the memory with the latest interaction.&quot;&quot;&quot;</span>
+    console.<span class="fn">print</span>(<span class="str">&quot;--- Updating Memory ---&quot;</span>)
+    <span class="fn">create_memories</span>(state[<span class="str">&#x27;user_input&#x27;</span>], state[<span class="str">&#x27;generation&#x27;</span>])
+    <span class="kw">return</span> {}
+
+<span class="cm"># Build the graph</span>
+workflow <span class="op">=</span> <span class="fn">StateGraph</span>(AgentState)
+
+workflow.<span class="fn">add_node</span>(<span class="str">&quot;retrieve&quot;</span>, retrieve_memory)
+workflow.<span class="fn">add_node</span>(<span class="str">&quot;generate&quot;</span>, generate_response)
+workflow.<span class="fn">add_node</span>(<span class="str">&quot;update&quot;</span>, update_memory)
+
+workflow.<span class="fn">set_entry_point</span>(<span class="str">&quot;retrieve&quot;</span>)
+workflow.<span class="fn">add_edge</span>(<span class="str">&quot;retrieve&quot;</span>, <span class="str">&quot;generate&quot;</span>)
+workflow.<span class="fn">add_edge</span>(<span class="str">&quot;generate&quot;</span>, <span class="str">&quot;update&quot;</span>)
+workflow.<span class="fn">add_edge</span>(<span class="str">&quot;update&quot;</span>, END)
+
+memory_agent <span class="op">=</span> workflow.<span class="fn">compile</span>()
+<span class="fn">print</span>(<span class="str">&quot;Memory-augmented agent graph compiled successfully.&quot;</span>)
+
+<span class="kw">def</span> <span class="fn">run_interaction</span>(query<span class="op">:</span> <span class="fn">str</span>)<span class="op">:</span>
+    result <span class="op">=</span> memory_agent.<span class="fn">invoke</span>({<span class="str">&quot;user_input&quot;</span><span class="op">:</span> query})
+    <span class="kw">return</span> result[<span class="str">&#x27;generation&#x27;</span>]
+
+console.<span class="fn">print</span>(<span class="str">&quot;\n--- 💬 INTERACTION 1: Seeding Memory ---&quot;</span>)
+<span class="fn">run_interaction</span>(<span class="str">&quot;Hi, my name is Alex. I&#x27;m a conservative investor, and I&#x27;m mainly interested in established tech companies.&quot;</span>)
+
+console.<span class="fn">print</span>(<span class="str">&quot;\n--- 💬 INTERACTION 2: Asking a specific question ---&quot;</span>)
+<span class="fn">run_interaction</span>(<span class="str">&quot;What do you think about Apple (AAPL)?&quot;</span>)
+
+console.<span class="fn">print</span>(<span class="str">&quot;\n--- 🧠 INTERACTION 3: THE MEMORY TEST ---&quot;</span>)
+<span class="fn">run_interaction</span>(<span class="str">&quot;Based on my goals, what&#x27;s a good alternative to that stock?&quot;</span>)
+
+console.<span class="fn">print</span>(<span class="str">&quot;--- 🔍 Inspecting Episodic Memory (Vector Store) ---&quot;</span>)
+<span class="cm"># We&#x27;ll do a similarity search for a general concept to see what comes up</span>
+retrieved_docs <span class="op">=</span> episodic_vector_store.<span class="fn">similarity_search</span>(<span class="str">&quot;User&#x27;s investment strategy&quot;</span>, k<span class="op">=</span><span class="num">3</span>)
+<span class="kw">for</span> i, doc <span class="kw">in</span> <span class="fn">enumerate</span>(retrieved_docs)<span class="op">:</span>
+    <span class="fn">print</span>(f<span class="str">&quot;{i+1}. {doc.page_content}&quot;</span>)
+
+console.<span class="fn">print</span>(<span class="str">&quot;\n--- 🕸️ Inspecting Semantic Memory (Graph Database) ---&quot;</span>)
+<span class="fn">print</span>(f<span class="str">&quot;Graph Schema:\n{graph.get_schema}&quot;</span>)
+
+<span class="cm"># Cypher query to see who is interested in what</span>
+query_result <span class="op">=</span> graph.<span class="fn">query</span>(<span class="str">&quot;MATCH (n:User)-[r:INTERESTED_IN|HAS_GOAL]-&gt;(m) RETURN n, r, m&quot;</span>)
+<span class="fn">print</span>(f<span class="str">&quot;Relationships in Graph:\n{query_result}&quot;</span>)
+</div>
+</div>
+  </section>
+
+  <div class="prevnext"><a href="blackboard.html"><span class="coding">Previous</span><br><span class="pn-strong">← Blackboard Systems</span></a><a href="tree-of-thoughts.html" style="text-align:right"><span class="coding">Next</span><br><span class="pn-strong">Tree of Thoughts (ToT) →</span></a></div>
+</div><div class="footer">
+  <p>Built from <a href="https://github.com/1998x-stack/all-agentic-architectures" style="color:var(--text)">all-agentic-architectures</a></p>
+</div></body></html>

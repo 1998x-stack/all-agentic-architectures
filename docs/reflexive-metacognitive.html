@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>#17 Reflexive Metacognitive — All Agentic Architectures</title>
+<link rel="stylesheet" href="base-dark.css">
+<style>
+  :root {
+    --c1: #28c840; --c1d: #1a7a2a;
+    --c2: #378add; --c2d: #1a5290;
+    --c3: #a259ff; --c3d: #5a2a8a;
+    --c4: #f0883e; --c4d: #9a4a1a;
+    --c5: #1db0a0; --c5d: #0f6e56;
+  }
+  .hero h1 em {
+    background: linear-gradient(90deg, var(--c1), var(--c2), var(--c3), var(--c4), var(--c5));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  }
+  .prevnext { display: flex; justify-content: space-between; padding: 32px 0; border-top: 1px solid var(--border); margin-top: 48px; }
+  .prevnext a { color: var(--muted); font-size: 13px; }
+  .prevnext a:hover { color: var(--text); text-decoration: none; }
+  .pn-strong { color: var(--text) !important; font-weight: 500; }
+  .coding { font-size: 11px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); margin-bottom: 4px; }
+  h2 { font-size: 22px; font-weight: 600; margin: 0 0 12px; letter-spacing: -.01em; }
+  h3 { font-size: 18px; font-weight: 600; margin: 32px 0 12px; }
+</style>
+
+</head>
+<body><nav>
+  <div class="nav-inner">
+    <span class="nav-brand">All Agentic Architectures <span>· 17 Patterns</span></span>
+    <a class="nl" href="index.html">Overview</a>
+  </div>
+</nav><div class="page">
+  <section class="hero" style="padding-bottom:32px">
+    <div class="hero-badge"><span class="dot" style="background:var(--c4)"></span> #17 · Safety & Reliability</div>
+    <h1 style="font-size:36px;color:var(--text)">Reflexive Metacognitive</h1>
+    <p style="margin-bottom:20px">High-Stakes Advisory (Medical, Legal, Finance)</p>
+    <div class="tag-row">
+      <span class="ltag" style="color:var(--c4);background:rgba(240,136,62,.08);border-color:rgba(240,136,62,.25)">Part 4</span>
+    </div>
+  </section>
+
+  <section class="layer-sec" style="padding-top:16px;border-bottom:none">
+    <div class="layer-hdr">
+      <span class="layer-id-badge" style="background:#9a4a1a;color:rgba(255,255,255,.9)">Concept</span>
+      <div class="layer-title">How It Works</div>
+    </div>
+    <p class="layer-def" style="border-color:#f0883e">An agent with a self-model that reasons about its own capabilities and limitations, escalating to humans when needed.</p>
+    <div style="font-size:14px;line-height:1.85;color:var(--text)">
+      <h2>📘 Agentic Architectures 17: Reflexive Metacognitive Agents</h2>
+<p style="margin-bottom:12px;line-height:1.75;font-size:14px;color:var(--muted)">Welcome to an in-depth implementation of one of the most sophisticated agentic patterns: the <strong style="color:var(--text)">Reflexive Metacognitive Agent</strong>. This architecture endows an agent with a form of self-awareness, enabling it to reason about its own capabilities, confidence, and limitations before taking action.</p>
+<p style="margin-bottom:12px;line-height:1.75;font-size:14px;color:var(--muted)">This goes a step beyond simple self-reflection. A metacognitive agent maintains an explicit <strong style="color:var(--text)">&quot;self-model&quot;</strong>—a structured representation of its own knowledge, tools, and boundaries. When faced with a task, its first step is not to solve the problem, but to <em>analyze the problem in the context of its self-model</em>. It asks internal questions like:</p>
+<p style="margin-bottom:12px;line-height:1.75;font-size:14px;color:var(--muted)">- &quot;Do I have sufficient knowledge to answer this confidently?&quot;</p>
+<p style="margin-bottom:12px;line-height:1.75;font-size:14px;color:var(--muted)">- &quot;Is this topic within my designated area of expertise?&quot;</p>
+<p style="margin-bottom:12px;line-height:1.75;font-size:14px;color:var(--muted)">- &quot;Do I have a specific tool that is required to answer this safely and accurately?&quot;</p>
+<p style="margin-bottom:12px;line-height:1.75;font-size:14px;color:var(--muted)">- &quot;Is the user&#x27;s query about a high-stakes topic where an error would be dangerous?&quot;</p>
+<p style="margin-bottom:12px;line-height:1.75;font-size:14px;color:var(--muted)">Based on the answers, it chooses a strategy: reason directly, use a specialized tool, or—most importantly—<strong style="color:var(--text)">escalate to a human</strong> when the task exceeds its known limits.</p>
+<p style="margin-bottom:12px;line-height:1.75;font-size:14px;color:var(--muted)">To build a complex and powerful demonstration, we will create a <strong style="color:var(--text)">Medical Triage &amp; Information Assistant</strong>. This is a classic high-stakes scenario where the agent&#x27;s ability to recognize its limitations is not just a feature, but a critical safety requirement.</p>
+<h4 style="color:var(--muted);margin:24px 0 8px;font-size:14px;text-transform:uppercase;letter-spacing:.06em">Definition</h4>
+<p style="margin-bottom:12px;line-height:1.75;font-size:14px;color:var(--muted)">A <strong style="color:var(--text)">Reflexive Metacognitive Agent</strong> is an agent that maintains and uses an explicit model of its own capabilities, knowledge boundaries, and confidence levels to select the most appropriate strategy for a given task. This self-modeling allows it to behave more safely and reliably, especially in domains where incorrect information is harmful.</p>
+<h4 style="color:var(--muted);margin:24px 0 8px;font-size:14px;text-transform:uppercase;letter-spacing:.06em">High-level Workflow</h4>
+<ol style="margin:0 0 16px 18px">
+<li style="margin-bottom:8px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Perceive Task:</strong> The agent receives a user request.</li>
+<li style="margin-bottom:8px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Metacognitive Analysis (Self-Reflection):</strong> The agent&#x27;s core reasoning engine analyzes the request <em>against its own self-model</em>. It assesses its confidence, the relevance of its tools, and whether the query falls within its predefined operational domain.</li>
+<li style="margin-bottom:8px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Strategy Selection:</strong> Based on the analysis, the agent selects one of several strategies:</li>
+<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Reason Directly:</strong> For high-confidence, low-risk queries within its knowledge base.</li>
+<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Use Tool:</strong> When the query requires a specific capability the agent possesses via a tool.</li>
+<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Escalate/Refuse:</strong> For low-confidence, high-risk, or out-of-scope queries.</li>
+<li style="margin-bottom:8px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Execute Strategy:</strong> The chosen path is executed.</li>
+<li style="margin-bottom:8px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Respond:</strong> The agent provides the result, which could be a direct answer, a tool-augmented answer, or a safe refusal with instructions to consult an expert.</li>
+</ol>
+<h4 style="color:var(--muted);margin:24px 0 8px;font-size:14px;text-transform:uppercase;letter-spacing:.06em">When to Use / Applications</h4>
+<ul style="margin:0 0 16px 18px;list-style-type:disc">
+<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">High-Stakes Advisory Systems:</strong> Any system providing information in domains like healthcare, law, or finance, where an agent must be able to say &quot;I don&#x27;t know&quot; or &quot;You should consult a professional.&quot;</li>
+<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Autonomous Systems:</strong> A robot that must assess its own ability to perform a physical task safely before attempting it.</li>
+<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Complex Tool Orchestrators:</strong> An agent that must choose the right API from a vast library, understanding that some APIs are more dangerous or costly than others.</li>
+</ul>
+<h4 style="color:var(--muted);margin:24px 0 8px;font-size:14px;text-transform:uppercase;letter-spacing:.06em">Strengths &amp; Weaknesses</h4>
+<ul style="margin:0 0 16px 18px;list-style-type:disc">
+<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Strengths:</strong></li>
+<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Enhanced Safety and Reliability:</strong> The primary benefit. The agent is explicitly designed to avoid making confident assertions in areas where it is not an expert.</li>
+<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Improved Decision Making:</strong> Leads to more robust behavior by forcing a deliberate choice of strategy instead of naive, direct attempts.</li>
+<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Weaknesses:</strong></li>
+<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Complexity of Self-Model:</strong> Defining and maintaining an accurate self-model can be complex.</li>
+<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Metacognitive Overhead:</strong> The initial analysis step adds latency and computational cost to every request.</li>
+</ul>
+    </div>
+  </section>
+
+  <section class="layer-sec" id="code">
+    <div class="layer-hdr">
+      <span class="layer-id-badge" style="background:#9a4a1a;color:rgba(255,255,255,.9)">Implementation</span>
+      <div class="layer-title">Code <small style="font-size:14px;font-weight:400;color:var(--muted)">LangChain + LangGraph</small></div>
+    </div>
+    <div class="codeblock">
+  <div class="cb-head">
+    <span class="cb-dot" style="background:#f85149"></span>
+    <span class="cb-dot" style="background:#e3b341"></span>
+    <span class="cb-dot" style="background:#28c840"></span>
+    src/src/... · 201 lines
+  </div>
+  <div class="cb-body"><span class="str">&quot;&quot;&quot;
+Reflexive Metacognitive - Agentic Architecture
+Extracted from: 17_reflexive_metacognitive.ipynb
+&quot;&quot;&quot;</span>
+
+<span class="cm"># !pip install -q -U langchain-nebius langchain langgraph rich python-dotenv</span>
+
+<span class="kw">import</span> os
+<span class="kw">from</span> typing <span class="kw">import</span> List, Dict, Any, Optional
+<span class="kw">from</span> dotenv <span class="kw">import</span> load_dotenv
+
+<span class="cm"># Pydantic for data modeling</span>
+<span class="kw">from</span> pydantic <span class="kw">import</span> BaseModel, Field
+
+<span class="cm"># LangChain components</span>
+<span class="kw">from</span> langchain_nebius <span class="kw">import</span> ChatNebius
+<span class="kw">from</span> langchain_core.prompts <span class="kw">import</span> ChatPromptTemplate
+
+<span class="cm"># LangGraph components</span>
+<span class="kw">from</span> langgraph.graph <span class="kw">import</span> StateGraph, END
+<span class="kw">from</span> typing_extensions <span class="kw">import</span> TypedDict
+
+<span class="cm"># For pretty printing</span>
+<span class="kw">from</span> rich.console <span class="kw">import</span> Console
+<span class="kw">from</span> rich.markdown <span class="kw">import</span> Markdown
+<span class="kw">from</span> rich.panel <span class="kw">import</span> Panel
+
+<span class="cm"># --- API Key and Tracing Setup ---</span>
+<span class="fn">load_dotenv</span>()
+
+os.environ[<span class="str">&quot;LANGCHAIN_TRACING_V2&quot;</span>] <span class="op">=</span> <span class="str">&quot;true&quot;</span>
+os.environ[<span class="str">&quot;LANGCHAIN_PROJECT&quot;</span>] <span class="op">=</span> <span class="str">&quot;Agentic Architecture - Metacognitive Agent (Nebius)&quot;</span>
+
+required_vars <span class="op">=</span> [<span class="str">&quot;NEBIUS_API_KEY&quot;</span>, <span class="str">&quot;LANGCHAIN_API_KEY&quot;</span>]
+<span class="kw">for</span> var <span class="kw">in</span> required_vars<span class="op">:</span>
+    <span class="kw">if</span> var <span class="kw">not</span> <span class="kw">in</span> os.environ<span class="op">:</span>
+        <span class="fn">print</span>(f<span class="str">&quot;Warning: Environment variable {var} not set.&quot;</span>)
+
+<span class="fn">print</span>(<span class="str">&quot;Environment variables loaded and tracing is set up.&quot;</span>)
+
+console <span class="op">=</span> <span class="fn">Console</span>()
+
+<span class="cm"># --- The Agent&#x27;s Self-Model ---</span>
+<span class="kw">class</span> <span class="fn">AgentSelfModel</span>(BaseModel)<span class="op">:</span>
+    <span class="str">&quot;&quot;&quot;A structured representation of the agent&#x27;s capabilities and limitations.&quot;&quot;&quot;</span>
+    name<span class="op">:</span> <span class="fn">str</span>
+    role<span class="op">:</span> <span class="fn">str</span>
+    <span class="cm"># The agent&#x27;s explicit knowledge boundaries</span>
+    knowledge_domain<span class="op">:</span> List[<span class="fn">str</span>] <span class="op">=</span> <span class="fn">Field</span>(description<span class="op">=</span><span class="str">&quot;List of topics the agent is knowledgeable about.&quot;</span>)
+    <span class="cm"># The agent&#x27;s available tools</span>
+    available_tools<span class="op">:</span> List[<span class="fn">str</span>] <span class="op">=</span> <span class="fn">Field</span>(description<span class="op">=</span><span class="str">&quot;List of tools the agent can use.&quot;</span>)
+    confidence_threshold<span class="op">:</span> <span class="fn">float</span> <span class="op">=</span> <span class="fn">Field</span>(description<span class="op">=</span><span class="str">&quot;The confidence level (0-1) below which the agent must escalate.&quot;</span>, default<span class="op">=</span><span class="num">0.6</span>)
+
+<span class="cm"># Instantiate the self-model for our Medical Triage Agent</span>
+medical_agent_model <span class="op">=</span> <span class="fn">AgentSelfModel</span>(
+    name<span class="op">=</span><span class="str">&quot;TriageBot-3000&quot;</span>,
+    role<span class="op">=</span><span class="str">&quot;A helpful AI assistant for providing preliminary medical information.&quot;</span>,
+    knowledge_domain<span class="op">=</span>[<span class="str">&quot;common_cold&quot;</span>, <span class="str">&quot;influenza&quot;</span>, <span class="str">&quot;allergies&quot;</span>, <span class="str">&quot;headaches&quot;</span>, <span class="str">&quot;basic_first_aid&quot;</span>],
+    available_tools<span class="op">=</span>[<span class="str">&quot;drug_interaction_checker&quot;</span>]
+)
+
+<span class="cm"># --- Specialist Tools ---</span>
+<span class="kw">class</span> DrugInteractionChecker<span class="op">:</span>
+    <span class="str">&quot;&quot;&quot;A mock tool to check for drug interactions.&quot;&quot;&quot;</span>
+    <span class="kw">def</span> <span class="fn">check</span>(self, drug_a<span class="op">:</span> <span class="fn">str</span>, drug_b<span class="op">:</span> <span class="fn">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="fn">str</span><span class="op">:</span>
+        <span class="str">&quot;&quot;&quot;Checks for interactions between two drugs.&quot;&quot;&quot;</span>
+        <span class="cm"># In a real system, this would query a medical database.</span>
+        known_interactions <span class="op">=</span> {
+            <span class="fn">frozenset</span>([<span class="str">&quot;ibuprofen&quot;</span>, <span class="str">&quot;lisinopril&quot;</span>])<span class="op">:</span> <span class="str">&quot;Moderate risk: Ibuprofen may reduce the blood pressure-lowering effects of lisinopril. Monitor blood pressure.&quot;</span>,
+            <span class="fn">frozenset</span>([<span class="str">&quot;aspirin&quot;</span>, <span class="str">&quot;warfarin&quot;</span>])<span class="op">:</span> <span class="str">&quot;High risk: Increased risk of bleeding. This combination should be avoided unless directed by a doctor.&quot;</span>
+        }
+        interaction <span class="op">=</span> known_interactions.<span class="fn">get</span>(<span class="fn">frozenset</span>([drug_a.<span class="fn">lower</span>(), drug_b.<span class="fn">lower</span>()]))
+        <span class="kw">if</span> interaction<span class="op">:</span>
+            <span class="kw">return</span> f<span class="str">&quot;Interaction Found: {interaction}&quot;</span>
+        <span class="kw">return</span> <span class="str">&quot;No known significant interactions found. However, always consult a pharmacist or doctor.&quot;</span>
+
+drug_tool <span class="op">=</span> <span class="fn">DrugInteractionChecker</span>()
+<span class="fn">print</span>(<span class="str">&quot;Agent Self-Model and Tools defined successfully.&quot;</span>)
+
+llm <span class="op">=</span> <span class="fn">ChatNebius</span>(model<span class="op">=</span><span class="str">&quot;mistralai/Mixtral-8x22B-Instruct-v0.1&quot;</span>, temperature<span class="op">=</span><span class="num">0</span>)
+
+<span class="cm"># Pydantic Models for structured outputs</span>
+<span class="kw">class</span> <span class="fn">MetacognitiveAnalysis</span>(BaseModel)<span class="op">:</span>
+    <span class="str">&quot;&quot;&quot;The agent&#x27;s self-analysis of a query.&quot;&quot;&quot;</span>
+    confidence<span class="op">:</span> <span class="fn">float</span> <span class="op">=</span> <span class="fn">Field</span>(description<span class="op">=</span><span class="str">&quot;A score from 0.0 to 1.0 representing the agent&#x27;s confidence in its ability to answer safely and accurately.&quot;</span>)
+    strategy<span class="op">:</span> <span class="fn">str</span> <span class="op">=</span> <span class="fn">Field</span>(description<span class="op">=</span><span class="str">&quot;The chosen strategy. Must be one of: &#x27;reason_directly&#x27;, &#x27;use_tool&#x27;, &#x27;escalate&#x27;.&quot;</span>)
+    reasoning<span class="op">:</span> <span class="fn">str</span> <span class="op">=</span> <span class="fn">Field</span>(description<span class="op">=</span><span class="str">&quot;A brief justification for the chosen confidence and strategy.&quot;</span>)
+    tool_to_use<span class="op">:</span> Optional[<span class="fn">str</span>] <span class="op">=</span> <span class="fn">Field</span>(description<span class="op">=</span><span class="str">&quot;If strategy is &#x27;use_tool&#x27;, the name of the tool to use.&quot;</span>, default<span class="op">=</span><span class="kw">None</span>)
+    tool_args<span class="op">:</span> Optional[Dict[<span class="fn">str</span>, Any]] <span class="op">=</span> <span class="fn">Field</span>(description<span class="op">=</span><span class="str">&quot;If strategy is &#x27;use_tool&#x27;, the arguments for the tool.&quot;</span>, default<span class="op">=</span><span class="kw">None</span>)
+
+<span class="cm"># LangGraph State</span>
+<span class="kw">class</span> <span class="fn">AgentState</span>(TypedDict)<span class="op">:</span>
+    user_query<span class="op">:</span> <span class="fn">str</span>
+    self_model<span class="op">:</span> AgentSelfModel
+    metacognitive_analysis<span class="op">:</span> Optional[MetacognitiveAnalysis]
+    tool_output<span class="op">:</span> Optional[<span class="fn">str</span>]
+    final_response<span class="op">:</span> <span class="fn">str</span>
+
+<span class="cm"># Graph Nodes</span>
+<span class="kw">def</span> <span class="fn">metacognitive_analysis_node</span>(state<span class="op">:</span> AgentState) <span class="op">-</span><span class="op">&gt;</span> Dict[<span class="fn">str</span>, Any]<span class="op">:</span>
+    console.<span class="fn">print</span>(<span class="fn">Panel</span>(<span class="str">&quot;🤔 Agent is performing metacognitive analysis...&quot;</span>, title<span class="op">=</span><span class="str">&quot;[yellow]Step: Self-Reflection[/yellow]&quot;</span>))
+    prompt <span class="op">=</span> ChatPromptTemplate.<span class="fn">from_template</span>(
+        <span class="str">&quot;&quot;&quot;You are a metacognitive reasoning engine for an AI assistant. Your task is to analyze a user&#x27;s query in the context of the agent&#x27;s own capabilities and limitations (its &#x27;self-model&#x27;).
+        Your primary directive is **SAFETY**. You must determine the safest and most appropriate strategy for handling the query.
+
+        **Agent&#x27;s Self-Model:**
+        - Name: {agent_name}
+        - Role: {agent_role}
+        - Knowledge Domain: {knowledge_domain}
+        - Available Tools: {available_tools}
+
+        **Strategy Rules:**
+        1.  **escalate:** Choose this strategy if the query involves a potential medical emergency (e.g., chest pain, difficulty breathing, severe injury, broken bones), is outside the agent&#x27;s knowledge domain, or if you have any doubt about providing a safe answer. **WHEN IN DOUBT, ESCALATE.**
+        2.  **use_tool:** Choose this strategy if the query explicitly or implicitly requires one of the available tools. For example, a question about drug interactions requires the &#x27;drug_interaction_checker&#x27;.
+        3.  **reason_directly:** Choose this strategy ONLY if you are highly confident the query is a simple, low-risk question that falls squarely within the agent&#x27;s knowledge domain.
+
+        Analyze the user query below and provide your metacognitive analysis in the required format.
+
+        **User Query:** &quot;{query}&quot;&quot;&quot;</span>
+    )
+    chain <span class="op">=</span> prompt <span class="op">|</span> llm.<span class="fn">with_structured_output</span>(MetacognitiveAnalysis)
+    analysis <span class="op">=</span> chain.<span class="fn">invoke</span>({
+        <span class="str">&quot;query&quot;</span><span class="op">:</span> state[<span class="str">&#x27;user_query&#x27;</span>],
+        <span class="str">&quot;agent_name&quot;</span><span class="op">:</span> state[<span class="str">&#x27;self_model&#x27;</span>].name,
+        <span class="str">&quot;agent_role&quot;</span><span class="op">:</span> state[<span class="str">&#x27;self_model&#x27;</span>].role,
+        <span class="str">&quot;knowledge_domain&quot;</span><span class="op">:</span> <span class="str">&quot;, &quot;</span>.<span class="fn">join</span>(state[<span class="str">&#x27;self_model&#x27;</span>].knowledge_domain),
+        <span class="str">&quot;available_tools&quot;</span><span class="op">:</span> <span class="str">&quot;, &quot;</span>.<span class="fn">join</span>(state[<span class="str">&#x27;self_model&#x27;</span>].available_tools),
+    })
+    console.<span class="fn">print</span>(<span class="fn">Panel</span>(f<span class="str">&quot;[bold]Confidence:[/bold] {analysis.confidence:.2f}\n[bold]Strategy:[/bold] {analysis.strategy}\n[bold]Reasoning:[/bold] {analysis.reasoning}&quot;</span>, title<span class="op">=</span><span class="str">&quot;Metacognitive Analysis Result&quot;</span>))
+    <span class="kw">return</span> {<span class="str">&quot;metacognitive_analysis&quot;</span><span class="op">:</span> analysis}
+
+<span class="kw">def</span> <span class="fn">reason_directly_node</span>(state<span class="op">:</span> AgentState) <span class="op">-</span><span class="op">&gt;</span> Dict[<span class="fn">str</span>, Any]<span class="op">:</span>
+    console.<span class="fn">print</span>(<span class="fn">Panel</span>(<span class="str">&quot;✅ Confident in direct answer. Generating response...&quot;</span>, title<span class="op">=</span><span class="str">&quot;[green]Strategy: Reason Directly[/green]&quot;</span>))
+    prompt <span class="op">=</span> ChatPromptTemplate.<span class="fn">from_template</span>(<span class="str">&quot;You are {agent_role}. Provide a helpful, non-prescriptive answer to the user&#x27;s query. Remind the user that you are not a doctor.\n\nQuery: {query}&quot;</span>)
+    chain <span class="op">=</span> prompt <span class="op">|</span> llm
+    response <span class="op">=</span> chain.<span class="fn">invoke</span>({<span class="str">&quot;agent_role&quot;</span><span class="op">:</span> state[<span class="str">&#x27;self_model&#x27;</span>].role, <span class="str">&quot;query&quot;</span><span class="op">:</span> state[<span class="str">&#x27;user_query&#x27;</span>]}).content
+    <span class="kw">return</span> {<span class="str">&quot;final_response&quot;</span><span class="op">:</span> response}
+
+<span class="kw">def</span> <span class="fn">call_tool_node</span>(state<span class="op">:</span> AgentState) <span class="op">-</span><span class="op">&gt;</span> Dict[<span class="fn">str</span>, Any]<span class="op">:</span>
+    console.<span class="fn">print</span>(<span class="fn">Panel</span>(f<span class="str">&quot;🛠️ Confidence requires tool use. Calling `{state[&#x27;metacognitive_analysis&#x27;].tool_to_use}`...&quot;</span>, title<span class="op">=</span><span class="str">&quot;[cyan]Strategy: Use Tool[/cyan]&quot;</span>))
+    analysis <span class="op">=</span> state[<span class="str">&#x27;metacognitive_analysis&#x27;</span>]
+    <span class="kw">if</span> analysis.tool_to_use <span class="op">=</span><span class="op">=</span> <span class="str">&#x27;drug_interaction_checker&#x27;</span><span class="op">:</span>
+        tool_output <span class="op">=</span> drug_tool.<span class="fn">check</span>(<span class="op">*</span><span class="op">*</span>analysis.tool_args)
+        <span class="kw">return</span> {<span class="str">&quot;tool_output&quot;</span><span class="op">:</span> tool_output}
+    <span class="kw">return</span> {<span class="str">&quot;tool_output&quot;</span><span class="op">:</span> <span class="str">&quot;Error: Tool not found.&quot;</span>}
+
+<span class="kw">def</span> <span class="fn">synthesize_tool_response_node</span>(state<span class="op">:</span> AgentState) <span class="op">-</span><span class="op">&gt;</span> Dict[<span class="fn">str</span>, Any]<span class="op">:</span>
+    console.<span class="fn">print</span>(<span class="fn">Panel</span>(<span class="str">&quot;📝 Synthesizing final response from tool output...&quot;</span>, title<span class="op">=</span><span class="str">&quot;[cyan]Step: Synthesize[/cyan]&quot;</span>))
+    prompt <span class="op">=</span> ChatPromptTemplate.<span class="fn">from_template</span>(<span class="str">&quot;You are {agent_role}. You have used a tool to get specific information. Now, present this information to the user in a clear and helpful way. ALWAYS include a disclaimer to consult a healthcare professional.\n\nOriginal Query: {query}\nTool Output: {tool_output}&quot;</span>)
+    chain <span class="op">=</span> prompt <span class="op">|</span> llm
+    response <span class="op">=</span> chain.<span class="fn">invoke</span>({<span class="str">&quot;agent_role&quot;</span><span class="op">:</span> state[<span class="str">&#x27;self_model&#x27;</span>].role, <span class="str">&quot;query&quot;</span><span class="op">:</span> state[<span class="str">&#x27;user_query&#x27;</span>], <span class="str">&quot;tool_output&quot;</span><span class="op">:</span> state[<span class="str">&#x27;tool_output&#x27;</span>]}).content
+    <span class="kw">return</span> {<span class="str">&quot;final_response&quot;</span><span class="op">:</span> response}
+
+<span class="kw">def</span> <span class="fn">escalate_to_human_node</span>(state<span class="op">:</span> AgentState) <span class="op">-</span><span class="op">&gt;</span> Dict[<span class="fn">str</span>, Any]<span class="op">:</span>
+    console.<span class="fn">print</span>(<span class="fn">Panel</span>(<span class="str">&quot;🚨 Low confidence or high risk detected. Escalating to human.&quot;</span>, title<span class="op">=</span><span class="str">&quot;[bold red]Strategy: Escalate[/bold red]&quot;</span>))
+    response <span class="op">=</span> <span class="str">&quot;I am an AI assistant and not qualified to provide information on this topic. This query is outside my knowledge domain or involves potentially serious symptoms. **Please consult a qualified medical professional immediately.**&quot;</span>
+    <span class="kw">return</span> {<span class="str">&quot;final_response&quot;</span><span class="op">:</span> response}
+
+<span class="cm"># Conditional Edge</span>
+<span class="kw">def</span> <span class="fn">route_strategy</span>(state<span class="op">:</span> AgentState) <span class="op">-</span><span class="op">&gt;</span> <span class="fn">str</span><span class="op">:</span>
+    <span class="kw">return</span> state[<span class="str">&quot;metacognitive_analysis&quot;</span>].strategy
+
+<span class="cm"># Build the graph</span>
+workflow <span class="op">=</span> <span class="fn">StateGraph</span>(AgentState)
+workflow.<span class="fn">add_node</span>(<span class="str">&quot;analyze&quot;</span>, metacognitive_analysis_node)
+workflow.<span class="fn">add_node</span>(<span class="str">&quot;reason&quot;</span>, reason_directly_node)
+workflow.<span class="fn">add_node</span>(<span class="str">&quot;call_tool&quot;</span>, call_tool_node)
+workflow.<span class="fn">add_node</span>(<span class="str">&quot;synthesize&quot;</span>, synthesize_tool_response_node)
+workflow.<span class="fn">add_node</span>(<span class="str">&quot;escalate&quot;</span>, escalate_to_human_node)
+
+workflow.<span class="fn">set_entry_point</span>(<span class="str">&quot;analyze&quot;</span>)
+workflow.<span class="fn">add_conditional_edges</span>(<span class="str">&quot;analyze&quot;</span>, route_strategy, {
+    <span class="str">&quot;reason_directly&quot;</span><span class="op">:</span> <span class="str">&quot;reason&quot;</span>,
+    <span class="str">&quot;use_tool&quot;</span><span class="op">:</span> <span class="str">&quot;call_tool&quot;</span>,
+    <span class="str">&quot;escalate&quot;</span><span class="op">:</span> <span class="str">&quot;escalate&quot;</span>
+})
+workflow.<span class="fn">add_edge</span>(<span class="str">&quot;call_tool&quot;</span>, <span class="str">&quot;synthesize&quot;</span>)
+workflow.<span class="fn">add_edge</span>(<span class="str">&quot;reason&quot;</span>, END)
+workflow.<span class="fn">add_edge</span>(<span class="str">&quot;synthesize&quot;</span>, END)
+workflow.<span class="fn">add_edge</span>(<span class="str">&quot;escalate&quot;</span>, END)
+
+metacognitive_agent <span class="op">=</span> workflow.<span class="fn">compile</span>()
+<span class="fn">print</span>(<span class="str">&quot;Reflexive Metacognitive Agent graph compiled successfully.&quot;</span>)
+
+<span class="kw">def</span> <span class="fn">run_agent</span>(query<span class="op">:</span> <span class="fn">str</span>)<span class="op">:</span>
+    initial_state <span class="op">=</span> {<span class="str">&quot;user_query&quot;</span><span class="op">:</span> query, <span class="str">&quot;self_model&quot;</span><span class="op">:</span> medical_agent_model}
+    result <span class="op">=</span> metacognitive_agent.<span class="fn">invoke</span>(initial_state)
+    console.<span class="fn">print</span>(<span class="fn">Markdown</span>(result[<span class="str">&#x27;final_response&#x27;</span>]))
+
+<span class="cm"># Test 1: Simple, should be answered directly</span>
+console.<span class="fn">print</span>(<span class="str">&quot;--- Test 1: Simple, In-Scope, Low-Risk Query ---&quot;</span>)
+<span class="fn">run_agent</span>(<span class="str">&quot;What are the symptoms of a common cold?&quot;</span>)
+
+<span class="cm"># Test 2: Requires the specific tool</span>
+console.<span class="fn">print</span>(<span class="str">&quot;\n--- Test 2: Specific Query Requiring a Tool ---&quot;</span>)
+<span class="fn">run_agent</span>(<span class="str">&quot;Is it safe to take Ibuprofen if I am also taking Lisinopril?&quot;</span>)
+
+<span class="cm"># Test 3: High-stakes, should be escalated immediately</span>
+console.<span class="fn">print</span>(<span class="str">&quot;\n--- Test 3: High-Stakes, Emergency Query ---&quot;</span>)
+<span class="fn">run_agent</span>(<span class="str">&quot;I have a crushing pain in my chest and my left arm feels numb, what should I do?&quot;</span>)
+</div>
+</div>
+  </section>
+
+  <div class="prevnext"><a href="cellular-automata.html"><span class="coding">Previous</span><br><span class="pn-strong">← Cellular Automata</span></a><span></span></div>
+</div><div class="footer">
+  <p>Built from <a href="https://github.com/1998x-stack/all-agentic-architectures" style="color:var(--text)">all-agentic-architectures</a></p>
+</div></body></html>

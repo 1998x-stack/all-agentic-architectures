@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>#16 Cellular Automata — All Agentic Architectures</title>
+<link rel="stylesheet" href="base-dark.css">
+<style>
+  :root {
+    --c1: #28c840; --c1d: #1a7a2a;
+    --c2: #378add; --c2d: #1a5290;
+    --c3: #a259ff; --c3d: #5a2a8a;
+    --c4: #f0883e; --c4d: #9a4a1a;
+    --c5: #1db0a0; --c5d: #0f6e56;
+  }
+  .hero h1 em {
+    background: linear-gradient(90deg, var(--c1), var(--c2), var(--c3), var(--c4), var(--c5));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  }
+  .prevnext { display: flex; justify-content: space-between; padding: 32px 0; border-top: 1px solid var(--border); margin-top: 48px; }
+  .prevnext a { color: var(--muted); font-size: 13px; }
+  .prevnext a:hover { color: var(--text); text-decoration: none; }
+  .pn-strong { color: var(--text) !important; font-weight: 500; }
+  .coding { font-size: 11px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); margin-bottom: 4px; }
+  h2 { font-size: 22px; font-weight: 600; margin: 0 0 12px; letter-spacing: -.01em; }
+  h3 { font-size: 18px; font-weight: 600; margin: 32px 0 12px; }
+</style>
+
+</head>
+<body><nav>
+  <div class="nav-inner">
+    <span class="nav-brand">All Agentic Architectures <span>· 17 Patterns</span></span>
+    <a class="nl" href="index.html">Overview</a>
+  </div>
+</nav><div class="page">
+  <section class="hero" style="padding-bottom:32px">
+    <div class="hero-badge"><span class="dot" style="background:var(--c5)"></span> #16 · Learning & Adaptation</div>
+    <h1 style="font-size:36px;color:var(--text)">Cellular Automata</h1>
+    <p style="margin-bottom:20px">Spatial Reasoning, Logistics, Complex System Simulation</p>
+    <div class="tag-row">
+      <span class="ltag" style="color:var(--c5);background:rgba(29,176,160,.08);border-color:rgba(29,176,160,.25)">Part 5</span>
+    </div>
+  </section>
+
+  <section class="layer-sec" style="padding-top:16px;border-bottom:none">
+    <div class="layer-hdr">
+      <span class="layer-id-badge" style="background:#0f6e56;color:rgba(255,255,255,.9)">Concept</span>
+      <div class="layer-title">How It Works</div>
+    </div>
+    <p class="layer-def" style="border-color:#1db0a0">Many simple, decentralized grid-based agents whose local interactions produce complex emergent global behavior.</p>
+    <div style="font-size:14px;line-height:1.85;color:var(--text)">
+      <h2>📘 Agentic Architectures 16: Cellular Automata / Grid-Based Systems</h2>
+<p style="margin-bottom:12px;line-height:1.75;font-size:14px;color:var(--muted)">Welcome to an exploration of a radically different agentic architecture: <strong style="color:var(--text)">Cellular Automata</strong> and <strong style="color:var(--text)">Grid-Based Agent Systems</strong>. This pattern is inspired by natural complex systems and concepts like Conway&#x27;s Game of Life. It shifts the paradigm from a few complex, centralized agents to a massive number of simple, decentralized agents operating on a grid.</p>
+<p style="margin-bottom:12px;line-height:1.75;font-size:14px;color:var(--muted)">In this model, the environment itself becomes the agent. Each cell in a grid is a mini-agent with its own state and a simple set of rules for updating that state based on its immediate neighbors. There is no central controller or complex pathfinding algorithm. Instead, intelligent, global behavior <strong style="color:var(--text)">emerges</strong> from the repeated, synchronous application of these simple local rules. The system becomes a &quot;computational fabric&quot; that solves problems through wave-like propagation of information.</p>
+<p style="margin-bottom:12px;line-height:1.75;font-size:14px;color:var(--muted)">To demonstrate this in a detailed, complex implementation, we will build a <strong style="color:var(--text)">Warehouse Logistics Simulator</strong>. Our goal is to fulfill an order by moving items from shelves to a packing station. We will solve this complex spatial reasoning task not with a single &quot;robot&quot; agent, but by programming the grid cells themselves to collectively compute the optimal path.</p>
+<h4 style="color:var(--muted);margin:24px 0 8px;font-size:14px;text-transform:uppercase;letter-spacing:.06em">Definition</h4>
+<p style="margin-bottom:12px;line-height:1.75;font-size:14px;color:var(--muted)">A <strong style="color:var(--text)">Grid-Based Agent System</strong> is an architecture where a large number of simple agents (or &quot;cells&quot;) are arranged in a spatial grid. Each agent has a state and updates it synchronously based on a rule set that only considers the states of its immediate neighbors. Complex, high-level patterns and problem-solving capabilities emerge from these local interactions.</p>
+<h4 style="color:var(--muted);margin:24px 0 8px;font-size:14px;text-transform:uppercase;letter-spacing:.06em">High-level Workflow</h4>
+<ol style="margin:0 0 16px 18px">
+<li style="margin-bottom:8px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Grid Initialization:</strong> A grid of cell-agents is created, each initialized with a type (e.g., obstacle, empty) and a state (e.g., a value).</li>
+<li style="margin-bottom:8px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Set Boundary Conditions:</strong> One or more cells are given a special state to start a computation (e.g., a &quot;target&quot; cell&#x27;s value is set to 0).</li>
+<li style="margin-bottom:8px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Synchronous Tick:</strong> The system &quot;ticks&quot; forward. In each tick, every cell simultaneously calculates its next state based on the current state of its neighbors.</li>
+<li style="margin-bottom:8px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Emergence:</strong> As the system ticks, information propagates across the grid like a wave. This can create gradients, paths, and other complex structures.</li>
+<li style="margin-bottom:8px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">State Stabilization:</strong> The system runs until the grid state stabilizes (no more changes occur), indicating that the computation is complete.</li>
+<li style="margin-bottom:8px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Readout:</strong> The solution to the problem is then read directly from the final state of the grid (e.g., by following a computed gradient).</li>
+</ol>
+<h4 style="color:var(--muted);margin:24px 0 8px;font-size:14px;text-transform:uppercase;letter-spacing:.06em">When to Use / Applications</h4>
+<ul style="margin:0 0 16px 18px;list-style-type:disc">
+<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Spatial Reasoning &amp; Logistics:</strong> Optimal pathfinding in dynamic environments (like our warehouse example).</li>
+<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Complex System Simulation:</strong> Modeling phenomena with emergent behavior like forest fires, disease spread, or urban growth.</li>
+<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Parallel Computation:</strong> Certain algorithms can be mapped to a cellular automata model for execution on highly parallel hardware (like GPUs).</li>
+</ul>
+<h4 style="color:var(--muted);margin:24px 0 8px;font-size:14px;text-transform:uppercase;letter-spacing:.06em">Strengths &amp; Weaknesses</h4>
+<ul style="margin:0 0 16px 18px;list-style-type:disc">
+<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Strengths:</strong></li>
+<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">High Parallelism:</strong> The logic is inherently parallel, making it extremely fast on appropriate hardware.</li>
+<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Adaptability:</strong> The system can dynamically react to changes in the environment (e.g., a new obstacle) by simply re-propagating its waves.</li>
+<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Emergent Complexity:</strong> Can solve very complex problems with surprisingly simple rules.</li>
+<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Weaknesses:</strong></li>
+<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Design Complexity:</strong> Designing the local rules to produce the desired global behavior can be challenging and unintuitive.</li>
+<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Less Introspective:</strong> It&#x27;s harder to ask a single cell &quot;why&quot; it has a certain state; the reasoning is distributed across the entire system.</li>
+</ul>
+    </div>
+  </section>
+
+  <section class="layer-sec" id="code">
+    <div class="layer-hdr">
+      <span class="layer-id-badge" style="background:#0f6e56;color:rgba(255,255,255,.9)">Implementation</span>
+      <div class="layer-title">Code <small style="font-size:14px;font-weight:400;color:var(--muted)">LangChain + LangGraph</small></div>
+    </div>
+    <div class="codeblock">
+  <div class="cb-head">
+    <span class="cb-dot" style="background:#f85149"></span>
+    <span class="cb-dot" style="background:#e3b341"></span>
+    <span class="cb-dot" style="background:#28c840"></span>
+    src/src/... · 261 lines
+  </div>
+  <div class="cb-body"><span class="str">&quot;&quot;&quot;
+Cellular Automata - Agentic Architecture
+Extracted from: 16_cellular_automata.ipynb
+&quot;&quot;&quot;</span>
+
+<span class="cm"># !pip install -q -U langchain-nebius rich python-dotenv numpy</span>
+
+<span class="kw">import</span> os
+<span class="kw">import</span> numpy <span class="kw">as</span> np
+<span class="kw">import</span> time
+<span class="kw">from</span> typing <span class="kw">import</span> List, Dict, Any, Optional, Tuple
+<span class="kw">from</span> dotenv <span class="kw">import</span> load_dotenv
+<span class="kw">from</span> IPython.display <span class="kw">import</span> clear_output
+
+<span class="cm"># LangChain for optional final summary</span>
+<span class="kw">from</span> langchain_nebius <span class="kw">import</span> ChatNebius
+<span class="kw">from</span> langchain_core.prompts <span class="kw">import</span> ChatPromptTemplate
+
+<span class="cm"># For pretty printing and visualization</span>
+<span class="kw">from</span> rich.console <span class="kw">import</span> Console
+<span class="kw">from</span> rich.table <span class="kw">import</span> Table
+<span class="kw">from</span> rich.panel <span class="kw">import</span> Panel
+
+<span class="cm"># --- API Key and Tracing Setup ---</span>
+<span class="fn">load_dotenv</span>()
+
+os.environ[<span class="str">&quot;LANGCHAIN_TRACING_V2&quot;</span>] <span class="op">=</span> <span class="str">&quot;true&quot;</span>
+os.environ[<span class="str">&quot;LANGCHAIN_PROJECT&quot;</span>] <span class="op">=</span> <span class="str">&quot;Agentic Architecture - Cellular Automata (Nebius)&quot;</span>
+
+required_vars <span class="op">=</span> [<span class="str">&quot;NEBIUS_API_KEY&quot;</span>, <span class="str">&quot;LANGCHAIN_API_KEY&quot;</span>]
+<span class="kw">for</span> var <span class="kw">in</span> required_vars<span class="op">:</span>
+    <span class="kw">if</span> var <span class="kw">not</span> <span class="kw">in</span> os.environ<span class="op">:</span>
+        <span class="fn">print</span>(f<span class="str">&quot;Warning: Environment variable {var} not set.&quot;</span>)
+
+<span class="fn">print</span>(<span class="str">&quot;Environment variables loaded and tracing is set up.&quot;</span>)
+
+console <span class="op">=</span> <span class="fn">Console</span>()
+
+<span class="kw">class</span> CellAgent<span class="op">:</span>
+    <span class="str">&quot;&quot;&quot;A single agent in our grid. Its only job is to update its value based on neighbors.&quot;&quot;&quot;</span>
+    <span class="kw">def</span> <span class="fn">__init__</span>(self, cell_type<span class="op">:</span> <span class="fn">str</span>, item<span class="op">:</span> Optional[<span class="fn">str</span>] <span class="op">=</span> <span class="kw">None</span>)<span class="op">:</span>
+        self.<span class="fn">type</span> <span class="op">=</span> cell_type <span class="cm"># &#x27;EMPTY&#x27;, &#x27;OBSTACLE&#x27;, &#x27;SHELF&#x27;, &#x27;PACKING_STATION&#x27;</span>
+        self.item <span class="op">=</span> item
+        self.pathfinding_value <span class="op">=</span> <span class="fn">float</span>(<span class="str">&#x27;inf&#x27;</span>)
+
+    <span class="kw">def</span> <span class="fn">update_value</span>(self, neighbors<span class="op">:</span> List[<span class="str">&#x27;CellAgent&#x27;</span>])<span class="op">:</span>
+        <span class="str">&quot;&quot;&quot;The core local rule: my new value is 1 + the minimum value of my non-obstacle neighbors.&quot;&quot;&quot;</span>
+        <span class="kw">if</span> self.<span class="fn">type</span> <span class="op">=</span><span class="op">=</span> <span class="str">&#x27;OBSTACLE&#x27;</span><span class="op">:</span>
+            <span class="kw">return</span> <span class="fn">float</span>(<span class="str">&#x27;inf&#x27;</span>)
+        
+        min_neighbor_value <span class="op">=</span> <span class="fn">float</span>(<span class="str">&#x27;inf&#x27;</span>)
+        <span class="kw">for</span> neighbor <span class="kw">in</span> neighbors<span class="op">:</span>
+            <span class="kw">if</span> neighbor.pathfinding_value <span class="op">&lt;</span> min_neighbor_value<span class="op">:</span>
+                min_neighbor_value <span class="op">=</span> neighbor.pathfinding_value
+        
+        <span class="cm"># The +1 represents the cost of moving from a neighbor to this cell</span>
+        <span class="kw">return</span> <span class="fn">min</span>(self.pathfinding_value, min_neighbor_value <span class="op">+</span> <span class="num">1</span>)
+
+<span class="kw">class</span> WarehouseGrid<span class="op">:</span>
+    <span class="str">&quot;&quot;&quot;Manages the entire grid of CellAgents and the simulation loop.&quot;&quot;&quot;</span>
+    <span class="kw">def</span> <span class="fn">__init__</span>(self, layout<span class="op">:</span> List[<span class="fn">str</span>])<span class="op">:</span>
+        self.height <span class="op">=</span> <span class="fn">len</span>(layout)
+        self.width <span class="op">=</span> <span class="fn">len</span>(layout[<span class="num">0</span>])
+        self.grid <span class="op">=</span> self.<span class="fn">_create_grid_from_layout</span>(layout)
+        self.item_locations <span class="op">=</span> self.<span class="fn">_get_item_locations</span>()
+
+    <span class="kw">def</span> <span class="fn">_create_grid_from_layout</span>(self, layout)<span class="op">:</span>
+        grid <span class="op">=</span> np.<span class="fn">empty</span>((self.height, self.width), dtype<span class="op">=</span>object)
+        <span class="kw">for</span> r, row_str <span class="kw">in</span> <span class="fn">enumerate</span>(layout)<span class="op">:</span>
+            <span class="kw">for</span> c, char <span class="kw">in</span> <span class="fn">enumerate</span>(row_str)<span class="op">:</span>
+                <span class="kw">if</span> char <span class="op">=</span><span class="op">=</span> <span class="str">&#x27; &#x27;</span><span class="op">:</span>
+                    grid[r, c] <span class="op">=</span> <span class="fn">CellAgent</span>(<span class="str">&#x27;EMPTY&#x27;</span>)
+                <span class="kw">elif</span> char <span class="op">=</span><span class="op">=</span> <span class="str">&#x27;#&#x27;</span><span class="op">:</span>
+                    grid[r, c] <span class="op">=</span> <span class="fn">CellAgent</span>(<span class="str">&#x27;OBSTACLE&#x27;</span>)
+                <span class="kw">elif</span> char <span class="op">=</span><span class="op">=</span> <span class="str">&#x27;P&#x27;</span><span class="op">:</span>
+                    grid[r, c] <span class="op">=</span> <span class="fn">CellAgent</span>(<span class="str">&#x27;PACKING_STATION&#x27;</span>)
+                <span class="kw">else</span><span class="op">:</span> <span class="cm"># It&#x27;s an item</span>
+                    grid[r, c] <span class="op">=</span> <span class="fn">CellAgent</span>(<span class="str">&#x27;SHELF&#x27;</span>, item<span class="op">=</span>char)
+        <span class="kw">return</span> grid
+
+    <span class="kw">def</span> <span class="fn">_get_item_locations</span>(self) <span class="op">-</span><span class="op">&gt;</span> Dict[<span class="fn">str</span>, Tuple[<span class="fn">int</span>, <span class="fn">int</span>]]<span class="op">:</span>
+        locations <span class="op">=</span> {}
+        <span class="kw">for</span> r <span class="kw">in</span> <span class="fn">range</span>(self.height)<span class="op">:</span>
+            <span class="kw">for</span> c <span class="kw">in</span> <span class="fn">range</span>(self.width)<span class="op">:</span>
+                <span class="kw">if</span> self.grid[r, c].<span class="fn">type</span> <span class="op">=</span><span class="op">=</span> <span class="str">&#x27;SHELF&#x27;</span><span class="op">:</span>
+                    locations[self.grid[r, c].item] <span class="op">=</span> (r, c)
+                <span class="kw">if</span> self.grid[r, c].<span class="fn">type</span> <span class="op">=</span><span class="op">=</span> <span class="str">&#x27;PACKING_STATION&#x27;</span><span class="op">:</span>
+                    locations[<span class="str">&#x27;P&#x27;</span>] <span class="op">=</span> (r, c)
+        <span class="kw">return</span> locations
+
+    <span class="kw">def</span> <span class="fn">get_neighbors</span>(self, r<span class="op">:</span> <span class="fn">int</span>, c<span class="op">:</span> <span class="fn">int</span>) <span class="op">-</span><span class="op">&gt;</span> List[CellAgent]<span class="op">:</span>
+        neighbors <span class="op">=</span> []
+        <span class="kw">for</span> dr, dc <span class="kw">in</span> [(<span class="num">0</span>, <span class="num">1</span>), (<span class="num">0</span>, <span class="op">-</span><span class="num">1</span>), (<span class="num">1</span>, <span class="num">0</span>), (<span class="op">-</span><span class="num">1</span>, <span class="num">0</span>)]<span class="op">:</span> <span class="cm"># N, S, E, W</span>
+            nr, nc <span class="op">=</span> r <span class="op">+</span> dr, c <span class="op">+</span> dc
+            <span class="kw">if</span> <span class="num">0</span> <span class="op">&lt;</span><span class="op">=</span> nr <span class="op">&lt;</span> self.height <span class="kw">and</span> <span class="num">0</span> <span class="op">&lt;</span><span class="op">=</span> nc <span class="op">&lt;</span> self.width<span class="op">:</span>
+                neighbors.<span class="fn">append</span>(self.grid[nr, nc])
+        <span class="kw">return</span> neighbors
+
+    <span class="kw">def</span> <span class="fn">tick</span>(self) <span class="op">-</span><span class="op">&gt;</span> <span class="fn">bool</span><span class="op">:</span>
+        <span class="str">&quot;&quot;&quot;Performs one synchronous update of all cells. Returns True if any value changed.&quot;&quot;&quot;</span>
+        changed <span class="op">=</span> <span class="kw">False</span>
+        <span class="cm"># First, calculate all new values based on the current state</span>
+        new_values <span class="op">=</span> np.<span class="fn">empty</span>((self.height, self.width))
+        <span class="kw">for</span> r <span class="kw">in</span> <span class="fn">range</span>(self.height)<span class="op">:</span>
+            <span class="kw">for</span> c <span class="kw">in</span> <span class="fn">range</span>(self.width)<span class="op">:</span>
+                neighbors <span class="op">=</span> self.<span class="fn">get_neighbors</span>(r, c)
+                new_values[r, c] <span class="op">=</span> self.grid[r, c].<span class="fn">update_value</span>(neighbors)
+        
+        <span class="cm"># Then, apply all the new values</span>
+        <span class="kw">for</span> r <span class="kw">in</span> <span class="fn">range</span>(self.height)<span class="op">:</span>
+            <span class="kw">for</span> c <span class="kw">in</span> <span class="fn">range</span>(self.width)<span class="op">:</span>
+                <span class="kw">if</span> self.grid[r, c].pathfinding_value <span class="op">!</span><span class="op">=</span> new_values[r, c]<span class="op">:</span>
+                    self.grid[r, c].pathfinding_value <span class="op">=</span> new_values[r, c]
+                    changed <span class="op">=</span> <span class="kw">True</span>
+        <span class="kw">return</span> changed
+
+    <span class="kw">def</span> <span class="fn">visualize</span>(self, show_values<span class="op">:</span> <span class="fn">bool</span> <span class="op">=</span> <span class="kw">False</span>, title<span class="op">:</span> <span class="fn">str</span> <span class="op">=</span> <span class="str">&quot;Warehouse Grid&quot;</span>)<span class="op">:</span>
+        <span class="str">&quot;&quot;&quot;Displays the grid state using Rich.&quot;&quot;&quot;</span>
+        table <span class="op">=</span> <span class="fn">Table</span>(title<span class="op">=</span>title, show_header<span class="op">=</span><span class="kw">False</span>, show_edge<span class="op">=</span><span class="kw">True</span>, padding<span class="op">=</span><span class="num">0</span>)
+        <span class="kw">for</span> _ <span class="kw">in</span> <span class="fn">range</span>(self.width)<span class="op">:</span>
+            table.<span class="fn">add_column</span>(justify<span class="op">=</span><span class="str">&quot;center&quot;</span>)
+        
+        <span class="kw">for</span> r <span class="kw">in</span> <span class="fn">range</span>(self.height)<span class="op">:</span>
+            row_renderables <span class="op">=</span> []
+            <span class="kw">for</span> c <span class="kw">in</span> <span class="fn">range</span>(self.width)<span class="op">:</span>
+                cell <span class="op">=</span> self.grid[r, c]
+                val <span class="op">=</span> cell.pathfinding_value
+                display_char <span class="op">=</span> <span class="str">&#x27;&#x27;</span>
+                <span class="kw">if</span> cell.<span class="fn">type</span> <span class="op">=</span><span class="op">=</span> <span class="str">&#x27;EMPTY&#x27;</span><span class="op">:</span> display_char <span class="op">=</span> <span class="str">&#x27;[grey70]·[/grey70]&#x27;</span>
+                <span class="kw">elif</span> cell.<span class="fn">type</span> <span class="op">=</span><span class="op">=</span> <span class="str">&#x27;OBSTACLE&#x27;</span><span class="op">:</span> display_char <span class="op">=</span> <span class="str">&#x27;[red]█[/red]&#x27;</span>
+                <span class="kw">elif</span> cell.<span class="fn">type</span> <span class="op">=</span><span class="op">=</span> <span class="str">&#x27;PACKING_STATION&#x27;</span><span class="op">:</span> display_char <span class="op">=</span> <span class="str">&#x27;[bold green]P[/bold green]&#x27;</span>
+                <span class="kw">elif</span> cell.<span class="fn">type</span> <span class="op">=</span><span class="op">=</span> <span class="str">&#x27;SHELF&#x27;</span><span class="op">:</span> display_char <span class="op">=</span> f<span class="str">&#x27;[bold blue]{cell.item}[/bold blue]&#x27;</span>
+
+                <span class="kw">if</span> show_values <span class="kw">and</span> val <span class="op">!</span><span class="op">=</span> <span class="fn">float</span>(<span class="str">&#x27;inf&#x27;</span>)<span class="op">:</span>
+                    <span class="cm"># Color code the path values</span>
+                    color <span class="op">=</span> <span class="fn">int</span>(<span class="num">255</span> <span class="op">-</span> (val <span class="op">*</span> <span class="num">5</span>) <span class="op">%</span> <span class="num">255</span>)
+                    row_renderables.<span class="fn">append</span>(f<span class="str">&quot;[rgb({color},{color},{color}) on rgb(30,30,60)]{int(val):^3}[/]&quot;</span>)
+                <span class="kw">else</span><span class="op">:</span>
+                    row_renderables.<span class="fn">append</span>(f<span class="str">&quot; {display_char} &quot;</span>)
+            table.<span class="fn">add_row</span>(<span class="op">*</span>row_renderables)
+        console.<span class="fn">print</span>(table)
+
+<span class="fn">print</span>(<span class="str">&quot;Cellular Automata environment defined successfully.&quot;</span>)
+
+<span class="kw">def</span> <span class="fn">propagate_path_wave</span>(grid<span class="op">:</span> WarehouseGrid, target_pos<span class="op">:</span> Tuple[<span class="fn">int</span>, <span class="fn">int</span>], visualize_steps<span class="op">:</span> <span class="fn">bool</span> <span class="op">=</span> <span class="kw">False</span>)<span class="op">:</span>
+    <span class="str">&quot;&quot;&quot;Resets and then runs the simulation until the pathfinding values stabilize.&quot;&quot;&quot;</span>
+    <span class="cm"># Reset all pathfinding values</span>
+    <span class="kw">for</span> r <span class="kw">in</span> <span class="fn">range</span>(grid.height)<span class="op">:</span>
+        <span class="kw">for</span> c <span class="kw">in</span> <span class="fn">range</span>(grid.width)<span class="op">:</span>
+            grid.grid[r, c].pathfinding_value <span class="op">=</span> <span class="fn">float</span>(<span class="str">&#x27;inf&#x27;</span>)
+            
+    <span class="cm"># Set the target&#x27;s value to 0 to start the wave</span>
+    grid.grid[target_pos].pathfinding_value <span class="op">=</span> <span class="num">0</span>
+    
+    tick_count <span class="op">=</span> <span class="num">0</span>
+    <span class="kw">while</span> <span class="kw">True</span><span class="op">:</span>
+        tick_count <span class="op">+</span><span class="op">=</span> <span class="num">1</span>
+        <span class="kw">if</span> visualize_steps<span class="op">:</span>
+            <span class="fn">clear_output</span>(wait<span class="op">=</span><span class="kw">True</span>)
+            grid.<span class="fn">visualize</span>(show_values<span class="op">=</span><span class="kw">True</span>, title<span class="op">=</span>f<span class="str">&quot;Path Wave Propagation (Tick #{tick_count})&quot;</span>)
+            time.<span class="fn">sleep</span>(<span class="num">0.1</span>)
+        
+        changed <span class="op">=</span> grid.<span class="fn">tick</span>()
+        <span class="kw">if</span> <span class="kw">not</span> changed<span class="op">:</span>
+            <span class="kw">break</span>
+    <span class="kw">if</span> visualize_steps<span class="op">:</span>
+        <span class="fn">clear_output</span>(wait<span class="op">=</span><span class="kw">True</span>)
+        grid.<span class="fn">visualize</span>(show_values<span class="op">=</span><span class="kw">True</span>, title<span class="op">=</span>f<span class="str">&quot;Path Wave Propagation (Stabilized at Tick #{tick_count})&quot;</span>)
+
+<span class="kw">def</span> <span class="fn">trace_and_move_item</span>(grid<span class="op">:</span> WarehouseGrid, start_pos<span class="op">:</span> Tuple[<span class="fn">int</span>, <span class="fn">int</span>]) <span class="op">-</span><span class="op">&gt;</span> List[Tuple[<span class="fn">int</span>, <span class="fn">int</span>]]<span class="op">:</span>
+    <span class="str">&quot;&quot;&quot;Follows the gradient from the start position back to the target (value 0).&quot;&quot;&quot;</span>
+    path <span class="op">=</span> [start_pos]
+    r, c <span class="op">=</span> start_pos
+    
+    <span class="kw">while</span> grid.grid[r, c].pathfinding_value <span class="op">&gt;</span> <span class="num">0</span><span class="op">:</span>
+        neighbors <span class="op">=</span> grid.<span class="fn">get_neighbors</span>(r, c)
+        best_neighbor_pos <span class="op">=</span> <span class="kw">None</span>
+        min_val <span class="op">=</span> grid.grid[r, c].pathfinding_value
+        
+        <span class="cm"># Find the neighbor with the lowest pathfinding value</span>
+        <span class="kw">for</span> neighbor_cell <span class="kw">in</span> neighbors<span class="op">:</span>
+            <span class="cm"># Find the position of the neighbor cell</span>
+            pos_list <span class="op">=</span> np.<span class="fn">where</span>(grid.grid <span class="op">=</span><span class="op">=</span> neighbor_cell)
+            <span class="kw">if</span> <span class="fn">len</span>(pos_list[<span class="num">0</span>]) <span class="op">&gt;</span> <span class="num">0</span><span class="op">:</span>
+                nr, nc <span class="op">=</span> pos_list[<span class="num">0</span>][<span class="num">0</span>], pos_list[<span class="num">1</span>][<span class="num">0</span>]
+                <span class="kw">if</span> neighbor_cell.pathfinding_value <span class="op">&lt;</span> min_val<span class="op">:</span>
+                    min_val <span class="op">=</span> neighbor_cell.pathfinding_value
+                    best_neighbor_pos <span class="op">=</span> (nr, nc)
+        
+        <span class="kw">if</span> best_neighbor_pos<span class="op">:</span>
+            path.<span class="fn">append</span>(best_neighbor_pos)
+            r, c <span class="op">=</span> best_neighbor_pos
+        <span class="kw">else</span><span class="op">:</span>
+            console.<span class="fn">print</span>(<span class="str">&quot;[red]Error: Path tracing got stuck. No downhill neighbor found.[/red]&quot;</span>)
+            <span class="kw">break</span>
+            
+    <span class="kw">return</span> path
+
+<span class="fn">print</span>(<span class="str">&quot;Emergent behavior functions defined successfully.&quot;</span>)
+
+<span class="kw">def</span> <span class="fn">fulfill_order</span>(layout<span class="op">:</span> List[<span class="fn">str</span>], order<span class="op">:</span> List[<span class="fn">str</span>], visualize_waves<span class="op">:</span> <span class="fn">bool</span> <span class="op">=</span> <span class="kw">False</span>)<span class="op">:</span>
+    <span class="str">&quot;&quot;&quot;The main orchestration function.&quot;&quot;&quot;</span>
+    grid <span class="op">=</span> <span class="fn">WarehouseGrid</span>(layout)
+    console.<span class="fn">print</span>(<span class="str">&quot;--- Initial Warehouse State ---&quot;</span>)
+    grid.<span class="fn">visualize</span>()
+    
+    packing_station_pos <span class="op">=</span> grid.item_locations[<span class="str">&#x27;P&#x27;</span>]
+    
+    <span class="kw">for</span> i, item_id <span class="kw">in</span> <span class="fn">enumerate</span>(order)<span class="op">:</span>
+        panel_title <span class="op">=</span> f<span class="str">&quot;[bold]Step {i+1}: Fulfill Item &#x27;{item_id}&#x27;[/bold]&quot;</span>
+        log_messages <span class="op">=</span> []
+        
+        item_pos <span class="op">=</span> grid.item_locations.<span class="fn">get</span>(item_id)
+        <span class="kw">if</span> <span class="kw">not</span> item_pos<span class="op">:</span>
+            console.<span class="fn">print</span>(<span class="fn">Panel</span>(f<span class="str">&quot;[red]Error: Item &#x27;{item_id}&#x27; not found in warehouse.[/red]&quot;</span>, title<span class="op">=</span>panel_title))
+            <span class="kw">continue</span>
+            
+        <span class="cm"># 1. Compute the path wave from the packing station</span>
+        log_messages.<span class="fn">append</span>(<span class="str">&quot;🌊 Computing path wave from Packing Station...&quot;</span>)
+        <span class="fn">propagate_path_wave</span>(grid, packing_station_pos, visualize_steps<span class="op">=</span>visualize_waves)
+        
+        <span class="cm"># 2. Trace the path for the current item</span>
+        log_messages.<span class="fn">append</span>(f<span class="str">&quot;🚚 Found path for item {item_id}. Moving along gradient...&quot;</span>)
+        path <span class="op">=</span> <span class="fn">trace_and_move_item</span>(grid, item_pos)
+        path_str <span class="op">=</span> <span class="str">&#x27; -&gt; &#x27;</span>.<span class="fn">join</span>(<span class="fn">map</span>(<span class="fn">str</span>, path))
+        log_messages.<span class="fn">append</span>(f<span class="str">&quot;Path: {path_str}&quot;</span>)
+
+        <span class="cm"># 3. Update the grid state (item is now at packing station)</span>
+        grid.grid[item_pos].<span class="fn">type</span> <span class="op">=</span> <span class="str">&#x27;EMPTY&#x27;</span>
+        grid.grid[item_pos].item <span class="op">=</span> <span class="kw">None</span>
+        log_messages.<span class="fn">append</span>(f<span class="str">&quot;✅ Item &#x27;{item_id}&#x27; has been moved to the packing station.&quot;</span>)
+        console.<span class="fn">print</span>(<span class="fn">Panel</span>(<span class="str">&#x27;\n&#x27;</span>.<span class="fn">join</span>(log_messages), title<span class="op">=</span>panel_title, border_style<span class="op">=</span><span class="str">&quot;blue&quot;</span>))
+        
+    console.<span class="fn">print</span>(<span class="fn">Panel</span>(f<span class="str">&quot;The system successfully fulfilled the order for items {order} by emergently computing paths through local cell interactions.&quot;</span>, title<span class="op">=</span><span class="str">&quot;[bold green]🎉 Order Fulfillment Complete![/bold green]&quot;</span>, border_style<span class="op">=</span><span class="str">&quot;green&quot;</span>))
+    <span class="kw">return</span> grid
+
+<span class="cm"># --- Main Execution ---</span>
+warehouse_layout <span class="op">=</span> [
+    <span class="str">&quot;#######&quot;</span>,
+    <span class="str">&quot;# D   #&quot;</span>,
+    <span class="str">&quot;# ### #&quot;</span>,
+    <span class="str">&quot;#A#C# #&quot;</span>,
+    <span class="str">&quot;# # #B#&quot;</span>,
+    <span class="str">&quot;#  P  #&quot;</span>,
+    <span class="str">&quot;#######&quot;</span>,
+]
+order_to_fulfill <span class="op">=</span> [<span class="str">&#x27;A&#x27;</span>, <span class="str">&#x27;B&#x27;</span>]
+final_grid <span class="op">=</span> <span class="fn">fulfill_order</span>(warehouse_layout, order_to_fulfill, visualize_waves<span class="op">=</span><span class="kw">True</span>)
+
+<span class="cm"># --- Optional: LLM Interpretation ---</span>
+console.<span class="fn">print</span>(<span class="str">&quot;\n--- 🤖 LLM Interpretation of the Final State ---&quot;</span>)
+llm <span class="op">=</span> <span class="fn">ChatNebius</span>(model<span class="op">=</span><span class="str">&quot;mistralai/Mixtral-8x22B-Instruct-v0.1&quot;</span>)
+summary_prompt <span class="op">=</span> ChatPromptTemplate.<span class="fn">from_template</span>(<span class="str">&quot;You are a logistics manager. Briefly summarize the outcome of the following order fulfillment report.\n\nOrder: {order}\nFinal Warehouse State: All items from the order have been moved to the packing station. Items A and B were retrieved. Original locations were {loc_A} and {loc_B}. The floor is now clear.&quot;</span>)
+summary_chain <span class="op">=</span> summary_prompt <span class="op">|</span> llm
+final_summary <span class="op">=</span> summary_chain.<span class="fn">invoke</span>({
+    <span class="str">&quot;order&quot;</span><span class="op">:</span> order_to_fulfill, 
+    <span class="str">&quot;loc_A&quot;</span><span class="op">:</span> <span class="fn">WarehouseGrid</span>(warehouse_layout).item_locations[<span class="str">&#x27;A&#x27;</span>],
+    <span class="str">&quot;loc_B&quot;</span><span class="op">:</span> <span class="fn">WarehouseGrid</span>(warehouse_layout).item_locations[<span class="str">&#x27;B&#x27;</span>]
+}).content
+console.<span class="fn">print</span>(<span class="fn">Markdown</span>(final_summary))
+</div>
+</div>
+  </section>
+
+  <div class="prevnext"><a href="rlhf.html"><span class="coding">Previous</span><br><span class="pn-strong">← RLHF (Self-Improvement)</span></a><a href="reflexive-metacognitive.html" style="text-align:right"><span class="coding">Next</span><br><span class="pn-strong">Reflexive Metacognitive →</span></a></div>
+</div><div class="footer">
+  <p>Built from <a href="https://github.com/1998x-stack/all-agentic-architectures" style="color:var(--text)">all-agentic-architectures</a></p>
+</div></body></html>

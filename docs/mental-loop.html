@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>#10 Mental Loop (Simulator) — All Agentic Architectures</title>
+<link rel="stylesheet" href="base-dark.css">
+<style>
+  :root {
+    --c1: #28c840; --c1d: #1a7a2a;
+    --c2: #378add; --c2d: #1a5290;
+    --c3: #a259ff; --c3d: #5a2a8a;
+    --c4: #f0883e; --c4d: #9a4a1a;
+    --c5: #1db0a0; --c5d: #0f6e56;
+  }
+  .hero h1 em {
+    background: linear-gradient(90deg, var(--c1), var(--c2), var(--c3), var(--c4), var(--c5));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  }
+  .prevnext { display: flex; justify-content: space-between; padding: 32px 0; border-top: 1px solid var(--border); margin-top: 48px; }
+  .prevnext a { color: var(--muted); font-size: 13px; }
+  .prevnext a:hover { color: var(--text); text-decoration: none; }
+  .pn-strong { color: var(--text) !important; font-weight: 500; }
+  .coding { font-size: 11px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); margin-bottom: 4px; }
+  h2 { font-size: 22px; font-weight: 600; margin: 0 0 12px; letter-spacing: -.01em; }
+  h3 { font-size: 18px; font-weight: 600; margin: 32px 0 12px; }
+</style>
+
+</head>
+<body><nav>
+  <div class="nav-inner">
+    <span class="nav-brand">All Agentic Architectures <span>· 17 Patterns</span></span>
+    <a class="nl" href="index.html">Overview</a>
+  </div>
+</nav><div class="page">
+  <section class="hero" style="padding-bottom:32px">
+    <div class="hero-badge"><span class="dot" style="background:var(--c4)"></span> #10 · Safety & Reliability</div>
+    <h1 style="font-size:36px;color:var(--text)">Mental Loop (Simulator)</h1>
+    <p style="margin-bottom:20px">Robotics, Financial Trading, Safety-Critical Systems</p>
+    <div class="tag-row">
+      <span class="ltag" style="color:var(--c4);background:rgba(240,136,62,.08);border-color:rgba(240,136,62,.25)">Part 4</span>
+    </div>
+  </section>
+
+  <section class="layer-sec" style="padding-top:16px;border-bottom:none">
+    <div class="layer-hdr">
+      <span class="layer-id-badge" style="background:#9a4a1a;color:rgba(255,255,255,.9)">Concept</span>
+      <div class="layer-title">How It Works</div>
+    </div>
+    <p class="layer-def" style="border-color:#f0883e">Tests actions in an internal mental model to predict outcomes and assess risk before real-world execution.</p>
+    <div style="font-size:14px;line-height:1.85;color:var(--text)">
+      <h2>📘 Agentic Architectures 10: Simulator / Mental-Model-in-the-Loop</h2>
+<p style="margin-bottom:12px;line-height:1.75;font-size:14px;color:var(--muted)">Welcome to the tenth notebook in our series. Today, we explore a sophisticated architecture designed for safety and robust decision-making in high-stakes environments: the <strong style="color:var(--text)">Simulator</strong>, also known as a <strong style="color:var(--text)">Mental-Model-in-the-Loop</strong>.</p>
+<p style="margin-bottom:12px;line-height:1.75;font-size:14px;color:var(--muted)">The core idea is to give an agent the ability to &quot;think before it acts&quot; in a very concrete way. Instead of committing to an action in the real world immediately, the agent first tests its proposed action in an internal, simulated version of the environment. By observing the likely consequences in this safe sandbox, it can evaluate risks, refine its strategy, and only then execute a more considered action in reality.</p>
+<p style="margin-bottom:12px;line-height:1.75;font-size:14px;color:var(--muted)">We will build a simple <strong style="color:var(--text)">stock trading agent</strong> to demonstrate this. The &quot;real world&quot; will be a market simulator that advances one step at a time. Before making a trade, our agent will:</p>
+<ol style="margin:0 0 16px 18px">
+<li style="margin-bottom:8px;line-height:1.65;font-size:14px;color:var(--text)">Propose a general strategy (e.g., &quot;buy aggressively&quot;).</li>
+<li style="margin-bottom:8px;line-height:1.65;font-size:14px;color:var(--text)">Run that strategy through a <em>forked</em> version of the market simulator for multiple future steps to see potential outcomes.</li>
+<li style="margin-bottom:8px;line-height:1.65;font-size:14px;color:var(--text)">Analyze the simulation results to assess risk and reward.</li>
+<li style="margin-bottom:8px;line-height:1.65;font-size:14px;color:var(--text)">Make a final, refined decision (e.g., &quot;The simulation shows high volatility; let&#x27;s buy a smaller amount.&quot;).</li>
+<li style="margin-bottom:8px;line-height:1.65;font-size:14px;color:var(--text)">Execute that refined trade in the real market.</li>
+</ol>
+<p style="margin-bottom:12px;line-height:1.75;font-size:14px;color:var(--muted)">This pattern is crucial for moving agents from informational tasks to performing actions in the real world, where mistakes can have real consequences.</p>
+<h4 style="color:var(--muted);margin:24px 0 8px;font-size:14px;text-transform:uppercase;letter-spacing:.06em">Definition</h4>
+<p style="margin-bottom:12px;line-height:1.75;font-size:14px;color:var(--muted)">A <strong style="color:var(--text)">Simulator</strong> or <strong style="color:var(--text)">Mental-Model-in-the-Loop</strong> architecture involves an agent that uses an internal model of its environment to simulate the outcomes of potential actions before executing any of them. This allows the agent to perform what-if analysis, anticipate consequences, and refine its plan for safety and effectiveness.</p>
+<h4 style="color:var(--muted);margin:24px 0 8px;font-size:14px;text-transform:uppercase;letter-spacing:.06em">High-level Workflow</h4>
+<ol style="margin:0 0 16px 18px">
+<li style="margin-bottom:8px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Observe:</strong> The agent observes the current state of the real environment.</li>
+<li style="margin-bottom:8px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Propose Action:</strong> Based on its goals and the current state, the agent&#x27;s planning module generates a high-level proposed action or strategy.</li>
+<li style="margin-bottom:8px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Simulate:</strong> The agent forks the current state of the environment into a sandboxed simulation. It applies the proposed action and runs the simulation forward to observe a range of possible outcomes.</li>
+<li style="margin-bottom:8px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Assess &amp; Refine:</strong> The agent analyzes the results from the simulation. Did the action lead to the desired outcome? Were there unforeseen negative consequences? Based on this assessment, it refines its initial proposal into a final, concrete action.</li>
+<li style="margin-bottom:8px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Execute:</strong> The agent executes the final, refined action in the <em>real</em> environment.</li>
+<li style="margin-bottom:8px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Repeat:</strong> The loop begins again from the new state of the real environment.</li>
+</ol>
+<h4 style="color:var(--muted);margin:24px 0 8px;font-size:14px;text-transform:uppercase;letter-spacing:.06em">When to Use / Applications</h4>
+<ul style="margin:0 0 16px 18px;list-style-type:disc">
+<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Robotics:</strong> Simulating a grasp or a path before moving a physical arm to avoid collisions or damage.</li>
+<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">High-Stakes Decision-Making:</strong> In finance, simulating a trade&#x27;s impact on a portfolio under different market conditions. In healthcare, simulating a treatment plan&#x27;s potential effects.</li>
+<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Complex Game AI:</strong> An AI in a strategy game simulating several moves ahead to choose the optimal one.</li>
+</ul>
+<h4 style="color:var(--muted);margin:24px 0 8px;font-size:14px;text-transform:uppercase;letter-spacing:.06em">Strengths &amp; Weaknesses</h4>
+<ul style="margin:0 0 16px 18px;list-style-type:disc">
+<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Strengths:</strong></li>
+<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Safety &amp; Risk Reduction:</strong> Massively reduces the chance of harmful or costly mistakes by vetting actions in a safe environment first.</li>
+<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Improved Performance:</strong> Leads to more robust and well-considered decisions by allowing for lookahead and planning.</li>
+<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Weaknesses:</strong></li>
+<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Simulation-Reality Gap:</strong> The effectiveness is entirely dependent on the fidelity of the simulator. If the model of the world is inaccurate, the agent&#x27;s plans may be based on false assumptions.</li>
+<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Computational Cost:</strong> Running simulations, especially multiple scenarios, is computationally expensive and slower than acting directly.</li>
+</ul>
+    </div>
+  </section>
+
+  <section class="layer-sec" id="code">
+    <div class="layer-hdr">
+      <span class="layer-id-badge" style="background:#9a4a1a;color:rgba(255,255,255,.9)">Implementation</span>
+      <div class="layer-title">Code <small style="font-size:14px;font-weight:400;color:var(--muted)">LangChain + LangGraph</small></div>
+    </div>
+    <div class="codeblock">
+  <div class="cb-head">
+    <span class="cb-dot" style="background:#f85149"></span>
+    <span class="cb-dot" style="background:#e3b341"></span>
+    <span class="cb-dot" style="background:#28c840"></span>
+    src/src/... · 232 lines
+  </div>
+  <div class="cb-body"><span class="str">&quot;&quot;&quot;
+Mental Loop - Agentic Architecture
+Extracted from: 10_mental_loop.ipynb
+&quot;&quot;&quot;</span>
+
+<span class="cm"># !pip install -q -U langchain-nebius langchain langgraph rich python-dotenv numpy</span>
+
+<span class="kw">import</span> os
+<span class="kw">import</span> random
+<span class="kw">import</span> numpy <span class="kw">as</span> np
+<span class="kw">from</span> typing <span class="kw">import</span> List, Dict, Any, Optional
+<span class="kw">from</span> dotenv <span class="kw">import</span> load_dotenv
+
+<span class="cm"># Pydantic for data modeling</span>
+<span class="kw">from</span> pydantic <span class="kw">import</span> BaseModel, Field
+
+<span class="cm"># LangChain components</span>
+<span class="kw">from</span> langchain_nebius <span class="kw">import</span> ChatNebius
+<span class="kw">from</span> langchain_core.prompts <span class="kw">import</span> ChatPromptTemplate
+
+<span class="cm"># LangGraph components</span>
+<span class="kw">from</span> langgraph.graph <span class="kw">import</span> StateGraph, END
+<span class="kw">from</span> typing_extensions <span class="kw">import</span> TypedDict
+
+<span class="cm"># For pretty printing</span>
+<span class="kw">from</span> rich.console <span class="kw">import</span> Console
+<span class="kw">from</span> rich.markdown <span class="kw">import</span> Markdown
+<span class="kw">from</span> rich.table <span class="kw">import</span> Table
+
+<span class="cm"># --- API Key and Tracing Setup ---</span>
+<span class="fn">load_dotenv</span>()
+
+os.environ[<span class="str">&quot;LANGCHAIN_TRACING_V2&quot;</span>] <span class="op">=</span> <span class="str">&quot;true&quot;</span>
+os.environ[<span class="str">&quot;LANGCHAIN_PROJECT&quot;</span>] <span class="op">=</span> <span class="str">&quot;Agentic Architecture - Simulator (Nebius)&quot;</span>
+
+required_vars <span class="op">=</span> [<span class="str">&quot;NEBIUS_API_KEY&quot;</span>, <span class="str">&quot;LANGCHAIN_API_KEY&quot;</span>]
+<span class="kw">for</span> var <span class="kw">in</span> required_vars<span class="op">:</span>
+    <span class="kw">if</span> var <span class="kw">not</span> <span class="kw">in</span> os.environ<span class="op">:</span>
+        <span class="fn">print</span>(f<span class="str">&quot;Warning: Environment variable {var} not set.&quot;</span>)
+
+<span class="fn">print</span>(<span class="str">&quot;Environment variables loaded and tracing is set up.&quot;</span>)
+
+console <span class="op">=</span> <span class="fn">Console</span>()
+
+<span class="kw">class</span> <span class="fn">Portfolio</span>(BaseModel)<span class="op">:</span>
+    cash<span class="op">:</span> <span class="fn">float</span> <span class="op">=</span> <span class="num">10000.0</span>
+    shares<span class="op">:</span> <span class="fn">int</span> <span class="op">=</span> <span class="num">0</span>
+    
+    <span class="kw">def</span> <span class="fn">value</span>(self, current_price<span class="op">:</span> <span class="fn">float</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="fn">float</span><span class="op">:</span>
+        <span class="kw">return</span> self.cash <span class="op">+</span> self.shares <span class="op">*</span> current_price
+
+<span class="kw">class</span> <span class="fn">MarketSimulator</span>(BaseModel)<span class="op">:</span>
+    <span class="str">&quot;&quot;&quot;A simple simulation of a stock market for one asset.&quot;&quot;&quot;</span>
+    day<span class="op">:</span> <span class="fn">int</span> <span class="op">=</span> <span class="num">0</span>
+    price<span class="op">:</span> <span class="fn">float</span> <span class="op">=</span> <span class="num">100.0</span>
+    volatility<span class="op">:</span> <span class="fn">float</span> <span class="op">=</span> <span class="num">0.1</span> <span class="cm"># Standard deviation for price changes</span>
+    drift<span class="op">:</span> <span class="fn">float</span> <span class="op">=</span> <span class="num">0.01</span> <span class="cm"># General trend</span>
+    market_news<span class="op">:</span> <span class="fn">str</span> <span class="op">=</span> <span class="str">&quot;Market is stable.&quot;</span>
+    portfolio<span class="op">:</span> Portfolio <span class="op">=</span> <span class="fn">Field</span>(default_factory<span class="op">=</span>Portfolio)
+
+    <span class="kw">def</span> <span class="fn">step</span>(self, action<span class="op">:</span> <span class="fn">str</span>, amount<span class="op">:</span> <span class="fn">float</span> <span class="op">=</span> <span class="num">0.0</span>)<span class="op">:</span>
+        <span class="str">&quot;&quot;&quot;Advance the simulation by one day, executing a trade first.&quot;&quot;&quot;</span>
+        <span class="cm"># 1. Execute trade</span>
+        <span class="kw">if</span> action <span class="op">=</span><span class="op">=</span> <span class="str">&quot;buy&quot;</span><span class="op">:</span> <span class="cm"># amount is number of shares</span>
+            shares_to_buy <span class="op">=</span> <span class="fn">int</span>(amount)
+            cost <span class="op">=</span> shares_to_buy <span class="op">*</span> self.price
+            <span class="kw">if</span> self.portfolio.cash <span class="op">&gt;</span><span class="op">=</span> cost<span class="op">:</span>
+                self.portfolio.shares <span class="op">+</span><span class="op">=</span> shares_to_buy
+                self.portfolio.cash <span class="op">-</span><span class="op">=</span> cost
+        <span class="kw">elif</span> action <span class="op">=</span><span class="op">=</span> <span class="str">&quot;sell&quot;</span><span class="op">:</span> <span class="cm"># amount is number of shares</span>
+            shares_to_sell <span class="op">=</span> <span class="fn">int</span>(amount)
+            <span class="kw">if</span> self.portfolio.shares <span class="op">&gt;</span><span class="op">=</span> shares_to_sell<span class="op">:</span>
+                self.portfolio.shares <span class="op">-</span><span class="op">=</span> shares_to_sell
+                self.portfolio.cash <span class="op">+</span><span class="op">=</span> shares_to_sell <span class="op">*</span> self.price
+        
+        <span class="cm"># 2. Update market price (Geometric Brownian Motion)</span>
+        daily_return <span class="op">=</span> np.random.<span class="fn">normal</span>(self.drift, self.volatility)
+        self.price <span class="op">*</span><span class="op">=</span> (<span class="num">1</span> <span class="op">+</span> daily_return)
+        
+        <span class="cm"># 3. Advance time</span>
+        self.day <span class="op">+</span><span class="op">=</span> <span class="num">1</span>
+        
+        <span class="cm"># 4. Potentially update news</span>
+        <span class="kw">if</span> random.<span class="fn">random</span>() <span class="op">&lt;</span> <span class="num">0.1</span><span class="op">:</span> <span class="cm"># 10% chance of new news</span>
+            self.market_news <span class="op">=</span> random.<span class="fn">choice</span>([<span class="str">&quot;Positive earnings report expected.&quot;</span>, <span class="str">&quot;New competitor enters the market.&quot;</span>, <span class="str">&quot;Macroeconomic outlook is strong.&quot;</span>, <span class="str">&quot;Regulatory concerns are growing.&quot;</span>])
+            <span class="cm"># News affects drift</span>
+            <span class="kw">if</span> <span class="str">&quot;Positive&quot;</span> <span class="kw">in</span> self.market_news <span class="kw">or</span> <span class="str">&quot;strong&quot;</span> <span class="kw">in</span> self.market_news<span class="op">:</span>
+                self.drift <span class="op">=</span> <span class="num">0.05</span>
+            <span class="kw">else</span><span class="op">:</span>
+                self.drift <span class="op">=</span> <span class="op">-</span><span class="num">0.05</span>
+        <span class="kw">else</span><span class="op">:</span>
+             self.drift <span class="op">=</span> <span class="num">0.01</span> <span class="cm"># Revert to normal drift</span>
+
+    <span class="kw">def</span> <span class="fn">get_state_string</span>(self) <span class="op">-</span><span class="op">&gt;</span> <span class="fn">str</span><span class="op">:</span>
+        <span class="kw">return</span> f<span class="str">&quot;Day {self.day}: Price=${self.price:.2f}, News: {self.market_news}\nPortfolio: ${self.portfolio.value(self.price):.2f} ({self.portfolio.shares} shares, ${self.portfolio.cash:.2f} cash)&quot;</span>
+
+<span class="fn">print</span>(<span class="str">&quot;Market simulator environment defined successfully.&quot;</span>)
+
+llm <span class="op">=</span> <span class="fn">ChatNebius</span>(model<span class="op">=</span><span class="str">&quot;mistralai/Mixtral-8x22B-Instruct-v0.1&quot;</span>, temperature<span class="op">=</span><span class="num">0.4</span>)
+
+<span class="cm"># Pydantic models for structured LLM outputs</span>
+<span class="kw">class</span> <span class="fn">ProposedAction</span>(BaseModel)<span class="op">:</span>
+    <span class="str">&quot;&quot;&quot;The high-level strategy proposed by the analyst.&quot;&quot;&quot;</span> 
+    strategy<span class="op">:</span> <span class="fn">str</span> <span class="op">=</span> <span class="fn">Field</span>(description<span class="op">=</span><span class="str">&quot;A high-level trading strategy, e.g., &#x27;buy aggressively&#x27;, &#x27;sell cautiously&#x27;, &#x27;hold&#x27;.&quot;</span>)
+    reasoning<span class="op">:</span> <span class="fn">str</span> <span class="op">=</span> <span class="fn">Field</span>(description<span class="op">=</span><span class="str">&quot;Brief reasoning for the proposed strategy.&quot;</span>)
+
+<span class="kw">class</span> <span class="fn">FinalDecision</span>(BaseModel)<span class="op">:</span>
+    <span class="str">&quot;&quot;&quot;The final, concrete action to be executed.&quot;&quot;&quot;</span>
+    action<span class="op">:</span> <span class="fn">str</span> <span class="op">=</span> <span class="fn">Field</span>(description<span class="op">=</span><span class="str">&quot;The final action to take: &#x27;buy&#x27;, &#x27;sell&#x27;, or &#x27;hold&#x27;.&quot;</span>)
+    amount<span class="op">:</span> <span class="fn">float</span> <span class="op">=</span> <span class="fn">Field</span>(description<span class="op">=</span><span class="str">&quot;The number of shares to buy or sell. Should be 0 if holding.&quot;</span>)
+    reasoning<span class="op">:</span> <span class="fn">str</span> <span class="op">=</span> <span class="fn">Field</span>(description<span class="op">=</span><span class="str">&quot;Final reasoning, referencing the simulation results.&quot;</span>)
+
+<span class="cm"># LangGraph State</span>
+<span class="kw">class</span> <span class="fn">AgentState</span>(TypedDict)<span class="op">:</span>
+    real_market<span class="op">:</span> MarketSimulator
+    proposed_action<span class="op">:</span> Optional[ProposedAction]
+    simulation_results<span class="op">:</span> Optional[List[Dict]]
+    final_decision<span class="op">:</span> Optional[FinalDecision]
+
+<span class="cm"># Graph Nodes</span>
+<span class="kw">def</span> <span class="fn">propose_action_node</span>(state<span class="op">:</span> AgentState) <span class="op">-</span><span class="op">&gt;</span> Dict[<span class="fn">str</span>, Any]<span class="op">:</span>
+    <span class="str">&quot;&quot;&quot;Observes the market and proposes a high-level strategy.&quot;&quot;&quot;</span>
+    console.<span class="fn">print</span>(<span class="str">&quot;--- 🧐 Analyst Proposing Action ---&quot;</span>)
+    prompt <span class="op">=</span> ChatPromptTemplate.<span class="fn">from_template</span>(
+        <span class="str">&quot;You are a sharp financial analyst. Based on the current market state, propose a trading strategy.\n\nMarket State:\n{market_state}&quot;</span>
+    )
+    proposer_llm <span class="op">=</span> llm.<span class="fn">with_structured_output</span>(ProposedAction)
+    chain <span class="op">=</span> prompt <span class="op">|</span> proposer_llm
+    proposal <span class="op">=</span> chain.<span class="fn">invoke</span>({<span class="str">&quot;market_state&quot;</span><span class="op">:</span> state[<span class="str">&#x27;real_market&#x27;</span>].<span class="fn">get_state_string</span>()})
+    console.<span class="fn">print</span>(f<span class="str">&quot;[yellow]Proposal:[/yellow] {proposal.strategy}. [italic]Reason: {proposal.reasoning}[/italic]&quot;</span>)
+    <span class="kw">return</span> {<span class="str">&quot;proposed_action&quot;</span><span class="op">:</span> proposal}
+
+<span class="kw">def</span> <span class="fn">run_simulation_node</span>(state<span class="op">:</span> AgentState) <span class="op">-</span><span class="op">&gt;</span> Dict[<span class="fn">str</span>, Any]<span class="op">:</span>
+    <span class="str">&quot;&quot;&quot;Runs the proposed strategy in a sandboxed simulation.&quot;&quot;&quot;</span>
+    console.<span class="fn">print</span>(<span class="str">&quot;--- 🤖 Running Simulations ---&quot;</span>)
+    strategy <span class="op">=</span> state[<span class="str">&#x27;proposed_action&#x27;</span>].strategy
+    num_simulations <span class="op">=</span> <span class="num">5</span>
+    simulation_horizon <span class="op">=</span> <span class="num">10</span> <span class="cm"># days</span>
+    results <span class="op">=</span> []
+
+    <span class="kw">for</span> i <span class="kw">in</span> <span class="fn">range</span>(num_simulations)<span class="op">:</span>
+        <span class="cm"># IMPORTANT: Create a deep copy to not affect the real market state</span>
+        simulated_market <span class="op">=</span> state[<span class="str">&#x27;real_market&#x27;</span>].<span class="fn">model_copy</span>(deep<span class="op">=</span><span class="kw">True</span>)
+        initial_value <span class="op">=</span> simulated_market.portfolio.<span class="fn">value</span>(simulated_market.price)
+
+        <span class="cm"># Translate strategy to a concrete action for the simulation</span>
+        <span class="kw">if</span> <span class="str">&quot;buy&quot;</span> <span class="kw">in</span> strategy<span class="op">:</span>
+            action <span class="op">=</span> <span class="str">&quot;buy&quot;</span>
+            <span class="cm"># Aggressively = 25% of cash, Cautiously = 10%</span>
+            amount <span class="op">=</span> (simulated_market.portfolio.cash <span class="op">*</span> (<span class="num">0.25</span> <span class="kw">if</span> <span class="str">&quot;aggressively&quot;</span> <span class="kw">in</span> strategy <span class="kw">else</span> <span class="num">0.1</span>)) <span class="op">/</span> simulated_market.price
+        <span class="kw">elif</span> <span class="str">&quot;sell&quot;</span> <span class="kw">in</span> strategy<span class="op">:</span>
+            action <span class="op">=</span> <span class="str">&quot;sell&quot;</span>
+            <span class="cm"># Aggressively = 25% of shares, Cautiously = 10%</span>
+            amount <span class="op">=</span> simulated_market.portfolio.shares <span class="op">*</span> (<span class="num">0.25</span> <span class="kw">if</span> <span class="str">&quot;aggressively&quot;</span> <span class="kw">in</span> strategy <span class="kw">else</span> <span class="num">0.1</span>)
+        <span class="kw">else</span><span class="op">:</span>
+            action <span class="op">=</span> <span class="str">&quot;hold&quot;</span>
+            amount <span class="op">=</span> <span class="num">0</span>
+        
+        <span class="cm"># Run the simulation forward</span>
+        simulated_market.<span class="fn">step</span>(action, amount)
+        <span class="kw">for</span> _ <span class="kw">in</span> <span class="fn">range</span>(simulation_horizon <span class="op">-</span> <span class="num">1</span>)<span class="op">:</span>
+            simulated_market.<span class="fn">step</span>(<span class="str">&quot;hold&quot;</span>) <span class="cm"># Just hold after the initial action</span>
+        
+        final_value <span class="op">=</span> simulated_market.portfolio.<span class="fn">value</span>(simulated_market.price)
+        results.<span class="fn">append</span>({<span class="str">&quot;sim_num&quot;</span><span class="op">:</span> i<span class="op">+</span><span class="num">1</span>, <span class="str">&quot;initial_value&quot;</span><span class="op">:</span> initial_value, <span class="str">&quot;final_value&quot;</span><span class="op">:</span> final_value, <span class="str">&quot;return_pct&quot;</span><span class="op">:</span> (final_value <span class="op">-</span> initial_value) <span class="op">/</span> initial_value <span class="op">*</span> <span class="num">100</span>})
+    
+    console.<span class="fn">print</span>(<span class="str">&quot;[cyan]Simulation complete. Results will be passed to the risk manager.[/cyan]&quot;</span>)
+    <span class="kw">return</span> {<span class="str">&quot;simulation_results&quot;</span><span class="op">:</span> results}
+
+<span class="kw">def</span> <span class="fn">refine_and_decide_node</span>(state<span class="op">:</span> AgentState) <span class="op">-</span><span class="op">&gt;</span> Dict[<span class="fn">str</span>, Any]<span class="op">:</span>
+    <span class="str">&quot;&quot;&quot;Analyzes simulation results and makes a final, refined decision.&quot;&quot;&quot;</span>
+    console.<span class="fn">print</span>(<span class="str">&quot;--- 🧠 Risk Manager Refining Decision ---&quot;</span>)
+    results_summary <span class="op">=</span> <span class="str">&quot;\n&quot;</span>.<span class="fn">join</span>([f<span class="str">&quot;Sim {r[&#x27;sim_num&#x27;]}: Initial=${r[&#x27;initial_value&#x27;]:.2f}, Final=${r[&#x27;final_value&#x27;]:.2f}, Return={r[&#x27;return_pct&#x27;]:.2f}%&quot;</span> <span class="kw">for</span> r <span class="kw">in</span> state[<span class="str">&#x27;simulation_results&#x27;</span>]])
+    
+    prompt <span class="op">=</span> ChatPromptTemplate.<span class="fn">from_template</span>(
+        <span class="str">&quot;You are a cautious risk manager. Your analyst proposed a strategy. You have run simulations to test it. Based on the potential outcomes, make a final, concrete decision. If results are highly variable or negative, reduce risk (e.g., buy/sell fewer shares, or hold).\n\nInitial Proposal: {proposal}\n\nSimulation Results:\n{results}\n\nReal Market State:\n{market_state}&quot;</span>
+    )
+    decider_llm <span class="op">=</span> llm.<span class="fn">with_structured_output</span>(FinalDecision)
+    chain <span class="op">=</span> prompt <span class="op">|</span> decider_llm
+    final_decision <span class="op">=</span> chain.<span class="fn">invoke</span>({
+        <span class="str">&quot;proposal&quot;</span><span class="op">:</span> state[<span class="str">&#x27;proposed_action&#x27;</span>].strategy,
+        <span class="str">&quot;results&quot;</span><span class="op">:</span> results_summary,
+        <span class="str">&quot;market_state&quot;</span><span class="op">:</span> state[<span class="str">&#x27;real_market&#x27;</span>].<span class="fn">get_state_string</span>()
+    })
+    console.<span class="fn">print</span>(f<span class="str">&quot;[green]Final Decision:[/green] {final_decision.action} {final_decision.amount:.0f} shares. [italic]Reason: {final_decision.reasoning}[/italic]&quot;</span>)
+    <span class="kw">return</span> {<span class="str">&quot;final_decision&quot;</span><span class="op">:</span> final_decision}
+
+<span class="kw">def</span> <span class="fn">execute_in_real_world_node</span>(state<span class="op">:</span> AgentState) <span class="op">-</span><span class="op">&gt;</span> Dict[<span class="fn">str</span>, Any]<span class="op">:</span>
+    <span class="str">&quot;&quot;&quot;Executes the final decision in the real market environment.&quot;&quot;&quot;</span>
+    console.<span class="fn">print</span>(<span class="str">&quot;--- 🚀 Executing in Real World ---&quot;</span>)
+    decision <span class="op">=</span> state[<span class="str">&#x27;final_decision&#x27;</span>]
+    real_market <span class="op">=</span> state[<span class="str">&#x27;real_market&#x27;</span>]
+    real_market.<span class="fn">step</span>(decision.action, decision.amount)
+    console.<span class="fn">print</span>(f<span class="str">&quot;[bold]Execution complete. New market state:[/bold]\n{real_market.get_state_string()}&quot;</span>)
+    <span class="kw">return</span> {<span class="str">&quot;real_market&quot;</span><span class="op">:</span> real_market}
+
+<span class="cm"># Build the graph</span>
+workflow <span class="op">=</span> <span class="fn">StateGraph</span>(AgentState)
+workflow.<span class="fn">add_node</span>(<span class="str">&quot;propose&quot;</span>, propose_action_node)
+workflow.<span class="fn">add_node</span>(<span class="str">&quot;simulate&quot;</span>, run_simulation_node)
+workflow.<span class="fn">add_node</span>(<span class="str">&quot;refine&quot;</span>, refine_and_decide_node)
+workflow.<span class="fn">add_node</span>(<span class="str">&quot;execute&quot;</span>, execute_in_real_world_node)
+
+workflow.<span class="fn">set_entry_point</span>(<span class="str">&quot;propose&quot;</span>)
+workflow.<span class="fn">add_edge</span>(<span class="str">&quot;propose&quot;</span>, <span class="str">&quot;simulate&quot;</span>)
+workflow.<span class="fn">add_edge</span>(<span class="str">&quot;simulate&quot;</span>, <span class="str">&quot;refine&quot;</span>)
+workflow.<span class="fn">add_edge</span>(<span class="str">&quot;refine&quot;</span>, <span class="str">&quot;execute&quot;</span>)
+workflow.<span class="fn">add_edge</span>(<span class="str">&quot;execute&quot;</span>, END)
+
+simulator_agent <span class="op">=</span> workflow.<span class="fn">compile</span>()
+<span class="fn">print</span>(<span class="str">&quot;Simulator-in-the-loop agent graph compiled successfully.&quot;</span>)
+
+real_market <span class="op">=</span> <span class="fn">MarketSimulator</span>()
+console.<span class="fn">print</span>(<span class="str">&quot;--- Initial Market State ---&quot;</span>)
+console.<span class="fn">print</span>(real_market.<span class="fn">get_state_string</span>())
+
+<span class="cm"># --- Day 1 Run ---</span>
+console.<span class="fn">print</span>(<span class="str">&quot;\n--- Day 1: Good News Hits! ---&quot;</span>)
+real_market.market_news <span class="op">=</span> <span class="str">&quot;Positive earnings report expected.&quot;</span>
+real_market.drift <span class="op">=</span> <span class="num">0.05</span>
+initial_state <span class="op">=</span> {<span class="str">&quot;real_market&quot;</span><span class="op">:</span> real_market}
+final_state <span class="op">=</span> simulator_agent.<span class="fn">invoke</span>(initial_state)
+real_market <span class="op">=</span> final_state[<span class="str">&#x27;real_market&#x27;</span>]
+
+<span class="cm"># --- Day 2 Run ---</span>
+console.<span class="fn">print</span>(<span class="str">&quot;\n--- Day 2: Bad News Hits! ---&quot;</span>)
+real_market.market_news <span class="op">=</span> <span class="str">&quot;New competitor enters the market.&quot;</span>
+real_market.drift <span class="op">=</span> <span class="op">-</span><span class="num">0.05</span>
+initial_state <span class="op">=</span> {<span class="str">&quot;real_market&quot;</span><span class="op">:</span> real_market}
+final_state <span class="op">=</span> simulator_agent.<span class="fn">invoke</span>(initial_state)
+real_market <span class="op">=</span> final_state[<span class="str">&#x27;real_market&#x27;</span>]
+</div>
+</div>
+  </section>
+
+  <div class="prevnext"><a href="tree-of-thoughts.html"><span class="coding">Previous</span><br><span class="pn-strong">← Tree of Thoughts (ToT)</span></a><a href="meta-controller.html" style="text-align:right"><span class="coding">Next</span><br><span class="pn-strong">Meta-Controller →</span></a></div>
+</div><div class="footer">
+  <p>Built from <a href="https://github.com/1998x-stack/all-agentic-architectures" style="color:var(--text)">all-agentic-architectures</a></p>
+</div></body></html>
