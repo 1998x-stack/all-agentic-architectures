@@ -1,96 +1,214 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>#04 Planning — All Agentic Architectures</title>
+<title>#04 显式规划 — All Agentic Architectures</title>
 <link rel="stylesheet" href="base-dark.css">
 <style>
-  :root {
-    --c1: #28c840; --c1d: #1a7a2a;
-    --c2: #378add; --c2d: #1a5290;
-    --c3: #a259ff; --c3d: #5a2a8a;
-    --c4: #f0883e; --c4d: #9a4a1a;
-    --c5: #1db0a0; --c5d: #0f6e56;
-  }
-  .hero h1 em {
-    background: linear-gradient(90deg, var(--c1), var(--c2), var(--c3), var(--c4), var(--c5));
-    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-  }
-  .prevnext { display: flex; justify-content: space-between; padding: 32px 0; border-top: 1px solid var(--border); margin-top: 48px; }
-  .prevnext a { color: var(--muted); font-size: 13px; }
-  .prevnext a:hover { color: var(--text); text-decoration: none; }
-  .pn-strong { color: var(--text) !important; font-weight: 500; }
-  .coding { font-size: 11px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); margin-bottom: 4px; }
-  h2 { font-size: 22px; font-weight: 600; margin: 0 0 12px; letter-spacing: -.01em; }
-  h3 { font-size: 18px; font-weight: 600; margin: 32px 0 12px; }
+  :root{--c1:#28c840;--c1d:#1a7a2a;--c2:#378add;--c2d:#1a5290;--c3:#a259ff;--c3d:#5a2a8a;--c4:#f0883e;--c4d:#9a4a1a;--c5:#1db0a0;--c5d:#0f6e56}
+  .hero h1 em{background:linear-gradient(90deg,var(--c1),var(--c2),var(--c3),var(--c4),var(--c5));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+  .prevnext{display:flex;justify-content:space-between;padding:32px 0;border-top:1px solid var(--border);margin-top:56px}
+  .prevnext a{color:var(--muted);font-size:14px;transition:color .15s}
+  .prevnext a:hover{color:var(--text);text-decoration:none}
+  .prevnext .pn-label{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--faint);margin-bottom:4px;display:block}
+  .cn-section{margin-top:48px}
+  .cn-section h3{font-size:20px;font-weight:700;margin-bottom:20px;padding-bottom:8px;border-bottom:1px solid var(--border)}
+  .toc-link{display:inline-block;padding:3px 8px;border-radius:4px;font-size:11px;font-family:var(--mono);color:var(--muted);border:1px solid var(--border);margin:2px 4px 2px 0;transition:all .15s}
+  .toc-link:hover{border-color:var(--c1);color:var(--c1);text-decoration:none}
 </style>
 
 </head>
 <body><nav>
   <div class="nav-inner">
-    <span class="nav-brand">All Agentic Architectures <span>· 17 Patterns</span></span>
-    <a class="nl" href="index.html">Overview</a>
+    <a href="index.html" style="text-decoration:none"><span class="nav-brand">All Agentic Architectures <span>· 17 种架构</span></span></a>
+    <a class="nl" href="index.html">总览</a>
+    <a class="nl" href="index.html#p1">基础</a>
+    <a class="nl" href="index.html#p2">多智能体</a>
+    <a class="nl" href="index.html#p3">记忆推理</a>
+    <a class="nl" href="index.html#p4">安全可靠</a>
+    <a class="nl" href="index.html#p5">学习适应</a>
   </div>
 </nav><div class="page">
-  <section class="hero" style="padding-bottom:32px">
-    <div class="hero-badge"><span class="dot" style="background:var(--c1)"></span> #04 · Foundational Patterns</div>
-    <h1 style="font-size:36px;color:var(--text)">Planning</h1>
-    <p style="margin-bottom:20px">Predictable Report Generation, Project Management</p>
-    <div class="tag-row">
-      <span class="ltag" style="color:var(--c1);background:rgba(40,200,64,.08);border-color:rgba(40,200,64,.25)">Part 1</span>
-    </div>
+  <section class="hero" style="padding-bottom:28px">
+    <div class="hero-badge"><span class="dot" style="background:var(--c1)"></span> #04 · 先生成控制流再执行 · explicit planning</div>
+    <h1 style="font-size:34px;color:var(--text);margin-bottom:6px">显式规划 <span style="font-size:18px;font-weight:400;color:var(--muted)">Planning</span></h1>
+    <p style="font-size:14px;color:var(--faint);margin-bottom:8px;font-style:italic">把控制流本身变成模型输出</p>
+    <p style="margin-bottom:8px;font-size:14px">把控制流本身变成模型输出</p>
+    <p style="font-size:13px;color:var(--muted);margin-bottom:20px">典型应用：</p>
+    <div class="tag-row"><span class="ltag" style="color:var(--c1);background:rgba(40,200,64,.08);border-color:rgba(40,200,64,.25)">Part 1</span></div>
   </section>
-
-  <section class="layer-sec" style="padding-top:16px;border-bottom:none">
+  <div style="margin-bottom:28px;line-height:2">
+  <span style="font-size:11px;color:var(--faint);text-transform:uppercase;letter-spacing:.06em">快速导航</span><br>
+  <a href="#cn-analysis" class="toc-link">六维分析</a>
+  <a href="#en-intro" class="toc-link">英文解析</a>
+  <a href="#code" class="toc-link">LangGraph 实现</a>
+</div>
+  <section class="layer-sec" style="padding-top:0;border-bottom:none">
     <div class="layer-hdr">
-      <span class="layer-id-badge" style="background:#1a7a2a;color:rgba(255,255,255,.9)">Concept</span>
-      <div class="layer-title">How It Works</div>
+      <span class="layer-id-badge" style="background:#1a7a2a;color:rgba(255,255,255,.9)">核心概念</span>
+      <div class="layer-title" style="font-size:18px">把控制流本身变成模型输出</div>
     </div>
-    <p class="layer-def" style="border-color:#28c840">Proactively decomposes a complex task into a detailed, step-by-step plan before execution.</p>
-    <div style="font-size:14px;line-height:1.85;color:var(--text)">
-      <h2>📘 Agentic Architectures 4: Planning</h2>
-<p style="margin-bottom:12px;line-height:1.75;font-size:14px;color:var(--muted)">In this notebook, we explore the <strong style="color:var(--text)">Planning</strong> architecture. This pattern introduces a crucial layer of foresight into an agent&#x27;s reasoning process. Instead of reacting to information step-by-step as in the ReAct model, a planning agent first decomposes a complex task into a sequence of smaller, manageable sub-goals. It creates a full &#x27;battle plan&#x27; <em>before</em> taking any action.</p>
-<p style="margin-bottom:12px;line-height:1.75;font-size:14px;color:var(--muted)">This proactive approach brings structure, predictability, and efficiency to multi-step tasks. To highlight its benefits, we will directly compare the performance of a <strong style="color:var(--text)">reactive agent (ReAct)</strong> against our new <strong style="color:var(--text)">planning agent</strong>. We will present both with a task that requires gathering multiple pieces of information before performing a final calculation, demonstrating how a pre-computed plan can lead to a more robust and direct solution.</p>
-<h4 style="color:var(--muted);margin:24px 0 8px;font-size:14px;text-transform:uppercase;letter-spacing:.06em">Definition</h4>
-<p style="margin-bottom:12px;line-height:1.75;font-size:14px;color:var(--muted)">The <strong style="color:var(--text)">Planning</strong> architecture involves an agent that explicitly breaks down a complex goal into a detailed sequence of sub-tasks <em>before</em> beginning execution. The output of this initial planning phase is a concrete, step-by-step plan that the agent then follows methodically to reach the solution.</p>
-<h4 style="color:var(--muted);margin:24px 0 8px;font-size:14px;text-transform:uppercase;letter-spacing:.06em">High-level Workflow</h4>
-<ol style="margin:0 0 16px 18px">
-<li style="margin-bottom:8px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Receive Goal:</strong> The agent is given a complex task.</li>
-<li style="margin-bottom:8px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Plan:</strong> A dedicated &#x27;Planner&#x27; component analyzes the goal and generates an ordered list of sub-tasks required to achieve it. For example: <code style="font-family:var(--mono);font-size:12px;background:var(--bg3);padding:1px 6px;border-radius:4px;color:var(--code-text)">[&quot;Find fact A&quot;, &quot;Find fact B&quot;, &quot;Calculate C using A and B&quot;]</code>.</li>
-<li style="margin-bottom:8px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Execute:</strong> An &#x27;Executor&#x27; component takes the plan and carries out each sub-task in sequence, using tools as needed.</li>
-<li style="margin-bottom:8px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Synthesize:</strong> Once all steps in the plan are complete, a final component synthesizes the results from the executed steps into a coherent final answer.</li>
-</ol>
-<h4 style="color:var(--muted);margin:24px 0 8px;font-size:14px;text-transform:uppercase;letter-spacing:.06em">When to Use / Applications</h4>
-<ul style="margin:0 0 16px 18px;list-style-type:disc">
-<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Multi-Step Workflows:</strong> Ideal for tasks where the sequence of operations is known and critical, such as generating a report that requires fetching data, processing it, and then summarizing it.</li>
-<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Project Management Assistants:</strong> Decomposing a large goal like &quot;launch a new feature&quot; into sub-tasks for different teams.</li>
-<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Educational Tutoring:</strong> Creating a lesson plan to teach a student a specific concept, from foundational principles to advanced application.</li>
-</ul>
-<h4 style="color:var(--muted);margin:24px 0 8px;font-size:14px;text-transform:uppercase;letter-spacing:.06em">Strengths &amp; Weaknesses</h4>
-<ul style="margin:0 0 16px 18px;list-style-type:disc">
-<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Strengths:</strong></li>
-<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Structured &amp; Traceable:</strong> The entire workflow is laid out in advance, making the agent&#x27;s process transparent and easy to debug.</li>
-<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Efficient:</strong> Can be more efficient than ReAct for predictable tasks, as it avoids unnecessary reasoning loops between steps.</li>
-<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Weaknesses:</strong></li>
-<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Brittle to Change:</strong> A pre-made plan can fail if the environment changes unexpectedly during execution. It&#x27;s less adaptive than a ReAct agent, which can change its mind after every step.</li>
-</ul>
-    </div>
+    <p class="layer-def" style="border-color:#28c840">把控制流本身变成模型输出</p>
   </section>
+  <section class="layer-sec cn-section" id="cn-analysis">
+    <h3 style="border-color:#28c840">六维深度分析</h3>
+    <p style="font-size:13px;color:var(--faint);margin-bottom:24px">以下分析基于统一框架的六个核心问题：问题定义 → State 建模 → 拓扑结构 → Router 机制 → 失败模式 → 升级时机</p>
+    <p style="font-size:15px;color:var(--text);line-height:1.9;margin-bottom:24px;padding:16px 20px;background:var(--bg2);border-radius:8px;border-left:3px solid var(--c1)"><strong style="color:var(--c1)">核心洞察：</strong>ReAct 本质是在线贪心策略，对需要顺序约束、步骤依赖和过程可追踪的任务，它开始不够用。Planning 要 <strong style="color:var(--text)">把原本隐式存在模型脑子里的执行顺序，显式拿出来，写进 state</strong> 。</p>
+<div style="margin-bottom:32px">
+  <h4 style="font-size:16px;font-weight:600;margin:0 0 12px;color:var(--text)">要解决什么问题？</h4>
+  <div style="padding-left:4px"><p style="margin-bottom:12px;line-height:1.85">ReAct 本质是在线贪心策略，对需要顺序约束、步骤依赖和过程可追踪的任务，它开始不够用。Planning 要 <strong style="color:var(--text)">把原本隐式存在模型脑子里的执行顺序，显式拿出来，写进 state</strong> 。</p>
 
-  <section class="layer-sec" id="code">
-    <div class="layer-hdr">
-      <span class="layer-id-badge" style="background:#1a7a2a;color:rgba(255,255,255,.9)">Implementation</span>
-      <div class="layer-title">Code <small style="font-size:14px;font-weight:400;color:var(--muted)">LangChain + LangGraph</small></div>
-    </div>
-    <div class="codeblock">
-  <div class="cb-head">
+<p style="margin-bottom:12px;line-height:1.85">系统第一次把&quot;控制流&quot;对象化了。</p></div>
+</div>
+<div style="margin-bottom:32px">
+  <h4 style="font-size:16px;font-weight:600;margin:0 0 12px;color:var(--text)">State 设计</h4>
+  <div style="padding-left:4px"><p style="margin-bottom:12px;line-height:1.85"><div class="codeblock" style="margin:12px 0 20px">
+  <div class="cb-head" style="font-size:11px">
     <span class="cb-dot" style="background:#f85149"></span>
     <span class="cb-dot" style="background:#e3b341"></span>
     <span class="cb-dot" style="background:#28c840"></span>
-    src/src/... · 260 lines
+    agno 实现示例 · 2 行
   </div>
-  <div class="cb-body"><span class="str">&quot;&quot;&quot;
+  <div class="cb-body" style="font-size:12px;line-height:1.8"><span class="kw">class</span> <span class="fn">Plan</span>(BaseModel)<span class="op">:</span>
+    steps<span class="op">:</span> List[<span class="fn">str</span>] <span class="op">=</span> <span class="fn">Field</span>(description<span class="op">=</span><span class="str">&quot;Ordered list of tool/sub-questions.&quot;</span>)</div>
+</div></p>
+
+<p style="margin-bottom:12px;line-height:1.85">workflow 的 <code style="font-family:var(--mono);font-size:12px;background:var(--bg3);padding:1px 6px;border-radius:4px;color:var(--c1)">session_state</code> 里还要带上中间结果：</p>
+
+<p style="margin-bottom:12px;line-height:1.85"><div class="codeblock" style="margin:12px 0 20px">
+  <div class="cb-head" style="font-size:11px">
+    <span class="cb-dot" style="background:#f85149"></span>
+    <span class="cb-dot" style="background:#e3b341"></span>
+    <span class="cb-dot" style="background:#28c840"></span>
+    agno 实现示例 · 1 行
+  </div>
+  <div class="cb-body" style="font-size:12px;line-height:1.8">session_state <span class="op">=</span> {<span class="str">&quot;plan&quot;</span><span class="op">:</span> [], <span class="str">&quot;intermediate&quot;</span><span class="op">:</span> []}</div>
+</div></p>
+
+<p style="margin-bottom:12px;line-height:1.85">在 ReAct 里下一步做什么是临时决定的，在 Planning 里下一步做什么 <strong style="color:var(--text)">先被生成出来</strong> ，然后才执行。</p></div>
+</div>
+<div style="margin-bottom:32px">
+  <h4 style="font-size:16px;font-weight:600;margin:0 0 12px;color:var(--text)">关键代码</h4>
+  <div style="padding-left:4px"><p style="margin-bottom:12px;line-height:1.85">agno 的 <code style="font-family:var(--mono);font-size:12px;background:var(--bg3);padding:1px 6px;border-radius:4px;color:var(--c1)">Workflow</code> 提供 <code style="font-family:var(--mono);font-size:12px;background:var(--bg3);padding:1px 6px;border-radius:4px;color:var(--c1)">Loop</code> step，天然表达&quot;循环执行直到 plan 空&quot;：</p>
+
+<p style="margin-bottom:12px;line-height:1.85"><div class="codeblock" style="margin:12px 0 20px">
+  <div class="cb-head" style="font-size:11px">
+    <span class="cb-dot" style="background:#f85149"></span>
+    <span class="cb-dot" style="background:#e3b341"></span>
+    <span class="cb-dot" style="background:#28c840"></span>
+    agno 实现示例 · 52 行
+  </div>
+  <div class="cb-body" style="font-size:12px;line-height:1.8"><span class="kw">from</span> agno.workflow.v2 <span class="kw">import</span> Workflow, Step, Loop
+<span class="kw">from</span> agno.tools.duckduckgo <span class="kw">import</span> DuckDuckGoTools
+
+planner <span class="op">=</span> <span class="fn">Agent</span>(name<span class="op">=</span><span class="str">&quot;planner&quot;</span>, model<span class="op">=</span><span class="fn">OpenAIChat</span>(id<span class="op">=</span><span class="str">&quot;gpt-5-mini&quot;</span>), response_model<span class="op">=</span>Plan,
+    instructions<span class="op">=</span><span class="str">&quot;Decompose the user request into a list of atomic tool-queryable steps.&quot;</span>)
+
+executor <span class="op">=</span> <span class="fn">Agent</span>(name<span class="op">=</span><span class="str">&quot;executor&quot;</span>, model<span class="op">=</span><span class="fn">OpenAIChat</span>(id<span class="op">=</span><span class="str">&quot;gpt-5-mini&quot;</span>),
+    tools<span class="op">=</span>[<span class="fn">DuckDuckGoTools</span>()],
+    instructions<span class="op">=</span><span class="str">&quot;Answer exactly one sub-question using tools.&quot;</span>)
+
+synthesizer <span class="op">=</span> <span class="fn">Agent</span>(name<span class="op">=</span><span class="str">&quot;synthesizer&quot;</span>, model<span class="op">=</span><span class="fn">OpenAIChat</span>(id<span class="op">=</span><span class="str">&quot;gpt-5-mini&quot;</span>),
+    instructions<span class="op">=</span><span class="str">&quot;Combine intermediate findings into a final answer.&quot;</span>)
+
+<span class="kw">def</span> <span class="fn">plan_step</span>(step_input)<span class="op">:</span>
+    plan<span class="op">:</span> Plan <span class="op">=</span> planner.<span class="fn">run</span>(step_input.message).content
+    step_input.workflow_session_state[<span class="str">&quot;plan&quot;</span>] <span class="op">=</span> <span class="fn">list</span>(plan.steps)
+    step_input.workflow_session_state[<span class="str">&quot;intermediate&quot;</span>] <span class="op">=</span> []
+    <span class="kw">return</span> plan
+
+<span class="kw">def</span> <span class="fn">execute_step</span>(step_input)<span class="op">:</span>
+    state <span class="op">=</span> step_input.workflow_session_state
+    next_q <span class="op">=</span> state[<span class="str">&quot;plan&quot;</span>].<span class="fn">pop</span>(<span class="num">0</span>)
+    obs <span class="op">=</span> executor.<span class="fn">run</span>(next_q).content
+    state[<span class="str">&quot;intermediate&quot;</span>].<span class="fn">append</span>(f<span class="str">&quot;Q: {next_q}\nA: {obs}&quot;</span>)
+    <span class="kw">return</span> obs
+
+<span class="kw">def</span> <span class="fn">synth_step</span>(step_input)<span class="op">:</span>
+    state <span class="op">=</span> step_input.workflow_session_state
+    notes <span class="op">=</span> <span class="str">&quot;\n\n&quot;</span>.<span class="fn">join</span>(state[<span class="str">&quot;intermediate&quot;</span>])
+    <span class="kw">return</span> synthesizer.<span class="fn">run</span>(
+        f<span class="str">&quot;Question: {step_input.message}\nNotes:\n{notes}\nFinal answer:&quot;</span>
+    ).content
+
+<span class="kw">def</span> <span class="fn">plan_is_empty</span>(_outputs) <span class="op">-</span><span class="op">&gt;</span> <span class="fn">bool</span><span class="op">:</span>
+    <span class="str">&quot;&quot;&quot;Loop 终止条件：agno 的 end_condition 只接收一个参数（StepOutput 列表）。&quot;&quot;&quot;</span>
+    <span class="kw">return</span> <span class="fn">len</span>(planning_wf.session_state[<span class="str">&quot;plan&quot;</span>]) <span class="op">=</span><span class="op">=</span> <span class="num">0</span>
+
+planning_wf <span class="op">=</span> <span class="fn">Workflow</span>(
+    name<span class="op">=</span><span class="str">&quot;planning&quot;</span>,
+    session_state<span class="op">=</span>{<span class="str">&quot;plan&quot;</span><span class="op">:</span> [], <span class="str">&quot;intermediate&quot;</span><span class="op">:</span> []},
+    steps<span class="op">=</span>[
+        <span class="fn">Step</span>(name<span class="op">=</span><span class="str">&quot;plan&quot;</span>, executor<span class="op">=</span>plan_step),
+        <span class="fn">Loop</span>(
+            name<span class="op">=</span><span class="str">&quot;execute_all&quot;</span>,
+            steps<span class="op">=</span>[<span class="fn">Step</span>(name<span class="op">=</span><span class="str">&quot;execute_one&quot;</span>, executor<span class="op">=</span>execute_step)],
+            end_condition<span class="op">=</span>plan_is_empty,
+        ),
+        <span class="fn">Step</span>(name<span class="op">=</span><span class="str">&quot;synthesize&quot;</span>, executor<span class="op">=</span>synth_step),
+    ],
+)
+
+planning_wf.<span class="fn">run</span>(message<span class="op">=</span><span class="str">&quot;Compare the latest revenue of AAPL and MSFT and explain the gap.&quot;</span>)</div>
+</div></p>
+
+<p style="margin-bottom:12px;line-height:1.85">路由逻辑从&quot;LLM 在 prompt 里决定下一步&quot;变成了&quot;一个数据结构是否还有剩余项&quot;——这才是 Planning 真正的结构变化。</p>
+
+<p style="margin-bottom:12px;line-height:1.85">&#x27; fill=&#x27;%23FFFFFF&#x27;%3E%3Crect x=&#x27;249&#x27; y=&#x27;126&#x27; width=&#x27;1&#x27; height=&#x27;1&#x27;%3E%3C/rect%3E%3C/g%3E%3C/g%3E%3C/svg%3E)</p></div>
+</div>
+<div style="margin-bottom:32px">
+  <h4 style="font-size:16px;font-weight:600;margin:0 0 12px;color:var(--text)">失败模式</h4>
+  <div style="padding-left:4px"><p style="margin-bottom:12px;line-height:1.85">它过于乐观，一旦 plan 错了，后面每一步都可能是错的。 <strong style="color:var(--text)">可预测性增强了，适应性下降了。</strong></p></div>
+</div>
+<div style="margin-bottom:32px">
+  <h4 style="font-size:16px;font-weight:600;margin:0 0 12px;color:var(--text)">何时升级</h4>
+  <div style="padding-left:4px"><p style="margin-bottom:12px;line-height:1.85">当你不再相信工具会稳定成功，就必须上 PEV。</p>
+
+<p style="font-size:13px;color:var(--muted);margin:12px 0;padding:8px 16px;border-left:2px solid var(--border);font-style:italic">📎 参考实现： [04\_planning.ipynb](https://github.com/FareedKhan-dev/all-agentic-architectures/04_planning.ipynb)</p>
+
+<p style="margin-bottom:12px;line-height:1.85">---</p></div>
+</div>
+  </section>
+  <section class="layer-sec" id="en-intro" style="border-bottom:none">
+    <h3 style="border-color:#28c840">英文原版解析</h3>
+    <p style="font-size:12px;color:var(--faint);margin-bottom:16px">来自 Jupyter Notebook 的原始英文概念说明</p>
+    <div style="font-size:13px;line-height:1.8;color:var(--muted)"><h3 style="font-size:16px;font-weight:600;margin:20px 0 8px;color:var(--text)">📘 Agentic Architectures 4: Planning</h3>
+<p style="margin-bottom:8px;line-height:1.7;font-size:13px;color:var(--muted)">In this notebook, we explore the <strong style="color:var(--text)">Planning</strong> architecture. This pattern introduces a crucial layer of foresight into an agent&#x27;s reasoning process. Instead of reacting to information step-by-step as in the ReAct model, a planning agent first decomposes a complex task into a sequence of smaller, manageable sub-goals. It creates a full &#x27;battle plan&#x27; *before* taking any action.</p>
+<p style="margin-bottom:8px;line-height:1.7;font-size:13px;color:var(--muted)">This proactive approach brings structure, predictability, and efficiency to multi-step tasks. To highlight its benefits, we will directly compare the performance of a <strong style="color:var(--text)">reactive agent (ReAct)</strong> against our new <strong style="color:var(--text)">planning agent</strong>. We will present both with a task that requires gathering multiple pieces of information before performing a final calculation, demonstrating how a pre-computed plan can lead to a more robust and direct solution.</p>
+<p style="font-weight:600;margin:14px 0 4px;font-size:14px">Definition</p>
+<p style="margin-bottom:8px;line-height:1.7;font-size:13px;color:var(--muted)">The <strong style="color:var(--text)">Planning</strong> architecture involves an agent that explicitly breaks down a complex goal into a detailed sequence of sub-tasks *before* beginning execution. The output of this initial planning phase is a concrete, step-by-step plan that the agent then follows methodically to reach the solution.</p>
+<p style="font-weight:600;margin:14px 0 4px;font-size:14px">High-level Workflow</p>
+<ol style="margin:4px 0 12px 18px">
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Receive Goal:</strong> The agent is given a complex task.</li>
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Plan:</strong> A dedicated &#x27;Planner&#x27; component analyzes the goal and generates an ordered list of sub-tasks required to achieve it. For example: <code style="font-family:var(--mono);font-size:11px;background:var(--bg3);padding:1px 5px;border-radius:3px">[&quot;Find fact A&quot;, &quot;Find fact B&quot;, &quot;Calculate C using A and B&quot;]</code>.</li>
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Execute:</strong> An &#x27;Executor&#x27; component takes the plan and carries out each sub-task in sequence, using tools as needed.</li>
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Synthesize:</strong> Once all steps in the plan are complete, a final component synthesizes the results from the executed steps into a coherent final answer.</li>
+</ul>
+<p style="font-weight:600;margin:14px 0 4px;font-size:14px">When to Use / Applications</p>
+<ul style="margin:4px 0 12px 18px;list-style-type:disc">
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Multi-Step Workflows:</strong> Ideal for tasks where the sequence of operations is known and critical, such as generating a report that requires fetching data, processing it, and then summarizing it.</li>
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Project Management Assistants:</strong> Decomposing a large goal like &quot;launch a new feature&quot; into sub-tasks for different teams.</li>
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Educational Tutoring:</strong> Creating a lesson plan to teach a student a specific concept, from foundational principles to advanced application.</li>
+</ul>
+<p style="font-weight:600;margin:14px 0 4px;font-size:14px">Strengths &amp; Weaknesses</p>
+<ul style="margin:4px 0 12px 18px;list-style-type:disc">
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Strengths:</strong></li>
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Structured &amp; Traceable:</strong> The entire workflow is laid out in advance, making the agent&#x27;s process transparent and easy to debug.</li>
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Efficient:</strong> Can be more efficient than ReAct for predictable tasks, as it avoids unnecessary reasoning loops between steps.</li>
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Weaknesses:</strong></li>
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Brittle to Change:</strong> A pre-made plan can fail if the environment changes unexpectedly during execution. It&#x27;s less adaptive than a ReAct agent, which can change its mind after every step.</li>
+</ul></div>
+  </section>
+  <section class="layer-sec" id="code">
+    <h3 style="border-color:#28c840">LangChain + LangGraph 实现代码</h3>
+    <p style="font-size:12px;color:var(--faint);margin-bottom:16px">完整的端到端实现代码，可从 src/ 目录直接运行</p>
+    <div class="codeblock">
+  <div class="cb-head">
+    <span class="cb-dot" style="background:#f85149"></span><span class="cb-dot" style="background:#e3b341"></span><span class="cb-dot" style="background:#28c840"></span>
+    src/... · LangChain + LangGraph · 259 行
+  </div>
+  <div class="cb-body" style="font-size:12px;line-height:1.8"><span class="str">&quot;&quot;&quot;
 Planning - Agentic Architecture
 Extracted from: 04_planning.ipynb
 &quot;&quot;&quot;</span>
@@ -352,8 +470,5 @@ console.<span class="fn">print</span>(planning_agent_evaluation.<span class="fn"
 </div>
 </div>
   </section>
-
-  <div class="prevnext"><a href="react.html"><span class="coding">Previous</span><br><span class="pn-strong">← ReAct</span></a><a href="multi-agent.html" style="text-align:right"><span class="coding">Next</span><br><span class="pn-strong">Multi-Agent Systems →</span></a></div>
-</div><div class="footer">
-  <p>Built from <a href="https://github.com/1998x-stack/all-agentic-architectures" style="color:var(--text)">all-agentic-architectures</a></p>
-</div></body></html>
+  <div class="prevnext"><a href="react.html"><span class="pn-label">&larr; 上一架构</span>#03 推理与行动循环</a><a href="multi-agent.html" style="text-align:right"><span class="pn-label">下一架构 &rarr;</span>#05 多智能体系统</a></div>
+</div><div class="footer"><p>Built from <a href="https://github.com/1998x-stack/all-agentic-architectures" style="color:var(--text)">all-agentic-architectures</a></p></div></body></html>

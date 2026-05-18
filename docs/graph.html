@@ -1,106 +1,198 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>#12 Graph (World-Model Memory) — All Agentic Architectures</title>
+<title>#12 图世界模型记忆 — All Agentic Architectures</title>
 <link rel="stylesheet" href="base-dark.css">
 <style>
-  :root {
-    --c1: #28c840; --c1d: #1a7a2a;
-    --c2: #378add; --c2d: #1a5290;
-    --c3: #a259ff; --c3d: #5a2a8a;
-    --c4: #f0883e; --c4d: #9a4a1a;
-    --c5: #1db0a0; --c5d: #0f6e56;
-  }
-  .hero h1 em {
-    background: linear-gradient(90deg, var(--c1), var(--c2), var(--c3), var(--c4), var(--c5));
-    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-  }
-  .prevnext { display: flex; justify-content: space-between; padding: 32px 0; border-top: 1px solid var(--border); margin-top: 48px; }
-  .prevnext a { color: var(--muted); font-size: 13px; }
-  .prevnext a:hover { color: var(--text); text-decoration: none; }
-  .pn-strong { color: var(--text) !important; font-weight: 500; }
-  .coding { font-size: 11px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); margin-bottom: 4px; }
-  h2 { font-size: 22px; font-weight: 600; margin: 0 0 12px; letter-spacing: -.01em; }
-  h3 { font-size: 18px; font-weight: 600; margin: 32px 0 12px; }
+  :root{--c1:#28c840;--c1d:#1a7a2a;--c2:#378add;--c2d:#1a5290;--c3:#a259ff;--c3d:#5a2a8a;--c4:#f0883e;--c4d:#9a4a1a;--c5:#1db0a0;--c5d:#0f6e56}
+  .hero h1 em{background:linear-gradient(90deg,var(--c1),var(--c2),var(--c3),var(--c4),var(--c5));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+  .prevnext{display:flex;justify-content:space-between;padding:32px 0;border-top:1px solid var(--border);margin-top:56px}
+  .prevnext a{color:var(--muted);font-size:14px;transition:color .15s}
+  .prevnext a:hover{color:var(--text);text-decoration:none}
+  .prevnext .pn-label{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--faint);margin-bottom:4px;display:block}
+  .cn-section{margin-top:48px}
+  .cn-section h3{font-size:20px;font-weight:700;margin-bottom:20px;padding-bottom:8px;border-bottom:1px solid var(--border)}
+  .toc-link{display:inline-block;padding:3px 8px;border-radius:4px;font-size:11px;font-family:var(--mono);color:var(--muted);border:1px solid var(--border);margin:2px 4px 2px 0;transition:all .15s}
+  .toc-link:hover{border-color:var(--c1);color:var(--c1);text-decoration:none}
 </style>
 
 </head>
 <body><nav>
   <div class="nav-inner">
-    <span class="nav-brand">All Agentic Architectures <span>· 17 Patterns</span></span>
-    <a class="nl" href="index.html">Overview</a>
+    <a href="index.html" style="text-decoration:none"><span class="nav-brand">All Agentic Architectures <span>· 17 种架构</span></span></a>
+    <a class="nl" href="index.html">总览</a>
+    <a class="nl" href="index.html#p1">基础</a>
+    <a class="nl" href="index.html#p2">多智能体</a>
+    <a class="nl" href="index.html#p3">记忆推理</a>
+    <a class="nl" href="index.html#p4">安全可靠</a>
+    <a class="nl" href="index.html#p5">学习适应</a>
   </div>
 </nav><div class="page">
-  <section class="hero" style="padding-bottom:32px">
-    <div class="hero-badge"><span class="dot" style="background:var(--c3)"></span> #12 · Advanced Memory & Reasoning</div>
-    <h1 style="font-size:36px;color:var(--text)">Graph (World-Model Memory)</h1>
-    <p style="margin-bottom:20px">Corporate Intelligence, Advanced Research</p>
-    <div class="tag-row">
-      <span class="ltag" style="color:var(--c3);background:rgba(162,89,255,.08);border-color:rgba(162,89,255,.25)">Part 3</span>
-    </div>
+  <section class="hero" style="padding-bottom:28px">
+    <div class="hero-badge"><span class="dot" style="background:var(--c3)"></span> #12 · 把历史状态纳入系统 · structured knowledge graph</div>
+    <h1 style="font-size:34px;color:var(--text);margin-bottom:6px">图世界模型记忆 <span style="font-size:18px;font-weight:400;color:var(--muted)">Graph</span></h1>
+    <p style="font-size:14px;color:var(--faint);margin-bottom:8px;font-style:italic">当你需要的不是回忆</p>
+    <p style="margin-bottom:8px;font-size:14px">当你需要的不是回忆</p>
+    <p style="font-size:13px;color:var(--muted);margin-bottom:20px">典型应用：</p>
+    <div class="tag-row"><span class="ltag" style="color:var(--c3);background:rgba(162,89,255,.08);border-color:rgba(162,89,255,.25)">Part 3</span></div>
   </section>
-
-  <section class="layer-sec" style="padding-top:16px;border-bottom:none">
+  <div style="margin-bottom:28px;line-height:2">
+  <span style="font-size:11px;color:var(--faint);text-transform:uppercase;letter-spacing:.06em">快速导航</span><br>
+  <a href="#cn-analysis" class="toc-link">六维分析</a>
+  <a href="#en-intro" class="toc-link">英文解析</a>
+  <a href="#code" class="toc-link">LangGraph 实现</a>
+</div>
+  <section class="layer-sec" style="padding-top:0;border-bottom:none">
     <div class="layer-hdr">
-      <span class="layer-id-badge" style="background:#5a2a8a;color:rgba(255,255,255,.9)">Concept</span>
-      <div class="layer-title">How It Works</div>
+      <span class="layer-id-badge" style="background:#5a2a8a;color:rgba(255,255,255,.9)">核心概念</span>
+      <div class="layer-title" style="font-size:18px">当你需要的不是回忆</div>
     </div>
-    <p class="layer-def" style="border-color:#a259ff">Stores knowledge as a structured graph of entities and relationships, enabling complex multi-hop reasoning.</p>
-    <div style="font-size:14px;line-height:1.85;color:var(--text)">
-      <h2>📘 Agentic Architectures 12: Graph / World-Model Memory</h2>
-<p style="margin-bottom:12px;line-height:1.75;font-size:14px;color:var(--muted)">Welcome to this detailed exploration of one of the most powerful memory structures for AI agents: the <strong style="color:var(--text)">Graph-based World Model</strong>. This architecture moves beyond simple document retrieval or chat history to build a structured, interconnected understanding of the world, much like a human&#x27;s semantic memory.</p>
-<p style="margin-bottom:12px;line-height:1.75;font-size:14px;color:var(--muted)">Instead of storing information as isolated chunks of text, a graph-based agent parses incoming data into <strong style="color:var(--text)">entities (nodes)</strong> and <strong style="color:var(--text)">relationships (edges)</strong>. This creates a rich, queryable knowledge graph. The agent can then answer complex questions by traversing this graph, uncovering insights that would be hidden in unstructured text.</p>
-<p style="margin-bottom:12px;line-height:1.75;font-size:14px;color:var(--muted)">To showcase this in detail, we will build a <strong style="color:var(--text)">Corporate Intelligence Agent</strong>. This agent will:</p>
-<ol style="margin:0 0 16px 18px">
-<li style="margin-bottom:8px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Ingest Unstructured Reports:</strong> Read text documents about companies, people, and products.</li>
-<li style="margin-bottom:8px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Construct a Knowledge Graph:</strong> Use an LLM to extract entities (e.g., <code style="font-family:var(--mono);font-size:12px;background:var(--bg3);padding:1px 6px;border-radius:4px;color:var(--code-text)">Company</code>, <code style="font-family:var(--mono);font-size:12px;background:var(--bg3);padding:1px 6px;border-radius:4px;color:var(--code-text)">Person</code>) and relationships (e.g., <code style="font-family:var(--mono);font-size:12px;background:var(--bg3);padding:1px 6px;border-radius:4px;color:var(--code-text)">ACQUIRED</code>, <code style="font-family:var(--mono);font-size:12px;background:var(--bg3);padding:1px 6px;border-radius:4px;color:var(--code-text)">WORKS_FOR</code>, <code style="font-family:var(--mono);font-size:12px;background:var(--bg3);padding:1px 6px;border-radius:4px;color:var(--code-text)">COMPETES_WITH</code>) and populate a Neo4j graph database.</li>
-<li style="margin-bottom:8px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Answer Complex, Multi-Hop Questions:</strong> Use the graph to answer questions that require connecting multiple pieces of information, such as &quot;<em>Who works for the company that acquired BetaSolutions?</em>&quot;—a query that is extremely difficult for standard vector search.</li>
-</ol>
-<h4 style="color:var(--muted);margin:24px 0 8px;font-size:14px;text-transform:uppercase;letter-spacing:.06em">Definition</h4>
-<p style="margin-bottom:12px;line-height:1.75;font-size:14px;color:var(--muted)">A <strong style="color:var(--text)">Graph / World-Model Memory</strong> is an agentic architecture where knowledge is stored in a structured graph database. Information is represented as nodes (entities like people, places, concepts) and edges (the relationships between them). This creates a dynamic &quot;world model&quot; that the agent can reason over.</p>
-<h4 style="color:var(--muted);margin:24px 0 8px;font-size:14px;text-transform:uppercase;letter-spacing:.06em">High-level Workflow</h4>
-<ol style="margin:0 0 16px 18px">
-<li style="margin-bottom:8px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Information Ingestion:</strong> The agent receives unstructured or semi-structured data (text, documents, API responses).</li>
-<li style="margin-bottom:8px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Knowledge Extraction:</strong> An LLM-powered process parses the information, identifying key entities and the relationships that connect them.</li>
-<li style="margin-bottom:8px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Graph Update:</strong> The extracted nodes and edges are added to or updated in a persistent graph database (like Neo4j).</li>
-<li style="margin-bottom:8px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Question Answering / Reasoning:</strong> When asked a question, the agent:</li>
-</ol>
-<p style="margin-bottom:12px;line-height:1.75;font-size:14px;color:var(--muted)">a. Converts the natural language question into a formal graph query language (e.g., Cypher for Neo4j).</p>
-<p style="margin-bottom:12px;line-height:1.75;font-size:14px;color:var(--muted)">b. Executes the query against the graph to retrieve relevant subgraphs or facts.</p>
-<p style="margin-bottom:12px;line-height:1.75;font-size:14px;color:var(--muted)">c. Synthesizes the query results into a natural language answer.</p>
-<h4 style="color:var(--muted);margin:24px 0 8px;font-size:14px;text-transform:uppercase;letter-spacing:.06em">When to Use / Applications</h4>
-<ul style="margin:0 0 16px 18px;list-style-type:disc">
-<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Enterprise Knowledge Assistants:</strong> Building a queryable model of a company&#x27;s projects, employees, and customers from internal documents.</li>
-<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Advanced Research Assistants:</strong> Creating a dynamic knowledge base of a scientific field by ingesting research papers.</li>
-<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Complex System Diagnostics:</strong> Modeling a system&#x27;s components and their dependencies to diagnose failures.</li>
-</ul>
-<h4 style="color:var(--muted);margin:24px 0 8px;font-size:14px;text-transform:uppercase;letter-spacing:.06em">Strengths &amp; Weaknesses</h4>
-<ul style="margin:0 0 16px 18px;list-style-type:disc">
-<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Strengths:</strong></li>
-<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Structured &amp; Explainable:</strong> The knowledge is highly organized. An answer can be explained by showing the exact path in the graph that led to it.</li>
-<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Enables Complex Reasoning:</strong> Excels at answering &quot;multi-hop&quot; questions that require connecting disparate pieces of information through relationships.</li>
-<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Weaknesses:</strong></li>
-<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Upfront Complexity:</strong> Requires a well-defined schema and a robust extraction process.</li>
-<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Keeping the Graph Updated:</strong> Can be challenging to manage updates, resolve conflicting information, and prune outdated facts over time (knowledge lifecycle management).</li>
-</ul>
-    </div>
+    <p class="layer-def" style="border-color:#a259ff">当你需要的不是回忆</p>
   </section>
-
-  <section class="layer-sec" id="code">
-    <div class="layer-hdr">
-      <span class="layer-id-badge" style="background:#5a2a8a;color:rgba(255,255,255,.9)">Implementation</span>
-      <div class="layer-title">Code <small style="font-size:14px;font-weight:400;color:var(--muted)">LangChain + LangGraph</small></div>
-    </div>
-    <div class="codeblock">
-  <div class="cb-head">
+  <section class="layer-sec cn-section" id="cn-analysis">
+    <h3 style="border-color:#a259ff">六维深度分析</h3>
+    <p style="font-size:13px;color:var(--faint);margin-bottom:24px">以下分析基于统一框架的六个核心问题：问题定义 → State 建模 → 拓扑结构 → Router 机制 → 失败模式 → 升级时机</p>
+    <p style="font-size:15px;color:var(--text);line-height:1.9;margin-bottom:24px;padding:16px 20px;background:var(--bg2);border-radius:8px;border-left:3px solid var(--c1)"><strong style="color:var(--c1)">核心洞察：</strong>向量检索能回答&quot;哪段历史最像现在的问题&quot;，但不能天然回答&quot;这个实体和那个实体之间隔了几跳关系&quot;。 Graph Memory 解决的是： <strong style="color:var(--text)">把知识从 chunk 组织提升到关系结构。</strong></p>
+<div style="margin-bottom:32px">
+  <h4 style="font-size:16px;font-weight:600;margin:0 0 12px;color:var(--text)">要解决什么问题？</h4>
+  <div style="padding-left:4px"><p style="margin-bottom:12px;line-height:1.85">向量检索能回答&quot;哪段历史最像现在的问题&quot;，但不能天然回答&quot;这个实体和那个实体之间隔了几跳关系&quot;。 Graph Memory 解决的是： <strong style="color:var(--text)">把知识从 chunk 组织提升到关系结构。</strong></p></div>
+</div>
+<div style="margin-bottom:32px">
+  <h4 style="font-size:16px;font-weight:600;margin:0 0 12px;color:var(--text)">关键代码</h4>
+  <div style="padding-left:4px"><p style="margin-bottom:12px;line-height:1.85"><div class="codeblock" style="margin:12px 0 20px">
+  <div class="cb-head" style="font-size:11px">
     <span class="cb-dot" style="background:#f85149"></span>
     <span class="cb-dot" style="background:#e3b341"></span>
     <span class="cb-dot" style="background:#28c840"></span>
-    src/src/... · 164 lines
+    agno 实现示例 · 40 行
   </div>
-  <div class="cb-body"><span class="str">&quot;&quot;&quot;
+  <div class="cb-body" style="font-size:12px;line-height:1.8"><span class="kw">class</span> <span class="fn">Node</span>(BaseModel)<span class="op">:</span>
+    id<span class="op">:</span> <span class="fn">str</span> <span class="op">=</span> <span class="fn">Field</span>(description<span class="op">=</span><span class="str">&quot;Unique name or identifier for the entity.&quot;</span>)
+    <span class="fn">type</span><span class="op">:</span> <span class="fn">str</span> <span class="op">=</span> <span class="fn">Field</span>(description<span class="op">=</span><span class="str">&quot;Entity type, e.g., Person, Company.&quot;</span>)
+
+<span class="kw">class</span> <span class="fn">Relationship</span>(BaseModel)<span class="op">:</span>
+    source<span class="op">:</span> Node
+    target<span class="op">:</span> Node
+    <span class="fn">type</span><span class="op">:</span> <span class="fn">str</span> <span class="op">=</span> <span class="fn">Field</span>(description<span class="op">=</span><span class="str">&quot;Relationship verb in ALL_CAPS, e.g., WORKS_FOR, ACQUIRED.&quot;</span>)
+
+<span class="kw">class</span> <span class="fn">KnowledgeGraph</span>(BaseModel)<span class="op">:</span>
+    relationships<span class="op">:</span> List[Relationship]
+
+graph_maker <span class="op">=</span> <span class="fn">Agent</span>(
+    name<span class="op">=</span><span class="str">&quot;graph_maker&quot;</span>,
+    model<span class="op">=</span><span class="fn">OpenAIChat</span>(id<span class="op">=</span><span class="str">&quot;gpt-5-mini&quot;</span>),
+    response_model<span class="op">=</span>KnowledgeGraph,
+    instructions<span class="op">=</span>(
+        <span class="str">&quot;Extract entities (nodes) and relationships from the given text. &quot;</span>
+        <span class="str">&quot;Relationship type should be an ALL_CAPS verb.&quot;</span>
+    ),
+)
+
+<span class="cm"># agno 的 Neo4j 工具可以直接做图查询</span>
+<span class="kw">from</span> agno.tools.neo4j <span class="kw">import</span> Neo4jTools
+
+graph_query_agent <span class="op">=</span> <span class="fn">Agent</span>(
+    name<span class="op">=</span><span class="str">&quot;graph_query&quot;</span>,
+    model<span class="op">=</span><span class="fn">OpenAIChat</span>(id<span class="op">=</span><span class="str">&quot;gpt-5-mini&quot;</span>),
+    tools<span class="op">=</span>[<span class="fn">Neo4jTools</span>(url<span class="op">=</span><span class="str">&quot;bolt://localhost:7687&quot;</span>, user<span class="op">=</span><span class="str">&quot;neo4j&quot;</span>, password<span class="op">=</span><span class="str">&quot;...&quot;</span>)],
+    instructions<span class="op">=</span>(
+        <span class="str">&quot;You answer questions over a Neo4j knowledge graph. &quot;</span>
+        <span class="str">&quot;First generate a Cypher query, run it, then synthesize a natural answer. &quot;</span>
+        <span class="str">&quot;If the first query returns nothing, rewrite and retry once.&quot;</span>
+    ),
+)
+
+<span class="cm"># 1) 抽取</span>
+kg <span class="op">=</span> graph_maker.<span class="fn">run</span>(<span class="str">&quot;Tim Cook is the CEO of Apple. Apple acquired Beats in 2014.&quot;</span>).content
+<span class="cm"># 2) 写入图库（省略 write_triples），然后查询</span>
+graph_query_agent.<span class="fn">print_response</span>(<span class="str">&quot;Which companies did Apple acquire and in which year?&quot;</span>)</div>
+</div></p></div>
+</div>
+<div style="margin-bottom:32px">
+  <h4 style="font-size:16px;font-weight:600;margin:0 0 12px;color:var(--text)">失败模式</h4>
+  <div style="padding-left:4px"><ul style="margin:0 0 16px 20px;list-style-type:disc;color:var(--text);font-size:14px"><li style="margin-bottom:8px;line-height:1.75">抽取错误导致图污染</li>
+<li style="margin-bottom:8px;line-height:1.75">schema 设计不佳导致图不可用</li>
+<li style="margin-bottom:8px;line-height:1.75">Text-to-Cypher 生成错误查询</li>
+<li style="margin-bottom:8px;line-height:1.75">图查询结果正确，但 synthesis 层误读</li>
+</ul>
+<p style="margin-bottom:12px;line-height:1.85">Graph Memory 的关键不只是 LLM，而是整个知识建模链条。</p>
+
+<p style="font-size:13px;color:var(--muted);margin:12px 0;padding:8px 16px;border-left:2px solid var(--border);font-style:italic">📎 参考实现： [12\_graph.ipynb](https://github.com/FareedKhan-dev/all-agentic-architectures/12_graph.ipynb)</p>
+
+<p style="margin-bottom:12px;line-height:1.85">---</p></div>
+</div>
+<div style="margin-bottom:32px">
+  <h4 style="font-size:16px;font-weight:600;margin:0 0 12px;color:var(--text)">新增的能力</h4>
+  <div style="padding-left:4px"><p style="margin-bottom:12px;line-height:1.85">核心变化是： <strong style="color:var(--text)">从&quot;相似性召回&quot;升级到&quot;结构性推理&quot;。</strong> 这在企业知识问答、组织关系分析、并购链条追踪这类问题上非常关键。</p></div>
+</div>
+<div style="margin-bottom:32px">
+  <h4 style="font-size:16px;font-weight:600;margin:0 0 12px;color:var(--text)">技术核心</h4>
+  <div style="padding-left:4px"><p style="margin-bottom:12px;line-height:1.85">两步：</p>
+
+<p style="margin-bottom:12px;line-height:1.85">1. 从非结构化文本里抽实体和关系</p>
+<p style="margin-bottom:12px;line-height:1.85">2. 让自然语言问题转成图查询</p>
+<p style="margin-bottom:12px;line-height:1.85"><div class="codeblock" style="margin:12px 0 20px">
+  <div class="cb-head" style="font-size:11px">
+    <span class="cb-dot" style="background:#f85149"></span>
+    <span class="cb-dot" style="background:#e3b341"></span>
+    <span class="cb-dot" style="background:#28c840"></span>
+    agno 实现示例 · 1 行
+  </div>
+  <div class="cb-body" style="font-size:12px;line-height:1.8">Text <span class="op">-</span><span class="op">&gt;</span> Knowledge Graph <span class="op">-</span><span class="op">&gt;</span> Text<span class="op">-</span>to<span class="op">-</span>Cypher <span class="op">-</span><span class="op">&gt;</span> Query <span class="op">-</span><span class="op">&gt;</span> Answer</div>
+</div></p></div>
+</div>
+  </section>
+  <section class="layer-sec" id="en-intro" style="border-bottom:none">
+    <h3 style="border-color:#a259ff">英文原版解析</h3>
+    <p style="font-size:12px;color:var(--faint);margin-bottom:16px">来自 Jupyter Notebook 的原始英文概念说明</p>
+    <div style="font-size:13px;line-height:1.8;color:var(--muted)"><h3 style="font-size:16px;font-weight:600;margin:20px 0 8px;color:var(--text)">📘 Agentic Architectures 12: Graph / World-Model Memory</h3>
+<p style="margin-bottom:8px;line-height:1.7;font-size:13px;color:var(--muted)">Welcome to this detailed exploration of one of the most powerful memory structures for AI agents: the <strong style="color:var(--text)">Graph-based World Model</strong>. This architecture moves beyond simple document retrieval or chat history to build a structured, interconnected understanding of the world, much like a human&#x27;s semantic memory.</p>
+<p style="margin-bottom:8px;line-height:1.7;font-size:13px;color:var(--muted)">Instead of storing information as isolated chunks of text, a graph-based agent parses incoming data into <strong style="color:var(--text)">entities (nodes)</strong> and <strong style="color:var(--text)">relationships (edges)</strong>. This creates a rich, queryable knowledge graph. The agent can then answer complex questions by traversing this graph, uncovering insights that would be hidden in unstructured text.</p>
+<p style="margin-bottom:8px;line-height:1.7;font-size:13px;color:var(--muted)">To showcase this in detail, we will build a <strong style="color:var(--text)">Corporate Intelligence Agent</strong>. This agent will:</p>
+<ol style="margin:4px 0 12px 18px">
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Ingest Unstructured Reports:</strong> Read text documents about companies, people, and products.</li>
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Construct a Knowledge Graph:</strong> Use an LLM to extract entities (e.g., <code style="font-family:var(--mono);font-size:11px;background:var(--bg3);padding:1px 5px;border-radius:3px">Company</code>, <code style="font-family:var(--mono);font-size:11px;background:var(--bg3);padding:1px 5px;border-radius:3px">Person</code>) and relationships (e.g., <code style="font-family:var(--mono);font-size:11px;background:var(--bg3);padding:1px 5px;border-radius:3px">ACQUIRED</code>, <code style="font-family:var(--mono);font-size:11px;background:var(--bg3);padding:1px 5px;border-radius:3px">WORKS_FOR</code>, <code style="font-family:var(--mono);font-size:11px;background:var(--bg3);padding:1px 5px;border-radius:3px">COMPETES_WITH</code>) and populate a Neo4j graph database.</li>
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Answer Complex, Multi-Hop Questions:</strong> Use the graph to answer questions that require connecting multiple pieces of information, such as &quot;*Who works for the company that acquired BetaSolutions?*&quot;—a query that is extremely difficult for standard vector search.</li>
+</ul>
+<p style="font-weight:600;margin:14px 0 4px;font-size:14px">Definition</p>
+<p style="margin-bottom:8px;line-height:1.7;font-size:13px;color:var(--muted)">A <strong style="color:var(--text)">Graph / World-Model Memory</strong> is an agentic architecture where knowledge is stored in a structured graph database. Information is represented as nodes (entities like people, places, concepts) and edges (the relationships between them). This creates a dynamic &quot;world model&quot; that the agent can reason over.</p>
+<p style="font-weight:600;margin:14px 0 4px;font-size:14px">High-level Workflow</p>
+<ol style="margin:4px 0 12px 18px">
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Information Ingestion:</strong> The agent receives unstructured or semi-structured data (text, documents, API responses).</li>
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Knowledge Extraction:</strong> An LLM-powered process parses the information, identifying key entities and the relationships that connect them.</li>
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Graph Update:</strong> The extracted nodes and edges are added to or updated in a persistent graph database (like Neo4j).</li>
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Question Answering / Reasoning:</strong> When asked a question, the agent:</li>
+</ul>
+<p style="margin-bottom:8px;line-height:1.7;font-size:13px;color:var(--muted)">a. Converts the natural language question into a formal graph query language (e.g., Cypher for Neo4j).</p>
+<p style="margin-bottom:8px;line-height:1.7;font-size:13px;color:var(--muted)">b. Executes the query against the graph to retrieve relevant subgraphs or facts.</p>
+<p style="margin-bottom:8px;line-height:1.7;font-size:13px;color:var(--muted)">c. Synthesizes the query results into a natural language answer.</p>
+<p style="font-weight:600;margin:14px 0 4px;font-size:14px">When to Use / Applications</p>
+<ul style="margin:4px 0 12px 18px;list-style-type:disc">
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Enterprise Knowledge Assistants:</strong> Building a queryable model of a company&#x27;s projects, employees, and customers from internal documents.</li>
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Advanced Research Assistants:</strong> Creating a dynamic knowledge base of a scientific field by ingesting research papers.</li>
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Complex System Diagnostics:</strong> Modeling a system&#x27;s components and their dependencies to diagnose failures.</li>
+</ul>
+<p style="font-weight:600;margin:14px 0 4px;font-size:14px">Strengths &amp; Weaknesses</p>
+<ul style="margin:4px 0 12px 18px;list-style-type:disc">
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Strengths:</strong></li>
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Structured &amp; Explainable:</strong> The knowledge is highly organized. An answer can be explained by showing the exact path in the graph that led to it.</li>
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Enables Complex Reasoning:</strong> Excels at answering &quot;multi-hop&quot; questions that require connecting disparate pieces of information through relationships.</li>
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Weaknesses:</strong></li>
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Upfront Complexity:</strong> Requires a well-defined schema and a robust extraction process.</li>
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Keeping the Graph Updated:</strong> Can be challenging to manage updates, resolve conflicting information, and prune outdated facts over time (knowledge lifecycle management).</li>
+</ul></div>
+  </section>
+  <section class="layer-sec" id="code">
+    <h3 style="border-color:#a259ff">LangChain + LangGraph 实现代码</h3>
+    <p style="font-size:12px;color:var(--faint);margin-bottom:16px">完整的端到端实现代码，可从 src/ 目录直接运行</p>
+    <div class="codeblock">
+  <div class="cb-head">
+    <span class="cb-dot" style="background:#f85149"></span><span class="cb-dot" style="background:#e3b341"></span><span class="cb-dot" style="background:#28c840"></span>
+    src/... · LangChain + LangGraph · 163 行
+  </div>
+  <div class="cb-body" style="font-size:12px;line-height:1.8"><span class="str">&quot;&quot;&quot;
 Graph - Agentic Architecture
 Extracted from: 12_graph.ipynb
 &quot;&quot;&quot;</span>
@@ -266,8 +358,5 @@ console.<span class="fn">print</span>(<span class="fn">Markdown</span>(result3[<
 </div>
 </div>
   </section>
-
-  <div class="prevnext"><a href="meta-controller.html"><span class="coding">Previous</span><br><span class="pn-strong">← Meta-Controller</span></a><a href="ensemble.html" style="text-align:right"><span class="coding">Next</span><br><span class="pn-strong">Ensemble →</span></a></div>
-</div><div class="footer">
-  <p>Built from <a href="https://github.com/1998x-stack/all-agentic-architectures" style="color:var(--text)">all-agentic-architectures</a></p>
-</div></body></html>
+  <div class="prevnext"><a href="meta-controller.html"><span class="pn-label">&larr; 上一架构</span>#11 元控制器</a><a href="ensemble.html" style="text-align:right"><span class="pn-label">下一架构 &rarr;</span>#13 集成模式</a></div>
+</div><div class="footer"><p>Built from <a href="https://github.com/1998x-stack/all-agentic-architectures" style="color:var(--text)">all-agentic-architectures</a></p></div></body></html>

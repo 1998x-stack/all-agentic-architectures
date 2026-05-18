@@ -1,98 +1,167 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>#03 ReAct — All Agentic Architectures</title>
+<title>#03 推理与行动循环 — All Agentic Architectures</title>
 <link rel="stylesheet" href="base-dark.css">
 <style>
-  :root {
-    --c1: #28c840; --c1d: #1a7a2a;
-    --c2: #378add; --c2d: #1a5290;
-    --c3: #a259ff; --c3d: #5a2a8a;
-    --c4: #f0883e; --c4d: #9a4a1a;
-    --c5: #1db0a0; --c5d: #0f6e56;
-  }
-  .hero h1 em {
-    background: linear-gradient(90deg, var(--c1), var(--c2), var(--c3), var(--c4), var(--c5));
-    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-  }
-  .prevnext { display: flex; justify-content: space-between; padding: 32px 0; border-top: 1px solid var(--border); margin-top: 48px; }
-  .prevnext a { color: var(--muted); font-size: 13px; }
-  .prevnext a:hover { color: var(--text); text-decoration: none; }
-  .pn-strong { color: var(--text) !important; font-weight: 500; }
-  .coding { font-size: 11px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); margin-bottom: 4px; }
-  h2 { font-size: 22px; font-weight: 600; margin: 0 0 12px; letter-spacing: -.01em; }
-  h3 { font-size: 18px; font-weight: 600; margin: 32px 0 12px; }
+  :root{--c1:#28c840;--c1d:#1a7a2a;--c2:#378add;--c2d:#1a5290;--c3:#a259ff;--c3d:#5a2a8a;--c4:#f0883e;--c4d:#9a4a1a;--c5:#1db0a0;--c5d:#0f6e56}
+  .hero h1 em{background:linear-gradient(90deg,var(--c1),var(--c2),var(--c3),var(--c4),var(--c5));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+  .prevnext{display:flex;justify-content:space-between;padding:32px 0;border-top:1px solid var(--border);margin-top:56px}
+  .prevnext a{color:var(--muted);font-size:14px;transition:color .15s}
+  .prevnext a:hover{color:var(--text);text-decoration:none}
+  .prevnext .pn-label{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--faint);margin-bottom:4px;display:block}
+  .cn-section{margin-top:48px}
+  .cn-section h3{font-size:20px;font-weight:700;margin-bottom:20px;padding-bottom:8px;border-bottom:1px solid var(--border)}
+  .toc-link{display:inline-block;padding:3px 8px;border-radius:4px;font-size:11px;font-family:var(--mono);color:var(--muted);border:1px solid var(--border);margin:2px 4px 2px 0;transition:all .15s}
+  .toc-link:hover{border-color:var(--c1);color:var(--c1);text-decoration:none}
 </style>
 
 </head>
 <body><nav>
   <div class="nav-inner">
-    <span class="nav-brand">All Agentic Architectures <span>· 17 Patterns</span></span>
-    <a class="nl" href="index.html">Overview</a>
+    <a href="index.html" style="text-decoration:none"><span class="nav-brand">All Agentic Architectures <span>· 17 种架构</span></span></a>
+    <a class="nl" href="index.html">总览</a>
+    <a class="nl" href="index.html#p1">基础</a>
+    <a class="nl" href="index.html#p2">多智能体</a>
+    <a class="nl" href="index.html#p3">记忆推理</a>
+    <a class="nl" href="index.html#p4">安全可靠</a>
+    <a class="nl" href="index.html#p5">学习适应</a>
   </div>
 </nav><div class="page">
-  <section class="hero" style="padding-bottom:32px">
-    <div class="hero-badge"><span class="dot" style="background:var(--c1)"></span> #03 · Foundational Patterns</div>
-    <h1 style="font-size:36px;color:var(--text)">ReAct</h1>
-    <p style="margin-bottom:20px">Multi-hop Q&amp;A, Web Navigation &amp; Research</p>
-    <div class="tag-row">
-      <span class="ltag" style="color:var(--c1);background:rgba(40,200,64,.08);border-color:rgba(40,200,64,.25)">Part 1</span>
-    </div>
+  <section class="hero" style="padding-bottom:28px">
+    <div class="hero-badge"><span class="dot" style="background:var(--c1)"></span> #03 · 基于观察持续行动 · observation loop</div>
+    <h1 style="font-size:34px;color:var(--text);margin-bottom:6px">推理与行动循环 <span style="font-size:18px;font-weight:400;color:var(--muted)">ReAct</span></h1>
+    <p style="font-size:14px;color:var(--faint);margin-bottom:8px;font-style:italic">Agent 真正成形的地方</p>
+    <p style="margin-bottom:8px;font-size:14px">Agent 真正成形的地方</p>
+    <p style="font-size:13px;color:var(--muted);margin-bottom:20px">典型应用：</p>
+    <div class="tag-row"><span class="ltag" style="color:var(--c1);background:rgba(40,200,64,.08);border-color:rgba(40,200,64,.25)">Part 1</span></div>
   </section>
-
-  <section class="layer-sec" style="padding-top:16px;border-bottom:none">
+  <div style="margin-bottom:28px;line-height:2">
+  <span style="font-size:11px;color:var(--faint);text-transform:uppercase;letter-spacing:.06em">快速导航</span><br>
+  <a href="#cn-analysis" class="toc-link">六维分析</a>
+  <a href="#en-intro" class="toc-link">英文解析</a>
+  <a href="#code" class="toc-link">LangGraph 实现</a>
+</div>
+  <section class="layer-sec" style="padding-top:0;border-bottom:none">
     <div class="layer-hdr">
-      <span class="layer-id-badge" style="background:#1a7a2a;color:rgba(255,255,255,.9)">Concept</span>
-      <div class="layer-title">How It Works</div>
+      <span class="layer-id-badge" style="background:#1a7a2a;color:rgba(255,255,255,.9)">核心概念</span>
+      <div class="layer-title" style="font-size:18px">Agent 真正成形的地方</div>
     </div>
-    <p class="layer-def" style="border-color:#28c840">Dynamically interleaves reasoning (&#x27;thought&#x27;) and action (&#x27;tool use&#x27;) in an adaptive loop for complex multi-step problems.</p>
-    <div style="font-size:14px;line-height:1.85;color:var(--text)">
-      <h2>📘 Agentic Architectures 3: ReAct (Reason + Act)</h2>
-<p style="margin-bottom:12px;line-height:1.75;font-size:14px;color:var(--muted)">Welcome to the third notebook in our series. We will now explore <strong style="color:var(--text)">ReAct</strong>, a pivotal architecture that bridges the gap between simple tool use and complex, multi-step problem-solving. ReAct stands for <strong style="color:var(--text)">Reason + Act</strong>, and its core innovation is the way it enables an agent to dynamically reason about a problem, act on its reasoning, observe the outcome, and then reason again.</p>
-<p style="margin-bottom:12px;line-height:1.75;font-size:14px;color:var(--muted)">This pattern transforms an agent from a static tool-caller into an adaptive problem-solver. To highlight its power, we will first build a <strong style="color:var(--text)">basic, single-shot tool-using agent</strong> and show its limitations on a complex task. Then, we will build a full ReAct agent and demonstrate how its iterative <code style="font-family:var(--mono);font-size:12px;background:var(--bg3);padding:1px 6px;border-radius:4px;color:var(--code-text)">think -&gt; act -&gt; observe</code> loop allows it to succeed where the basic agent fails.</p>
-<h4 style="color:var(--muted);margin:24px 0 8px;font-size:14px;text-transform:uppercase;letter-spacing:.06em">Definition</h4>
-<p style="margin-bottom:12px;line-height:1.75;font-size:14px;color:var(--muted)">The <strong style="color:var(--text)">ReAct</strong> architecture is a design pattern where an agent interleaves reasoning steps with actions. Instead of planning all its steps upfront, the agent generates a thought about its immediate next step, takes an action (like calling a tool), observes the result, and then uses that new information to generate its next thought and action. This creates a dynamic and adaptive loop.</p>
-<h4 style="color:var(--muted);margin:24px 0 8px;font-size:14px;text-transform:uppercase;letter-spacing:.06em">High-level Workflow</h4>
-<ol style="margin:0 0 16px 18px">
-<li style="margin-bottom:8px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Receive Goal:</strong> The agent is given a complex task.</li>
-<li style="margin-bottom:8px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Think (Reason):</strong> The agent generates an internal thought, such as: <em>&quot;To answer this, I first need to find piece of information X.&quot;</em></li>
-<li style="margin-bottom:8px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Act:</strong> Based on its thought, the agent executes an action, typically calling a tool (e.g., <code style="font-family:var(--mono);font-size:12px;background:var(--bg3);padding:1px 6px;border-radius:4px;color:var(--code-text)">search_api(&#x27;X&#x27;)</code>).</li>
-<li style="margin-bottom:8px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Observe:</strong> The agent receives the result from the tool.</li>
-<li style="margin-bottom:8px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Repeat:</strong> The agent incorporates the observation into its context and returns to step 2, generating a new thought (e.g., <em>&quot;Okay, now that I have X, I need to use it to find Y.&quot;</em>). This loop continues until the overall goal is satisfied.</li>
-</ol>
-<h4 style="color:var(--muted);margin:24px 0 8px;font-size:14px;text-transform:uppercase;letter-spacing:.06em">When to Use / Applications</h4>
-<ul style="margin:0 0 16px 18px;list-style-type:disc">
-<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Multi-hop Question Answering:</strong> When answering a question requires finding several pieces of information in sequence (e.g., &quot;Who is the CEO of the company that makes the iPhone?&quot;).</li>
-<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Web Navigation &amp; Research:</strong> An agent can search for a starting point, read the results, and then decide on a new search query based on what it learned.</li>
-<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Interactive Workflows:</strong> Any task where the environment is dynamic and the full path to a solution cannot be known in advance.</li>
-</ul>
-<h4 style="color:var(--muted);margin:24px 0 8px;font-size:14px;text-transform:uppercase;letter-spacing:.06em">Strengths &amp; Weaknesses</h4>
-<ul style="margin:0 0 16px 18px;list-style-type:disc">
-<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Strengths:</strong></li>
-<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Adaptive &amp; Dynamic:</strong> Can adjust its plan on the fly based on new information.</li>
-<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Handles Complexity:</strong> Excels at problems that require chaining multiple dependent steps.</li>
-<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Weaknesses:</strong></li>
-<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Higher Latency &amp; Cost:</strong> Involves multiple sequential LLM calls, making it slower and more expensive than single-shot approaches.</li>
-<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Risk of Loops:</strong> A poorly guided agent can get stuck in repetitive, unproductive loops of thought and action.</li>
-</ul>
-    </div>
+    <p class="layer-def" style="border-color:#28c840">Agent 真正成形的地方</p>
   </section>
+  <section class="layer-sec cn-section" id="cn-analysis">
+    <h3 style="border-color:#28c840">六维深度分析</h3>
+    <p style="font-size:13px;color:var(--faint);margin-bottom:24px">以下分析基于统一框架的六个核心问题：问题定义 → State 建模 → 拓扑结构 → Router 机制 → 失败模式 → 升级时机</p>
+    <p style="font-size:15px;color:var(--text);line-height:1.9;margin-bottom:24px;padding:16px 20px;background:var(--bg2);border-radius:8px;border-left:3px solid var(--c1)"><strong style="color:var(--c1)">核心洞察：</strong>Tool Use 的控制流还太浅，ReAct 要 <strong style="color:var(--text)">让工具结果不只是被消费一次，而是进入下一轮决策</strong> 。 从这里开始，agent 不再只是&quot;会用工具&quot;，而是&quot;会根据新观察更新计划&quot;。</p>
+<div style="margin-bottom:32px">
+  <h4 style="font-size:16px;font-weight:600;margin:0 0 12px;color:var(--text)">要解决什么问题？</h4>
+  <div style="padding-left:4px"><p style="margin-bottom:12px;line-height:1.85">Tool Use 的控制流还太浅，ReAct 要 <strong style="color:var(--text)">让工具结果不只是被消费一次，而是进入下一轮决策</strong> 。 从这里开始，agent 不再只是&quot;会用工具&quot;，而是&quot;会根据新观察更新计划&quot;。</p></div>
+</div>
+<div style="margin-bottom:32px">
+  <h4 style="font-size:16px;font-weight:600;margin:0 0 12px;color:var(--text)">State 设计</h4>
+  <div style="padding-left:4px"><p style="margin-bottom:12px;line-height:1.85">在 ReAct 里 agent 的消息序列不再只是对话历史，而是 <strong style="color:var(--text)">行动轨迹（trace）</strong> ：当前问题 → 上一步推理 → 工具调用 → 工具观测 → 新一轮判断。 你可以把它看成隐式的工作记忆带，在 agno 里，这条 trace 是 <code style="font-family:var(--mono);font-size:12px;background:var(--bg3);padding:1px 6px;border-radius:4px;color:var(--c1)">Agent</code> 内部自动维护的——一次 <code style="font-family:var(--mono);font-size:12px;background:var(--bg3);padding:1px 6px;border-radius:4px;color:var(--c1)">agent.run()</code> 内部就包含用户输入、模型输出、工具调用、工具返回、二次推理，你不需要手写任何状态容器。</p></div>
+</div>
+<div style="margin-bottom:32px">
+  <h4 style="font-size:16px;font-weight:600;margin:0 0 12px;color:var(--text)">拓扑结构</h4>
+  <div style="padding-left:4px"><p style="margin-bottom:12px;line-height:1.85">最小闭环：</p>
 
-  <section class="layer-sec" id="code">
-    <div class="layer-hdr">
-      <span class="layer-id-badge" style="background:#1a7a2a;color:rgba(255,255,255,.9)">Implementation</span>
-      <div class="layer-title">Code <small style="font-size:14px;font-weight:400;color:var(--muted)">LangChain + LangGraph</small></div>
-    </div>
-    <div class="codeblock">
-  <div class="cb-head">
+<p style="margin-bottom:12px;line-height:1.85">&#x27; fill=&#x27;%23FFFFFF&#x27;%3E%3Crect x=&#x27;249&#x27; y=&#x27;126&#x27; width=&#x27;1&#x27; height=&#x27;1&#x27;%3E%3C/rect%3E%3C/g%3E%3C/g%3E%3C/svg%3E)</p>
+
+<p style="margin-bottom:12px;line-height:1.85">系统终于从&quot;线性流程&quot;进入&quot;持续交互系统&quot;。</p></div>
+</div>
+<div style="margin-bottom:32px">
+  <h4 style="font-size:16px;font-weight:600;margin:0 0 12px;color:var(--text)">关键代码</h4>
+  <div style="padding-left:4px"><p style="margin-bottom:12px;line-height:1.85">agno 内置的 <code style="font-family:var(--mono);font-size:12px;background:var(--bg3);padding:1px 6px;border-radius:4px;color:var(--c1)">reasoning=True</code> 会把 ReAct 的&quot;Thought Action Observation&quot;显式写进 trace：</p>
+
+<p style="margin-bottom:12px;line-height:1.85"><div class="codeblock" style="margin:12px 0 20px">
+  <div class="cb-head" style="font-size:11px">
     <span class="cb-dot" style="background:#f85149"></span>
     <span class="cb-dot" style="background:#e3b341"></span>
     <span class="cb-dot" style="background:#28c840"></span>
-    src/src/... · 157 lines
+    agno 实现示例 · 22 行
   </div>
-  <div class="cb-body"><span class="str">&quot;&quot;&quot;
+  <div class="cb-body" style="font-size:12px;line-height:1.8"><span class="kw">from</span> agno.agent <span class="kw">import</span> Agent
+<span class="kw">from</span> agno.models.openai <span class="kw">import</span> OpenAIChat
+<span class="kw">from</span> agno.tools.duckduckgo <span class="kw">import</span> DuckDuckGoTools
+<span class="kw">from</span> agno.tools.yfinance <span class="kw">import</span> YFinanceTools
+
+react_agent <span class="op">=</span> <span class="fn">Agent</span>(
+    model<span class="op">=</span><span class="fn">OpenAIChat</span>(id<span class="op">=</span><span class="str">&quot;gpt-5-mini&quot;</span>),
+    tools<span class="op">=</span>[<span class="fn">DuckDuckGoTools</span>(), <span class="fn">YFinanceTools</span>(stock_price<span class="op">=</span><span class="kw">True</span>, company_news<span class="op">=</span><span class="kw">True</span>)],
+    instructions<span class="op">=</span>[
+        <span class="str">&quot;You are a research assistant.&quot;</span>,
+        <span class="str">&quot;Think step by step. For each step decide whether to use a tool or answer.&quot;</span>,
+        <span class="str">&quot;After each tool observation, re-evaluate what you still need before answering.&quot;</span>,
+    ],
+    reasoning<span class="op">=</span><span class="kw">True</span>,
+    markdown<span class="op">=</span><span class="kw">True</span>,
+    show_tool_calls<span class="op">=</span><span class="kw">True</span>,
+)
+
+react_agent.<span class="fn">print_response</span>(
+    <span class="str">&quot;Based on the latest news, should I be worried about AAPL next quarter?&quot;</span>,
+    stream<span class="op">=</span><span class="kw">True</span>,
+)</div>
+</div></p>
+
+<p style="margin-bottom:12px;line-height:1.85">关键不是某一行代码，而是 agno 内部那条&quot;回边&quot;： <strong style="color:var(--text)">只要 model 回复里还有 tool\_calls，就回到 model 再跑一次</strong> 。 这条 <code style="font-family:var(--mono);font-size:12px;background:var(--bg3);padding:1px 6px;border-radius:4px;color:var(--c1)">tool → model</code> 的循环边，是整个 agent architecture 里最重要的回边之一——它把&quot;单次调用&quot;变成了&quot;持续交互&quot;。</p></div>
+</div>
+<div style="margin-bottom:32px">
+  <h4 style="font-size:16px;font-weight:600;margin:0 0 12px;color:var(--text)">失败模式</h4>
+  <div style="padding-left:4px"><p style="margin-bottom:12px;line-height:1.85"><strong style="color:var(--text)">局部贪心。</strong> 它每次只基于当前 observation 决策，容易走弯路、重复搜索、陷入局部最优、无法提前安排多步任务。</p></div>
+</div>
+<div style="margin-bottom:32px">
+  <h4 style="font-size:16px;font-weight:600;margin:0 0 12px;color:var(--text)">何时升级</h4>
+  <div style="padding-left:4px"><p style="margin-bottom:12px;line-height:1.85">当任务需要显式的步骤顺序控制，就该上 Planning。</p>
+
+<p style="font-size:13px;color:var(--muted);margin:12px 0;padding:8px 16px;border-left:2px solid var(--border);font-style:italic">📎 参考实现： [03\_ReAct.ipynb](https://github.com/FareedKhan-dev/all-agentic-architectures/03_ReAct.ipynb)</p>
+
+<p style="margin-bottom:12px;line-height:1.85">---</p></div>
+</div>
+  </section>
+  <section class="layer-sec" id="en-intro" style="border-bottom:none">
+    <h3 style="border-color:#28c840">英文原版解析</h3>
+    <p style="font-size:12px;color:var(--faint);margin-bottom:16px">来自 Jupyter Notebook 的原始英文概念说明</p>
+    <div style="font-size:13px;line-height:1.8;color:var(--muted)"><h3 style="font-size:16px;font-weight:600;margin:20px 0 8px;color:var(--text)">📘 Agentic Architectures 3: ReAct (Reason + Act)</h3>
+<p style="margin-bottom:8px;line-height:1.7;font-size:13px;color:var(--muted)">Welcome to the third notebook in our series. We will now explore <strong style="color:var(--text)">ReAct</strong>, a pivotal architecture that bridges the gap between simple tool use and complex, multi-step problem-solving. ReAct stands for <strong style="color:var(--text)">Reason + Act</strong>, and its core innovation is the way it enables an agent to dynamically reason about a problem, act on its reasoning, observe the outcome, and then reason again.</p>
+<p style="margin-bottom:8px;line-height:1.7;font-size:13px;color:var(--muted)">This pattern transforms an agent from a static tool-caller into an adaptive problem-solver. To highlight its power, we will first build a <strong style="color:var(--text)">basic, single-shot tool-using agent</strong> and show its limitations on a complex task. Then, we will build a full ReAct agent and demonstrate how its iterative <code style="font-family:var(--mono);font-size:11px;background:var(--bg3);padding:1px 5px;border-radius:3px">think -&gt; act -&gt; observe</code> loop allows it to succeed where the basic agent fails.</p>
+<p style="font-weight:600;margin:14px 0 4px;font-size:14px">Definition</p>
+<p style="margin-bottom:8px;line-height:1.7;font-size:13px;color:var(--muted)">The <strong style="color:var(--text)">ReAct</strong> architecture is a design pattern where an agent interleaves reasoning steps with actions. Instead of planning all its steps upfront, the agent generates a thought about its immediate next step, takes an action (like calling a tool), observes the result, and then uses that new information to generate its next thought and action. This creates a dynamic and adaptive loop.</p>
+<p style="font-weight:600;margin:14px 0 4px;font-size:14px">High-level Workflow</p>
+<ol style="margin:4px 0 12px 18px">
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Receive Goal:</strong> The agent is given a complex task.</li>
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Think (Reason):</strong> The agent generates an internal thought, such as: *&quot;To answer this, I first need to find piece of information X.&quot;*</li>
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Act:</strong> Based on its thought, the agent executes an action, typically calling a tool (e.g., <code style="font-family:var(--mono);font-size:11px;background:var(--bg3);padding:1px 5px;border-radius:3px">search_api(&#x27;X&#x27;)</code>).</li>
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Observe:</strong> The agent receives the result from the tool.</li>
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Repeat:</strong> The agent incorporates the observation into its context and returns to step 2, generating a new thought (e.g., *&quot;Okay, now that I have X, I need to use it to find Y.&quot;*). This loop continues until the overall goal is satisfied.</li>
+</ul>
+<p style="font-weight:600;margin:14px 0 4px;font-size:14px">When to Use / Applications</p>
+<ul style="margin:4px 0 12px 18px;list-style-type:disc">
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Multi-hop Question Answering:</strong> When answering a question requires finding several pieces of information in sequence (e.g., &quot;Who is the CEO of the company that makes the iPhone?&quot;).</li>
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Web Navigation &amp; Research:</strong> An agent can search for a starting point, read the results, and then decide on a new search query based on what it learned.</li>
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Interactive Workflows:</strong> Any task where the environment is dynamic and the full path to a solution cannot be known in advance.</li>
+</ul>
+<p style="font-weight:600;margin:14px 0 4px;font-size:14px">Strengths &amp; Weaknesses</p>
+<ul style="margin:4px 0 12px 18px;list-style-type:disc">
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Strengths:</strong></li>
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Adaptive &amp; Dynamic:</strong> Can adjust its plan on the fly based on new information.</li>
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Handles Complexity:</strong> Excels at problems that require chaining multiple dependent steps.</li>
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Weaknesses:</strong></li>
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Higher Latency &amp; Cost:</strong> Involves multiple sequential LLM calls, making it slower and more expensive than single-shot approaches.</li>
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Risk of Loops:</strong> A poorly guided agent can get stuck in repetitive, unproductive loops of thought and action.</li>
+</ul></div>
+  </section>
+  <section class="layer-sec" id="code">
+    <h3 style="border-color:#28c840">LangChain + LangGraph 实现代码</h3>
+    <p style="font-size:12px;color:var(--faint);margin-bottom:16px">完整的端到端实现代码，可从 src/ 目录直接运行</p>
+    <div class="codeblock">
+  <div class="cb-head">
+    <span class="cb-dot" style="background:#f85149"></span><span class="cb-dot" style="background:#e3b341"></span><span class="cb-dot" style="background:#28c840"></span>
+    src/... · LangChain + LangGraph · 156 行
+  </div>
+  <div class="cb-body" style="font-size:12px;line-height:1.8"><span class="str">&quot;&quot;&quot;
 ReAct - Agentic Architecture
 Extracted from: 03_ReAct.ipynb
 &quot;&quot;&quot;</span>
@@ -251,8 +320,5 @@ console.<span class="fn">print</span>(react_agent_evaluation.<span class="fn">mo
 </div>
 </div>
   </section>
-
-  <div class="prevnext"><a href="tool-use.html"><span class="coding">Previous</span><br><span class="pn-strong">← Tool Use</span></a><a href="planning.html" style="text-align:right"><span class="coding">Next</span><br><span class="pn-strong">Planning →</span></a></div>
-</div><div class="footer">
-  <p>Built from <a href="https://github.com/1998x-stack/all-agentic-architectures" style="color:var(--text)">all-agentic-architectures</a></p>
-</div></body></html>
+  <div class="prevnext"><a href="tool-use.html"><span class="pn-label">&larr; 上一架构</span>#02 工具使用</a><a href="planning.html" style="text-align:right"><span class="pn-label">下一架构 &rarr;</span>#04 显式规划</a></div>
+</div><div class="footer"><p>Built from <a href="https://github.com/1998x-stack/all-agentic-architectures" style="color:var(--text)">all-agentic-architectures</a></p></div></body></html>

@@ -1,102 +1,201 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>#09 Tree of Thoughts (ToT) — All Agentic Architectures</title>
+<title>#09 思维树 — All Agentic Architectures</title>
 <link rel="stylesheet" href="base-dark.css">
 <style>
-  :root {
-    --c1: #28c840; --c1d: #1a7a2a;
-    --c2: #378add; --c2d: #1a5290;
-    --c3: #a259ff; --c3d: #5a2a8a;
-    --c4: #f0883e; --c4d: #9a4a1a;
-    --c5: #1db0a0; --c5d: #0f6e56;
-  }
-  .hero h1 em {
-    background: linear-gradient(90deg, var(--c1), var(--c2), var(--c3), var(--c4), var(--c5));
-    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-  }
-  .prevnext { display: flex; justify-content: space-between; padding: 32px 0; border-top: 1px solid var(--border); margin-top: 48px; }
-  .prevnext a { color: var(--muted); font-size: 13px; }
-  .prevnext a:hover { color: var(--text); text-decoration: none; }
-  .pn-strong { color: var(--text) !important; font-weight: 500; }
-  .coding { font-size: 11px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); margin-bottom: 4px; }
-  h2 { font-size: 22px; font-weight: 600; margin: 0 0 12px; letter-spacing: -.01em; }
-  h3 { font-size: 18px; font-weight: 600; margin: 32px 0 12px; }
+  :root{--c1:#28c840;--c1d:#1a7a2a;--c2:#378add;--c2d:#1a5290;--c3:#a259ff;--c3d:#5a2a8a;--c4:#f0883e;--c4d:#9a4a1a;--c5:#1db0a0;--c5d:#0f6e56}
+  .hero h1 em{background:linear-gradient(90deg,var(--c1),var(--c2),var(--c3),var(--c4),var(--c5));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+  .prevnext{display:flex;justify-content:space-between;padding:32px 0;border-top:1px solid var(--border);margin-top:56px}
+  .prevnext a{color:var(--muted);font-size:14px;transition:color .15s}
+  .prevnext a:hover{color:var(--text);text-decoration:none}
+  .prevnext .pn-label{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--faint);margin-bottom:4px;display:block}
+  .cn-section{margin-top:48px}
+  .cn-section h3{font-size:20px;font-weight:700;margin-bottom:20px;padding-bottom:8px;border-bottom:1px solid var(--border)}
+  .toc-link{display:inline-block;padding:3px 8px;border-radius:4px;font-size:11px;font-family:var(--mono);color:var(--muted);border:1px solid var(--border);margin:2px 4px 2px 0;transition:all .15s}
+  .toc-link:hover{border-color:var(--c1);color:var(--c1);text-decoration:none}
 </style>
 
 </head>
 <body><nav>
   <div class="nav-inner">
-    <span class="nav-brand">All Agentic Architectures <span>· 17 Patterns</span></span>
-    <a class="nl" href="index.html">Overview</a>
+    <a href="index.html" style="text-decoration:none"><span class="nav-brand">All Agentic Architectures <span>· 17 种架构</span></span></a>
+    <a class="nl" href="index.html">总览</a>
+    <a class="nl" href="index.html#p1">基础</a>
+    <a class="nl" href="index.html#p2">多智能体</a>
+    <a class="nl" href="index.html#p3">记忆推理</a>
+    <a class="nl" href="index.html#p4">安全可靠</a>
+    <a class="nl" href="index.html#p5">学习适应</a>
   </div>
 </nav><div class="page">
-  <section class="hero" style="padding-bottom:32px">
-    <div class="hero-badge"><span class="dot" style="background:var(--c3)"></span> #09 · Advanced Memory & Reasoning</div>
-    <h1 style="font-size:36px;color:var(--text)">Tree of Thoughts (ToT)</h1>
-    <p style="margin-bottom:20px">Logic Puzzles, Constrained Planning</p>
-    <div class="tag-row">
-      <span class="ltag" style="color:var(--c3);background:rgba(162,89,255,.08);border-color:rgba(162,89,255,.25)">Part 3</span>
-    </div>
+  <section class="hero" style="padding-bottom:28px">
+    <div class="hero-badge"><span class="dot" style="background:var(--c3)"></span> #09 · 把推理变成搜索 · search tree</div>
+    <h1 style="font-size:34px;color:var(--text);margin-bottom:6px">思维树 <span style="font-size:18px;font-weight:400;color:var(--muted)">Tree of Thoughts</span></h1>
+    <p style="font-size:14px;color:var(--faint);margin-bottom:8px;font-style:italic">不是让模型想更多</p>
+    <p style="margin-bottom:8px;font-size:14px">不是让模型想更多</p>
+    <p style="font-size:13px;color:var(--muted);margin-bottom:20px">典型应用：</p>
+    <div class="tag-row"><span class="ltag" style="color:var(--c3);background:rgba(162,89,255,.08);border-color:rgba(162,89,255,.25)">Part 3</span></div>
   </section>
-
-  <section class="layer-sec" style="padding-top:16px;border-bottom:none">
+  <div style="margin-bottom:28px;line-height:2">
+  <span style="font-size:11px;color:var(--faint);text-transform:uppercase;letter-spacing:.06em">快速导航</span><br>
+  <a href="#cn-analysis" class="toc-link">六维分析</a>
+  <a href="#en-intro" class="toc-link">英文解析</a>
+  <a href="#code" class="toc-link">LangGraph 实现</a>
+</div>
+  <section class="layer-sec" style="padding-top:0;border-bottom:none">
     <div class="layer-hdr">
-      <span class="layer-id-badge" style="background:#5a2a8a;color:rgba(255,255,255,.9)">Concept</span>
-      <div class="layer-title">How It Works</div>
+      <span class="layer-id-badge" style="background:#5a2a8a;color:rgba(255,255,255,.9)">核心概念</span>
+      <div class="layer-title" style="font-size:18px">不是让模型想更多</div>
     </div>
-    <p class="layer-def" style="border-color:#a259ff">Explores multiple reasoning paths in a tree structure, evaluating and pruning branches to find optimal solutions.</p>
-    <div style="font-size:14px;line-height:1.85;color:var(--text)">
-      <h2>📘 Agentic Architectures 9: Tree-of-Thoughts Planning</h2>
-<p style="margin-bottom:12px;line-height:1.75;font-size:14px;color:var(--muted)">Welcome to the ninth notebook in our series. Today, we explore a powerful reasoning and planning architecture: <strong style="color:var(--text)">Tree-of-Thoughts (ToT)</strong>. This pattern elevates an agent&#x27;s problem-solving capabilities from a linear chain of thought to a multi-path exploratory search.</p>
-<p style="margin-bottom:12px;line-height:1.75;font-size:14px;color:var(--muted)">Instead of generating a single, sequential line of reasoning, a ToT agent generates multiple candidate &quot;thoughts&quot; or next steps at each stage of a problem. It then evaluates these thoughts, pruning invalid or unpromising branches and expanding the most promising ones. This creates a search tree where the agent can backtrack, explore alternatives, and systematically navigate a complex problem space.</p>
-<p style="margin-bottom:12px;line-height:1.75;font-size:14px;color:var(--muted)">To demonstrate this, we&#x27;ll task our agent with a classic logic puzzle: the <strong style="color:var(--text)">Wolf, Goat, and Cabbage problem</strong>. This puzzle is famous because it requires non-obvious steps (like bringing an item <em>back</em>) and has several invalid states that can trap a naive reasoner. We will show how a simple Chain-of-Thought agent might fail, while the ToT agent methodically constructs a valid plan by exploring and evaluating a tree of possibilities.</p>
-<h4 style="color:var(--muted);margin:24px 0 8px;font-size:14px;text-transform:uppercase;letter-spacing:.06em">Definition</h4>
-<p style="margin-bottom:12px;line-height:1.75;font-size:14px;color:var(--muted)"><strong style="color:var(--text)">Tree-of-Thoughts (ToT)</strong> is an agentic reasoning framework where problem-solving is modeled as a search through a tree. The agent explores multiple reasoning paths (branches) simultaneously. At each step, it generates potential next steps (&quot;thoughts&quot;), evaluates their viability, and decides which paths to continue exploring, effectively pruning the search space.</p>
-<h4 style="color:var(--muted);margin:24px 0 8px;font-size:14px;text-transform:uppercase;letter-spacing:.06em">High-level Workflow</h4>
-<ol style="margin:0 0 16px 18px">
-<li style="margin-bottom:8px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Decomposition:</strong> The problem is broken down into a series of steps or thoughts.</li>
-<li style="margin-bottom:8px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Thought Generation:</strong> For the current state of the problem, the agent generates multiple potential next steps or thoughts. This creates branches in the search tree.</li>
-<li style="margin-bottom:8px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">State Evaluation:</strong> Each new thought (leading to a new state) is evaluated by a &quot;critic&quot; or a validation function. This evaluation can assess:</li>
-<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Validity:</strong> Is this move allowed by the rules of the problem?</li>
-<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Progress:</strong> Does this move get us closer to the solution?</li>
-<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Heuristics:</strong> Is this path likely to succeed?</li>
-<li style="margin-bottom:8px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Pruning &amp; Expansion:</strong> Invalid or unpromising branches are pruned. The agent then proceeds from the most promising active branches, repeating the thought generation process.</li>
-<li style="margin-bottom:8px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Solution:</strong> The process continues until a goal state is reached. The solution is the path of thoughts from the root to the goal.</li>
-</ol>
-<h4 style="color:var(--muted);margin:24px 0 8px;font-size:14px;text-transform:uppercase;letter-spacing:.06em">When to Use / Applications</h4>
-<ul style="margin:0 0 16px 18px;list-style-type:disc">
-<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Logic Puzzles &amp; Math Problems:</strong> Problems with clear rules and goal states that require multi-step, non-linear reasoning (e.g., Sudoku, river crossing puzzles).</li>
-<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Complex Planning:</strong> When a task requires a detailed plan where the order of operations matters and constraints must be respected (e.g., planning a complex trip with multiple legs and budget constraints).</li>
-<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Creative Writing or Code Generation:</strong> Exploring multiple story branches or implementation strategies before committing to one.</li>
-</ul>
-<h4 style="color:var(--muted);margin:24px 0 8px;font-size:14px;text-transform:uppercase;letter-spacing:.06em">Strengths &amp; Weaknesses</h4>
-<ul style="margin:0 0 16px 18px;list-style-type:disc">
-<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Strengths:</strong></li>
-<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Robustness:</strong> Systematically explores the problem space, making it much less likely to get stuck or produce an incorrect answer compared to a single-pass method.</li>
-<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Handles Combinatorial Complexity:</strong> Well-suited for problems where the number of possible sequences is vast.</li>
-<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Weaknesses:</strong></li>
-<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Computationally Heavy:</strong> Requires significantly more LLM calls and state management than a simple Chain-of-Thought prompt, making it slower and more expensive.</li>
-<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Requires a Good Evaluator:</strong> The effectiveness of the search heavily depends on the quality of the state evaluation logic.</li>
-</ul>
-    </div>
+    <p class="layer-def" style="border-color:#a259ff">不是让模型想更多</p>
   </section>
-
-  <section class="layer-sec" id="code">
-    <div class="layer-hdr">
-      <span class="layer-id-badge" style="background:#5a2a8a;color:rgba(255,255,255,.9)">Implementation</span>
-      <div class="layer-title">Code <small style="font-size:14px;font-weight:400;color:var(--muted)">LangChain + LangGraph</small></div>
-    </div>
-    <div class="codeblock">
-  <div class="cb-head">
+  <section class="layer-sec cn-section" id="cn-analysis">
+    <h3 style="border-color:#a259ff">六维深度分析</h3>
+    <p style="font-size:13px;color:var(--faint);margin-bottom:24px">以下分析基于统一框架的六个核心问题：问题定义 → State 建模 → 拓扑结构 → Router 机制 → 失败模式 → 升级时机</p>
+    <p style="font-size:15px;color:var(--text);line-height:1.9;margin-bottom:24px;padding:16px 20px;background:var(--bg2);border-radius:8px;border-left:3px solid var(--c1)"><strong style="color:var(--c1)">核心洞察：</strong>真正困难的问题不是&quot;链不够长&quot;，而是&quot;路径会分叉，而且需要回溯&quot;，ToT 解决的是： <strong style="color:var(--text)">把推理从单路径生成，升级成对候选路径空间的搜索。</strong></p>
+<div style="margin-bottom:32px">
+  <h4 style="font-size:16px;font-weight:600;margin:0 0 12px;color:var(--text)">要解决什么问题？</h4>
+  <div style="padding-left:4px"><p style="margin-bottom:12px;line-height:1.85">真正困难的问题不是&quot;链不够长&quot;，而是&quot;路径会分叉，而且需要回溯&quot;，ToT 解决的是： <strong style="color:var(--text)">把推理从单路径生成，升级成对候选路径空间的搜索。</strong></p></div>
+</div>
+<div style="margin-bottom:32px">
+  <h4 style="font-size:16px;font-weight:600;margin:0 0 12px;color:var(--text)">State 设计</h4>
+  <div style="padding-left:4px"><p style="margin-bottom:12px;line-height:1.85"><div class="codeblock" style="margin:12px 0 20px">
+  <div class="cb-head" style="font-size:11px">
     <span class="cb-dot" style="background:#f85149"></span>
     <span class="cb-dot" style="background:#e3b341"></span>
     <span class="cb-dot" style="background:#28c840"></span>
-    src/src/... · 243 lines
+    agno 实现示例 · 4 行
   </div>
-  <div class="cb-body"><span class="str">&quot;&quot;&quot;
+  <div class="cb-body" style="font-size:12px;line-height:1.8"><span class="kw">class</span> <span class="fn">ToTState</span>(BaseModel)<span class="op">:</span>
+    problem<span class="op">:</span> <span class="fn">str</span>
+    active_paths<span class="op">:</span> List[List[<span class="str">&quot;PuzzleState&quot;</span>]]
+    solution<span class="op">:</span> Optional[List[<span class="str">&quot;PuzzleState&quot;</span>]] <span class="op">=</span> <span class="kw">None</span></div>
+</div></p>
+
+<p style="margin-bottom:12px;line-height:1.85">state 的单位已经不是&quot;一个当前答案&quot;，而是&quot;多条候选路径&quot;。</p></div>
+</div>
+<div style="margin-bottom:32px">
+  <h4 style="font-size:16px;font-weight:600;margin:0 0 12px;color:var(--text)">关键代码</h4>
+  <div style="padding-left:4px"><p style="margin-bottom:12px;line-height:1.85">经典的 wolf-goat-cabbage 谜题——标准 BFS 回溯场景，在 agno 里，LLM 负责 *生成候选动作* ，程序化代码负责 *搜索树的扩展和剪枝* 。 这是 ToT 里重要的架构判断： <strong style="color:var(--text)">不要把搜索控制交给 LLM，交给代码。</strong></p>
+
+<p style="margin-bottom:12px;line-height:1.85"><div class="codeblock" style="margin:12px 0 20px">
+  <div class="cb-head" style="font-size:11px">
+    <span class="cb-dot" style="background:#f85149"></span>
+    <span class="cb-dot" style="background:#e3b341"></span>
+    <span class="cb-dot" style="background:#28c840"></span>
+    agno 实现示例 · 47 行
+  </div>
+  <div class="cb-body" style="font-size:12px;line-height:1.8"><span class="kw">import</span> copy
+
+<span class="kw">class</span> <span class="fn">PuzzleState</span>(BaseModel)<span class="op">:</span>
+    left_bank<span class="op">:</span> frozenset <span class="op">=</span> <span class="fn">Field</span>(default_factory<span class="op">=</span><span class="kw">lambda</span><span class="op">:</span> <span class="fn">frozenset</span>({<span class="str">&quot;wolf&quot;</span>, <span class="str">&quot;goat&quot;</span>, <span class="str">&quot;cabbage&quot;</span>}))
+    right_bank<span class="op">:</span> frozenset <span class="op">=</span> <span class="fn">Field</span>(default_factory<span class="op">=</span>frozenset)
+    boat_location<span class="op">:</span> <span class="fn">str</span> <span class="op">=</span> <span class="str">&quot;left&quot;</span>
+    move_description<span class="op">:</span> <span class="fn">str</span> <span class="op">=</span> <span class="str">&quot;Initial state.&quot;</span>
+
+    <span class="kw">class</span> Config<span class="op">:</span>
+        arbitrary_types_allowed <span class="op">=</span> <span class="kw">True</span>
+
+    <span class="kw">def</span> <span class="fn">is_valid</span>(self) <span class="op">-</span><span class="op">&gt;</span> <span class="fn">bool</span><span class="op">:</span>
+        dangerous <span class="op">=</span> [(<span class="str">&quot;wolf&quot;</span>, <span class="str">&quot;goat&quot;</span>), (<span class="str">&quot;goat&quot;</span>, <span class="str">&quot;cabbage&quot;</span>)]
+        unguarded <span class="op">=</span> self.left_bank <span class="kw">if</span> self.boat_location <span class="op">=</span><span class="op">=</span> <span class="str">&quot;right&quot;</span><span class="kw">else</span> self.right_bank
+        <span class="kw">return</span> <span class="kw">not</span> <span class="fn">any</span>({a, b}.<span class="fn">issubset</span>(unguarded) <span class="kw">for</span> a, b <span class="kw">in</span> dangerous)
+
+    <span class="kw">def</span> <span class="fn">is_goal</span>(self) <span class="op">-</span><span class="op">&gt;</span> <span class="fn">bool</span><span class="op">:</span>
+        <span class="kw">return</span> self.right_bank <span class="op">=</span><span class="op">=</span> <span class="fn">frozenset</span>({<span class="str">&quot;wolf&quot;</span>, <span class="str">&quot;goat&quot;</span>, <span class="str">&quot;cabbage&quot;</span>})
+
+<span class="kw">class</span> <span class="fn">Proposal</span>(BaseModel)<span class="op">:</span>
+    moves<span class="op">:</span> List[<span class="fn">str</span>] <span class="op">=</span> <span class="fn">Field</span>(description<span class="op">=</span><span class="str">&quot;Candidate next moves.&quot;</span>)
+
+proposer <span class="op">=</span> <span class="fn">Agent</span>(
+    name<span class="op">=</span><span class="str">&quot;proposer&quot;</span>,
+    model<span class="op">=</span><span class="fn">OpenAIChat</span>(id<span class="op">=</span><span class="str">&quot;gpt-5-mini&quot;</span>),
+    response_model<span class="op">=</span>Proposal,
+    instructions<span class="op">=</span><span class="str">&quot;Given the current state, propose up to 3 distinct next moves.&quot;</span>,
+)
+
+<span class="kw">def</span> <span class="fn">expand</span>(state<span class="op">:</span> PuzzleState) <span class="op">-</span><span class="op">&gt;</span> List[PuzzleState]<span class="op">:</span>
+    <span class="cm"># 纯程序化展开：LLM 只提供建议，代码保证搜索的正确性</span>
+    ...
+
+<span class="kw">def</span> <span class="fn">tot_solve</span>(initial<span class="op">:</span> PuzzleState, max_depth<span class="op">:</span> <span class="fn">int</span> <span class="op">=</span> <span class="num">10</span>)<span class="op">:</span>
+    active_paths <span class="op">=</span> [[initial]]
+    <span class="kw">for</span> _ <span class="kw">in</span> <span class="fn">range</span>(max_depth)<span class="op">:</span>
+        new_paths <span class="op">=</span> []
+        <span class="kw">for</span> path <span class="kw">in</span> active_paths<span class="op">:</span>
+            <span class="kw">for</span> nxt <span class="kw">in</span> <span class="fn">expand</span>(path[<span class="op">-</span><span class="num">1</span>])<span class="op">:</span>
+                <span class="kw">if</span> nxt <span class="kw">in</span> path<span class="op">:</span>
+                    <span class="kw">continue</span>
+                new_path <span class="op">=</span> path <span class="op">+</span> [nxt]
+                <span class="kw">if</span> nxt.<span class="fn">is_goal</span>()<span class="op">:</span>
+                    <span class="kw">return</span> new_path
+                new_paths.<span class="fn">append</span>(new_path)
+        active_paths <span class="op">=</span> new_paths
+    <span class="kw">return</span> <span class="kw">None</span></div>
+</div></p></div>
+</div>
+<div style="margin-bottom:32px">
+  <h4 style="font-size:16px;font-weight:600;margin:0 0 12px;color:var(--text)">失败模式</h4>
+  <div style="padding-left:4px"><p style="margin-bottom:12px;line-height:1.85">组合爆炸，ToT 不是通用架构，只该用于&quot;必须回溯和搜索&quot;的专用场景。</p>
+
+<p style="font-size:13px;color:var(--muted);margin:12px 0;padding:8px 16px;border-left:2px solid var(--border);font-style:italic">📎 参考实现： [09\_tree\_of\_thoughts.ipynb](https://github.com/FareedKhan-dev/all-agentic-architectures/09_tree_of_thoughts.ipynb)</p>
+
+<p style="margin-bottom:12px;line-height:1.85">---</p></div>
+</div>
+<div style="margin-bottom:32px">
+  <h4 style="font-size:16px;font-weight:600;margin:0 0 12px;color:var(--text)">新增的能力</h4>
+  <div style="padding-left:4px"><p style="margin-bottom:12px;line-height:1.85">&#x27; fill=&#x27;%23FFFFFF&#x27;%3E%3Crect x=&#x27;249&#x27; y=&#x27;126&#x27; width=&#x27;1&#x27; height=&#x27;1&#x27;%3E%3C/rect%3E%3C/g%3E%3C/g%3E%3C/svg%3E)</p>
+
+<p style="margin-bottom:12px;line-height:1.85">ToT 新增的是： <strong style="color:var(--text)">把推理问题转写成搜索问题。</strong> 这和 ReAct、Planning 都不一样。前者做控制流设计，ToT 做搜索空间设计。</p></div>
+</div>
+  </section>
+  <section class="layer-sec" id="en-intro" style="border-bottom:none">
+    <h3 style="border-color:#a259ff">英文原版解析</h3>
+    <p style="font-size:12px;color:var(--faint);margin-bottom:16px">来自 Jupyter Notebook 的原始英文概念说明</p>
+    <div style="font-size:13px;line-height:1.8;color:var(--muted)"><h3 style="font-size:16px;font-weight:600;margin:20px 0 8px;color:var(--text)">📘 Agentic Architectures 9: Tree-of-Thoughts Planning</h3>
+<p style="margin-bottom:8px;line-height:1.7;font-size:13px;color:var(--muted)">Welcome to the ninth notebook in our series. Today, we explore a powerful reasoning and planning architecture: <strong style="color:var(--text)">Tree-of-Thoughts (ToT)</strong>. This pattern elevates an agent&#x27;s problem-solving capabilities from a linear chain of thought to a multi-path exploratory search.</p>
+<p style="margin-bottom:8px;line-height:1.7;font-size:13px;color:var(--muted)">Instead of generating a single, sequential line of reasoning, a ToT agent generates multiple candidate &quot;thoughts&quot; or next steps at each stage of a problem. It then evaluates these thoughts, pruning invalid or unpromising branches and expanding the most promising ones. This creates a search tree where the agent can backtrack, explore alternatives, and systematically navigate a complex problem space.</p>
+<p style="margin-bottom:8px;line-height:1.7;font-size:13px;color:var(--muted)">To demonstrate this, we&#x27;ll task our agent with a classic logic puzzle: the <strong style="color:var(--text)">Wolf, Goat, and Cabbage problem</strong>. This puzzle is famous because it requires non-obvious steps (like bringing an item *back*) and has several invalid states that can trap a naive reasoner. We will show how a simple Chain-of-Thought agent might fail, while the ToT agent methodically constructs a valid plan by exploring and evaluating a tree of possibilities.</p>
+<p style="font-weight:600;margin:14px 0 4px;font-size:14px">Definition</p>
+<p style="margin-bottom:8px;line-height:1.7;font-size:13px;color:var(--muted)"><strong style="color:var(--text)">Tree-of-Thoughts (ToT)</strong> is an agentic reasoning framework where problem-solving is modeled as a search through a tree. The agent explores multiple reasoning paths (branches) simultaneously. At each step, it generates potential next steps (&quot;thoughts&quot;), evaluates their viability, and decides which paths to continue exploring, effectively pruning the search space.</p>
+<p style="font-weight:600;margin:14px 0 4px;font-size:14px">High-level Workflow</p>
+<ol style="margin:4px 0 12px 18px">
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Decomposition:</strong> The problem is broken down into a series of steps or thoughts.</li>
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Thought Generation:</strong> For the current state of the problem, the agent generates multiple potential next steps or thoughts. This creates branches in the search tree.</li>
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">State Evaluation:</strong> Each new thought (leading to a new state) is evaluated by a &quot;critic&quot; or a validation function. This evaluation can assess:</li>
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Validity:</strong> Is this move allowed by the rules of the problem?</li>
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Progress:</strong> Does this move get us closer to the solution?</li>
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Heuristics:</strong> Is this path likely to succeed?</li>
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Pruning &amp; Expansion:</strong> Invalid or unpromising branches are pruned. The agent then proceeds from the most promising active branches, repeating the thought generation process.</li>
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Solution:</strong> The process continues until a goal state is reached. The solution is the path of thoughts from the root to the goal.</li>
+</ul>
+<p style="font-weight:600;margin:14px 0 4px;font-size:14px">When to Use / Applications</p>
+<ul style="margin:4px 0 12px 18px;list-style-type:disc">
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Logic Puzzles &amp; Math Problems:</strong> Problems with clear rules and goal states that require multi-step, non-linear reasoning (e.g., Sudoku, river crossing puzzles).</li>
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Complex Planning:</strong> When a task requires a detailed plan where the order of operations matters and constraints must be respected (e.g., planning a complex trip with multiple legs and budget constraints).</li>
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Creative Writing or Code Generation:</strong> Exploring multiple story branches or implementation strategies before committing to one.</li>
+</ul>
+<p style="font-weight:600;margin:14px 0 4px;font-size:14px">Strengths &amp; Weaknesses</p>
+<ul style="margin:4px 0 12px 18px;list-style-type:disc">
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Strengths:</strong></li>
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Robustness:</strong> Systematically explores the problem space, making it much less likely to get stuck or produce an incorrect answer compared to a single-pass method.</li>
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Handles Combinatorial Complexity:</strong> Well-suited for problems where the number of possible sequences is vast.</li>
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Weaknesses:</strong></li>
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Computationally Heavy:</strong> Requires significantly more LLM calls and state management than a simple Chain-of-Thought prompt, making it slower and more expensive.</li>
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Requires a Good Evaluator:</strong> The effectiveness of the search heavily depends on the quality of the state evaluation logic.</li>
+</ul></div>
+  </section>
+  <section class="layer-sec" id="code">
+    <h3 style="border-color:#a259ff">LangChain + LangGraph 实现代码</h3>
+    <p style="font-size:12px;color:var(--faint);margin-bottom:16px">完整的端到端实现代码，可从 src/ 目录直接运行</p>
+    <div class="codeblock">
+  <div class="cb-head">
+    <span class="cb-dot" style="background:#f85149"></span><span class="cb-dot" style="background:#e3b341"></span><span class="cb-dot" style="background:#28c840"></span>
+    src/... · LangChain + LangGraph · 242 行
+  </div>
+  <div class="cb-body" style="font-size:12px;line-height:1.8"><span class="str">&quot;&quot;&quot;
 Tree of Thoughts - Agentic Architecture
 Extracted from: 09_tree_of_thoughts.ipynb
 &quot;&quot;&quot;</span>
@@ -341,8 +440,5 @@ console.<span class="fn">print</span>(<span class="fn">Markdown</span>(cot_resul
 </div>
 </div>
   </section>
-
-  <div class="prevnext"><a href="episodic-semantic.html"><span class="coding">Previous</span><br><span class="pn-strong">← Episodic + Semantic Memory</span></a><a href="mental-loop.html" style="text-align:right"><span class="coding">Next</span><br><span class="pn-strong">Mental Loop (Simulator) →</span></a></div>
-</div><div class="footer">
-  <p>Built from <a href="https://github.com/1998x-stack/all-agentic-architectures" style="color:var(--text)">all-agentic-architectures</a></p>
-</div></body></html>
+  <div class="prevnext"><a href="episodic-semantic.html"><span class="pn-label">&larr; 上一架构</span>#08 情景 + 语义双记忆</a><a href="mental-loop.html" style="text-align:right"><span class="pn-label">下一架构 &rarr;</span>#10 心智循环</a></div>
+</div><div class="footer"><p>Built from <a href="https://github.com/1998x-stack/all-agentic-architectures" style="color:var(--text)">all-agentic-architectures</a></p></div></body></html>

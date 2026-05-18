@@ -1,107 +1,196 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>#08 Episodic + Semantic Memory — All Agentic Architectures</title>
+<title>#08 情景 + 语义双记忆 — All Agentic Architectures</title>
 <link rel="stylesheet" href="base-dark.css">
 <style>
-  :root {
-    --c1: #28c840; --c1d: #1a7a2a;
-    --c2: #378add; --c2d: #1a5290;
-    --c3: #a259ff; --c3d: #5a2a8a;
-    --c4: #f0883e; --c4d: #9a4a1a;
-    --c5: #1db0a0; --c5d: #0f6e56;
-  }
-  .hero h1 em {
-    background: linear-gradient(90deg, var(--c1), var(--c2), var(--c3), var(--c4), var(--c5));
-    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-  }
-  .prevnext { display: flex; justify-content: space-between; padding: 32px 0; border-top: 1px solid var(--border); margin-top: 48px; }
-  .prevnext a { color: var(--muted); font-size: 13px; }
-  .prevnext a:hover { color: var(--text); text-decoration: none; }
-  .pn-strong { color: var(--text) !important; font-weight: 500; }
-  .coding { font-size: 11px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); margin-bottom: 4px; }
-  h2 { font-size: 22px; font-weight: 600; margin: 0 0 12px; letter-spacing: -.01em; }
-  h3 { font-size: 18px; font-weight: 600; margin: 32px 0 12px; }
+  :root{--c1:#28c840;--c1d:#1a7a2a;--c2:#378add;--c2d:#1a5290;--c3:#a259ff;--c3d:#5a2a8a;--c4:#f0883e;--c4d:#9a4a1a;--c5:#1db0a0;--c5d:#0f6e56}
+  .hero h1 em{background:linear-gradient(90deg,var(--c1),var(--c2),var(--c3),var(--c4),var(--c5));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+  .prevnext{display:flex;justify-content:space-between;padding:32px 0;border-top:1px solid var(--border);margin-top:56px}
+  .prevnext a{color:var(--muted);font-size:14px;transition:color .15s}
+  .prevnext a:hover{color:var(--text);text-decoration:none}
+  .prevnext .pn-label{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--faint);margin-bottom:4px;display:block}
+  .cn-section{margin-top:48px}
+  .cn-section h3{font-size:20px;font-weight:700;margin-bottom:20px;padding-bottom:8px;border-bottom:1px solid var(--border)}
+  .toc-link{display:inline-block;padding:3px 8px;border-radius:4px;font-size:11px;font-family:var(--mono);color:var(--muted);border:1px solid var(--border);margin:2px 4px 2px 0;transition:all .15s}
+  .toc-link:hover{border-color:var(--c1);color:var(--c1);text-decoration:none}
 </style>
 
 </head>
 <body><nav>
   <div class="nav-inner">
-    <span class="nav-brand">All Agentic Architectures <span>· 17 Patterns</span></span>
-    <a class="nl" href="index.html">Overview</a>
+    <a href="index.html" style="text-decoration:none"><span class="nav-brand">All Agentic Architectures <span>· 17 种架构</span></span></a>
+    <a class="nl" href="index.html">总览</a>
+    <a class="nl" href="index.html#p1">基础</a>
+    <a class="nl" href="index.html#p2">多智能体</a>
+    <a class="nl" href="index.html#p3">记忆推理</a>
+    <a class="nl" href="index.html#p4">安全可靠</a>
+    <a class="nl" href="index.html#p5">学习适应</a>
   </div>
 </nav><div class="page">
-  <section class="hero" style="padding-bottom:32px">
-    <div class="hero-badge"><span class="dot" style="background:var(--c3)"></span> #08 · Advanced Memory & Reasoning</div>
-    <h1 style="font-size:36px;color:var(--text)">Episodic + Semantic Memory</h1>
-    <p style="margin-bottom:20px">Long-Term Personal Assistants, Personalized Tutors</p>
-    <div class="tag-row">
-      <span class="ltag" style="color:var(--c3);background:rgba(162,89,255,.08);border-color:rgba(162,89,255,.25)">Part 3</span>
-    </div>
+  <section class="hero" style="padding-bottom:28px">
+    <div class="hero-badge"><span class="dot" style="background:var(--c3)"></span> #08 · 把历史状态纳入系统 · long-term memory</div>
+    <h1 style="font-size:34px;color:var(--text);margin-bottom:6px">情景 + 语义双记忆 <span style="font-size:18px;font-weight:400;color:var(--muted)">Episodic + Semantic</span></h1>
+    <p style="font-size:14px;color:var(--faint);margin-bottom:8px;font-style:italic">记忆不是把对话塞回上下文</p>
+    <p style="margin-bottom:8px;font-size:14px">记忆不是把对话塞回上下文</p>
+    <p style="font-size:13px;color:var(--muted);margin-bottom:20px">典型应用：</p>
+    <div class="tag-row"><span class="ltag" style="color:var(--c3);background:rgba(162,89,255,.08);border-color:rgba(162,89,255,.25)">Part 3</span></div>
   </section>
-
-  <section class="layer-sec" style="padding-top:16px;border-bottom:none">
+  <div style="margin-bottom:28px;line-height:2">
+  <span style="font-size:11px;color:var(--faint);text-transform:uppercase;letter-spacing:.06em">快速导航</span><br>
+  <a href="#cn-analysis" class="toc-link">六维分析</a>
+  <a href="#en-intro" class="toc-link">英文解析</a>
+  <a href="#code" class="toc-link">LangGraph 实现</a>
+</div>
+  <section class="layer-sec" style="padding-top:0;border-bottom:none">
     <div class="layer-hdr">
-      <span class="layer-id-badge" style="background:#5a2a8a;color:rgba(255,255,255,.9)">Concept</span>
-      <div class="layer-title">How It Works</div>
+      <span class="layer-id-badge" style="background:#5a2a8a;color:rgba(255,255,255,.9)">核心概念</span>
+      <div class="layer-title" style="font-size:18px">记忆不是把对话塞回上下文</div>
     </div>
-    <p class="layer-def" style="border-color:#a259ff">Dual-memory system: vector store for past conversations (episodic) + graph DB for structured facts (semantic).</p>
-    <div style="font-size:14px;line-height:1.85;color:var(--text)">
-      <h2>📘 Agentic Architectures 8: Episodic + Semantic Memory Stack</h2>
-<p style="margin-bottom:12px;line-height:1.75;font-size:14px;color:var(--muted)">Welcome to the eighth notebook in our series. Today, we&#x27;re tackling one of the most critical challenges in creating truly intelligent, long-term assistants: <strong style="color:var(--text)">persistent memory</strong>. Standard chatbot memory is ephemeral, lasting only for a single session. To build a personalized agent that learns and grows with a user, we need a more robust solution.</p>
-<p style="margin-bottom:12px;line-height:1.75;font-size:14px;color:var(--muted)">We will implement a structured memory architecture that mirrors human cognition, combining two distinct types of memory:</p>
-<ol style="margin:0 0 16px 18px">
-<li style="margin-bottom:8px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Episodic Memory:</strong> This is the memory of specific events or past interactions. It answers the question, &quot;What happened?&quot; (e.g., &quot;Last week, the user asked me about NVIDIA&#x27;s stock price.&quot;). We&#x27;ll use a <strong style="color:var(--text)">vector database</strong> for this to find past conversations relevant to the current topic.</li>
-<li style="margin-bottom:8px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Semantic Memory:</strong> This is the memory of structured facts, concepts, and relationships extracted from those events. It answers the question, &quot;What do I know?&quot; (e.g., &quot;User Alex is a conservative investor.&quot;, &quot;Alex is interested in Tech Stocks.&quot;). We&#x27;ll use a <strong style="color:var(--text)">graph database (Neo4j)</strong> for this, as it excels at managing and querying complex relationships.</li>
-</ol>
-<p style="margin-bottom:12px;line-height:1.75;font-size:14px;color:var(--muted)">By combining these, our agent can not only recall past conversations but also build a rich, interconnected knowledge base about the user and the world, leading to deeply personalized and context-aware interactions.</p>
-<h4 style="color:var(--muted);margin:24px 0 8px;font-size:14px;text-transform:uppercase;letter-spacing:.06em">Definition</h4>
-<p style="margin-bottom:12px;line-height:1.75;font-size:14px;color:var(--muted)">An <strong style="color:var(--text)">Episodic + Semantic Memory Stack</strong> is an agent architecture that maintains two types of long-term memory. <strong style="color:var(--text)">Episodic memory</strong> stores a chronological log of experiences (e.g., chat history summaries) and is typically searched based on semantic similarity. <strong style="color:var(--text)">Semantic memory</strong> stores extracted, structured knowledge (facts, entities, relationships) in a knowledge base, often a graph.</p>
-<h4 style="color:var(--muted);margin:24px 0 8px;font-size:14px;text-transform:uppercase;letter-spacing:.06em">High-level Workflow</h4>
-<ol style="margin:0 0 16px 18px">
-<li style="margin-bottom:8px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Interaction:</strong> The agent has a conversation with the user.</li>
-<li style="margin-bottom:8px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Memory Retrieval (Recall):</strong> For a new user query, the agent first queries both memory systems.</li>
-<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)">It searches the <strong style="color:var(--text)">episodic</strong> vector store for similar past conversations.</li>
-<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)">It queries the <strong style="color:var(--text)">semantic</strong> graph database for entities and facts related to the query.</li>
-<li style="margin-bottom:8px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Augmented Generation:</strong> The retrieved memories are added to the prompt&#x27;s context, allowing the LLM to generate a response that is aware of past interactions and learned facts.</li>
-<li style="margin-bottom:8px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Memory Creation (Encoding):</strong> After the interaction is complete, a background process analyzes the conversation.</li>
-<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)">It creates a concise summary of the turn (the new <strong style="color:var(--text)">episodic</strong> memory).</li>
-<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)">It extracts key entities and relationships (the new <strong style="color:var(--text)">semantic</strong> memory).</li>
-<li style="margin-bottom:8px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Memory Storage:</strong> The new episodic summary is embedded and saved to the vector store. The new semantic facts are written as nodes and edges in the graph database.</li>
-</ol>
-<h4 style="color:var(--muted);margin:24px 0 8px;font-size:14px;text-transform:uppercase;letter-spacing:.06em">When to Use / Applications</h4>
-<ul style="margin:0 0 16px 18px;list-style-type:disc">
-<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Long-Term Personal Assistants:</strong> An assistant that remembers your preferences, projects, and personal details over weeks or months.</li>
-<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Personalized Systems:</strong> E-commerce bots that remember your style, or educational tutors that remember your learning progress and weak spots.</li>
-<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Complex Research Agents:</strong> An agent that builds a knowledge graph of a topic as it explores documents, allowing it to answer complex, multi-hop questions.</li>
-</ul>
-<h4 style="color:var(--muted);margin:24px 0 8px;font-size:14px;text-transform:uppercase;letter-spacing:.06em">Strengths &amp; Weaknesses</h4>
-<ul style="margin:0 0 16px 18px;list-style-type:disc">
-<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Strengths:</strong></li>
-<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">True Personalization:</strong> Enables context and learning that persists indefinitely, far beyond a single session&#x27;s context window.</li>
-<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Rich Understanding:</strong> A graph database allows the agent to understand and reason about complex relationships between entities.</li>
-<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Weaknesses:</strong></li>
-<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Complexity:</strong> This is a significantly more complex architecture to build and maintain than a simple stateless agent.</li>
-<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Memory Bloat &amp; Pruning:</strong> Over time, the memory stores can become massive. Strategies for summarizing, consolidating, or pruning old/irrelevant memories are essential for long-term performance.</li>
-</ul>
-    </div>
+    <p class="layer-def" style="border-color:#a259ff">记忆不是把对话塞回上下文</p>
   </section>
+  <section class="layer-sec cn-section" id="cn-analysis">
+    <h3 style="border-color:#a259ff">六维深度分析</h3>
+    <p style="font-size:13px;color:var(--faint);margin-bottom:24px">以下分析基于统一框架的六个核心问题：问题定义 → State 建模 → 拓扑结构 → Router 机制 → 失败模式 → 升级时机</p>
+    <p style="font-size:15px;color:var(--text);line-height:1.9;margin-bottom:24px;padding:16px 20px;background:var(--bg2);border-radius:8px;border-left:3px solid var(--c1)"><strong style="color:var(--c1)">核心洞察：</strong>记忆系统不是&quot;外挂知识库&quot;，而是 state 的外延扩展，真正重要的不是存了多少，而是系统如何区分事件、事实，以及如何避免错误长期固化。</p>
+<div style="margin-bottom:32px">
+  <h4 style="font-size:16px;font-weight:600;margin:0 0 12px;color:var(--text)">要解决什么问题？</h4>
+  <div style="padding-left:4px"><p style="margin-bottom:12px;line-height:1.85">前面的架构都默认一个前提：当前对话结束后，系统基本失忆，用户要的是： <strong style="color:var(--text)">记得我的偏好、记得我们之前讨论过什么、记得哪些事实在长期上是稳定的。</strong></p>
 
-  <section class="layer-sec" id="code">
-    <div class="layer-hdr">
-      <span class="layer-id-badge" style="background:#5a2a8a;color:rgba(255,255,255,.9)">Implementation</span>
-      <div class="layer-title">Code <small style="font-size:14px;font-weight:400;color:var(--muted)">LangChain + LangGraph</small></div>
-    </div>
-    <div class="codeblock">
-  <div class="cb-head">
+<p style="margin-bottom:12px;line-height:1.85">这里有两种记忆：</p>
+
+<ul style="margin:0 0 16px 20px;list-style-type:disc;color:var(--text);font-size:14px"><li style="margin-bottom:8px;line-height:1.75"><strong style="color:var(--text)">Episodic memory</strong> ：记住发生过什么（事件摘要 → 向量库）</li>
+<li style="margin-bottom:8px;line-height:1.75"><strong style="color:var(--text)">Semantic memory</strong> ：记住什么是真的（实体关系 → 图结构/结构化存储）</li></ul></div>
+</div>
+<div style="margin-bottom:32px">
+  <h4 style="font-size:16px;font-weight:600;margin:0 0 12px;color:var(--text)">关键代码</h4>
+  <div style="padding-left:4px"><p style="margin-bottom:12px;line-height:1.85">agno 的 <code style="font-family:var(--mono);font-size:12px;background:var(--bg3);padding:1px 6px;border-radius:4px;color:var(--c1)">Memory</code> 负责长期用户偏好/事件， <code style="font-family:var(--mono);font-size:12px;background:var(--bg3);padding:1px 6px;border-radius:4px;color:var(--c1)">AgentKnowledge</code> 负责向量检索，两者结合可以直接落出一套双记忆系统：</p>
+
+<p style="margin-bottom:12px;line-height:1.85"><div class="codeblock" style="margin:12px 0 20px">
+  <div class="cb-head" style="font-size:11px">
     <span class="cb-dot" style="background:#f85149"></span>
     <span class="cb-dot" style="background:#e3b341"></span>
     <span class="cb-dot" style="background:#28c840"></span>
-    src/src/... · 221 lines
+    agno 实现示例 · 50 行
   </div>
-  <div class="cb-body"><span class="str">&quot;&quot;&quot;
+  <div class="cb-body" style="font-size:12px;line-height:1.8"><span class="kw">from</span> agno.agent <span class="kw">import</span> Agent
+<span class="kw">from</span> agno.memory.v2.memory <span class="kw">import</span> Memory
+<span class="kw">from</span> agno.memory.v2.db.sqlite <span class="kw">import</span> SqliteMemoryDb
+<span class="kw">from</span> agno.knowledge.text <span class="kw">import</span> TextKnowledgeBase
+<span class="kw">from</span> agno.vectordb.lancedb <span class="kw">import</span> LanceDb, SearchType
+<span class="kw">from</span> agno.embedder.openai <span class="kw">import</span> OpenAIEmbedder
+<span class="kw">from</span> agno.storage.sqlite <span class="kw">import</span> SqliteStorage
+
+<span class="cm"># Episodic：用户层长期记忆，自动从对话中抽取</span>
+memory <span class="op">=</span> <span class="fn">Memory</span>(
+    db<span class="op">=</span><span class="fn">SqliteMemoryDb</span>(table_name<span class="op">=</span><span class="str">&quot;user_memories&quot;</span>, db_file<span class="op">=</span><span class="str">&quot;tmp/memory.db&quot;</span>),
+    model<span class="op">=</span><span class="fn">OpenAIChat</span>(id<span class="op">=</span><span class="str">&quot;gpt-5-mini&quot;</span>),
+)
+
+<span class="cm"># Semantic：结构化知识库（这里以文本 + 向量库为例）</span>
+knowledge <span class="op">=</span> <span class="fn">TextKnowledgeBase</span>(
+    path<span class="op">=</span><span class="str">&quot;data/facts&quot;</span>,
+    vector_db<span class="op">=</span><span class="fn">LanceDb</span>(
+        table_name<span class="op">=</span><span class="str">&quot;facts&quot;</span>,
+        uri<span class="op">=</span><span class="str">&quot;tmp/lancedb&quot;</span>,
+        search_type<span class="op">=</span>SearchType.hybrid,
+        embedder<span class="op">=</span><span class="fn">OpenAIEmbedder</span>(id<span class="op">=</span><span class="str">&quot;text-embedding-3-small&quot;</span>),
+    ),
+)
+knowledge.<span class="fn">load</span>(recreate<span class="op">=</span><span class="kw">False</span>)
+
+mem_agent <span class="op">=</span> <span class="fn">Agent</span>(
+    name<span class="op">=</span><span class="str">&quot;memorized&quot;</span>,
+    model<span class="op">=</span><span class="fn">OpenAIChat</span>(id<span class="op">=</span><span class="str">&quot;gpt-5-mini&quot;</span>),
+    memory<span class="op">=</span>memory,
+    enable_agentic_memory<span class="op">=</span><span class="kw">True</span>,          <span class="cm"># agent 可以主动写入/检索 episodic</span>
+    enable_user_memories<span class="op">=</span><span class="kw">True</span>,
+    knowledge<span class="op">=</span>knowledge,                 <span class="cm"># semantic</span>
+    search_knowledge<span class="op">=</span><span class="kw">True</span>,
+    add_history_to_messages<span class="op">=</span><span class="kw">True</span>,
+    num_history_responses<span class="op">=</span><span class="num">5</span>,
+    storage<span class="op">=</span><span class="fn">SqliteStorage</span>(table_name<span class="op">=</span><span class="str">&quot;sessions&quot;</span>, db_file<span class="op">=</span><span class="str">&quot;tmp/sessions.db&quot;</span>),
+    markdown<span class="op">=</span><span class="kw">True</span>,
+)
+
+mem_agent.<span class="fn">print_response</span>(
+    <span class="str">&quot;I&#x27;m allergic to peanuts and prefer low-carb meals. Remember that.&quot;</span>,
+    user_id<span class="op">=</span><span class="str">&quot;alice&quot;</span>,
+)
+
+<span class="cm"># 下一次，即使换了新 session</span>
+mem_agent.<span class="fn">print_response</span>(
+    <span class="str">&quot;Suggest a dinner plan for me.&quot;</span>,
+    user_id<span class="op">=</span><span class="str">&quot;alice&quot;</span>,
+)</div>
+</div></p></div>
+</div>
+<div style="margin-bottom:32px">
+  <h4 style="font-size:16px;font-weight:600;margin:0 0 12px;color:var(--text)">失败模式</h4>
+  <div style="padding-left:4px"><ul style="margin:0 0 16px 20px;list-style-type:disc;color:var(--text);font-size:14px"><li style="margin-bottom:8px;line-height:1.75">错误记忆被写入，造成长期污染</li>
+<li style="margin-bottom:8px;line-height:1.75">episodic recall 召回了相似但不相关的信息</li>
+<li style="margin-bottom:8px;line-height:1.75">semantic graph 存入过时事实</li>
+<li style="margin-bottom:8px;line-height:1.75">抽取质量差导致记忆结构脏化</li>
+</ul>
+<p style="margin-bottom:12px;line-height:1.85">memory 让系统更强，但也让错误变得持久。</p></div>
+</div>
+<div style="margin-bottom:32px">
+  <h4 style="font-size:16px;font-weight:600;margin:0 0 12px;color:var(--text)">新增的能力</h4>
+  <div style="padding-left:4px"><p style="margin-bottom:12px;line-height:1.85">系统的 state 从&quot;图内字段&quot;扩展成： <strong style="color:var(--text)">图内状态 + 图外可检索历史状态。</strong> agent 的能力不再只依赖当前上下文窗口，而依赖它如何从历史里提取相关信息。</p></div>
+</div>
+  </section>
+  <section class="layer-sec" id="en-intro" style="border-bottom:none">
+    <h3 style="border-color:#a259ff">英文原版解析</h3>
+    <p style="font-size:12px;color:var(--faint);margin-bottom:16px">来自 Jupyter Notebook 的原始英文概念说明</p>
+    <div style="font-size:13px;line-height:1.8;color:var(--muted)"><h3 style="font-size:16px;font-weight:600;margin:20px 0 8px;color:var(--text)">📘 Agentic Architectures 8: Episodic + Semantic Memory Stack</h3>
+<p style="margin-bottom:8px;line-height:1.7;font-size:13px;color:var(--muted)">Welcome to the eighth notebook in our series. Today, we&#x27;re tackling one of the most critical challenges in creating truly intelligent, long-term assistants: <strong style="color:var(--text)">persistent memory</strong>. Standard chatbot memory is ephemeral, lasting only for a single session. To build a personalized agent that learns and grows with a user, we need a more robust solution.</p>
+<p style="margin-bottom:8px;line-height:1.7;font-size:13px;color:var(--muted)">We will implement a structured memory architecture that mirrors human cognition, combining two distinct types of memory:</p>
+<ol style="margin:4px 0 12px 18px">
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Episodic Memory:</strong> This is the memory of specific events or past interactions. It answers the question, &quot;What happened?&quot; (e.g., &quot;Last week, the user asked me about NVIDIA&#x27;s stock price.&quot;). We&#x27;ll use a <strong style="color:var(--text)">vector database</strong> for this to find past conversations relevant to the current topic.</li>
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Semantic Memory:</strong> This is the memory of structured facts, concepts, and relationships extracted from those events. It answers the question, &quot;What do I know?&quot; (e.g., &quot;User Alex is a conservative investor.&quot;, &quot;Alex is interested in Tech Stocks.&quot;). We&#x27;ll use a <strong style="color:var(--text)">graph database (Neo4j)</strong> for this, as it excels at managing and querying complex relationships.</li>
+</ul>
+<p style="margin-bottom:8px;line-height:1.7;font-size:13px;color:var(--muted)">By combining these, our agent can not only recall past conversations but also build a rich, interconnected knowledge base about the user and the world, leading to deeply personalized and context-aware interactions.</p>
+<p style="font-weight:600;margin:14px 0 4px;font-size:14px">Definition</p>
+<p style="margin-bottom:8px;line-height:1.7;font-size:13px;color:var(--muted)">An <strong style="color:var(--text)">Episodic + Semantic Memory Stack</strong> is an agent architecture that maintains two types of long-term memory. <strong style="color:var(--text)">Episodic memory</strong> stores a chronological log of experiences (e.g., chat history summaries) and is typically searched based on semantic similarity. <strong style="color:var(--text)">Semantic memory</strong> stores extracted, structured knowledge (facts, entities, relationships) in a knowledge base, often a graph.</p>
+<p style="font-weight:600;margin:14px 0 4px;font-size:14px">High-level Workflow</p>
+<ol style="margin:4px 0 12px 18px">
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Interaction:</strong> The agent has a conversation with the user.</li>
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Memory Retrieval (Recall):</strong> For a new user query, the agent first queries both memory systems.</li>
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)">It searches the <strong style="color:var(--text)">episodic</strong> vector store for similar past conversations.</li>
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)">It queries the <strong style="color:var(--text)">semantic</strong> graph database for entities and facts related to the query.</li>
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Augmented Generation:</strong> The retrieved memories are added to the prompt&#x27;s context, allowing the LLM to generate a response that is aware of past interactions and learned facts.</li>
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Memory Creation (Encoding):</strong> After the interaction is complete, a background process analyzes the conversation.</li>
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)">It creates a concise summary of the turn (the new <strong style="color:var(--text)">episodic</strong> memory).</li>
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)">It extracts key entities and relationships (the new <strong style="color:var(--text)">semantic</strong> memory).</li>
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Memory Storage:</strong> The new episodic summary is embedded and saved to the vector store. The new semantic facts are written as nodes and edges in the graph database.</li>
+</ul>
+<p style="font-weight:600;margin:14px 0 4px;font-size:14px">When to Use / Applications</p>
+<ul style="margin:4px 0 12px 18px;list-style-type:disc">
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Long-Term Personal Assistants:</strong> An assistant that remembers your preferences, projects, and personal details over weeks or months.</li>
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Personalized Systems:</strong> E-commerce bots that remember your style, or educational tutors that remember your learning progress and weak spots.</li>
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Complex Research Agents:</strong> An agent that builds a knowledge graph of a topic as it explores documents, allowing it to answer complex, multi-hop questions.</li>
+</ul>
+<p style="font-weight:600;margin:14px 0 4px;font-size:14px">Strengths &amp; Weaknesses</p>
+<ul style="margin:4px 0 12px 18px;list-style-type:disc">
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Strengths:</strong></li>
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">True Personalization:</strong> Enables context and learning that persists indefinitely, far beyond a single session&#x27;s context window.</li>
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Rich Understanding:</strong> A graph database allows the agent to understand and reason about complex relationships between entities.</li>
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Weaknesses:</strong></li>
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Complexity:</strong> This is a significantly more complex architecture to build and maintain than a simple stateless agent.</li>
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Memory Bloat &amp; Pruning:</strong> Over time, the memory stores can become massive. Strategies for summarizing, consolidating, or pruning old/irrelevant memories are essential for long-term performance.</li>
+</ul></div>
+  </section>
+  <section class="layer-sec" id="code">
+    <h3 style="border-color:#a259ff">LangChain + LangGraph 实现代码</h3>
+    <p style="font-size:12px;color:var(--faint);margin-bottom:16px">完整的端到端实现代码，可从 src/ 目录直接运行</p>
+    <div class="codeblock">
+  <div class="cb-head">
+    <span class="cb-dot" style="background:#f85149"></span><span class="cb-dot" style="background:#e3b341"></span><span class="cb-dot" style="background:#28c840"></span>
+    src/... · LangChain + LangGraph · 220 行
+  </div>
+  <div class="cb-body" style="font-size:12px;line-height:1.8"><span class="str">&quot;&quot;&quot;
 Episodic + Semantic - Agentic Architecture
 Extracted from: 08_episodic_with_semantic.ipynb
 &quot;&quot;&quot;</span>
@@ -324,8 +413,5 @@ query_result <span class="op">=</span> graph.<span class="fn">query</span>(<span
 </div>
 </div>
   </section>
-
-  <div class="prevnext"><a href="blackboard.html"><span class="coding">Previous</span><br><span class="pn-strong">← Blackboard Systems</span></a><a href="tree-of-thoughts.html" style="text-align:right"><span class="coding">Next</span><br><span class="pn-strong">Tree of Thoughts (ToT) →</span></a></div>
-</div><div class="footer">
-  <p>Built from <a href="https://github.com/1998x-stack/all-agentic-architectures" style="color:var(--text)">all-agentic-architectures</a></p>
-</div></body></html>
+  <div class="prevnext"><a href="blackboard.html"><span class="pn-label">&larr; 上一架构</span>#07 黑板系统</a><a href="tree-of-thoughts.html" style="text-align:right"><span class="pn-label">下一架构 &rarr;</span>#09 思维树</a></div>
+</div><div class="footer"><p>Built from <a href="https://github.com/1998x-stack/all-agentic-architectures" style="color:var(--text)">all-agentic-architectures</a></p></div></body></html>

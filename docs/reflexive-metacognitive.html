@@ -1,107 +1,190 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>#17 Reflexive Metacognitive — All Agentic Architectures</title>
+<title>#17 自反式元认知 — All Agentic Architectures</title>
 <link rel="stylesheet" href="base-dark.css">
 <style>
-  :root {
-    --c1: #28c840; --c1d: #1a7a2a;
-    --c2: #378add; --c2d: #1a5290;
-    --c3: #a259ff; --c3d: #5a2a8a;
-    --c4: #f0883e; --c4d: #9a4a1a;
-    --c5: #1db0a0; --c5d: #0f6e56;
-  }
-  .hero h1 em {
-    background: linear-gradient(90deg, var(--c1), var(--c2), var(--c3), var(--c4), var(--c5));
-    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-  }
-  .prevnext { display: flex; justify-content: space-between; padding: 32px 0; border-top: 1px solid var(--border); margin-top: 48px; }
-  .prevnext a { color: var(--muted); font-size: 13px; }
-  .prevnext a:hover { color: var(--text); text-decoration: none; }
-  .pn-strong { color: var(--text) !important; font-weight: 500; }
-  .coding { font-size: 11px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); margin-bottom: 4px; }
-  h2 { font-size: 22px; font-weight: 600; margin: 0 0 12px; letter-spacing: -.01em; }
-  h3 { font-size: 18px; font-weight: 600; margin: 32px 0 12px; }
+  :root{--c1:#28c840;--c1d:#1a7a2a;--c2:#378add;--c2d:#1a5290;--c3:#a259ff;--c3d:#5a2a8a;--c4:#f0883e;--c4d:#9a4a1a;--c5:#1db0a0;--c5d:#0f6e56}
+  .hero h1 em{background:linear-gradient(90deg,var(--c1),var(--c2),var(--c3),var(--c4),var(--c5));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+  .prevnext{display:flex;justify-content:space-between;padding:32px 0;border-top:1px solid var(--border);margin-top:56px}
+  .prevnext a{color:var(--muted);font-size:14px;transition:color .15s}
+  .prevnext a:hover{color:var(--text);text-decoration:none}
+  .prevnext .pn-label{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--faint);margin-bottom:4px;display:block}
+  .cn-section{margin-top:48px}
+  .cn-section h3{font-size:20px;font-weight:700;margin-bottom:20px;padding-bottom:8px;border-bottom:1px solid var(--border)}
+  .toc-link{display:inline-block;padding:3px 8px;border-radius:4px;font-size:11px;font-family:var(--mono);color:var(--muted);border:1px solid var(--border);margin:2px 4px 2px 0;transition:all .15s}
+  .toc-link:hover{border-color:var(--c1);color:var(--c1);text-decoration:none}
 </style>
 
 </head>
 <body><nav>
   <div class="nav-inner">
-    <span class="nav-brand">All Agentic Architectures <span>· 17 Patterns</span></span>
-    <a class="nl" href="index.html">Overview</a>
+    <a href="index.html" style="text-decoration:none"><span class="nav-brand">All Agentic Architectures <span>· 17 种架构</span></span></a>
+    <a class="nl" href="index.html">总览</a>
+    <a class="nl" href="index.html#p1">基础</a>
+    <a class="nl" href="index.html#p2">多智能体</a>
+    <a class="nl" href="index.html#p3">记忆推理</a>
+    <a class="nl" href="index.html#p4">安全可靠</a>
+    <a class="nl" href="index.html#p5">学习适应</a>
   </div>
 </nav><div class="page">
-  <section class="hero" style="padding-bottom:32px">
-    <div class="hero-badge"><span class="dot" style="background:var(--c4)"></span> #17 · Safety & Reliability</div>
-    <h1 style="font-size:36px;color:var(--text)">Reflexive Metacognitive</h1>
-    <p style="margin-bottom:20px">High-Stakes Advisory (Medical, Legal, Finance)</p>
-    <div class="tag-row">
-      <span class="ltag" style="color:var(--c4);background:rgba(240,136,62,.08);border-color:rgba(240,136,62,.25)">Part 4</span>
-    </div>
+  <section class="hero" style="padding-bottom:28px">
+    <div class="hero-badge"><span class="dot" style="background:var(--c4)"></span> #17 · 把自我边界建模 · self-boundary reasoning</div>
+    <h1 style="font-size:34px;color:var(--text);margin-bottom:6px">自反式元认知 <span style="font-size:18px;font-weight:400;color:var(--muted)">Reflexive Metacognitive</span></h1>
+    <p style="font-size:14px;color:var(--faint);margin-bottom:8px;font-style:italic">系统第一次显式思考自己的边界</p>
+    <p style="margin-bottom:8px;font-size:14px">系统第一次显式思考自己的边界</p>
+    <p style="font-size:13px;color:var(--muted);margin-bottom:20px">典型应用：</p>
+    <div class="tag-row"><span class="ltag" style="color:var(--c4);background:rgba(240,136,62,.08);border-color:rgba(240,136,62,.25)">Part 4</span></div>
   </section>
-
-  <section class="layer-sec" style="padding-top:16px;border-bottom:none">
+  <div style="margin-bottom:28px;line-height:2">
+  <span style="font-size:11px;color:var(--faint);text-transform:uppercase;letter-spacing:.06em">快速导航</span><br>
+  <a href="#cn-analysis" class="toc-link">六维分析</a>
+  <a href="#en-intro" class="toc-link">英文解析</a>
+  <a href="#code" class="toc-link">LangGraph 实现</a>
+</div>
+  <section class="layer-sec" style="padding-top:0;border-bottom:none">
     <div class="layer-hdr">
-      <span class="layer-id-badge" style="background:#9a4a1a;color:rgba(255,255,255,.9)">Concept</span>
-      <div class="layer-title">How It Works</div>
+      <span class="layer-id-badge" style="background:#9a4a1a;color:rgba(255,255,255,.9)">核心概念</span>
+      <div class="layer-title" style="font-size:18px">系统第一次显式思考自己的边界</div>
     </div>
-    <p class="layer-def" style="border-color:#f0883e">An agent with a self-model that reasons about its own capabilities and limitations, escalating to humans when needed.</p>
-    <div style="font-size:14px;line-height:1.85;color:var(--text)">
-      <h2>📘 Agentic Architectures 17: Reflexive Metacognitive Agents</h2>
-<p style="margin-bottom:12px;line-height:1.75;font-size:14px;color:var(--muted)">Welcome to an in-depth implementation of one of the most sophisticated agentic patterns: the <strong style="color:var(--text)">Reflexive Metacognitive Agent</strong>. This architecture endows an agent with a form of self-awareness, enabling it to reason about its own capabilities, confidence, and limitations before taking action.</p>
-<p style="margin-bottom:12px;line-height:1.75;font-size:14px;color:var(--muted)">This goes a step beyond simple self-reflection. A metacognitive agent maintains an explicit <strong style="color:var(--text)">&quot;self-model&quot;</strong>—a structured representation of its own knowledge, tools, and boundaries. When faced with a task, its first step is not to solve the problem, but to <em>analyze the problem in the context of its self-model</em>. It asks internal questions like:</p>
-<p style="margin-bottom:12px;line-height:1.75;font-size:14px;color:var(--muted)">- &quot;Do I have sufficient knowledge to answer this confidently?&quot;</p>
-<p style="margin-bottom:12px;line-height:1.75;font-size:14px;color:var(--muted)">- &quot;Is this topic within my designated area of expertise?&quot;</p>
-<p style="margin-bottom:12px;line-height:1.75;font-size:14px;color:var(--muted)">- &quot;Do I have a specific tool that is required to answer this safely and accurately?&quot;</p>
-<p style="margin-bottom:12px;line-height:1.75;font-size:14px;color:var(--muted)">- &quot;Is the user&#x27;s query about a high-stakes topic where an error would be dangerous?&quot;</p>
-<p style="margin-bottom:12px;line-height:1.75;font-size:14px;color:var(--muted)">Based on the answers, it chooses a strategy: reason directly, use a specialized tool, or—most importantly—<strong style="color:var(--text)">escalate to a human</strong> when the task exceeds its known limits.</p>
-<p style="margin-bottom:12px;line-height:1.75;font-size:14px;color:var(--muted)">To build a complex and powerful demonstration, we will create a <strong style="color:var(--text)">Medical Triage &amp; Information Assistant</strong>. This is a classic high-stakes scenario where the agent&#x27;s ability to recognize its limitations is not just a feature, but a critical safety requirement.</p>
-<h4 style="color:var(--muted);margin:24px 0 8px;font-size:14px;text-transform:uppercase;letter-spacing:.06em">Definition</h4>
-<p style="margin-bottom:12px;line-height:1.75;font-size:14px;color:var(--muted)">A <strong style="color:var(--text)">Reflexive Metacognitive Agent</strong> is an agent that maintains and uses an explicit model of its own capabilities, knowledge boundaries, and confidence levels to select the most appropriate strategy for a given task. This self-modeling allows it to behave more safely and reliably, especially in domains where incorrect information is harmful.</p>
-<h4 style="color:var(--muted);margin:24px 0 8px;font-size:14px;text-transform:uppercase;letter-spacing:.06em">High-level Workflow</h4>
-<ol style="margin:0 0 16px 18px">
-<li style="margin-bottom:8px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Perceive Task:</strong> The agent receives a user request.</li>
-<li style="margin-bottom:8px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Metacognitive Analysis (Self-Reflection):</strong> The agent&#x27;s core reasoning engine analyzes the request <em>against its own self-model</em>. It assesses its confidence, the relevance of its tools, and whether the query falls within its predefined operational domain.</li>
-<li style="margin-bottom:8px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Strategy Selection:</strong> Based on the analysis, the agent selects one of several strategies:</li>
-<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Reason Directly:</strong> For high-confidence, low-risk queries within its knowledge base.</li>
-<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Use Tool:</strong> When the query requires a specific capability the agent possesses via a tool.</li>
-<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Escalate/Refuse:</strong> For low-confidence, high-risk, or out-of-scope queries.</li>
-<li style="margin-bottom:8px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Execute Strategy:</strong> The chosen path is executed.</li>
-<li style="margin-bottom:8px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Respond:</strong> The agent provides the result, which could be a direct answer, a tool-augmented answer, or a safe refusal with instructions to consult an expert.</li>
-</ol>
-<h4 style="color:var(--muted);margin:24px 0 8px;font-size:14px;text-transform:uppercase;letter-spacing:.06em">When to Use / Applications</h4>
-<ul style="margin:0 0 16px 18px;list-style-type:disc">
-<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">High-Stakes Advisory Systems:</strong> Any system providing information in domains like healthcare, law, or finance, where an agent must be able to say &quot;I don&#x27;t know&quot; or &quot;You should consult a professional.&quot;</li>
-<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Autonomous Systems:</strong> A robot that must assess its own ability to perform a physical task safely before attempting it.</li>
-<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Complex Tool Orchestrators:</strong> An agent that must choose the right API from a vast library, understanding that some APIs are more dangerous or costly than others.</li>
-</ul>
-<h4 style="color:var(--muted);margin:24px 0 8px;font-size:14px;text-transform:uppercase;letter-spacing:.06em">Strengths &amp; Weaknesses</h4>
-<ul style="margin:0 0 16px 18px;list-style-type:disc">
-<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Strengths:</strong></li>
-<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Enhanced Safety and Reliability:</strong> The primary benefit. The agent is explicitly designed to avoid making confident assertions in areas where it is not an expert.</li>
-<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Improved Decision Making:</strong> Leads to more robust behavior by forcing a deliberate choice of strategy instead of naive, direct attempts.</li>
-<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Weaknesses:</strong></li>
-<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Complexity of Self-Model:</strong> Defining and maintaining an accurate self-model can be complex.</li>
-<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Metacognitive Overhead:</strong> The initial analysis step adds latency and computational cost to every request.</li>
-</ul>
-    </div>
+    <p class="layer-def" style="border-color:#f0883e">系统第一次显式思考自己的边界</p>
   </section>
-
-  <section class="layer-sec" id="code">
-    <div class="layer-hdr">
-      <span class="layer-id-badge" style="background:#9a4a1a;color:rgba(255,255,255,.9)">Implementation</span>
-      <div class="layer-title">Code <small style="font-size:14px;font-weight:400;color:var(--muted)">LangChain + LangGraph</small></div>
-    </div>
-    <div class="codeblock">
-  <div class="cb-head">
+  <section class="layer-sec cn-section" id="cn-analysis">
+    <h3 style="border-color:#f0883e">六维深度分析</h3>
+    <p style="font-size:13px;color:var(--faint);margin-bottom:24px">以下分析基于统一框架的六个核心问题：问题定义 → State 建模 → 拓扑结构 → Router 机制 → 失败模式 → 升级时机</p>
+    <p style="font-size:15px;color:var(--text);line-height:1.9;margin-bottom:24px;padding:16px 20px;background:var(--bg2);border-radius:8px;border-left:3px solid var(--c1)"><strong style="color:var(--c1)">核心洞察：</strong>前面的系统都在问&quot;怎么把任务做完&quot;，Metacognitive agent 先问： <strong style="color:var(--text)">这个任务我到底该不该做？</strong> 这是更高级的控制流，因为它不再只对外部世界建模，也开始对自身能力边界建模。</p>
+<div style="margin-bottom:32px">
+  <h4 style="font-size:16px;font-weight:600;margin:0 0 12px;color:var(--text)">要解决什么问题？</h4>
+  <div style="padding-left:4px"><p style="margin-bottom:12px;line-height:1.85">前面的系统都在问&quot;怎么把任务做完&quot;，Metacognitive agent 先问： <strong style="color:var(--text)">这个任务我到底该不该做？</strong> 这是更高级的控制流，因为它不再只对外部世界建模，也开始对自身能力边界建模。</p></div>
+</div>
+<div style="margin-bottom:32px">
+  <h4 style="font-size:16px;font-weight:600;margin:0 0 12px;color:var(--text)">关键代码</h4>
+  <div style="padding-left:4px"><p style="margin-bottom:12px;line-height:1.85"><div class="codeblock" style="margin:12px 0 20px">
+  <div class="cb-head" style="font-size:11px">
     <span class="cb-dot" style="background:#f85149"></span>
     <span class="cb-dot" style="background:#e3b341"></span>
     <span class="cb-dot" style="background:#28c840"></span>
-    src/src/... · 201 lines
+    agno 实现示例 · 54 行
   </div>
-  <div class="cb-body"><span class="str">&quot;&quot;&quot;
+  <div class="cb-body" style="font-size:12px;line-height:1.8"><span class="kw">class</span> <span class="fn">MetacognitiveAnalysis</span>(BaseModel)<span class="op">:</span>
+    confidence<span class="op">:</span> <span class="fn">float</span> <span class="op">=</span> <span class="fn">Field</span>(description<span class="op">=</span><span class="str">&quot;0.0~1.0, confidence in safely answering.&quot;</span>)
+    strategy<span class="op">:</span> <span class="fn">str</span> <span class="op">=</span> <span class="fn">Field</span>(description<span class="op">=</span><span class="str">&quot;&#x27;reason_directly&#x27; | &#x27;use_tool&#x27; | &#x27;escalate&#x27;.&quot;</span>)
+    reasoning<span class="op">:</span> <span class="fn">str</span>
+    tool_to_use<span class="op">:</span> Optional[<span class="fn">str</span>] <span class="op">=</span> <span class="kw">None</span>
+
+AGENT_SELF_MODEL <span class="op">=</span> {
+    <span class="str">&quot;knowledge_domains&quot;</span><span class="op">:</span> [<span class="str">&quot;general health&quot;</span>, <span class="str">&quot;nutrition&quot;</span>, <span class="str">&quot;exercise&quot;</span>],
+    <span class="str">&quot;tools_available&quot;</span><span class="op">:</span> [<span class="str">&quot;symptom_checker&quot;</span>],
+    <span class="str">&quot;confidence_threshold&quot;</span><span class="op">:</span> <span class="num">0.7</span>,
+    <span class="str">&quot;high_risk_topics&quot;</span><span class="op">:</span> [<span class="str">&quot;prescription dosage&quot;</span>, <span class="str">&quot;emergency medical advice&quot;</span>],
+}
+
+self_model_agent <span class="op">=</span> <span class="fn">Agent</span>(
+    name<span class="op">=</span><span class="str">&quot;self_model&quot;</span>,
+    model<span class="op">=</span><span class="fn">OpenAIChat</span>(id<span class="op">=</span><span class="str">&quot;gpt-5-mini&quot;</span>),
+    response_model<span class="op">=</span>MetacognitiveAnalysis,
+    instructions<span class="op">=</span>(
+        f<span class="str">&quot;Your self-model is: {AGENT_SELF_MODEL}. &quot;</span>
+        <span class="str">&quot;For each user query, estimate confidence and pick a strategy: &quot;</span>
+        <span class="str">&quot;&#x27;reason_directly&#x27; if confidence &gt;= threshold and topic is low-risk, &quot;</span>
+        <span class="str">&quot;&#x27;use_tool&#x27; if a matching tool exists, &#x27;escalate&#x27; otherwise.&quot;</span>
+    ),
+)
+
+<span class="kw">def</span> <span class="fn">symptom_checker</span>(symptoms<span class="op">:</span> <span class="fn">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="fn">str</span><span class="op">:</span>
+    <span class="kw">return</span> f<span class="str">&quot;Reference info for: {symptoms}&quot;</span>
+
+responder <span class="op">=</span> <span class="fn">Agent</span>(model<span class="op">=</span><span class="fn">OpenAIChat</span>(id<span class="op">=</span><span class="str">&quot;gpt-5-mini&quot;</span>), tools<span class="op">=</span>[symptom_checker])
+
+<span class="kw">def</span> <span class="fn">meta_step</span>(si)<span class="op">:</span>
+    analysis<span class="op">:</span> MetacognitiveAnalysis <span class="op">=</span> self_model_agent.<span class="fn">run</span>(si.message).content
+    si.workflow_session_state[<span class="str">&quot;analysis&quot;</span>] <span class="op">=</span> analysis
+    <span class="kw">return</span> analysis
+
+<span class="kw">def</span> <span class="fn">meta_router</span>(si)<span class="op">:</span>
+    analysis <span class="op">=</span> si.workflow_session_state[<span class="str">&quot;analysis&quot;</span>]
+    <span class="kw">if</span> analysis.strategy <span class="op">=</span><span class="op">=</span> <span class="str">&quot;reason_directly&quot;</span><span class="op">:</span>
+        <span class="kw">return</span> [<span class="fn">Step</span>(name<span class="op">=</span><span class="str">&quot;answer&quot;</span>, executor<span class="op">=</span><span class="kw">lambda</span> s<span class="op">:</span> responder.<span class="fn">run</span>(s.message).content)]
+    <span class="kw">if</span> analysis.strategy <span class="op">=</span><span class="op">=</span> <span class="str">&quot;use_tool&quot;</span><span class="op">:</span>
+        <span class="kw">return</span> [<span class="fn">Step</span>(name<span class="op">=</span><span class="str">&quot;tool_answer&quot;</span>,
+                     executor<span class="op">=</span><span class="kw">lambda</span> s<span class="op">:</span> responder.<span class="fn">run</span>(
+                         f<span class="str">&quot;Use the {analysis.tool_to_use} tool to help answer: {s.message}&quot;</span>
+                     ).content)]
+    <span class="kw">return</span> [<span class="fn">Step</span>(name<span class="op">=</span><span class="str">&quot;escalate&quot;</span>,
+                 executor<span class="op">=</span><span class="kw">lambda</span> s<span class="op">:</span> <span class="str">&quot;I&#x27;m not confident or allowed to answer this. Escalating to a human expert.&quot;</span>)]
+
+metacog_wf <span class="op">=</span> <span class="fn">Workflow</span>(
+    name<span class="op">=</span><span class="str">&quot;metacognitive&quot;</span>,
+    steps<span class="op">=</span>[
+        <span class="fn">Step</span>(name<span class="op">=</span><span class="str">&quot;self_model&quot;</span>, executor<span class="op">=</span>meta_step),
+        <span class="fn">Router</span>(name<span class="op">=</span><span class="str">&quot;route_strategy&quot;</span>, selector<span class="op">=</span>meta_router),
+    ],
+)</div>
+</div></p></div>
+</div>
+<div style="margin-bottom:32px">
+  <h4 style="font-size:16px;font-weight:600;margin:0 0 12px;color:var(--text)">失败模式</h4>
+  <div style="padding-left:4px"><p style="margin-bottom:12px;line-height:1.85">置信度估计不准，低估自己会过度保守，高估自己会在高风险场景下危险地自信。</p></div>
+</div>
+<div style="margin-bottom:32px">
+  <h4 style="font-size:16px;font-weight:600;margin:0 0 12px;color:var(--text)">新增的能力</h4>
+  <div style="padding-left:4px"><p style="margin-bottom:12px;line-height:1.85">&#x27; fill=&#x27;%23FFFFFF&#x27;%3E%3Crect x=&#x27;249&#x27; y=&#x27;126&#x27; width=&#x27;1&#x27; height=&#x27;1&#x27;%3E%3C/rect%3E%3C/g%3E%3C/g%3E%3C/svg%3E)</p>
+
+<p style="margin-bottom:12px;line-height:1.85">它新增的是： <strong style="color:var(--text)">边界感知。</strong> 系统开始知道：我知道什么、不知道什么、需要什么工具、什么时候该把问题交给人类。</p></div>
+</div>
+  </section>
+  <section class="layer-sec" id="en-intro" style="border-bottom:none">
+    <h3 style="border-color:#f0883e">英文原版解析</h3>
+    <p style="font-size:12px;color:var(--faint);margin-bottom:16px">来自 Jupyter Notebook 的原始英文概念说明</p>
+    <div style="font-size:13px;line-height:1.8;color:var(--muted)"><h3 style="font-size:16px;font-weight:600;margin:20px 0 8px;color:var(--text)">📘 Agentic Architectures 17: Reflexive Metacognitive Agents</h3>
+<p style="margin-bottom:8px;line-height:1.7;font-size:13px;color:var(--muted)">Welcome to an in-depth implementation of one of the most sophisticated agentic patterns: the <strong style="color:var(--text)">Reflexive Metacognitive Agent</strong>. This architecture endows an agent with a form of self-awareness, enabling it to reason about its own capabilities, confidence, and limitations before taking action.</p>
+<p style="margin-bottom:8px;line-height:1.7;font-size:13px;color:var(--muted)">This goes a step beyond simple self-reflection. A metacognitive agent maintains an explicit <strong style="color:var(--text)">&quot;self-model&quot;</strong>—a structured representation of its own knowledge, tools, and boundaries. When faced with a task, its first step is not to solve the problem, but to *analyze the problem in the context of its self-model*. It asks internal questions like:</p>
+<p style="margin-bottom:8px;line-height:1.7;font-size:13px;color:var(--muted)">- &quot;Do I have sufficient knowledge to answer this confidently?&quot;</p>
+<p style="margin-bottom:8px;line-height:1.7;font-size:13px;color:var(--muted)">- &quot;Is this topic within my designated area of expertise?&quot;</p>
+<p style="margin-bottom:8px;line-height:1.7;font-size:13px;color:var(--muted)">- &quot;Do I have a specific tool that is required to answer this safely and accurately?&quot;</p>
+<p style="margin-bottom:8px;line-height:1.7;font-size:13px;color:var(--muted)">- &quot;Is the user&#x27;s query about a high-stakes topic where an error would be dangerous?&quot;</p>
+<p style="margin-bottom:8px;line-height:1.7;font-size:13px;color:var(--muted)">Based on the answers, it chooses a strategy: reason directly, use a specialized tool, or—most importantly—<strong style="color:var(--text)">escalate to a human</strong> when the task exceeds its known limits.</p>
+<p style="margin-bottom:8px;line-height:1.7;font-size:13px;color:var(--muted)">To build a complex and powerful demonstration, we will create a <strong style="color:var(--text)">Medical Triage &amp; Information Assistant</strong>. This is a classic high-stakes scenario where the agent&#x27;s ability to recognize its limitations is not just a feature, but a critical safety requirement.</p>
+<p style="font-weight:600;margin:14px 0 4px;font-size:14px">Definition</p>
+<p style="margin-bottom:8px;line-height:1.7;font-size:13px;color:var(--muted)">A <strong style="color:var(--text)">Reflexive Metacognitive Agent</strong> is an agent that maintains and uses an explicit model of its own capabilities, knowledge boundaries, and confidence levels to select the most appropriate strategy for a given task. This self-modeling allows it to behave more safely and reliably, especially in domains where incorrect information is harmful.</p>
+<p style="font-weight:600;margin:14px 0 4px;font-size:14px">High-level Workflow</p>
+<ol style="margin:4px 0 12px 18px">
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Perceive Task:</strong> The agent receives a user request.</li>
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Metacognitive Analysis (Self-Reflection):</strong> The agent&#x27;s core reasoning engine analyzes the request *against its own self-model*. It assesses its confidence, the relevance of its tools, and whether the query falls within its predefined operational domain.</li>
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Strategy Selection:</strong> Based on the analysis, the agent selects one of several strategies:</li>
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Reason Directly:</strong> For high-confidence, low-risk queries within its knowledge base.</li>
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Use Tool:</strong> When the query requires a specific capability the agent possesses via a tool.</li>
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Escalate/Refuse:</strong> For low-confidence, high-risk, or out-of-scope queries.</li>
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Execute Strategy:</strong> The chosen path is executed.</li>
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Respond:</strong> The agent provides the result, which could be a direct answer, a tool-augmented answer, or a safe refusal with instructions to consult an expert.</li>
+</ul>
+<p style="font-weight:600;margin:14px 0 4px;font-size:14px">When to Use / Applications</p>
+<ul style="margin:4px 0 12px 18px;list-style-type:disc">
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">High-Stakes Advisory Systems:</strong> Any system providing information in domains like healthcare, law, or finance, where an agent must be able to say &quot;I don&#x27;t know&quot; or &quot;You should consult a professional.&quot;</li>
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Autonomous Systems:</strong> A robot that must assess its own ability to perform a physical task safely before attempting it.</li>
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Complex Tool Orchestrators:</strong> An agent that must choose the right API from a vast library, understanding that some APIs are more dangerous or costly than others.</li>
+</ul>
+<p style="font-weight:600;margin:14px 0 4px;font-size:14px">Strengths &amp; Weaknesses</p>
+<ul style="margin:4px 0 12px 18px;list-style-type:disc">
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Strengths:</strong></li>
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Enhanced Safety and Reliability:</strong> The primary benefit. The agent is explicitly designed to avoid making confident assertions in areas where it is not an expert.</li>
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Improved Decision Making:</strong> Leads to more robust behavior by forcing a deliberate choice of strategy instead of naive, direct attempts.</li>
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Weaknesses:</strong></li>
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Complexity of Self-Model:</strong> Defining and maintaining an accurate self-model can be complex.</li>
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Metacognitive Overhead:</strong> The initial analysis step adds latency and computational cost to every request.</li>
+</ul></div>
+  </section>
+  <section class="layer-sec" id="code">
+    <h3 style="border-color:#f0883e">LangChain + LangGraph 实现代码</h3>
+    <p style="font-size:12px;color:var(--faint);margin-bottom:16px">完整的端到端实现代码，可从 src/ 目录直接运行</p>
+    <div class="codeblock">
+  <div class="cb-head">
+    <span class="cb-dot" style="background:#f85149"></span><span class="cb-dot" style="background:#e3b341"></span><span class="cb-dot" style="background:#28c840"></span>
+    src/... · LangChain + LangGraph · 200 行
+  </div>
+  <div class="cb-body" style="font-size:12px;line-height:1.8"><span class="str">&quot;&quot;&quot;
 Reflexive Metacognitive - Agentic Architecture
 Extracted from: 17_reflexive_metacognitive.ipynb
 &quot;&quot;&quot;</span>
@@ -304,8 +387,5 @@ console.<span class="fn">print</span>(<span class="str">&quot;\n--- Test 3: High
 </div>
 </div>
   </section>
-
-  <div class="prevnext"><a href="cellular-automata.html"><span class="coding">Previous</span><br><span class="pn-strong">← Cellular Automata</span></a><span></span></div>
-</div><div class="footer">
-  <p>Built from <a href="https://github.com/1998x-stack/all-agentic-architectures" style="color:var(--text)">all-agentic-architectures</a></p>
-</div></body></html>
+  <div class="prevnext"><a href="cellular-automata.html"><span class="pn-label">&larr; 上一架构</span>#16 元胞自动机</a><span></span></div>
+</div><div class="footer"><p>Built from <a href="https://github.com/1998x-stack/all-agentic-architectures" style="color:var(--text)">all-agentic-architectures</a></p></div></body></html>

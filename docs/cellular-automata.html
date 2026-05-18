@@ -1,101 +1,190 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>#16 Cellular Automata — All Agentic Architectures</title>
+<title>#16 元胞自动机 — All Agentic Architectures</title>
 <link rel="stylesheet" href="base-dark.css">
 <style>
-  :root {
-    --c1: #28c840; --c1d: #1a7a2a;
-    --c2: #378add; --c2d: #1a5290;
-    --c3: #a259ff; --c3d: #5a2a8a;
-    --c4: #f0883e; --c4d: #9a4a1a;
-    --c5: #1db0a0; --c5d: #0f6e56;
-  }
-  .hero h1 em {
-    background: linear-gradient(90deg, var(--c1), var(--c2), var(--c3), var(--c4), var(--c5));
-    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-  }
-  .prevnext { display: flex; justify-content: space-between; padding: 32px 0; border-top: 1px solid var(--border); margin-top: 48px; }
-  .prevnext a { color: var(--muted); font-size: 13px; }
-  .prevnext a:hover { color: var(--text); text-decoration: none; }
-  .pn-strong { color: var(--text) !important; font-weight: 500; }
-  .coding { font-size: 11px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); margin-bottom: 4px; }
-  h2 { font-size: 22px; font-weight: 600; margin: 0 0 12px; letter-spacing: -.01em; }
-  h3 { font-size: 18px; font-weight: 600; margin: 32px 0 12px; }
+  :root{--c1:#28c840;--c1d:#1a7a2a;--c2:#378add;--c2d:#1a5290;--c3:#a259ff;--c3d:#5a2a8a;--c4:#f0883e;--c4d:#9a4a1a;--c5:#1db0a0;--c5d:#0f6e56}
+  .hero h1 em{background:linear-gradient(90deg,var(--c1),var(--c2),var(--c3),var(--c4),var(--c5));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+  .prevnext{display:flex;justify-content:space-between;padding:32px 0;border-top:1px solid var(--border);margin-top:56px}
+  .prevnext a{color:var(--muted);font-size:14px;transition:color .15s}
+  .prevnext a:hover{color:var(--text);text-decoration:none}
+  .prevnext .pn-label{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--faint);margin-bottom:4px;display:block}
+  .cn-section{margin-top:48px}
+  .cn-section h3{font-size:20px;font-weight:700;margin-bottom:20px;padding-bottom:8px;border-bottom:1px solid var(--border)}
+  .toc-link{display:inline-block;padding:3px 8px;border-radius:4px;font-size:11px;font-family:var(--mono);color:var(--muted);border:1px solid var(--border);margin:2px 4px 2px 0;transition:all .15s}
+  .toc-link:hover{border-color:var(--c1);color:var(--c1);text-decoration:none}
 </style>
 
 </head>
 <body><nav>
   <div class="nav-inner">
-    <span class="nav-brand">All Agentic Architectures <span>· 17 Patterns</span></span>
-    <a class="nl" href="index.html">Overview</a>
+    <a href="index.html" style="text-decoration:none"><span class="nav-brand">All Agentic Architectures <span>· 17 种架构</span></span></a>
+    <a class="nl" href="index.html">总览</a>
+    <a class="nl" href="index.html#p1">基础</a>
+    <a class="nl" href="index.html#p2">多智能体</a>
+    <a class="nl" href="index.html#p3">记忆推理</a>
+    <a class="nl" href="index.html#p4">安全可靠</a>
+    <a class="nl" href="index.html#p5">学习适应</a>
   </div>
 </nav><div class="page">
-  <section class="hero" style="padding-bottom:32px">
-    <div class="hero-badge"><span class="dot" style="background:var(--c5)"></span> #16 · Learning & Adaptation</div>
-    <h1 style="font-size:36px;color:var(--text)">Cellular Automata</h1>
-    <p style="margin-bottom:20px">Spatial Reasoning, Logistics, Complex System Simulation</p>
-    <div class="tag-row">
-      <span class="ltag" style="color:var(--c5);background:rgba(29,176,160,.08);border-color:rgba(29,176,160,.25)">Part 5</span>
-    </div>
+  <section class="hero" style="padding-bottom:28px">
+    <div class="hero-badge"><span class="dot" style="background:var(--c5)"></span> #16 · 去中心化计算 · emergence</div>
+    <h1 style="font-size:34px;color:var(--text);margin-bottom:6px">元胞自动机 <span style="font-size:18px;font-weight:400;color:var(--muted)">Cellular Automata</span></h1>
+    <p style="font-size:14px;color:var(--faint);margin-bottom:8px;font-style:italic">LLM 退出主循环</p>
+    <p style="margin-bottom:8px;font-size:14px">LLM 退出主循环</p>
+    <p style="font-size:13px;color:var(--muted);margin-bottom:20px">典型应用：</p>
+    <div class="tag-row"><span class="ltag" style="color:var(--c5);background:rgba(29,176,160,.08);border-color:rgba(29,176,160,.25)">Part 5</span></div>
   </section>
-
-  <section class="layer-sec" style="padding-top:16px;border-bottom:none">
+  <div style="margin-bottom:28px;line-height:2">
+  <span style="font-size:11px;color:var(--faint);text-transform:uppercase;letter-spacing:.06em">快速导航</span><br>
+  <a href="#cn-analysis" class="toc-link">六维分析</a>
+  <a href="#en-intro" class="toc-link">英文解析</a>
+  <a href="#code" class="toc-link">LangGraph 实现</a>
+</div>
+  <section class="layer-sec" style="padding-top:0;border-bottom:none">
     <div class="layer-hdr">
-      <span class="layer-id-badge" style="background:#0f6e56;color:rgba(255,255,255,.9)">Concept</span>
-      <div class="layer-title">How It Works</div>
+      <span class="layer-id-badge" style="background:#0f6e56;color:rgba(255,255,255,.9)">核心概念</span>
+      <div class="layer-title" style="font-size:18px">LLM 退出主循环</div>
     </div>
-    <p class="layer-def" style="border-color:#1db0a0">Many simple, decentralized grid-based agents whose local interactions produce complex emergent global behavior.</p>
-    <div style="font-size:14px;line-height:1.85;color:var(--text)">
-      <h2>📘 Agentic Architectures 16: Cellular Automata / Grid-Based Systems</h2>
-<p style="margin-bottom:12px;line-height:1.75;font-size:14px;color:var(--muted)">Welcome to an exploration of a radically different agentic architecture: <strong style="color:var(--text)">Cellular Automata</strong> and <strong style="color:var(--text)">Grid-Based Agent Systems</strong>. This pattern is inspired by natural complex systems and concepts like Conway&#x27;s Game of Life. It shifts the paradigm from a few complex, centralized agents to a massive number of simple, decentralized agents operating on a grid.</p>
-<p style="margin-bottom:12px;line-height:1.75;font-size:14px;color:var(--muted)">In this model, the environment itself becomes the agent. Each cell in a grid is a mini-agent with its own state and a simple set of rules for updating that state based on its immediate neighbors. There is no central controller or complex pathfinding algorithm. Instead, intelligent, global behavior <strong style="color:var(--text)">emerges</strong> from the repeated, synchronous application of these simple local rules. The system becomes a &quot;computational fabric&quot; that solves problems through wave-like propagation of information.</p>
-<p style="margin-bottom:12px;line-height:1.75;font-size:14px;color:var(--muted)">To demonstrate this in a detailed, complex implementation, we will build a <strong style="color:var(--text)">Warehouse Logistics Simulator</strong>. Our goal is to fulfill an order by moving items from shelves to a packing station. We will solve this complex spatial reasoning task not with a single &quot;robot&quot; agent, but by programming the grid cells themselves to collectively compute the optimal path.</p>
-<h4 style="color:var(--muted);margin:24px 0 8px;font-size:14px;text-transform:uppercase;letter-spacing:.06em">Definition</h4>
-<p style="margin-bottom:12px;line-height:1.75;font-size:14px;color:var(--muted)">A <strong style="color:var(--text)">Grid-Based Agent System</strong> is an architecture where a large number of simple agents (or &quot;cells&quot;) are arranged in a spatial grid. Each agent has a state and updates it synchronously based on a rule set that only considers the states of its immediate neighbors. Complex, high-level patterns and problem-solving capabilities emerge from these local interactions.</p>
-<h4 style="color:var(--muted);margin:24px 0 8px;font-size:14px;text-transform:uppercase;letter-spacing:.06em">High-level Workflow</h4>
-<ol style="margin:0 0 16px 18px">
-<li style="margin-bottom:8px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Grid Initialization:</strong> A grid of cell-agents is created, each initialized with a type (e.g., obstacle, empty) and a state (e.g., a value).</li>
-<li style="margin-bottom:8px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Set Boundary Conditions:</strong> One or more cells are given a special state to start a computation (e.g., a &quot;target&quot; cell&#x27;s value is set to 0).</li>
-<li style="margin-bottom:8px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Synchronous Tick:</strong> The system &quot;ticks&quot; forward. In each tick, every cell simultaneously calculates its next state based on the current state of its neighbors.</li>
-<li style="margin-bottom:8px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Emergence:</strong> As the system ticks, information propagates across the grid like a wave. This can create gradients, paths, and other complex structures.</li>
-<li style="margin-bottom:8px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">State Stabilization:</strong> The system runs until the grid state stabilizes (no more changes occur), indicating that the computation is complete.</li>
-<li style="margin-bottom:8px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Readout:</strong> The solution to the problem is then read directly from the final state of the grid (e.g., by following a computed gradient).</li>
-</ol>
-<h4 style="color:var(--muted);margin:24px 0 8px;font-size:14px;text-transform:uppercase;letter-spacing:.06em">When to Use / Applications</h4>
-<ul style="margin:0 0 16px 18px;list-style-type:disc">
-<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Spatial Reasoning &amp; Logistics:</strong> Optimal pathfinding in dynamic environments (like our warehouse example).</li>
-<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Complex System Simulation:</strong> Modeling phenomena with emergent behavior like forest fires, disease spread, or urban growth.</li>
-<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Parallel Computation:</strong> Certain algorithms can be mapped to a cellular automata model for execution on highly parallel hardware (like GPUs).</li>
-</ul>
-<h4 style="color:var(--muted);margin:24px 0 8px;font-size:14px;text-transform:uppercase;letter-spacing:.06em">Strengths &amp; Weaknesses</h4>
-<ul style="margin:0 0 16px 18px;list-style-type:disc">
-<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Strengths:</strong></li>
-<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">High Parallelism:</strong> The logic is inherently parallel, making it extremely fast on appropriate hardware.</li>
-<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Adaptability:</strong> The system can dynamically react to changes in the environment (e.g., a new obstacle) by simply re-propagating its waves.</li>
-<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Emergent Complexity:</strong> Can solve very complex problems with surprisingly simple rules.</li>
-<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Weaknesses:</strong></li>
-<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Design Complexity:</strong> Designing the local rules to produce the desired global behavior can be challenging and unintuitive.</li>
-<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Less Introspective:</strong> It&#x27;s harder to ask a single cell &quot;why&quot; it has a certain state; the reasoning is distributed across the entire system.</li>
-</ul>
-    </div>
+    <p class="layer-def" style="border-color:#1db0a0">LLM 退出主循环</p>
   </section>
-
-  <section class="layer-sec" id="code">
-    <div class="layer-hdr">
-      <span class="layer-id-badge" style="background:#0f6e56;color:rgba(255,255,255,.9)">Implementation</span>
-      <div class="layer-title">Code <small style="font-size:14px;font-weight:400;color:var(--muted)">LangChain + LangGraph</small></div>
-    </div>
-    <div class="codeblock">
-  <div class="cb-head">
+  <section class="layer-sec cn-section" id="cn-analysis">
+    <h3 style="border-color:#1db0a0">六维深度分析</h3>
+    <p style="font-size:13px;color:var(--faint);margin-bottom:24px">以下分析基于统一框架的六个核心问题：问题定义 → State 建模 → 拓扑结构 → Router 机制 → 失败模式 → 升级时机</p>
+    <p style="font-size:15px;color:var(--text);line-height:1.9;margin-bottom:24px;padding:16px 20px;background:var(--bg2);border-radius:8px;border-left:3px solid var(--c1)"><strong style="color:var(--c1)">核心洞察：</strong>前面所有架构都默认存在一个中心 agent、一个主控制流、一个 orchestrator。 Cellular Automata 彻底打破这个前提： <strong style="color:var(--text)">有些问题根本不需要中心规划，而适合通过局部规则产生全局行为。</strong></p>
+<div style="margin-bottom:32px">
+  <h4 style="font-size:16px;font-weight:600;margin:0 0 12px;color:var(--text)">要解决什么问题？</h4>
+  <div style="padding-left:4px"><p style="margin-bottom:12px;line-height:1.85">前面所有架构都默认存在一个中心 agent、一个主控制流、一个 orchestrator。 Cellular Automata 彻底打破这个前提： <strong style="color:var(--text)">有些问题根本不需要中心规划，而适合通过局部规则产生全局行为。</strong></p></div>
+</div>
+<div style="margin-bottom:32px">
+  <h4 style="font-size:16px;font-weight:600;margin:0 0 12px;color:var(--text)">关键代码</h4>
+  <div style="padding-left:4px"><p style="margin-bottom:12px;line-height:1.85"><div class="codeblock" style="margin:12px 0 20px">
+  <div class="cb-head" style="font-size:11px">
     <span class="cb-dot" style="background:#f85149"></span>
     <span class="cb-dot" style="background:#e3b341"></span>
     <span class="cb-dot" style="background:#28c840"></span>
-    src/src/... · 261 lines
+    agno 实现示例 · 29 行
   </div>
-  <div class="cb-body"><span class="str">&quot;&quot;&quot;
+  <div class="cb-body" style="font-size:12px;line-height:1.8"><span class="kw">class</span> <span class="fn">CellAgent</span>(BaseModel)<span class="op">:</span>
+    <span class="fn">type</span><span class="op">:</span> <span class="fn">str</span>  <span class="cm"># &#x27;EMPTY&#x27; | &#x27;OBSTACLE&#x27; | &#x27;GOAL&#x27;</span>
+    pathfinding_value<span class="op">:</span> <span class="fn">float</span> <span class="op">=</span> <span class="fn">float</span>(<span class="str">&quot;inf&quot;</span>)
+
+    <span class="kw">def</span> <span class="fn">update</span>(self, neighbors<span class="op">:</span> List[<span class="str">&quot;CellAgent&quot;</span>])<span class="op">:</span>
+        <span class="kw">if</span> self.<span class="fn">type</span> <span class="op">=</span><span class="op">=</span> <span class="str">&quot;OBSTACLE&quot;</span><span class="op">:</span>
+            <span class="kw">return</span>
+        <span class="kw">if</span> self.<span class="fn">type</span> <span class="op">=</span><span class="op">=</span> <span class="str">&quot;GOAL&quot;</span><span class="op">:</span>
+            self.pathfinding_value <span class="op">=</span> <span class="num">0</span>
+            <span class="kw">return</span>
+        m <span class="op">=</span> <span class="fn">min</span>((n.pathfinding_value <span class="kw">for</span> n <span class="kw">in</span> neighbors), default<span class="op">=</span><span class="fn">float</span>(<span class="str">&quot;inf&quot;</span>))
+        self.pathfinding_value <span class="op">=</span> <span class="fn">min</span>(self.pathfinding_value, m <span class="op">+</span> <span class="num">1</span>)
+
+<span class="kw">def</span> <span class="fn">neighbors_of</span>(snapshot, r, c)<span class="op">:</span>
+    <span class="str">&quot;&quot;&quot;四邻（上下左右），越界跳过。&quot;&quot;&quot;</span>
+    H, W <span class="op">=</span> <span class="fn">len</span>(snapshot), <span class="fn">len</span>(snapshot[<span class="num">0</span>])
+    out <span class="op">=</span> []
+    <span class="kw">for</span> dr, dc <span class="kw">in</span> [(<span class="op">-</span><span class="num">1</span>, <span class="num">0</span>), (<span class="num">1</span>, <span class="num">0</span>), (<span class="num">0</span>, <span class="op">-</span><span class="num">1</span>), (<span class="num">0</span>, <span class="num">1</span>)]<span class="op">:</span>
+        nr, nc <span class="op">=</span> r <span class="op">+</span> dr, c <span class="op">+</span> dc
+        if0 <span class="op">&lt;</span><span class="op">=</span> nr <span class="op">&lt;</span> H <span class="kw">and</span> <span class="num">0</span> <span class="op">&lt;</span><span class="op">=</span> nc <span class="op">&lt;</span> W<span class="op">:</span>
+            out.<span class="fn">append</span>(snapshot[nr][nc])
+    <span class="kw">return</span> out
+
+<span class="kw">def</span> <span class="fn">run_ca</span>(grid, steps<span class="op">=</span><span class="num">50</span>)<span class="op">:</span>
+    <span class="kw">for</span> _ <span class="kw">in</span> <span class="fn">range</span>(steps)<span class="op">:</span>
+        snapshot <span class="op">=</span> [[copy.<span class="fn">deepcopy</span>(c) <span class="kw">for</span> c <span class="kw">in</span> row] <span class="kw">for</span> row <span class="kw">in</span> grid]
+        <span class="kw">for</span> r <span class="kw">in</span> <span class="fn">range</span>(<span class="fn">len</span>(grid))<span class="op">:</span>
+            <span class="kw">for</span> c <span class="kw">in</span> <span class="fn">range</span>(<span class="fn">len</span>(grid[<span class="num">0</span>]))<span class="op">:</span>
+                grid[r][c].<span class="fn">update</span>(<span class="fn">neighbors_of</span>(snapshot, r, c))</div>
+</div></p>
+
+<p style="margin-bottom:12px;line-height:1.85">在 agno 里，LLM 退到了纯&quot;规则设计者/解释者&quot;的位置：</p>
+
+<p style="margin-bottom:12px;line-height:1.85"><div class="codeblock" style="margin:12px 0 20px">
+  <div class="cb-head" style="font-size:11px">
+    <span class="cb-dot" style="background:#f85149"></span>
+    <span class="cb-dot" style="background:#e3b341"></span>
+    <span class="cb-dot" style="background:#28c840"></span>
+    agno 实现示例 · 14 行
+  </div>
+  <div class="cb-body" style="font-size:12px;line-height:1.8">rule_designer <span class="op">=</span> <span class="fn">Agent</span>(
+    name<span class="op">=</span><span class="str">&quot;rule_designer&quot;</span>,
+    model<span class="op">=</span><span class="fn">OpenAIChat</span>(id<span class="op">=</span><span class="str">&quot;gpt-5-mini&quot;</span>),
+    instructions<span class="op">=</span>(
+        <span class="str">&quot;You design local update rules for a cellular automaton. &quot;</span>
+        <span class="str">&quot;Given a high-level objective, propose a minimal Python update function &quot;</span>
+        <span class="str">&quot;that each cell will execute based only on its neighbors.&quot;</span>
+    ),
+)
+
+rule_designer.<span class="fn">print_response</span>(
+    <span class="str">&quot;Design a CA rule so that every empty cell eventually stores the shortest &quot;</span>
+    <span class="str">&quot;path length to the nearest GOAL, treating OBSTACLE as impassable.&quot;</span>
+)</div>
+</div></p></div>
+</div>
+<div style="margin-bottom:32px">
+  <h4 style="font-size:16px;font-weight:600;margin:0 0 12px;color:var(--text)">失败模式</h4>
+  <div style="padding-left:4px"><ul style="margin:0 0 16px 20px;list-style-type:disc;color:var(--text);font-size:14px"><li style="margin-bottom:8px;line-height:1.75">局部规则设计不当</li>
+<li style="margin-bottom:8px;line-height:1.75">系统收敛慢</li>
+<li style="margin-bottom:8px;line-height:1.75">涌现出错误的全局结构</li>
+</ul>
+<p style="margin-bottom:12px;line-height:1.85">但一旦规则设计得对，它能解决很多用中央 planner 反而很笨重的问题。</p>
+
+<p style="font-size:13px;color:var(--muted);margin:12px 0;padding:8px 16px;border-left:2px solid var(--border);font-style:italic">📎 参考实现： [16\_cellular\_automata.ipynb](https://github.com/FareedKhan-dev/all-agentic-architectures/16_cellular_automata.ipynb)</p>
+
+<p style="margin-bottom:12px;line-height:1.85">---</p></div>
+</div>
+<div style="margin-bottom:32px">
+  <h4 style="font-size:16px;font-weight:600;margin:0 0 12px;color:var(--text)">新增的能力</h4>
+  <div style="padding-left:4px"><p style="margin-bottom:12px;line-height:1.85">这不是在现有控制流上加一个模块，而是整个范式切换： <strong style="color:var(--text)">从中心控制转向分布式涌现。</strong></p></div>
+</div>
+  </section>
+  <section class="layer-sec" id="en-intro" style="border-bottom:none">
+    <h3 style="border-color:#1db0a0">英文原版解析</h3>
+    <p style="font-size:12px;color:var(--faint);margin-bottom:16px">来自 Jupyter Notebook 的原始英文概念说明</p>
+    <div style="font-size:13px;line-height:1.8;color:var(--muted)"><h3 style="font-size:16px;font-weight:600;margin:20px 0 8px;color:var(--text)">📘 Agentic Architectures 16: Cellular Automata / Grid-Based Systems</h3>
+<p style="margin-bottom:8px;line-height:1.7;font-size:13px;color:var(--muted)">Welcome to an exploration of a radically different agentic architecture: <strong style="color:var(--text)">Cellular Automata</strong> and <strong style="color:var(--text)">Grid-Based Agent Systems</strong>. This pattern is inspired by natural complex systems and concepts like Conway&#x27;s Game of Life. It shifts the paradigm from a few complex, centralized agents to a massive number of simple, decentralized agents operating on a grid.</p>
+<p style="margin-bottom:8px;line-height:1.7;font-size:13px;color:var(--muted)">In this model, the environment itself becomes the agent. Each cell in a grid is a mini-agent with its own state and a simple set of rules for updating that state based on its immediate neighbors. There is no central controller or complex pathfinding algorithm. Instead, intelligent, global behavior <strong style="color:var(--text)">emerges</strong> from the repeated, synchronous application of these simple local rules. The system becomes a &quot;computational fabric&quot; that solves problems through wave-like propagation of information.</p>
+<p style="margin-bottom:8px;line-height:1.7;font-size:13px;color:var(--muted)">To demonstrate this in a detailed, complex implementation, we will build a <strong style="color:var(--text)">Warehouse Logistics Simulator</strong>. Our goal is to fulfill an order by moving items from shelves to a packing station. We will solve this complex spatial reasoning task not with a single &quot;robot&quot; agent, but by programming the grid cells themselves to collectively compute the optimal path.</p>
+<p style="font-weight:600;margin:14px 0 4px;font-size:14px">Definition</p>
+<p style="margin-bottom:8px;line-height:1.7;font-size:13px;color:var(--muted)">A <strong style="color:var(--text)">Grid-Based Agent System</strong> is an architecture where a large number of simple agents (or &quot;cells&quot;) are arranged in a spatial grid. Each agent has a state and updates it synchronously based on a rule set that only considers the states of its immediate neighbors. Complex, high-level patterns and problem-solving capabilities emerge from these local interactions.</p>
+<p style="font-weight:600;margin:14px 0 4px;font-size:14px">High-level Workflow</p>
+<ol style="margin:4px 0 12px 18px">
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Grid Initialization:</strong> A grid of cell-agents is created, each initialized with a type (e.g., obstacle, empty) and a state (e.g., a value).</li>
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Set Boundary Conditions:</strong> One or more cells are given a special state to start a computation (e.g., a &quot;target&quot; cell&#x27;s value is set to 0).</li>
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Synchronous Tick:</strong> The system &quot;ticks&quot; forward. In each tick, every cell simultaneously calculates its next state based on the current state of its neighbors.</li>
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Emergence:</strong> As the system ticks, information propagates across the grid like a wave. This can create gradients, paths, and other complex structures.</li>
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">State Stabilization:</strong> The system runs until the grid state stabilizes (no more changes occur), indicating that the computation is complete.</li>
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Readout:</strong> The solution to the problem is then read directly from the final state of the grid (e.g., by following a computed gradient).</li>
+</ul>
+<p style="font-weight:600;margin:14px 0 4px;font-size:14px">When to Use / Applications</p>
+<ul style="margin:4px 0 12px 18px;list-style-type:disc">
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Spatial Reasoning &amp; Logistics:</strong> Optimal pathfinding in dynamic environments (like our warehouse example).</li>
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Complex System Simulation:</strong> Modeling phenomena with emergent behavior like forest fires, disease spread, or urban growth.</li>
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Parallel Computation:</strong> Certain algorithms can be mapped to a cellular automata model for execution on highly parallel hardware (like GPUs).</li>
+</ul>
+<p style="font-weight:600;margin:14px 0 4px;font-size:14px">Strengths &amp; Weaknesses</p>
+<ul style="margin:4px 0 12px 18px;list-style-type:disc">
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Strengths:</strong></li>
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">High Parallelism:</strong> The logic is inherently parallel, making it extremely fast on appropriate hardware.</li>
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Adaptability:</strong> The system can dynamically react to changes in the environment (e.g., a new obstacle) by simply re-propagating its waves.</li>
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Emergent Complexity:</strong> Can solve very complex problems with surprisingly simple rules.</li>
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Weaknesses:</strong></li>
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Design Complexity:</strong> Designing the local rules to produce the desired global behavior can be challenging and unintuitive.</li>
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Less Introspective:</strong> It&#x27;s harder to ask a single cell &quot;why&quot; it has a certain state; the reasoning is distributed across the entire system.</li>
+</ul></div>
+  </section>
+  <section class="layer-sec" id="code">
+    <h3 style="border-color:#1db0a0">LangChain + LangGraph 实现代码</h3>
+    <p style="font-size:12px;color:var(--faint);margin-bottom:16px">完整的端到端实现代码，可从 src/ 目录直接运行</p>
+    <div class="codeblock">
+  <div class="cb-head">
+    <span class="cb-dot" style="background:#f85149"></span><span class="cb-dot" style="background:#e3b341"></span><span class="cb-dot" style="background:#28c840"></span>
+    src/... · LangChain + LangGraph · 260 行
+  </div>
+  <div class="cb-body" style="font-size:12px;line-height:1.8"><span class="str">&quot;&quot;&quot;
 Cellular Automata - Agentic Architecture
 Extracted from: 16_cellular_automata.ipynb
 &quot;&quot;&quot;</span>
@@ -358,8 +447,5 @@ console.<span class="fn">print</span>(<span class="fn">Markdown</span>(final_sum
 </div>
 </div>
   </section>
-
-  <div class="prevnext"><a href="rlhf.html"><span class="coding">Previous</span><br><span class="pn-strong">← RLHF (Self-Improvement)</span></a><a href="reflexive-metacognitive.html" style="text-align:right"><span class="coding">Next</span><br><span class="pn-strong">Reflexive Metacognitive →</span></a></div>
-</div><div class="footer">
-  <p>Built from <a href="https://github.com/1998x-stack/all-agentic-architectures" style="color:var(--text)">all-agentic-architectures</a></p>
-</div></body></html>
+  <div class="prevnext"><a href="rlhf.html"><span class="pn-label">&larr; 上一架构</span>#15 自我改进循环</a><a href="reflexive-metacognitive.html" style="text-align:right"><span class="pn-label">下一架构 &rarr;</span>#17 自反式元认知</a></div>
+</div><div class="footer"><p>Built from <a href="https://github.com/1998x-stack/all-agentic-architectures" style="color:var(--text)">all-agentic-architectures</a></p></div></body></html>

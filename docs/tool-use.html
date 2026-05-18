@@ -1,98 +1,177 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>#02 Tool Use — All Agentic Architectures</title>
+<title>#02 工具使用 — All Agentic Architectures</title>
 <link rel="stylesheet" href="base-dark.css">
 <style>
-  :root {
-    --c1: #28c840; --c1d: #1a7a2a;
-    --c2: #378add; --c2d: #1a5290;
-    --c3: #a259ff; --c3d: #5a2a8a;
-    --c4: #f0883e; --c4d: #9a4a1a;
-    --c5: #1db0a0; --c5d: #0f6e56;
-  }
-  .hero h1 em {
-    background: linear-gradient(90deg, var(--c1), var(--c2), var(--c3), var(--c4), var(--c5));
-    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-  }
-  .prevnext { display: flex; justify-content: space-between; padding: 32px 0; border-top: 1px solid var(--border); margin-top: 48px; }
-  .prevnext a { color: var(--muted); font-size: 13px; }
-  .prevnext a:hover { color: var(--text); text-decoration: none; }
-  .pn-strong { color: var(--text) !important; font-weight: 500; }
-  .coding { font-size: 11px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); margin-bottom: 4px; }
-  h2 { font-size: 22px; font-weight: 600; margin: 0 0 12px; letter-spacing: -.01em; }
-  h3 { font-size: 18px; font-weight: 600; margin: 32px 0 12px; }
+  :root{--c1:#28c840;--c1d:#1a7a2a;--c2:#378add;--c2d:#1a5290;--c3:#a259ff;--c3d:#5a2a8a;--c4:#f0883e;--c4d:#9a4a1a;--c5:#1db0a0;--c5d:#0f6e56}
+  .hero h1 em{background:linear-gradient(90deg,var(--c1),var(--c2),var(--c3),var(--c4),var(--c5));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+  .prevnext{display:flex;justify-content:space-between;padding:32px 0;border-top:1px solid var(--border);margin-top:56px}
+  .prevnext a{color:var(--muted);font-size:14px;transition:color .15s}
+  .prevnext a:hover{color:var(--text);text-decoration:none}
+  .prevnext .pn-label{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--faint);margin-bottom:4px;display:block}
+  .cn-section{margin-top:48px}
+  .cn-section h3{font-size:20px;font-weight:700;margin-bottom:20px;padding-bottom:8px;border-bottom:1px solid var(--border)}
+  .toc-link{display:inline-block;padding:3px 8px;border-radius:4px;font-size:11px;font-family:var(--mono);color:var(--muted);border:1px solid var(--border);margin:2px 4px 2px 0;transition:all .15s}
+  .toc-link:hover{border-color:var(--c1);color:var(--c1);text-decoration:none}
 </style>
 
 </head>
 <body><nav>
   <div class="nav-inner">
-    <span class="nav-brand">All Agentic Architectures <span>· 17 Patterns</span></span>
-    <a class="nl" href="index.html">Overview</a>
+    <a href="index.html" style="text-decoration:none"><span class="nav-brand">All Agentic Architectures <span>· 17 种架构</span></span></a>
+    <a class="nl" href="index.html">总览</a>
+    <a class="nl" href="index.html#p1">基础</a>
+    <a class="nl" href="index.html#p2">多智能体</a>
+    <a class="nl" href="index.html#p3">记忆推理</a>
+    <a class="nl" href="index.html#p4">安全可靠</a>
+    <a class="nl" href="index.html#p5">学习适应</a>
   </div>
 </nav><div class="page">
-  <section class="hero" style="padding-bottom:32px">
-    <div class="hero-badge"><span class="dot" style="background:var(--c1)"></span> #02 · Foundational Patterns</div>
-    <h1 style="font-size:36px;color:var(--text)">Tool Use</h1>
-    <p style="margin-bottom:20px">Real-time Research Assistants, Enterprise Bots</p>
-    <div class="tag-row">
-      <span class="ltag" style="color:var(--c1);background:rgba(40,200,64,.08);border-color:rgba(40,200,64,.25)">Part 1</span>
-    </div>
+  <section class="hero" style="padding-bottom:28px">
+    <div class="hero-badge"><span class="dot" style="background:var(--c1)"></span> #02 · 与世界交互 · tool interface</div>
+    <h1 style="font-size:34px;color:var(--text);margin-bottom:6px">工具使用 <span style="font-size:18px;font-weight:400;color:var(--muted)">Tool Use</span></h1>
+    <p style="font-size:14px;color:var(--faint);margin-bottom:8px;font-style:italic">文本世界到结构化世界的跨越</p>
+    <p style="margin-bottom:8px;font-size:14px">文本世界到结构化世界的跨越</p>
+    <p style="font-size:13px;color:var(--muted);margin-bottom:20px">典型应用：</p>
+    <div class="tag-row"><span class="ltag" style="color:var(--c1);background:rgba(40,200,64,.08);border-color:rgba(40,200,64,.25)">Part 1</span></div>
   </section>
-
-  <section class="layer-sec" style="padding-top:16px;border-bottom:none">
+  <div style="margin-bottom:28px;line-height:2">
+  <span style="font-size:11px;color:var(--faint);text-transform:uppercase;letter-spacing:.06em">快速导航</span><br>
+  <a href="#cn-analysis" class="toc-link">六维分析</a>
+  <a href="#en-intro" class="toc-link">英文解析</a>
+  <a href="#code" class="toc-link">LangGraph 实现</a>
+</div>
+  <section class="layer-sec" style="padding-top:0;border-bottom:none">
     <div class="layer-hdr">
-      <span class="layer-id-badge" style="background:#1a7a2a;color:rgba(255,255,255,.9)">Concept</span>
-      <div class="layer-title">How It Works</div>
+      <span class="layer-id-badge" style="background:#1a7a2a;color:rgba(255,255,255,.9)">核心概念</span>
+      <div class="layer-title" style="font-size:18px">文本世界到结构化世界的跨越</div>
     </div>
-    <p class="layer-def" style="border-color:#28c840">Overcomes knowledge cutoffs by autonomously calling external APIs and functions when needed.</p>
-    <div style="font-size:14px;line-height:1.85;color:var(--text)">
-      <h2>📘 Agentic Architectures 2: Tool Use</h2>
-<p style="margin-bottom:12px;line-height:1.75;font-size:14px;color:var(--muted)">This notebook covers the second, and arguably one of the most transformative, agentic architectures: <strong style="color:var(--text)">Tool Use</strong>. This pattern is the bridge that connects a Large Language Model&#x27;s reasoning capabilities to the real, dynamic world.</p>
-<p style="margin-bottom:12px;line-height:1.75;font-size:14px;color:var(--muted)">Without tools, an LLM is a closed system, limited by the knowledge frozen into its training data. It cannot know today&#x27;s weather, the current price of a stock, or the status of an order in your company&#x27;s database. By giving an agent the ability to use tools, we empower it to overcome this fundamental limitation, allowing it to query APIs, search databases, and access live information to provide answers that are not just reasoned, but also factual, timely, and relevant.</p>
-<h4 style="color:var(--muted);margin:24px 0 8px;font-size:14px;text-transform:uppercase;letter-spacing:.06em">Definition</h4>
-<p style="margin-bottom:12px;line-height:1.75;font-size:14px;color:var(--muted)">The <strong style="color:var(--text)">Tool Use</strong> architecture equips an LLM-powered agent with the ability to call external functions or APIs (the &quot;tools&quot;). The agent autonomously decides when a user&#x27;s query cannot be answered by its internal knowledge alone and determines which tool is appropriate to call to find the necessary information.</p>
-<h4 style="color:var(--muted);margin:24px 0 8px;font-size:14px;text-transform:uppercase;letter-spacing:.06em">High-level Workflow</h4>
-<ol style="margin:0 0 16px 18px">
-<li style="margin-bottom:8px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Receive Query:</strong> The agent receives a request from the user.</li>
-<li style="margin-bottom:8px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Decision:</strong> The agent analyzes the query and its available tools. It decides if a tool is needed to answer the question accurately.</li>
-<li style="margin-bottom:8px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Action:</strong> If a tool is needed, the agent formats a call to that tool (e.g., a specific function with the right arguments).</li>
-<li style="margin-bottom:8px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Observation:</strong> The system executes the tool call, and the result (the &quot;observation&quot;) is returned to the agent.</li>
-<li style="margin-bottom:8px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Synthesis:</strong> The agent integrates the tool&#x27;s output into its reasoning process to generate a final, grounded answer for the user.</li>
-</ol>
-<h4 style="color:var(--muted);margin:24px 0 8px;font-size:14px;text-transform:uppercase;letter-spacing:.06em">When to Use / Applications</h4>
-<ul style="margin:0 0 16px 18px;list-style-type:disc">
-<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Research Assistants:</strong> Answering questions that require up-to-the-minute information by using a web search API.</li>
-<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Enterprise Assistants:</strong> Querying internal company databases to answer questions like &quot;How many new users signed up last week?&quot;</li>
-<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Scientific &amp; Mathematical Tasks:</strong> Using a calculator or a computational engine like WolframAlpha for precise calculations that LLMs often struggle with.</li>
-</ul>
-<h4 style="color:var(--muted);margin:24px 0 8px;font-size:14px;text-transform:uppercase;letter-spacing:.06em">Strengths &amp; Weaknesses</h4>
-<ul style="margin:0 0 16px 18px;list-style-type:disc">
-<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Strengths:</strong></li>
-<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Factual Grounding:</strong> Drastically reduces hallucinations by fetching real, live data.</li>
-<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Extensibility:</strong> The agent&#x27;s capabilities can be continuously expanded by simply adding new tools.</li>
-<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Weaknesses:</strong></li>
-<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Integration Overhead:</strong> Requires careful &quot;plumbing&quot; to define tools, handle API keys, and manage potential tool failures.</li>
-<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Tool Trust:</strong> The quality of the agent&#x27;s answer is dependent on the reliability and accuracy of the tools it uses. The agent must trust that its tools provide correct information.</li>
-</ul>
-    </div>
+    <p class="layer-def" style="border-color:#28c840">文本世界到结构化世界的跨越</p>
   </section>
+  <section class="layer-sec cn-section" id="cn-analysis">
+    <h3 style="border-color:#28c840">六维深度分析</h3>
+    <p style="font-size:13px;color:var(--faint);margin-bottom:24px">以下分析基于统一框架的六个核心问题：问题定义 → State 建模 → 拓扑结构 → Router 机制 → 失败模式 → 升级时机</p>
+    <p style="font-size:15px;color:var(--text);line-height:1.9;margin-bottom:24px;padding:16px 20px;background:var(--bg2);border-radius:8px;border-left:3px solid var(--c1)"><strong style="color:var(--c1)">核心洞察：</strong>Reflection 解决&quot;质量&quot;，但没解决&quot;知识边界&quot;，一个不带工具的 LLM 再会反思也被困在参数里，Tool Use 要 <strong style="color:var(--text)">让系统突破上下文与知识截止日期的封闭性</strong> 。</p>
+<div style="margin-bottom:32px">
+  <h4 style="font-size:16px;font-weight:600;margin:0 0 12px;color:var(--text)">要解决什么问题？</h4>
+  <div style="padding-left:4px"><p style="margin-bottom:12px;line-height:1.85">Reflection 解决&quot;质量&quot;，但没解决&quot;知识边界&quot;，一个不带工具的 LLM 再会反思也被困在参数里，Tool Use 要 <strong style="color:var(--text)">让系统突破上下文与知识截止日期的封闭性</strong> 。</p></div>
+</div>
+<div style="margin-bottom:32px">
+  <h4 style="font-size:16px;font-weight:600;margin:0 0 12px;color:var(--text)">State 设计</h4>
+  <div style="padding-left:4px"><p style="margin-bottom:12px;line-height:1.85">Tool Use 的 state 本质上是一条&quot;事件日志&quot;：用户输入 → 模型输出 → 工具调用 → 工具返回 → 下一轮推理。 在 agno 里，这条日志是 <code style="font-family:var(--mono);font-size:12px;background:var(--bg3);padding:1px 6px;border-radius:4px;color:var(--c1)">Agent</code> 内部自动维护的——一次 <code style="font-family:var(--mono);font-size:12px;background:var(--bg3);padding:1px 6px;border-radius:4px;color:var(--c1)">agent.run()</code> 内部就完整地跑完这整个链路。</p>
 
-  <section class="layer-sec" id="code">
-    <div class="layer-hdr">
-      <span class="layer-id-badge" style="background:#1a7a2a;color:rgba(255,255,255,.9)">Implementation</span>
-      <div class="layer-title">Code <small style="font-size:14px;font-weight:400;color:var(--muted)">LangChain + LangGraph</small></div>
-    </div>
-    <div class="codeblock">
-  <div class="cb-head">
+<p style="margin-bottom:12px;line-height:1.85">state 从&quot;你需要自己维护的数据结构&quot;变成了&quot;框架托管的会话上下文&quot;，这也是 Tool Use 和 Reflection 在工程侧最显眼的差别。</p></div>
+</div>
+<div style="margin-bottom:32px">
+  <h4 style="font-size:16px;font-weight:600;margin:0 0 12px;color:var(--text)">关键代码</h4>
+  <div style="padding-left:4px"><p style="margin-bottom:12px;line-height:1.85"><div class="codeblock" style="margin:12px 0 20px">
+  <div class="cb-head" style="font-size:11px">
     <span class="cb-dot" style="background:#f85149"></span>
     <span class="cb-dot" style="background:#e3b341"></span>
     <span class="cb-dot" style="background:#28c840"></span>
-    src/src/... · 166 lines
+    agno 实现示例 · 16 行
   </div>
-  <div class="cb-body"><span class="str">&quot;&quot;&quot;
+  <div class="cb-body" style="font-size:12px;line-height:1.8"><span class="kw">from</span> agno.agent <span class="kw">import</span> Agent
+<span class="kw">from</span> agno.models.openai <span class="kw">import</span> OpenAIChat
+<span class="kw">from</span> agno.tools.duckduckgo <span class="kw">import</span> DuckDuckGoTools
+
+<span class="kw">def</span> <span class="fn">get_stock_price</span>(symbol<span class="op">:</span> <span class="fn">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="fn">str</span><span class="op">:</span>
+    <span class="str">&quot;&quot;&quot;Return the latest stock price for a given symbol.&quot;&quot;&quot;</span>
+    <span class="kw">return</span> f<span class="str">&quot;The current price of {symbol.upper()} is $172.35.&quot;</span>
+
+tool_agent <span class="op">=</span> <span class="fn">Agent</span>(
+    model<span class="op">=</span><span class="fn">OpenAIChat</span>(id<span class="op">=</span><span class="str">&quot;gpt-5-mini&quot;</span>),
+    tools<span class="op">=</span>[get_stock_price, <span class="fn">DuckDuckGoTools</span>()],
+    instructions<span class="op">=</span><span class="str">&quot;Use tools to answer questions that need real-time data.&quot;</span>,
+    show_tool_calls<span class="op">=</span><span class="kw">True</span>,
+)
+
+tool_agent.<span class="fn">run</span>(<span class="str">&quot;What is Apple&#x27;s current stock price?&quot;</span>)</div>
+</div></p>
+
+<p style="margin-bottom:12px;line-height:1.85">底层等价于：</p>
+
+<p style="margin-bottom:12px;line-height:1.85"><div class="codeblock" style="margin:12px 0 20px">
+  <div class="cb-head" style="font-size:11px">
+    <span class="cb-dot" style="background:#f85149"></span>
+    <span class="cb-dot" style="background:#e3b341"></span>
+    <span class="cb-dot" style="background:#28c840"></span>
+    agno 实现示例 · 9 行
+  </div>
+  <div class="cb-body" style="font-size:12px;line-height:1.8"><span class="cm"># 概念上 agno 内部循环</span>
+<span class="kw">while</span> <span class="kw">True</span><span class="op">:</span>
+    response <span class="op">=</span> llm_with_tools.<span class="fn">invoke</span>(messages)
+    messages.<span class="fn">append</span>(response)
+    <span class="kw">if</span> <span class="kw">not</span> response.tool_calls<span class="op">:</span>
+        <span class="kw">break</span>
+    <span class="kw">for</span> call <span class="kw">in</span> response.tool_calls<span class="op">:</span>
+        observation <span class="op">=</span> tool_registry[call.name](<span class="op">*</span><span class="op">*</span>call.args)
+        messages.<span class="fn">append</span>(<span class="fn">ToolMessage</span>(observation, tool_call_id<span class="op">=</span>call.id))</div>
+</div></p>
+
+<p style="margin-bottom:12px;line-height:1.85">这个 while 循环是 agno <code style="font-family:var(--mono);font-size:12px;background:var(--bg3);padding:1px 6px;border-radius:4px;color:var(--c1)">Agent</code> 帮你内置的。</p></div>
+</div>
+<div style="margin-bottom:32px">
+  <h4 style="font-size:16px;font-weight:600;margin:0 0 12px;color:var(--text)">失败模式</h4>
+  <div style="padding-left:4px"><p style="margin-bottom:12px;line-height:1.85">失败通常不来自 LLM 本身，而来自&quot;边界层&quot;：工具名幻觉、参数类型错误、工具返回格式不对、工具结果被模型错误综合。Tool Use 的关键难点不是 prompt，而是 <strong style="color:var(--text)">序列化与反序列化</strong> 。</p></div>
+</div>
+<div style="margin-bottom:32px">
+  <h4 style="font-size:16px;font-weight:600;margin:0 0 12px;color:var(--text)">何时升级</h4>
+  <div style="padding-left:4px"><p style="margin-bottom:12px;line-height:1.85">因为 Tool Use 没有显式规定&quot;一定要循环&quot;，在最原始的实现里，模型可能只调一次工具就收尾，你需要真正的观察-行动闭环——这就是 ReAct。</p>
+
+<p style="font-size:13px;color:var(--muted);margin:12px 0;padding:8px 16px;border-left:2px solid var(--border);font-style:italic">📎 参考实现： [02\_tool\_use.ipynb](https://github.com/FareedKhan-dev/all-agentic-architectures/02_tool_use.ipynb)</p>
+
+<p style="margin-bottom:12px;line-height:1.85">---</p></div>
+</div>
+<div style="margin-bottom:32px">
+  <h4 style="font-size:16px;font-weight:600;margin:0 0 12px;color:var(--text)">新增的能力</h4>
+  <div style="padding-left:4px"><p style="margin-bottom:12px;line-height:1.85">不是&quot;会调用函数&quot;，而是： <strong style="color:var(--text)">文本控制流可以跨越到结构化世界，再返回文本世界。</strong> 这个跨越点是整个 agent engineering 的第一道硬边界。</p></div>
+</div>
+  </section>
+  <section class="layer-sec" id="en-intro" style="border-bottom:none">
+    <h3 style="border-color:#28c840">英文原版解析</h3>
+    <p style="font-size:12px;color:var(--faint);margin-bottom:16px">来自 Jupyter Notebook 的原始英文概念说明</p>
+    <div style="font-size:13px;line-height:1.8;color:var(--muted)"><h3 style="font-size:16px;font-weight:600;margin:20px 0 8px;color:var(--text)">📘 Agentic Architectures 2: Tool Use</h3>
+<p style="margin-bottom:8px;line-height:1.7;font-size:13px;color:var(--muted)">This notebook covers the second, and arguably one of the most transformative, agentic architectures: <strong style="color:var(--text)">Tool Use</strong>. This pattern is the bridge that connects a Large Language Model&#x27;s reasoning capabilities to the real, dynamic world.</p>
+<p style="margin-bottom:8px;line-height:1.7;font-size:13px;color:var(--muted)">Without tools, an LLM is a closed system, limited by the knowledge frozen into its training data. It cannot know today&#x27;s weather, the current price of a stock, or the status of an order in your company&#x27;s database. By giving an agent the ability to use tools, we empower it to overcome this fundamental limitation, allowing it to query APIs, search databases, and access live information to provide answers that are not just reasoned, but also factual, timely, and relevant.</p>
+<p style="font-weight:600;margin:14px 0 4px;font-size:14px">Definition</p>
+<p style="margin-bottom:8px;line-height:1.7;font-size:13px;color:var(--muted)">The <strong style="color:var(--text)">Tool Use</strong> architecture equips an LLM-powered agent with the ability to call external functions or APIs (the &quot;tools&quot;). The agent autonomously decides when a user&#x27;s query cannot be answered by its internal knowledge alone and determines which tool is appropriate to call to find the necessary information.</p>
+<p style="font-weight:600;margin:14px 0 4px;font-size:14px">High-level Workflow</p>
+<ol style="margin:4px 0 12px 18px">
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Receive Query:</strong> The agent receives a request from the user.</li>
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Decision:</strong> The agent analyzes the query and its available tools. It decides if a tool is needed to answer the question accurately.</li>
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Action:</strong> If a tool is needed, the agent formats a call to that tool (e.g., a specific function with the right arguments).</li>
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Observation:</strong> The system executes the tool call, and the result (the &quot;observation&quot;) is returned to the agent.</li>
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Synthesis:</strong> The agent integrates the tool&#x27;s output into its reasoning process to generate a final, grounded answer for the user.</li>
+</ul>
+<p style="font-weight:600;margin:14px 0 4px;font-size:14px">When to Use / Applications</p>
+<ul style="margin:4px 0 12px 18px;list-style-type:disc">
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Research Assistants:</strong> Answering questions that require up-to-the-minute information by using a web search API.</li>
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Enterprise Assistants:</strong> Querying internal company databases to answer questions like &quot;How many new users signed up last week?&quot;</li>
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Scientific &amp; Mathematical Tasks:</strong> Using a calculator or a computational engine like WolframAlpha for precise calculations that LLMs often struggle with.</li>
+</ul>
+<p style="font-weight:600;margin:14px 0 4px;font-size:14px">Strengths &amp; Weaknesses</p>
+<ul style="margin:4px 0 12px 18px;list-style-type:disc">
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Strengths:</strong></li>
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Factual Grounding:</strong> Drastically reduces hallucinations by fetching real, live data.</li>
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Extensibility:</strong> The agent&#x27;s capabilities can be continuously expanded by simply adding new tools.</li>
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Weaknesses:</strong></li>
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Integration Overhead:</strong> Requires careful &quot;plumbing&quot; to define tools, handle API keys, and manage potential tool failures.</li>
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Tool Trust:</strong> The quality of the agent&#x27;s answer is dependent on the reliability and accuracy of the tools it uses. The agent must trust that its tools provide correct information.</li>
+</ul></div>
+  </section>
+  <section class="layer-sec" id="code">
+    <h3 style="border-color:#28c840">LangChain + LangGraph 实现代码</h3>
+    <p style="font-size:12px;color:var(--faint);margin-bottom:16px">完整的端到端实现代码，可从 src/ 目录直接运行</p>
+    <div class="codeblock">
+  <div class="cb-head">
+    <span class="cb-dot" style="background:#f85149"></span><span class="cb-dot" style="background:#e3b341"></span><span class="cb-dot" style="background:#28c840"></span>
+    src/... · LangChain + LangGraph · 165 行
+  </div>
+  <div class="cb-body" style="font-size:12px;line-height:1.8"><span class="str">&quot;&quot;&quot;
 Tool Use - Agentic Architecture
 Extracted from: 02_tool_use.ipynb
 &quot;&quot;&quot;</span>
@@ -260,8 +339,5 @@ console.<span class="fn">print</span>(evaluation.<span class="fn">model_dump</sp
 </div>
 </div>
   </section>
-
-  <div class="prevnext"><a href="reflection.html"><span class="coding">Previous</span><br><span class="pn-strong">← Reflection</span></a><a href="react.html" style="text-align:right"><span class="coding">Next</span><br><span class="pn-strong">ReAct →</span></a></div>
-</div><div class="footer">
-  <p>Built from <a href="https://github.com/1998x-stack/all-agentic-architectures" style="color:var(--text)">all-agentic-architectures</a></p>
-</div></body></html>
+  <div class="prevnext"><a href="reflection.html"><span class="pn-label">&larr; 上一架构</span>#01 反思模式</a><a href="react.html" style="text-align:right"><span class="pn-label">下一架构 &rarr;</span>#03 推理与行动循环</a></div>
+</div><div class="footer"><p>Built from <a href="https://github.com/1998x-stack/all-agentic-architectures" style="color:var(--text)">all-agentic-architectures</a></p></div></body></html>

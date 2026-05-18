@@ -1,99 +1,225 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>#07 Blackboard Systems — All Agentic Architectures</title>
+<title>#07 黑板系统 — All Agentic Architectures</title>
 <link rel="stylesheet" href="base-dark.css">
 <style>
-  :root {
-    --c1: #28c840; --c1d: #1a7a2a;
-    --c2: #378add; --c2d: #1a5290;
-    --c3: #a259ff; --c3d: #5a2a8a;
-    --c4: #f0883e; --c4d: #9a4a1a;
-    --c5: #1db0a0; --c5d: #0f6e56;
-  }
-  .hero h1 em {
-    background: linear-gradient(90deg, var(--c1), var(--c2), var(--c3), var(--c4), var(--c5));
-    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-  }
-  .prevnext { display: flex; justify-content: space-between; padding: 32px 0; border-top: 1px solid var(--border); margin-top: 48px; }
-  .prevnext a { color: var(--muted); font-size: 13px; }
-  .prevnext a:hover { color: var(--text); text-decoration: none; }
-  .pn-strong { color: var(--text) !important; font-weight: 500; }
-  .coding { font-size: 11px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); margin-bottom: 4px; }
-  h2 { font-size: 22px; font-weight: 600; margin: 0 0 12px; letter-spacing: -.01em; }
-  h3 { font-size: 18px; font-weight: 600; margin: 32px 0 12px; }
+  :root{--c1:#28c840;--c1d:#1a7a2a;--c2:#378add;--c2d:#1a5290;--c3:#a259ff;--c3d:#5a2a8a;--c4:#f0883e;--c4d:#9a4a1a;--c5:#1db0a0;--c5d:#0f6e56}
+  .hero h1 em{background:linear-gradient(90deg,var(--c1),var(--c2),var(--c3),var(--c4),var(--c5));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+  .prevnext{display:flex;justify-content:space-between;padding:32px 0;border-top:1px solid var(--border);margin-top:56px}
+  .prevnext a{color:var(--muted);font-size:14px;transition:color .15s}
+  .prevnext a:hover{color:var(--text);text-decoration:none}
+  .prevnext .pn-label{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--faint);margin-bottom:4px;display:block}
+  .cn-section{margin-top:48px}
+  .cn-section h3{font-size:20px;font-weight:700;margin-bottom:20px;padding-bottom:8px;border-bottom:1px solid var(--border)}
+  .toc-link{display:inline-block;padding:3px 8px;border-radius:4px;font-size:11px;font-family:var(--mono);color:var(--muted);border:1px solid var(--border);margin:2px 4px 2px 0;transition:all .15s}
+  .toc-link:hover{border-color:var(--c1);color:var(--c1);text-decoration:none}
 </style>
 
 </head>
 <body><nav>
   <div class="nav-inner">
-    <span class="nav-brand">All Agentic Architectures <span>· 17 Patterns</span></span>
-    <a class="nl" href="index.html">Overview</a>
+    <a href="index.html" style="text-decoration:none"><span class="nav-brand">All Agentic Architectures <span>· 17 种架构</span></span></a>
+    <a class="nl" href="index.html">总览</a>
+    <a class="nl" href="index.html#p1">基础</a>
+    <a class="nl" href="index.html#p2">多智能体</a>
+    <a class="nl" href="index.html#p3">记忆推理</a>
+    <a class="nl" href="index.html#p4">安全可靠</a>
+    <a class="nl" href="index.html#p5">学习适应</a>
   </div>
 </nav><div class="page">
-  <section class="hero" style="padding-bottom:32px">
-    <div class="hero-badge"><span class="dot" style="background:var(--c2)"></span> #07 · Multi-Agent Collaboration</div>
-    <h1 style="font-size:36px;color:var(--text)">Blackboard Systems</h1>
-    <p style="margin-bottom:20px">Complex Diagnostics, Dynamic Sense-Making</p>
-    <div class="tag-row">
-      <span class="ltag" style="color:var(--c2);background:rgba(55,138,221,.08);border-color:rgba(55,138,221,.25)">Part 2</span>
-    </div>
+  <section class="hero" style="padding-bottom:28px">
+    <div class="hero-badge"><span class="dot" style="background:var(--c2)"></span> #07 · 把中间状态显式共享 · shared workspace</div>
+    <h1 style="font-size:34px;color:var(--text);margin-bottom:6px">黑板系统 <span style="font-size:18px;font-weight:400;color:var(--muted)">Blackboard Systems</span></h1>
+    <p style="font-size:14px;color:var(--faint);margin-bottom:8px;font-style:italic">共享状态成为系统中心</p>
+    <p style="margin-bottom:8px;font-size:14px">共享状态成为系统中心</p>
+    <p style="font-size:13px;color:var(--muted);margin-bottom:20px">典型应用：</p>
+    <div class="tag-row"><span class="ltag" style="color:var(--c2);background:rgba(55,138,221,.08);border-color:rgba(55,138,221,.25)">Part 2</span></div>
   </section>
-
-  <section class="layer-sec" style="padding-top:16px;border-bottom:none">
+  <div style="margin-bottom:28px;line-height:2">
+  <span style="font-size:11px;color:var(--faint);text-transform:uppercase;letter-spacing:.06em">快速导航</span><br>
+  <a href="#cn-analysis" class="toc-link">六维分析</a>
+  <a href="#en-intro" class="toc-link">英文解析</a>
+  <a href="#code" class="toc-link">LangGraph 实现</a>
+</div>
+  <section class="layer-sec" style="padding-top:0;border-bottom:none">
     <div class="layer-hdr">
-      <span class="layer-id-badge" style="background:#1a5290;color:rgba(255,255,255,.9)">Concept</span>
-      <div class="layer-title">How It Works</div>
+      <span class="layer-id-badge" style="background:#1a5290;color:rgba(255,255,255,.9)">核心概念</span>
+      <div class="layer-title" style="font-size:18px">共享状态成为系统中心</div>
     </div>
-    <p class="layer-def" style="border-color:#378add">Agents collaborate opportunistically via a shared central memory, guided by a dynamic controller.</p>
-    <div style="font-size:14px;line-height:1.85;color:var(--text)">
-      <h2>📘 Agentic Architectures 7: Blackboard Systems</h2>
-<p style="margin-bottom:12px;line-height:1.75;font-size:14px;color:var(--muted)">Welcome to the seventh notebook in our series on agentic architectures. Today, we explore the <strong style="color:var(--text)">Blackboard System</strong>, a powerful and highly flexible pattern for coordinating multiple specialist agents. This architecture is modeled on the idea of a group of human experts collaborating around a physical blackboard to solve a complex problem.</p>
-<p style="margin-bottom:12px;line-height:1.75;font-size:14px;color:var(--muted)">Instead of a rigid, predefined sequence of agent handoffs, a Blackboard system features a central, shared data store (the &#x27;blackboard&#x27;) where agents can read the current state of the problem and write their contributions. A dynamic <strong style="color:var(--text)">Controller</strong> observes the blackboard and decides which specialist agent to activate next based on what is needed to move the solution forward. This allows for an opportunistic and emergent workflow.</p>
-<p style="margin-bottom:12px;line-height:1.75;font-size:14px;color:var(--muted)">To highlight its unique advantages, we will compare it to the <strong style="color:var(--text)">sequential multi-agent system</strong> we built previously. We will present both systems with a complex financial query where the optimal path isn&#x27;t a simple A → B → C sequence. We will demonstrate how the rigid sequential agent follows a suboptimal path, while the Blackboard system&#x27;s dynamic Controller activates agents in a more logical, data-driven order, resulting in a more efficient and coherent analysis.</p>
-<h4 style="color:var(--muted);margin:24px 0 8px;font-size:14px;text-transform:uppercase;letter-spacing:.06em">Definition</h4>
-<p style="margin-bottom:12px;line-height:1.75;font-size:14px;color:var(--muted)">A <strong style="color:var(--text)">Blackboard System</strong> is a multi-agent architecture where multiple specialist agents collaborate by reading from and writing to a shared, central data repository called the &#x27;blackboard&#x27;. A controller or scheduler dynamically determines which agent should act next based on the evolving state of the solution on the blackboard.</p>
-<h4 style="color:var(--muted);margin:24px 0 8px;font-size:14px;text-transform:uppercase;letter-spacing:.06em">High-level Workflow</h4>
-<ol style="margin:0 0 16px 18px">
-<li style="margin-bottom:8px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Shared Memory (The Blackboard):</strong> A central data structure holds the current state of the problem, including the user&#x27;s request, intermediate findings, and partial solutions.</li>
-<li style="margin-bottom:8px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Specialist Agents:</strong> A pool of independent agents, each with a specific expertise, continuously monitors the blackboard.</li>
-<li style="margin-bottom:8px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Controller:</strong> A central &#x27;controller&#x27; agent also monitors the blackboard. Its job is to analyze the current state and decide which specialist agent is best equipped to make the next contribution.</li>
-<li style="margin-bottom:8px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Opportunistic Activation:</strong> The Controller activates the chosen agent. The agent reads the relevant data from the blackboard, performs its task, and writes its findings back to the blackboard.</li>
-<li style="margin-bottom:8px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Iteration:</strong> The process repeats, with the Controller activating different agents in a dynamic sequence, until it determines that the solution on the blackboard is complete.</li>
-</ol>
-<h4 style="color:var(--muted);margin:24px 0 8px;font-size:14px;text-transform:uppercase;letter-spacing:.06em">When to Use / Applications</h4>
-<ul style="margin:0 0 16px 18px;list-style-type:disc">
-<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Complex, Ill-Structured Problems:</strong> Ideal for problems where the solution path is not known in advance and requires an emergent, opportunistic strategy (e.g., complex diagnostics, scientific discovery).</li>
-<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Multi-Modal Systems:</strong> A great way to coordinate agents that work with different data types (text, images, code), as they can all post their findings to the shared blackboard.</li>
-<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Dynamic Sense-Making:</strong> Situations that require synthesizing information from many disparate, asynchronous sources.</li>
-</ul>
-<h4 style="color:var(--muted);margin:24px 0 8px;font-size:14px;text-transform:uppercase;letter-spacing:.06em">Strengths &amp; Weaknesses</h4>
-<ul style="margin:0 0 16px 18px;list-style-type:disc">
-<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Strengths:</strong></li>
-<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Flexibility &amp; Adaptability:</strong> The workflow is not hardcoded; it emerges based on the problem, making the system highly adaptive.</li>
-<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Modularity:</strong> It&#x27;s very easy to add or remove specialist agents without re-architecting the entire system.</li>
-<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Weaknesses:</strong></li>
-<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Controller Complexity:</strong> The intelligence of the entire system depends heavily on the sophistication of the Controller. A naive Controller can lead to inefficient or looping behavior.</li>
-<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Debugging Challenges:</strong> The non-linear, emergent nature of the workflow can sometimes make it harder to trace and debug than a simple sequential process.</li>
-</ul>
-    </div>
+    <p class="layer-def" style="border-color:#378add">共享状态成为系统中心</p>
   </section>
-
-  <section class="layer-sec" id="code">
-    <div class="layer-hdr">
-      <span class="layer-id-badge" style="background:#1a5290;color:rgba(255,255,255,.9)">Implementation</span>
-      <div class="layer-title">Code <small style="font-size:14px;font-weight:400;color:var(--muted)">LangChain + LangGraph</small></div>
-    </div>
-    <div class="codeblock">
-  <div class="cb-head">
+  <section class="layer-sec cn-section" id="cn-analysis">
+    <h3 style="border-color:#378add">六维深度分析</h3>
+    <p style="font-size:13px;color:var(--faint);margin-bottom:24px">以下分析基于统一框架的六个核心问题：问题定义 → State 建模 → 拓扑结构 → Router 机制 → 失败模式 → 升级时机</p>
+    <p style="font-size:15px;color:var(--text);line-height:1.9;margin-bottom:24px;padding:16px 20px;background:var(--bg2);border-radius:8px;border-left:3px solid var(--c1)"><strong style="color:var(--c1)">核心洞察：</strong>Multi-Agent 里角色有了，但顺序还是硬编码的。Blackboard 解决的是： <strong style="color:var(--text)">不要预先写死专家的调用顺序，而是让共享工作区的当前状态来决定下一步应该激活谁。</strong></p>
+<div style="margin-bottom:32px">
+  <h4 style="font-size:16px;font-weight:600;margin:0 0 12px;color:var(--text)">要解决什么问题？</h4>
+  <div style="padding-left:4px"><p style="margin-bottom:12px;line-height:1.85">Multi-Agent 里角色有了，但顺序还是硬编码的。Blackboard 解决的是： <strong style="color:var(--text)">不要预先写死专家的调用顺序，而是让共享工作区的当前状态来决定下一步应该激活谁。</strong></p></div>
+</div>
+<div style="margin-bottom:32px">
+  <h4 style="font-size:16px;font-weight:600;margin:0 0 12px;color:var(--text)">State 设计</h4>
+  <div style="padding-left:4px"><p style="margin-bottom:12px;line-height:1.85"><div class="codeblock" style="margin:12px 0 20px">
+  <div class="cb-head" style="font-size:11px">
     <span class="cb-dot" style="background:#f85149"></span>
     <span class="cb-dot" style="background:#e3b341"></span>
     <span class="cb-dot" style="background:#28c840"></span>
-    src/src/... · 312 lines
+    agno 实现示例 · 5 行
   </div>
-  <div class="cb-body"><span class="str">&quot;&quot;&quot;
+  <div class="cb-body" style="font-size:12px;line-height:1.8"><span class="kw">class</span> <span class="fn">BlackboardState</span>(BaseModel)<span class="op">:</span>
+    user_request<span class="op">:</span> <span class="fn">str</span>
+    blackboard<span class="op">:</span> <span class="fn">dict</span>
+    next_agent<span class="op">:</span> Optional[<span class="fn">str</span>] <span class="op">=</span> <span class="kw">None</span>
+    is_complete<span class="op">:</span> <span class="fn">bool</span> <span class="op">=</span> <span class="kw">False</span></div>
+</div></p>
+
+<p style="margin-bottom:12px;line-height:1.85">之前的 state 更像&quot;按字段分区的结果容器&quot;；现在的 state 变成了一个 <strong style="color:var(--text)">共享工作台</strong> 。所有专家都围绕这块黑板读写。</p></div>
+</div>
+<div style="margin-bottom:32px">
+  <h4 style="font-size:16px;font-weight:600;margin:0 0 12px;color:var(--text)">关键代码</h4>
+  <div style="padding-left:4px"><p style="margin-bottom:12px;line-height:1.85"><div class="codeblock" style="margin:12px 0 20px">
+  <div class="cb-head" style="font-size:11px">
+    <span class="cb-dot" style="background:#f85149"></span>
+    <span class="cb-dot" style="background:#e3b341"></span>
+    <span class="cb-dot" style="background:#28c840"></span>
+    agno 实现示例 · 62 行
+  </div>
+  <div class="cb-body" style="font-size:12px;line-height:1.8"><span class="kw">import</span> json
+
+<span class="kw">class</span> <span class="fn">ControllerDecision</span>(BaseModel)<span class="op">:</span>
+    next_agent<span class="op">:</span> <span class="fn">str</span> <span class="op">=</span> <span class="fn">Field</span>(description<span class="op">=</span><span class="str">&quot;One of [&#x27;news&#x27;, &#x27;technical&#x27;, &#x27;financial&#x27;, &#x27;writer&#x27;, &#x27;FINISH&#x27;].&quot;</span>)
+    reasoning<span class="op">:</span> <span class="fn">str</span> <span class="op">=</span> <span class="fn">Field</span>(description<span class="op">=</span><span class="str">&quot;A brief reason for choosing the next agent.&quot;</span>)
+
+controller <span class="op">=</span> <span class="fn">Agent</span>(
+    name<span class="op">=</span><span class="str">&quot;controller&quot;</span>,
+    model<span class="op">=</span><span class="fn">OpenAIChat</span>(id<span class="op">=</span><span class="str">&quot;gpt-5-mini&quot;</span>),
+    response_model<span class="op">=</span>ControllerDecision,
+    instructions<span class="op">=</span>(
+        <span class="str">&quot;You are the controller of a blackboard system. &quot;</span>
+        <span class="str">&quot;Inspect what is currently on the blackboard and decide which specialist &quot;</span>
+        <span class="str">&quot;should be called next, or FINISH if the report is ready.&quot;</span>
+    ),
+)
+
+SPECIALISTS <span class="op">=</span> {
+    <span class="str">&quot;news&quot;</span><span class="op">:</span> news_analyst,
+    <span class="str">&quot;technical&quot;</span><span class="op">:</span> technical_analyst,
+    <span class="str">&quot;financial&quot;</span><span class="op">:</span> financial_analyst,
+    <span class="str">&quot;writer&quot;</span><span class="op">:</span> report_writer,
+}
+
+<span class="kw">def</span> <span class="fn">controller_step</span>(si)<span class="op">:</span>
+    s <span class="op">=</span> si.workflow_session_state
+    bb_snapshot <span class="op">=</span> json.<span class="fn">dumps</span>(s[<span class="str">&quot;blackboard&quot;</span>], indent<span class="op">=</span><span class="num">2</span>, ensure_ascii<span class="op">=</span><span class="kw">False</span>)
+    decision <span class="op">=</span> controller.<span class="fn">run</span>(
+        f<span class="str">&quot;Original request: {s[&#x27;user_request&#x27;]}\n\nBlackboard so far:\n{bb_snapshot}&quot;</span>
+    ).content
+    s[<span class="str">&quot;next_agent&quot;</span>] <span class="op">=</span> decision.next_agent
+    <span class="kw">return</span> decision
+
+<span class="kw">def</span> <span class="fn">specialist_step</span>(si)<span class="op">:</span>
+    s <span class="op">=</span> si.workflow_session_state
+    <span class="kw">if</span> s[<span class="str">&quot;next_agent&quot;</span>] <span class="op">=</span><span class="op">=</span> <span class="str">&quot;FINISH&quot;</span><span class="op">:</span>
+        <span class="kw">return</span><span class="str">&quot;finished&quot;</span>
+    agent <span class="op">=</span> SPECIALISTS[s[<span class="str">&quot;next_agent&quot;</span>]]
+    piece <span class="op">=</span> agent.<span class="fn">run</span>(
+        f<span class="str">&quot;Request: {s[&#x27;user_request&#x27;]}\nBlackboard:\n{json.dumps(s[&#x27;blackboard&#x27;])}&quot;</span>
+    ).content
+    s[<span class="str">&quot;blackboard&quot;</span>][s[<span class="str">&quot;next_agent&quot;</span>]] <span class="op">=</span> piece
+    <span class="kw">return</span> piece
+
+<span class="kw">def</span> <span class="fn">bb_loop_done</span>(_outputs) <span class="op">-</span><span class="op">&gt;</span> <span class="fn">bool</span><span class="op">:</span>
+    <span class="str">&quot;&quot;&quot;controller 选出 FINISH 就终止循环。&quot;&quot;&quot;</span>
+    <span class="kw">return</span> blackboard_wf.session_state[<span class="str">&quot;next_agent&quot;</span>] <span class="op">=</span><span class="op">=</span> <span class="str">&quot;FINISH&quot;</span>
+
+blackboard_wf <span class="op">=</span> <span class="fn">Workflow</span>(
+    name<span class="op">=</span><span class="str">&quot;blackboard&quot;</span>,
+    session_state<span class="op">=</span>{<span class="str">&quot;user_request&quot;</span><span class="op">:</span> <span class="str">&quot;&quot;</span>, <span class="str">&quot;blackboard&quot;</span><span class="op">:</span> {}, <span class="str">&quot;next_agent&quot;</span><span class="op">:</span> <span class="kw">None</span>},
+    steps<span class="op">=</span>[
+        <span class="fn">Loop</span>(
+            name<span class="op">=</span><span class="str">&quot;bb_loop&quot;</span>,
+            steps<span class="op">=</span>[
+                <span class="fn">Step</span>(name<span class="op">=</span><span class="str">&quot;controller&quot;</span>, executor<span class="op">=</span>controller_step),
+                <span class="fn">Step</span>(name<span class="op">=</span><span class="str">&quot;specialist&quot;</span>, executor<span class="op">=</span>specialist_step),
+            ],
+            end_condition<span class="op">=</span>bb_loop_done,
+        ),
+    ],
+)</div>
+</div></p>
+
+<p style="margin-bottom:12px;line-height:1.85">拓扑不是固定链，而是一个 <strong style="color:var(--text)">持续调度回路</strong> ：</p>
+
+<p style="margin-bottom:12px;line-height:1.85">&#x27; fill=&#x27;%23FFFFFF&#x27;%3E%3Crect x=&#x27;249&#x27; y=&#x27;126&#x27; width=&#x27;1&#x27; height=&#x27;1&#x27;%3E%3C/rect%3E%3C/g%3E%3C/g%3E%3C/svg%3E)</p>
+
+<p style="margin-bottom:12px;line-height:1.85">系统控制中心从 &quot;预定义工作流&quot; 转向 &quot;共享状态 + 调度器&quot;。</p></div>
+</div>
+<div style="margin-bottom:32px">
+  <h4 style="font-size:16px;font-weight:600;margin:0 0 12px;color:var(--text)">失败模式</h4>
+  <div style="padding-left:4px"><ul style="margin:0 0 16px 20px;list-style-type:disc;color:var(--text);font-size:14px"><li style="margin-bottom:8px;line-height:1.75">controller 决策不稳定</li>
+<li style="margin-bottom:8px;line-height:1.75">blackboard 结构变脏，信息冲突</li>
+<li style="margin-bottom:8px;line-height:1.75">专家之间重复劳动</li>
+<li style="margin-bottom:8px;line-height:1.75">系统容易过度循环</li>
+</ul>
+<p style="margin-bottom:12px;line-height:1.85">Blackboard 用灵活性换来了调度复杂度。</p></div>
+</div>
+<div style="margin-bottom:32px">
+  <h4 style="font-size:16px;font-weight:600;margin:0 0 12px;color:var(--text)">何时升级</h4>
+  <div style="padding-left:4px"><p style="margin-bottom:12px;line-height:1.85">如果问题的顺序本来就很固定，用 Blackboard 反而是过度设计，但如果你真正需要的不是持续调度，而只是&quot;请求进来时先分诊一次&quot;，那就该看 Meta-Controller。</p>
+
+<p style="font-size:13px;color:var(--muted);margin:12px 0;padding:8px 16px;border-left:2px solid var(--border);font-style:italic">📎 参考实现： [07\_blackboard.ipynb](https://github.com/FareedKhan-dev/all-agentic-architectures/07_blackboard.ipynb)</p>
+
+<p style="margin-bottom:12px;line-height:1.85">---</p></div>
+</div>
+<div style="margin-bottom:32px">
+  <h4 style="font-size:16px;font-weight:600;margin:0 0 12px;color:var(--text)">新增的能力</h4>
+  <div style="padding-left:4px"><p style="margin-bottom:12px;line-height:1.85"><strong style="color:var(--text)">持续的、基于中间状态的动态编排。</strong></p></div>
+</div>
+  </section>
+  <section class="layer-sec" id="en-intro" style="border-bottom:none">
+    <h3 style="border-color:#378add">英文原版解析</h3>
+    <p style="font-size:12px;color:var(--faint);margin-bottom:16px">来自 Jupyter Notebook 的原始英文概念说明</p>
+    <div style="font-size:13px;line-height:1.8;color:var(--muted)"><h3 style="font-size:16px;font-weight:600;margin:20px 0 8px;color:var(--text)">📘 Agentic Architectures 7: Blackboard Systems</h3>
+<p style="margin-bottom:8px;line-height:1.7;font-size:13px;color:var(--muted)">Welcome to the seventh notebook in our series on agentic architectures. Today, we explore the <strong style="color:var(--text)">Blackboard System</strong>, a powerful and highly flexible pattern for coordinating multiple specialist agents. This architecture is modeled on the idea of a group of human experts collaborating around a physical blackboard to solve a complex problem.</p>
+<p style="margin-bottom:8px;line-height:1.7;font-size:13px;color:var(--muted)">Instead of a rigid, predefined sequence of agent handoffs, a Blackboard system features a central, shared data store (the &#x27;blackboard&#x27;) where agents can read the current state of the problem and write their contributions. A dynamic <strong style="color:var(--text)">Controller</strong> observes the blackboard and decides which specialist agent to activate next based on what is needed to move the solution forward. This allows for an opportunistic and emergent workflow.</p>
+<p style="margin-bottom:8px;line-height:1.7;font-size:13px;color:var(--muted)">To highlight its unique advantages, we will compare it to the <strong style="color:var(--text)">sequential multi-agent system</strong> we built previously. We will present both systems with a complex financial query where the optimal path isn&#x27;t a simple A → B → C sequence. We will demonstrate how the rigid sequential agent follows a suboptimal path, while the Blackboard system&#x27;s dynamic Controller activates agents in a more logical, data-driven order, resulting in a more efficient and coherent analysis.</p>
+<p style="font-weight:600;margin:14px 0 4px;font-size:14px">Definition</p>
+<p style="margin-bottom:8px;line-height:1.7;font-size:13px;color:var(--muted)">A <strong style="color:var(--text)">Blackboard System</strong> is a multi-agent architecture where multiple specialist agents collaborate by reading from and writing to a shared, central data repository called the &#x27;blackboard&#x27;. A controller or scheduler dynamically determines which agent should act next based on the evolving state of the solution on the blackboard.</p>
+<p style="font-weight:600;margin:14px 0 4px;font-size:14px">High-level Workflow</p>
+<ol style="margin:4px 0 12px 18px">
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Shared Memory (The Blackboard):</strong> A central data structure holds the current state of the problem, including the user&#x27;s request, intermediate findings, and partial solutions.</li>
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Specialist Agents:</strong> A pool of independent agents, each with a specific expertise, continuously monitors the blackboard.</li>
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Controller:</strong> A central &#x27;controller&#x27; agent also monitors the blackboard. Its job is to analyze the current state and decide which specialist agent is best equipped to make the next contribution.</li>
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Opportunistic Activation:</strong> The Controller activates the chosen agent. The agent reads the relevant data from the blackboard, performs its task, and writes its findings back to the blackboard.</li>
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Iteration:</strong> The process repeats, with the Controller activating different agents in a dynamic sequence, until it determines that the solution on the blackboard is complete.</li>
+</ul>
+<p style="font-weight:600;margin:14px 0 4px;font-size:14px">When to Use / Applications</p>
+<ul style="margin:4px 0 12px 18px;list-style-type:disc">
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Complex, Ill-Structured Problems:</strong> Ideal for problems where the solution path is not known in advance and requires an emergent, opportunistic strategy (e.g., complex diagnostics, scientific discovery).</li>
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Multi-Modal Systems:</strong> A great way to coordinate agents that work with different data types (text, images, code), as they can all post their findings to the shared blackboard.</li>
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Dynamic Sense-Making:</strong> Situations that require synthesizing information from many disparate, asynchronous sources.</li>
+</ul>
+<p style="font-weight:600;margin:14px 0 4px;font-size:14px">Strengths &amp; Weaknesses</p>
+<ul style="margin:4px 0 12px 18px;list-style-type:disc">
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Strengths:</strong></li>
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Flexibility &amp; Adaptability:</strong> The workflow is not hardcoded; it emerges based on the problem, making the system highly adaptive.</li>
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Modularity:</strong> It&#x27;s very easy to add or remove specialist agents without re-architecting the entire system.</li>
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Weaknesses:</strong></li>
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Controller Complexity:</strong> The intelligence of the entire system depends heavily on the sophistication of the Controller. A naive Controller can lead to inefficient or looping behavior.</li>
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Debugging Challenges:</strong> The non-linear, emergent nature of the workflow can sometimes make it harder to trace and debug than a simple sequential process.</li>
+</ul></div>
+  </section>
+  <section class="layer-sec" id="code">
+    <h3 style="border-color:#378add">LangChain + LangGraph 实现代码</h3>
+    <p style="font-size:12px;color:var(--faint);margin-bottom:16px">完整的端到端实现代码，可从 src/ 目录直接运行</p>
+    <div class="codeblock">
+  <div class="cb-head">
+    <span class="cb-dot" style="background:#f85149"></span><span class="cb-dot" style="background:#e3b341"></span><span class="cb-dot" style="background:#28c840"></span>
+    src/... · LangChain + LangGraph · 311 行
+  </div>
+  <div class="cb-body" style="font-size:12px;line-height:1.8"><span class="str">&quot;&quot;&quot;
 Blackboard - Agentic Architecture
 Extracted from: 07_blackboard.ipynb
 &quot;&quot;&quot;</span>
@@ -407,8 +533,5 @@ console.<span class="fn">print</span>(bb_agent_evaluation.<span class="fn">dict<
 </div>
 </div>
   </section>
-
-  <div class="prevnext"><a href="pev.html"><span class="coding">Previous</span><br><span class="pn-strong">← PEV (Plan, Execute, Verify)</span></a><a href="episodic-semantic.html" style="text-align:right"><span class="coding">Next</span><br><span class="pn-strong">Episodic + Semantic Memory →</span></a></div>
-</div><div class="footer">
-  <p>Built from <a href="https://github.com/1998x-stack/all-agentic-architectures" style="color:var(--text)">all-agentic-architectures</a></p>
-</div></body></html>
+  <div class="prevnext"><a href="pev.html"><span class="pn-label">&larr; 上一架构</span>#06 计划-执行-验证</a><a href="episodic-semantic.html" style="text-align:right"><span class="pn-label">下一架构 &rarr;</span>#08 情景 + 语义双记忆</a></div>
+</div><div class="footer"><p>Built from <a href="https://github.com/1998x-stack/all-agentic-architectures" style="color:var(--text)">all-agentic-architectures</a></p></div></body></html>

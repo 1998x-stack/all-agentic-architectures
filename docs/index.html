@@ -1,268 +1,243 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Overview — All Agentic Architectures</title>
+<title>总览 — All Agentic Architectures</title>
 <link rel="stylesheet" href="base-dark.css">
 <style>
-  :root {
-    --c1: #28c840; --c1d: #1a7a2a;
-    --c2: #378add; --c2d: #1a5290;
-    --c3: #a259ff; --c3d: #5a2a8a;
-    --c4: #f0883e; --c4d: #9a4a1a;
-    --c5: #1db0a0; --c5d: #0f6e56;
-  }
-  .hero h1 em {
-    background: linear-gradient(90deg, var(--c1), var(--c2), var(--c3), var(--c4), var(--c5));
-    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-  }
-  .prevnext { display: flex; justify-content: space-between; padding: 32px 0; border-top: 1px solid var(--border); margin-top: 48px; }
-  .prevnext a { color: var(--muted); font-size: 13px; }
-  .prevnext a:hover { color: var(--text); text-decoration: none; }
-  .pn-strong { color: var(--text) !important; font-weight: 500; }
-  .coding { font-size: 11px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); margin-bottom: 4px; }
-  h2 { font-size: 22px; font-weight: 600; margin: 0 0 12px; letter-spacing: -.01em; }
-  h3 { font-size: 18px; font-weight: 600; margin: 32px 0 12px; }
+  :root{--c1:#28c840;--c1d:#1a7a2a;--c2:#378add;--c2d:#1a5290;--c3:#a259ff;--c3d:#5a2a8a;--c4:#f0883e;--c4d:#9a4a1a;--c5:#1db0a0;--c5d:#0f6e56}
+  .hero h1 em{background:linear-gradient(90deg,var(--c1),var(--c2),var(--c3),var(--c4),var(--c5));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+  .prevnext{display:flex;justify-content:space-between;padding:32px 0;border-top:1px solid var(--border);margin-top:56px}
+  .prevnext a{color:var(--muted);font-size:14px;transition:color .15s}
+  .prevnext a:hover{color:var(--text);text-decoration:none}
+  .prevnext .pn-label{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--faint);margin-bottom:4px;display:block}
+  .cn-section{margin-top:48px}
+  .cn-section h3{font-size:20px;font-weight:700;margin-bottom:20px;padding-bottom:8px;border-bottom:1px solid var(--border)}
+  .toc-link{display:inline-block;padding:3px 8px;border-radius:4px;font-size:11px;font-family:var(--mono);color:var(--muted);border:1px solid var(--border);margin:2px 4px 2px 0;transition:all .15s}
+  .toc-link:hover{border-color:var(--c1);color:var(--c1);text-decoration:none}
 </style>
 
 </head>
 <body><nav>
   <div class="nav-inner">
-    <span class="nav-brand">All Agentic Architectures <span>· 17 Patterns</span></span>
-    <a class="nl" href="index.html">Overview</a>
+    <a href="index.html" style="text-decoration:none"><span class="nav-brand">All Agentic Architectures <span>· 17 种架构</span></span></a>
+    <a class="nl" href="index.html">总览</a>
+    <a class="nl" href="index.html#p1">基础</a>
+    <a class="nl" href="index.html#p2">多智能体</a>
+    <a class="nl" href="index.html#p3">记忆推理</a>
+    <a class="nl" href="index.html#p4">安全可靠</a>
+    <a class="nl" href="index.html#p5">学习适应</a>
   </div>
 </nav><div class="page">
   <section class="hero">
-    <div class="hero-badge"><span class="dot"></span> Educational · 17 Implementations · 2026</div>
-    <h1>17 <em>Agentic Architectures</em></h1>
-    <p>From single-pass generation to self-aware metacognitive systems — a comprehensive hands-on masterclass in modern AI agent design. Each architecture is implemented end-to-end with LangChain and LangGraph, with in-depth explanations and production-ready code.</p>
+    <div class="hero-badge"><span class="dot"></span> 教育项目 · 17 种实现 · 2026</div>
+    <h1>17 种 <em>Agentic 架构</em></h1>
+    <p>从单次生成到自反式元认知系统——现代 AI Agent 设计的完整动手大师课。每种架构均使用 LangChain 和 LangGraph 端到端实现，配有深度解析与生产级代码。</p>
     <div class="tag-row">
-      <span class="ltag" style="color:var(--c1);background:rgba(40,200,64,.08);border-color:rgba(40,200,64,.25)">Foundational</span>
-      <span class="ltag" style="color:var(--c2);background:rgba(55,138,221,.08);border-color:rgba(55,138,221,.25)">Multi-Agent</span>
-      <span class="ltag" style="color:var(--c3);background:rgba(162,89,255,.08);border-color:rgba(162,89,255,.25)">Memory</span>
-      <span class="ltag" style="color:var(--c4);background:rgba(240,136,62,.08);border-color:rgba(240,136,62,.25)">Safety</span>
-      <span class="ltag" style="color:var(--c5);background:rgba(29,176,160,.08);border-color:rgba(29,176,160,.25)">Learning</span>
+      <span class="ltag" style="color:var(--c1);background:rgba(40,200,64,.08);border-color:rgba(40,200,64,.25)">基础模式</span>
+      <span class="ltag" style="color:var(--c2);background:rgba(55,138,221,.08);border-color:rgba(55,138,221,.25)">多智能体</span>
+      <span class="ltag" style="color:var(--c3);background:rgba(162,89,255,.08);border-color:rgba(162,89,255,.25)">记忆推理</span>
+      <span class="ltag" style="color:var(--c4);background:rgba(240,136,62,.08);border-color:rgba(240,136,62,.25)">安全可靠</span>
+      <span class="ltag" style="color:var(--c5);background:rgba(29,176,160,.08);border-color:rgba(29,176,160,.25)">学习适应</span>
     </div>
   </section>
-
   <section class="flow">
-    <div class="sec-label">Learning Path</div>
-    <div style="font-size:20px;font-weight:600;margin-bottom:8px">From Simple to Self-Aware</div>
-    <p style="font-size:14px;color:var(--muted);margin-bottom:32px;max-width:760px;line-height:1.8">Each architecture builds on the limitations of the previous one. What starts as a simple self-critique loop evolves into systems that plan, collaborate, remember, simulate, and ultimately understand their own boundaries.</p>
-    <div class="flow-track">
-      <div class="flow-box" style="border-color:rgba(40,200,64,0.25)">
+    <div class="sec-label">学习路径</div>
+    <div style="font-size:20px;font-weight:600;margin-bottom:8px">从简单到自感知</div>
+    <p style="font-size:14px;color:var(--muted);margin-bottom:32px;max-width:760px;line-height:1.8">每种架构都建立在前一种的局限性之上。从简单的自我批判循环，逐步演进为能规划、协作、记忆、模拟并最终理解自身边界的系统。</p>
+    <div class="flow-track"><div class="flow-box" style="border-color:rgba(40,200,64,0.25)">
   <div class="fb-tag" style="color:var(--c1)">PART 1</div>
-  <div class="fb-name">Foundational Patterns</div>
-  <div class="fb-sub">Essential building blocks for making a single agent more powerful — from self-critique to tool interaction, adaptive reasoning, and structured planning.</div>
-</div>
-<div class="flow-arrow">
-  <div class="arr-icon">→</div>
-  <div class="arr-text">evolves into</div>
-</div><div class="flow-box" style="border-color:rgba(55,138,221,0.25)">
+  <div class="fb-name">第一部分：基础模式</div>
+  <div class="fb-sub">让单个 agent 更强大的基础构件</div>
+</div><div class="flow-arrow"><div class="arr-icon">→</div><div class="arr-text">演化到</div></div><div class="flow-box" style="border-color:rgba(55,138,221,0.25)">
   <div class="fb-tag" style="color:var(--c2)">PART 2</div>
-  <div class="fb-name">Multi-Agent Collaboration</div>
-  <div class="fb-sub">How agents work together — specialized teams, smart routing, shared workspaces, and ensemble analysis for more robust and diverse outputs.</div>
-</div>
-<div class="flow-arrow">
-  <div class="arr-icon">→</div>
-  <div class="arr-text">evolves into</div>
-</div><div class="flow-box" style="border-color:rgba(162,89,255,0.25)">
+  <div class="fb-name">第二部分：多智能体协作</div>
+  <div class="fb-sub">Agent 如何协作</div>
+</div><div class="flow-arrow"><div class="arr-icon">→</div><div class="arr-text">演化到</div></div><div class="flow-box" style="border-color:rgba(162,89,255,0.25)">
   <div class="fb-tag" style="color:var(--c3)">PART 3</div>
-  <div class="fb-name">Advanced Memory & Reasoning</div>
-  <div class="fb-sub">How agents think more deeply and remember — dual memory systems, graph knowledge bases, and multi-path tree search for complex reasoning.</div>
-</div>
-<div class="flow-arrow">
-  <div class="arr-icon">→</div>
-  <div class="arr-text">evolves into</div>
-</div><div class="flow-box" style="border-color:rgba(240,136,62,0.25)">
+  <div class="fb-name">第三部分：高级记忆与推理</div>
+  <div class="fb-sub">Agent 如何深度思考和记忆</div>
+</div><div class="flow-arrow"><div class="arr-icon">→</div><div class="arr-text">演化到</div></div><div class="flow-box" style="border-color:rgba(240,136,62,0.25)">
   <div class="fb-tag" style="color:var(--c4)">PART 4</div>
-  <div class="fb-name">Safety & Reliability</div>
-  <div class="fb-sub">Architectures for trusting agents in production — dry-run harnesses, mental simulation, automatic error recovery, and self-aware limitation modeling.</div>
-</div>
-<div class="flow-arrow">
-  <div class="arr-icon">→</div>
-  <div class="arr-text">evolves into</div>
-</div><div class="flow-box" style="border-color:rgba(29,176,160,0.25)">
+  <div class="fb-name">第四部分：安全与可靠性</div>
+  <div class="fb-sub">让 agent 在生产环境中可被信任</div>
+</div><div class="flow-arrow"><div class="arr-icon">→</div><div class="arr-text">演化到</div></div><div class="flow-box" style="border-color:rgba(29,176,160,0.25)">
   <div class="fb-tag" style="color:var(--c5)">PART 5</div>
-  <div class="fb-name">Learning & Adaptation</div>
-  <div class="fb-sub">How agents improve over time and solve problems in novel ways — feedback-driven self-improvement and emergent behavior from simple local rules.</div>
-</div>
-
-    </div>
+  <div class="fb-name">第五部分：学习与适应</div>
+  <div class="fb-sub">Agent 如何随时间进化</div>
+</div></div>
   </section>
   <section class="layer-sec" id="p1">
   <div class="layer-hdr">
     <span class="layer-id-badge" style="background:#1a7a2a;color:rgba(255,255,255,.9)">Part 1</span>
-    <div class="layer-title">Foundational Patterns</div>
+    <div class="layer-title" style="font-size:24px">第一部分：基础模式</div>
   </div>
-  <p class="layer-def" style="border-color:#28c840">Essential building blocks for making a single agent more powerful — from self-critique to tool interaction, adaptive reasoning, and structured planning.</p>
+  <p class="layer-def" style="border-color:#28c840">让单个 agent 更强大的基础构件</p>
   <div class="grid2"><div class="card">
   <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
     <span style="font-size:11px;font-weight:700;color:var(--c1);letter-spacing:.05em">#01</span>
-    <a href="reflection.html" style="font-size:12px;color:var(--muted);border:1px solid var(--border);padding:3px 10px;border-radius:6px;transition:all .15s" onmouseover="this.style.borderColor='var(--c1)';this.style.color='var(--c1)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--muted)'">Explore →</a>
+    <a href="reflection.html" style="font-size:12px;color:var(--muted);border:1px solid var(--border);padding:3px 10px;border-radius:6px;transition:all .15s" onmouseover="this.style.borderColor='var(--c1)';this.style.color='var(--c1)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--muted)'">探索 &rarr;</a>
   </div>
-  <div style="font-size:15px;font-weight:600;margin-bottom:6px;color:var(--text)">Reflection</div>
-  <div style="font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:8px">Critiques and refines its own output in a multi-step internal monologue: produce, evaluate, improve.</div>
-  <div style="font-size:11px;color:var(--faint);font-family:var(--mono)">High-Quality Code Generation, Complex Summarization</div>
+  <div style="font-size:15px;font-weight:600;margin-bottom:4px;color:var(--text)">反思模式 <span style="font-size:12px;font-weight:400;color:var(--muted)">Reflection</span></div>
+  <div style="font-size:11px;color:var(--muted);margin-bottom:8px;background:var(--bg3);display:inline-block;padding:2px 8px;border-radius:4px">critique pass</div>
+  <div style="font-size:13px;color:var(--muted);line-height:1.65">最小质量闭环</div>
 </div><div class="card">
   <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
     <span style="font-size:11px;font-weight:700;color:var(--c1);letter-spacing:.05em">#02</span>
-    <a href="tool-use.html" style="font-size:12px;color:var(--muted);border:1px solid var(--border);padding:3px 10px;border-radius:6px;transition:all .15s" onmouseover="this.style.borderColor='var(--c1)';this.style.color='var(--c1)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--muted)'">Explore →</a>
+    <a href="tool-use.html" style="font-size:12px;color:var(--muted);border:1px solid var(--border);padding:3px 10px;border-radius:6px;transition:all .15s" onmouseover="this.style.borderColor='var(--c1)';this.style.color='var(--c1)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--muted)'">探索 &rarr;</a>
   </div>
-  <div style="font-size:15px;font-weight:600;margin-bottom:6px;color:var(--text)">Tool Use</div>
-  <div style="font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:8px">Overcomes knowledge cutoffs by autonomously calling external APIs and functions when needed.</div>
-  <div style="font-size:11px;color:var(--faint);font-family:var(--mono)">Real-time Research Assistants, Enterprise Bots</div>
+  <div style="font-size:15px;font-weight:600;margin-bottom:4px;color:var(--text)">工具使用 <span style="font-size:12px;font-weight:400;color:var(--muted)">Tool Use</span></div>
+  <div style="font-size:11px;color:var(--muted);margin-bottom:8px;background:var(--bg3);display:inline-block;padding:2px 8px;border-radius:4px">tool interface</div>
+  <div style="font-size:13px;color:var(--muted);line-height:1.65">文本世界到结构化世界的跨越</div>
 </div><div class="card">
   <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
     <span style="font-size:11px;font-weight:700;color:var(--c1);letter-spacing:.05em">#03</span>
-    <a href="react.html" style="font-size:12px;color:var(--muted);border:1px solid var(--border);padding:3px 10px;border-radius:6px;transition:all .15s" onmouseover="this.style.borderColor='var(--c1)';this.style.color='var(--c1)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--muted)'">Explore →</a>
+    <a href="react.html" style="font-size:12px;color:var(--muted);border:1px solid var(--border);padding:3px 10px;border-radius:6px;transition:all .15s" onmouseover="this.style.borderColor='var(--c1)';this.style.color='var(--c1)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--muted)'">探索 &rarr;</a>
   </div>
-  <div style="font-size:15px;font-weight:600;margin-bottom:6px;color:var(--text)">ReAct</div>
-  <div style="font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:8px">Dynamically interleaves reasoning (&#x27;thought&#x27;) and action (&#x27;tool use&#x27;) in an adaptive loop for complex multi-step problems.</div>
-  <div style="font-size:11px;color:var(--faint);font-family:var(--mono)">Multi-hop Q&amp;A, Web Navigation &amp; Research</div>
+  <div style="font-size:15px;font-weight:600;margin-bottom:4px;color:var(--text)">推理与行动循环 <span style="font-size:12px;font-weight:400;color:var(--muted)">ReAct</span></div>
+  <div style="font-size:11px;color:var(--muted);margin-bottom:8px;background:var(--bg3);display:inline-block;padding:2px 8px;border-radius:4px">observation loop</div>
+  <div style="font-size:13px;color:var(--muted);line-height:1.65">Agent 真正成形的地方</div>
 </div><div class="card">
   <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
     <span style="font-size:11px;font-weight:700;color:var(--c1);letter-spacing:.05em">#04</span>
-    <a href="planning.html" style="font-size:12px;color:var(--muted);border:1px solid var(--border);padding:3px 10px;border-radius:6px;transition:all .15s" onmouseover="this.style.borderColor='var(--c1)';this.style.color='var(--c1)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--muted)'">Explore →</a>
+    <a href="planning.html" style="font-size:12px;color:var(--muted);border:1px solid var(--border);padding:3px 10px;border-radius:6px;transition:all .15s" onmouseover="this.style.borderColor='var(--c1)';this.style.color='var(--c1)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--muted)'">探索 &rarr;</a>
   </div>
-  <div style="font-size:15px;font-weight:600;margin-bottom:6px;color:var(--text)">Planning</div>
-  <div style="font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:8px">Proactively decomposes a complex task into a detailed, step-by-step plan before execution.</div>
-  <div style="font-size:11px;color:var(--faint);font-family:var(--mono)">Predictable Report Generation, Project Management</div>
+  <div style="font-size:15px;font-weight:600;margin-bottom:4px;color:var(--text)">显式规划 <span style="font-size:12px;font-weight:400;color:var(--muted)">Planning</span></div>
+  <div style="font-size:11px;color:var(--muted);margin-bottom:8px;background:var(--bg3);display:inline-block;padding:2px 8px;border-radius:4px">explicit planning</div>
+  <div style="font-size:13px;color:var(--muted);line-height:1.65">把控制流本身变成模型输出</div>
 </div></div>
 </section><section class="layer-sec" id="p2">
   <div class="layer-hdr">
     <span class="layer-id-badge" style="background:#1a5290;color:rgba(255,255,255,.9)">Part 2</span>
-    <div class="layer-title">Multi-Agent Collaboration</div>
+    <div class="layer-title" style="font-size:24px">第二部分：多智能体协作</div>
   </div>
-  <p class="layer-def" style="border-color:#378add">How agents work together — specialized teams, smart routing, shared workspaces, and ensemble analysis for more robust and diverse outputs.</p>
+  <p class="layer-def" style="border-color:#378add">Agent 如何协作</p>
   <div class="grid2"><div class="card">
   <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
     <span style="font-size:11px;font-weight:700;color:var(--c2);letter-spacing:.05em">#05</span>
-    <a href="multi-agent.html" style="font-size:12px;color:var(--muted);border:1px solid var(--border);padding:3px 10px;border-radius:6px;transition:all .15s" onmouseover="this.style.borderColor='var(--c2)';this.style.color='var(--c2)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--muted)'">Explore →</a>
+    <a href="multi-agent.html" style="font-size:12px;color:var(--muted);border:1px solid var(--border);padding:3px 10px;border-radius:6px;transition:all .15s" onmouseover="this.style.borderColor='var(--c2)';this.style.color='var(--c2)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--muted)'">探索 &rarr;</a>
   </div>
-  <div style="font-size:15px;font-weight:600;margin-bottom:6px;color:var(--text)">Multi-Agent Systems</div>
-  <div style="font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:8px">A team of specialized agents collaborates, dividing labor across roles for superior depth, quality, and structure.</div>
-  <div style="font-size:11px;color:var(--faint);font-family:var(--mono)">Software Dev Pipelines, Creative Brainstorming</div>
+  <div style="font-size:15px;font-weight:600;margin-bottom:4px;color:var(--text)">多智能体系统 <span style="font-size:12px;font-weight:400;color:var(--muted)">Multi-Agent Systems</span></div>
+  <div style="font-size:11px;color:var(--muted);margin-bottom:8px;background:var(--bg3);display:inline-block;padding:2px 8px;border-radius:4px">role decomposition</div>
+  <div style="font-size:13px;color:var(--muted);line-height:1.65">把认知分工写进图里</div>
 </div><div class="card">
   <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
     <span style="font-size:11px;font-weight:700;color:var(--c2);letter-spacing:.05em">#07</span>
-    <a href="blackboard.html" style="font-size:12px;color:var(--muted);border:1px solid var(--border);padding:3px 10px;border-radius:6px;transition:all .15s" onmouseover="this.style.borderColor='var(--c2)';this.style.color='var(--c2)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--muted)'">Explore →</a>
+    <a href="blackboard.html" style="font-size:12px;color:var(--muted);border:1px solid var(--border);padding:3px 10px;border-radius:6px;transition:all .15s" onmouseover="this.style.borderColor='var(--c2)';this.style.color='var(--c2)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--muted)'">探索 &rarr;</a>
   </div>
-  <div style="font-size:15px;font-weight:600;margin-bottom:6px;color:var(--text)">Blackboard Systems</div>
-  <div style="font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:8px">Agents collaborate opportunistically via a shared central memory, guided by a dynamic controller.</div>
-  <div style="font-size:11px;color:var(--faint);font-family:var(--mono)">Complex Diagnostics, Dynamic Sense-Making</div>
+  <div style="font-size:15px;font-weight:600;margin-bottom:4px;color:var(--text)">黑板系统 <span style="font-size:12px;font-weight:400;color:var(--muted)">Blackboard Systems</span></div>
+  <div style="font-size:11px;color:var(--muted);margin-bottom:8px;background:var(--bg3);display:inline-block;padding:2px 8px;border-radius:4px">shared workspace</div>
+  <div style="font-size:13px;color:var(--muted);line-height:1.65">共享状态成为系统中心</div>
 </div><div class="card">
   <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
     <span style="font-size:11px;font-weight:700;color:var(--c2);letter-spacing:.05em">#11</span>
-    <a href="meta-controller.html" style="font-size:12px;color:var(--muted);border:1px solid var(--border);padding:3px 10px;border-radius:6px;transition:all .15s" onmouseover="this.style.borderColor='var(--c2)';this.style.color='var(--c2)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--muted)'">Explore →</a>
+    <a href="meta-controller.html" style="font-size:12px;color:var(--muted);border:1px solid var(--border);padding:3px 10px;border-radius:6px;transition:all .15s" onmouseover="this.style.borderColor='var(--c2)';this.style.color='var(--c2)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--muted)'">探索 &rarr;</a>
   </div>
-  <div style="font-size:15px;font-weight:600;margin-bottom:6px;color:var(--text)">Meta-Controller</div>
-  <div style="font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:8px">A supervisory agent analyzes incoming tasks and routes them to the most appropriate specialist sub-agent.</div>
-  <div style="font-size:11px;color:var(--faint);font-family:var(--mono)">Multi-Service AI Platforms, Adaptive Assistants</div>
+  <div style="font-size:15px;font-weight:600;margin-bottom:4px;color:var(--text)">元控制器 <span style="font-size:12px;font-weight:400;color:var(--muted)">Meta-Controller</span></div>
+  <div style="font-size:11px;color:var(--muted);margin-bottom:8px;background:var(--bg3);display:inline-block;padding:2px 8px;border-radius:4px">entry routing</div>
+  <div style="font-size:13px;color:var(--muted);line-height:1.65">一次性路由</div>
 </div><div class="card">
   <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
     <span style="font-size:11px;font-weight:700;color:var(--c2);letter-spacing:.05em">#13</span>
-    <a href="ensemble.html" style="font-size:12px;color:var(--muted);border:1px solid var(--border);padding:3px 10px;border-radius:6px;transition:all .15s" onmouseover="this.style.borderColor='var(--c2)';this.style.color='var(--c2)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--muted)'">Explore →</a>
+    <a href="ensemble.html" style="font-size:12px;color:var(--muted);border:1px solid var(--border);padding:3px 10px;border-radius:6px;transition:all .15s" onmouseover="this.style.borderColor='var(--c2)';this.style.color='var(--c2)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--muted)'">探索 &rarr;</a>
   </div>
-  <div style="font-size:15px;font-weight:600;margin-bottom:6px;color:var(--text)">Ensemble</div>
-  <div style="font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:8px">Multiple independent agents analyze from different perspectives; an aggregator synthesizes for robust, less biased conclusions.</div>
-  <div style="font-size:11px;color:var(--faint);font-family:var(--mono)">High-Stakes Decision Support, Fact-Checking</div>
+  <div style="font-size:15px;font-weight:600;margin-bottom:4px;color:var(--text)">集成模式 <span style="font-size:12px;font-weight:400;color:var(--muted)">Ensemble</span></div>
+  <div style="font-size:11px;color:var(--muted);margin-bottom:8px;background:var(--bg3);display:inline-block;padding:2px 8px;border-radius:4px">parallel redundancy</div>
+  <div style="font-size:13px;color:var(--muted);line-height:1.65">它不是分工而是冗余</div>
 </div></div>
 </section><section class="layer-sec" id="p3">
   <div class="layer-hdr">
     <span class="layer-id-badge" style="background:#5a2a8a;color:rgba(255,255,255,.9)">Part 3</span>
-    <div class="layer-title">Advanced Memory & Reasoning</div>
+    <div class="layer-title" style="font-size:24px">第三部分：高级记忆与推理</div>
   </div>
-  <p class="layer-def" style="border-color:#a259ff">How agents think more deeply and remember — dual memory systems, graph knowledge bases, and multi-path tree search for complex reasoning.</p>
+  <p class="layer-def" style="border-color:#a259ff">Agent 如何深度思考和记忆</p>
   <div class="grid2"><div class="card">
   <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
     <span style="font-size:11px;font-weight:700;color:var(--c3);letter-spacing:.05em">#08</span>
-    <a href="episodic-semantic.html" style="font-size:12px;color:var(--muted);border:1px solid var(--border);padding:3px 10px;border-radius:6px;transition:all .15s" onmouseover="this.style.borderColor='var(--c3)';this.style.color='var(--c3)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--muted)'">Explore →</a>
+    <a href="episodic-semantic.html" style="font-size:12px;color:var(--muted);border:1px solid var(--border);padding:3px 10px;border-radius:6px;transition:all .15s" onmouseover="this.style.borderColor='var(--c3)';this.style.color='var(--c3)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--muted)'">探索 &rarr;</a>
   </div>
-  <div style="font-size:15px;font-weight:600;margin-bottom:6px;color:var(--text)">Episodic + Semantic Memory</div>
-  <div style="font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:8px">Dual-memory system: vector store for past conversations (episodic) + graph DB for structured facts (semantic).</div>
-  <div style="font-size:11px;color:var(--faint);font-family:var(--mono)">Long-Term Personal Assistants, Personalized Tutors</div>
+  <div style="font-size:15px;font-weight:600;margin-bottom:4px;color:var(--text)">情景 + 语义双记忆 <span style="font-size:12px;font-weight:400;color:var(--muted)">Episodic + Semantic</span></div>
+  <div style="font-size:11px;color:var(--muted);margin-bottom:8px;background:var(--bg3);display:inline-block;padding:2px 8px;border-radius:4px">long-term memory</div>
+  <div style="font-size:13px;color:var(--muted);line-height:1.65">记忆不是把对话塞回上下文</div>
 </div><div class="card">
   <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
     <span style="font-size:11px;font-weight:700;color:var(--c3);letter-spacing:.05em">#09</span>
-    <a href="tree-of-thoughts.html" style="font-size:12px;color:var(--muted);border:1px solid var(--border);padding:3px 10px;border-radius:6px;transition:all .15s" onmouseover="this.style.borderColor='var(--c3)';this.style.color='var(--c3)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--muted)'">Explore →</a>
+    <a href="tree-of-thoughts.html" style="font-size:12px;color:var(--muted);border:1px solid var(--border);padding:3px 10px;border-radius:6px;transition:all .15s" onmouseover="this.style.borderColor='var(--c3)';this.style.color='var(--c3)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--muted)'">探索 &rarr;</a>
   </div>
-  <div style="font-size:15px;font-weight:600;margin-bottom:6px;color:var(--text)">Tree of Thoughts (ToT)</div>
-  <div style="font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:8px">Explores multiple reasoning paths in a tree structure, evaluating and pruning branches to find optimal solutions.</div>
-  <div style="font-size:11px;color:var(--faint);font-family:var(--mono)">Logic Puzzles, Constrained Planning</div>
+  <div style="font-size:15px;font-weight:600;margin-bottom:4px;color:var(--text)">思维树 <span style="font-size:12px;font-weight:400;color:var(--muted)">Tree of Thoughts</span></div>
+  <div style="font-size:11px;color:var(--muted);margin-bottom:8px;background:var(--bg3);display:inline-block;padding:2px 8px;border-radius:4px">search tree</div>
+  <div style="font-size:13px;color:var(--muted);line-height:1.65">不是让模型想更多</div>
 </div><div class="card">
   <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
     <span style="font-size:11px;font-weight:700;color:var(--c3);letter-spacing:.05em">#12</span>
-    <a href="graph.html" style="font-size:12px;color:var(--muted);border:1px solid var(--border);padding:3px 10px;border-radius:6px;transition:all .15s" onmouseover="this.style.borderColor='var(--c3)';this.style.color='var(--c3)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--muted)'">Explore →</a>
+    <a href="graph.html" style="font-size:12px;color:var(--muted);border:1px solid var(--border);padding:3px 10px;border-radius:6px;transition:all .15s" onmouseover="this.style.borderColor='var(--c3)';this.style.color='var(--c3)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--muted)'">探索 &rarr;</a>
   </div>
-  <div style="font-size:15px;font-weight:600;margin-bottom:6px;color:var(--text)">Graph (World-Model Memory)</div>
-  <div style="font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:8px">Stores knowledge as a structured graph of entities and relationships, enabling complex multi-hop reasoning.</div>
-  <div style="font-size:11px;color:var(--faint);font-family:var(--mono)">Corporate Intelligence, Advanced Research</div>
+  <div style="font-size:15px;font-weight:600;margin-bottom:4px;color:var(--text)">图世界模型记忆 <span style="font-size:12px;font-weight:400;color:var(--muted)">Graph</span></div>
+  <div style="font-size:11px;color:var(--muted);margin-bottom:8px;background:var(--bg3);display:inline-block;padding:2px 8px;border-radius:4px">structured knowledge graph</div>
+  <div style="font-size:13px;color:var(--muted);line-height:1.65">当你需要的不是回忆</div>
 </div></div>
 </section><section class="layer-sec" id="p4">
   <div class="layer-hdr">
     <span class="layer-id-badge" style="background:#9a4a1a;color:rgba(255,255,255,.9)">Part 4</span>
-    <div class="layer-title">Safety & Reliability</div>
+    <div class="layer-title" style="font-size:24px">第四部分：安全与可靠性</div>
   </div>
-  <p class="layer-def" style="border-color:#f0883e">Architectures for trusting agents in production — dry-run harnesses, mental simulation, automatic error recovery, and self-aware limitation modeling.</p>
+  <p class="layer-def" style="border-color:#f0883e">让 agent 在生产环境中可被信任</p>
   <div class="grid2"><div class="card">
   <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
     <span style="font-size:11px;font-weight:700;color:var(--c4);letter-spacing:.05em">#06</span>
-    <a href="pev.html" style="font-size:12px;color:var(--muted);border:1px solid var(--border);padding:3px 10px;border-radius:6px;transition:all .15s" onmouseover="this.style.borderColor='var(--c4)';this.style.color='var(--c4)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--muted)'">Explore →</a>
+    <a href="pev.html" style="font-size:12px;color:var(--muted);border:1px solid var(--border);padding:3px 10px;border-radius:6px;transition:all .15s" onmouseover="this.style.borderColor='var(--c4)';this.style.color='var(--c4)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--muted)'">探索 &rarr;</a>
   </div>
-  <div style="font-size:15px;font-weight:600;margin-bottom:6px;color:var(--text)">PEV (Plan, Execute, Verify)</div>
-  <div style="font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:8px">A self-correcting loop where a Verifier agent checks each action&#x27;s outcome, enabling error detection and dynamic recovery.</div>
-  <div style="font-size:11px;color:var(--faint);font-family:var(--mono)">High-Stakes Automation, Finance, Unreliable Tools</div>
+  <div style="font-size:15px;font-weight:600;margin-bottom:4px;color:var(--text)">计划-执行-验证 <span style="font-size:12px;font-weight:400;color:var(--muted)">PEV</span></div>
+  <div style="font-size:11px;color:var(--muted);margin-bottom:8px;background:var(--bg3);display:inline-block;padding:2px 8px;border-radius:4px">verification loop</div>
+  <div style="font-size:13px;color:var(--muted);line-height:1.65">把验证提升为控制流的一等公民</div>
 </div><div class="card">
   <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
     <span style="font-size:11px;font-weight:700;color:var(--c4);letter-spacing:.05em">#10</span>
-    <a href="mental-loop.html" style="font-size:12px;color:var(--muted);border:1px solid var(--border);padding:3px 10px;border-radius:6px;transition:all .15s" onmouseover="this.style.borderColor='var(--c4)';this.style.color='var(--c4)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--muted)'">Explore →</a>
+    <a href="mental-loop.html" style="font-size:12px;color:var(--muted);border:1px solid var(--border);padding:3px 10px;border-radius:6px;transition:all .15s" onmouseover="this.style.borderColor='var(--c4)';this.style.color='var(--c4)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--muted)'">探索 &rarr;</a>
   </div>
-  <div style="font-size:15px;font-weight:600;margin-bottom:6px;color:var(--text)">Mental Loop (Simulator)</div>
-  <div style="font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:8px">Tests actions in an internal mental model to predict outcomes and assess risk before real-world execution.</div>
-  <div style="font-size:11px;color:var(--faint);font-family:var(--mono)">Robotics, Financial Trading, Safety-Critical Systems</div>
+  <div style="font-size:15px;font-weight:600;margin-bottom:4px;color:var(--text)">心智循环 <span style="font-size:12px;font-weight:400;color:var(--muted)">Mental Loop</span></div>
+  <div style="font-size:11px;color:var(--muted);margin-bottom:8px;background:var(--bg3);display:inline-block;padding:2px 8px;border-radius:4px">counterfactual execution</div>
+  <div style="font-size:13px;color:var(--muted);line-height:1.65">行动之前先在内部世界试错</div>
 </div><div class="card">
   <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
     <span style="font-size:11px;font-weight:700;color:var(--c4);letter-spacing:.05em">#14</span>
-    <a href="dry-run.html" style="font-size:12px;color:var(--muted);border:1px solid var(--border);padding:3px 10px;border-radius:6px;transition:all .15s" onmouseover="this.style.borderColor='var(--c4)';this.style.color='var(--c4)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--muted)'">Explore →</a>
+    <a href="dry-run.html" style="font-size:12px;color:var(--muted);border:1px solid var(--border);padding:3px 10px;border-radius:6px;transition:all .15s" onmouseover="this.style.borderColor='var(--c4)';this.style.color='var(--c4)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--muted)'">探索 &rarr;</a>
   </div>
-  <div style="font-size:15px;font-weight:600;margin-bottom:6px;color:var(--text)">Dry-Run Harness</div>
-  <div style="font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:8px">A proposed action is first simulated and must be approved before live execution — human-in-the-loop safety.</div>
-  <div style="font-size:11px;color:var(--faint);font-family:var(--mono)">Production Agent Deployment, Debugging</div>
+  <div style="font-size:15px;font-weight:600;margin-bottom:4px;color:var(--text)">预演校验 <span style="font-size:12px;font-weight:400;color:var(--muted)">Dry-Run Harness</span></div>
+  <div style="font-size:11px;color:var(--muted);margin-bottom:8px;background:var(--bg3);display:inline-block;padding:2px 8px;border-radius:4px">side-effect gating</div>
+  <div style="font-size:13px;color:var(--muted);line-height:1.65">真正把副作用关进闸门里</div>
 </div><div class="card">
   <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
     <span style="font-size:11px;font-weight:700;color:var(--c4);letter-spacing:.05em">#17</span>
-    <a href="reflexive-metacognitive.html" style="font-size:12px;color:var(--muted);border:1px solid var(--border);padding:3px 10px;border-radius:6px;transition:all .15s" onmouseover="this.style.borderColor='var(--c4)';this.style.color='var(--c4)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--muted)'">Explore →</a>
+    <a href="reflexive-metacognitive.html" style="font-size:12px;color:var(--muted);border:1px solid var(--border);padding:3px 10px;border-radius:6px;transition:all .15s" onmouseover="this.style.borderColor='var(--c4)';this.style.color='var(--c4)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--muted)'">探索 &rarr;</a>
   </div>
-  <div style="font-size:15px;font-weight:600;margin-bottom:6px;color:var(--text)">Reflexive Metacognitive</div>
-  <div style="font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:8px">An agent with a self-model that reasons about its own capabilities and limitations, escalating to humans when needed.</div>
-  <div style="font-size:11px;color:var(--faint);font-family:var(--mono)">High-Stakes Advisory (Medical, Legal, Finance)</div>
+  <div style="font-size:15px;font-weight:600;margin-bottom:4px;color:var(--text)">自反式元认知 <span style="font-size:12px;font-weight:400;color:var(--muted)">Reflexive Metacognitive</span></div>
+  <div style="font-size:11px;color:var(--muted);margin-bottom:8px;background:var(--bg3);display:inline-block;padding:2px 8px;border-radius:4px">self-boundary reasoning</div>
+  <div style="font-size:13px;color:var(--muted);line-height:1.65">系统第一次显式思考自己的边界</div>
 </div></div>
 </section><section class="layer-sec" id="p5">
   <div class="layer-hdr">
     <span class="layer-id-badge" style="background:#0f6e56;color:rgba(255,255,255,.9)">Part 5</span>
-    <div class="layer-title">Learning & Adaptation</div>
+    <div class="layer-title" style="font-size:24px">第五部分：学习与适应</div>
   </div>
-  <p class="layer-def" style="border-color:#1db0a0">How agents improve over time and solve problems in novel ways — feedback-driven self-improvement and emergent behavior from simple local rules.</p>
+  <p class="layer-def" style="border-color:#1db0a0">Agent 如何随时间进化</p>
   <div class="grid2"><div class="card">
   <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
     <span style="font-size:11px;font-weight:700;color:var(--c5);letter-spacing:.05em">#15</span>
-    <a href="rlhf.html" style="font-size:12px;color:var(--muted);border:1px solid var(--border);padding:3px 10px;border-radius:6px;transition:all .15s" onmouseover="this.style.borderColor='var(--c5)';this.style.color='var(--c5)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--muted)'">Explore →</a>
+    <a href="rlhf.html" style="font-size:12px;color:var(--muted);border:1px solid var(--border);padding:3px 10px;border-radius:6px;transition:all .15s" onmouseover="this.style.borderColor='var(--c5)';this.style.color='var(--c5)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--muted)'">探索 &rarr;</a>
   </div>
-  <div style="font-size:15px;font-weight:600;margin-bottom:6px;color:var(--text)">RLHF (Self-Improvement)</div>
-  <div style="font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:8px">Output is critiqued by an editor agent; feedback drives iterative revision. High-quality outputs saved for future improvement.</div>
-  <div style="font-size:11px;color:var(--faint);font-family:var(--mono)">High-Quality Content Generation, Continual Learning</div>
+  <div style="font-size:15px;font-weight:600;margin-bottom:4px;color:var(--text)">自我改进循环 <span style="font-size:12px;font-weight:400;color:var(--muted)">RLHF</span></div>
+  <div style="font-size:11px;color:var(--muted);margin-bottom:8px;background:var(--bg3);display:inline-block;padding:2px 8px;border-radius:4px">iterative refinement loop</div>
+  <div style="font-size:13px;color:var(--muted);line-height:1.65">进化回路</div>
 </div><div class="card">
   <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
     <span style="font-size:11px;font-weight:700;color:var(--c5);letter-spacing:.05em">#16</span>
-    <a href="cellular-automata.html" style="font-size:12px;color:var(--muted);border:1px solid var(--border);padding:3px 10px;border-radius:6px;transition:all .15s" onmouseover="this.style.borderColor='var(--c5)';this.style.color='var(--c5)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--muted)'">Explore →</a>
+    <a href="cellular-automata.html" style="font-size:12px;color:var(--muted);border:1px solid var(--border);padding:3px 10px;border-radius:6px;transition:all .15s" onmouseover="this.style.borderColor='var(--c5)';this.style.color='var(--c5)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--muted)'">探索 &rarr;</a>
   </div>
-  <div style="font-size:15px;font-weight:600;margin-bottom:6px;color:var(--text)">Cellular Automata</div>
-  <div style="font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:8px">Many simple, decentralized grid-based agents whose local interactions produce complex emergent global behavior.</div>
-  <div style="font-size:11px;color:var(--faint);font-family:var(--mono)">Spatial Reasoning, Logistics, Complex System Simulation</div>
+  <div style="font-size:15px;font-weight:600;margin-bottom:4px;color:var(--text)">元胞自动机 <span style="font-size:12px;font-weight:400;color:var(--muted)">Cellular Automata</span></div>
+  <div style="font-size:11px;color:var(--muted);margin-bottom:8px;background:var(--bg3);display:inline-block;padding:2px 8px;border-radius:4px">emergence</div>
+  <div style="font-size:13px;color:var(--muted);line-height:1.65">LLM 退出主循环</div>
 </div></div>
 </section>
-</div><div class="footer">
-  <p>Built from <a href="https://github.com/1998x-stack/all-agentic-architectures" style="color:var(--text)">all-agentic-architectures</a></p>
-</div></body></html>
+</div><div class="footer"><p>Built from <a href="https://github.com/1998x-stack/all-agentic-architectures" style="color:var(--text)">all-agentic-architectures</a></p></div></body></html>

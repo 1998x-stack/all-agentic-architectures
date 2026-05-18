@@ -1,105 +1,192 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>#11 Meta-Controller — All Agentic Architectures</title>
+<title>#11 元控制器 — All Agentic Architectures</title>
 <link rel="stylesheet" href="base-dark.css">
 <style>
-  :root {
-    --c1: #28c840; --c1d: #1a7a2a;
-    --c2: #378add; --c2d: #1a5290;
-    --c3: #a259ff; --c3d: #5a2a8a;
-    --c4: #f0883e; --c4d: #9a4a1a;
-    --c5: #1db0a0; --c5d: #0f6e56;
-  }
-  .hero h1 em {
-    background: linear-gradient(90deg, var(--c1), var(--c2), var(--c3), var(--c4), var(--c5));
-    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-  }
-  .prevnext { display: flex; justify-content: space-between; padding: 32px 0; border-top: 1px solid var(--border); margin-top: 48px; }
-  .prevnext a { color: var(--muted); font-size: 13px; }
-  .prevnext a:hover { color: var(--text); text-decoration: none; }
-  .pn-strong { color: var(--text) !important; font-weight: 500; }
-  .coding { font-size: 11px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); margin-bottom: 4px; }
-  h2 { font-size: 22px; font-weight: 600; margin: 0 0 12px; letter-spacing: -.01em; }
-  h3 { font-size: 18px; font-weight: 600; margin: 32px 0 12px; }
+  :root{--c1:#28c840;--c1d:#1a7a2a;--c2:#378add;--c2d:#1a5290;--c3:#a259ff;--c3d:#5a2a8a;--c4:#f0883e;--c4d:#9a4a1a;--c5:#1db0a0;--c5d:#0f6e56}
+  .hero h1 em{background:linear-gradient(90deg,var(--c1),var(--c2),var(--c3),var(--c4),var(--c5));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+  .prevnext{display:flex;justify-content:space-between;padding:32px 0;border-top:1px solid var(--border);margin-top:56px}
+  .prevnext a{color:var(--muted);font-size:14px;transition:color .15s}
+  .prevnext a:hover{color:var(--text);text-decoration:none}
+  .prevnext .pn-label{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--faint);margin-bottom:4px;display:block}
+  .cn-section{margin-top:48px}
+  .cn-section h3{font-size:20px;font-weight:700;margin-bottom:20px;padding-bottom:8px;border-bottom:1px solid var(--border)}
+  .toc-link{display:inline-block;padding:3px 8px;border-radius:4px;font-size:11px;font-family:var(--mono);color:var(--muted);border:1px solid var(--border);margin:2px 4px 2px 0;transition:all .15s}
+  .toc-link:hover{border-color:var(--c1);color:var(--c1);text-decoration:none}
 </style>
 
 </head>
 <body><nav>
   <div class="nav-inner">
-    <span class="nav-brand">All Agentic Architectures <span>· 17 Patterns</span></span>
-    <a class="nl" href="index.html">Overview</a>
+    <a href="index.html" style="text-decoration:none"><span class="nav-brand">All Agentic Architectures <span>· 17 种架构</span></span></a>
+    <a class="nl" href="index.html">总览</a>
+    <a class="nl" href="index.html#p1">基础</a>
+    <a class="nl" href="index.html#p2">多智能体</a>
+    <a class="nl" href="index.html#p3">记忆推理</a>
+    <a class="nl" href="index.html#p4">安全可靠</a>
+    <a class="nl" href="index.html#p5">学习适应</a>
   </div>
 </nav><div class="page">
-  <section class="hero" style="padding-bottom:32px">
-    <div class="hero-badge"><span class="dot" style="background:var(--c2)"></span> #11 · Multi-Agent Collaboration</div>
-    <h1 style="font-size:36px;color:var(--text)">Meta-Controller</h1>
-    <p style="margin-bottom:20px">Multi-Service AI Platforms, Adaptive Assistants</p>
-    <div class="tag-row">
-      <span class="ltag" style="color:var(--c2);background:rgba(55,138,221,.08);border-color:rgba(55,138,221,.25)">Part 2</span>
-    </div>
+  <section class="hero" style="padding-bottom:28px">
+    <div class="hero-badge"><span class="dot" style="background:var(--c2)"></span> #11 · 把入口做成路由系统 · entry routing</div>
+    <h1 style="font-size:34px;color:var(--text);margin-bottom:6px">元控制器 <span style="font-size:18px;font-weight:400;color:var(--muted)">Meta-Controller</span></h1>
+    <p style="font-size:14px;color:var(--faint);margin-bottom:8px;font-style:italic">一次性路由</p>
+    <p style="margin-bottom:8px;font-size:14px">一次性路由</p>
+    <p style="font-size:13px;color:var(--muted);margin-bottom:20px">典型应用：</p>
+    <div class="tag-row"><span class="ltag" style="color:var(--c2);background:rgba(55,138,221,.08);border-color:rgba(55,138,221,.25)">Part 2</span></div>
   </section>
-
-  <section class="layer-sec" style="padding-top:16px;border-bottom:none">
+  <div style="margin-bottom:28px;line-height:2">
+  <span style="font-size:11px;color:var(--faint);text-transform:uppercase;letter-spacing:.06em">快速导航</span><br>
+  <a href="#cn-analysis" class="toc-link">六维分析</a>
+  <a href="#en-intro" class="toc-link">英文解析</a>
+  <a href="#code" class="toc-link">LangGraph 实现</a>
+</div>
+  <section class="layer-sec" style="padding-top:0;border-bottom:none">
     <div class="layer-hdr">
-      <span class="layer-id-badge" style="background:#1a5290;color:rgba(255,255,255,.9)">Concept</span>
-      <div class="layer-title">How It Works</div>
+      <span class="layer-id-badge" style="background:#1a5290;color:rgba(255,255,255,.9)">核心概念</span>
+      <div class="layer-title" style="font-size:18px">一次性路由</div>
     </div>
-    <p class="layer-def" style="border-color:#378add">A supervisory agent analyzes incoming tasks and routes them to the most appropriate specialist sub-agent.</p>
-    <div style="font-size:14px;line-height:1.85;color:var(--text)">
-      <h2>📘 Agentic Architectures 11: Meta-Controller</h2>
-<p style="margin-bottom:12px;line-height:1.75;font-size:14px;color:var(--muted)">Welcome to the eleventh notebook in our series. Today, we&#x27;re building a <strong style="color:var(--text)">Meta-Controller</strong>, a supervisory agent architecture that orchestrates a team of specialized sub-agents. This pattern is fundamental to creating powerful, multi-talented AI systems.</p>
-<p style="margin-bottom:12px;line-height:1.75;font-size:14px;color:var(--muted)">Instead of building a single, monolithic agent that tries to do everything, the Meta-Controller acts as a smart dispatcher. It receives an incoming request, analyzes its nature, and routes it to the most appropriate specialist from a pool of available agents. This allows each sub-agent to be highly optimized for its specific task, leading to better performance and modularity.</p>
-<p style="margin-bottom:12px;line-height:1.75;font-size:14px;color:var(--muted)">We will demonstrate this by building a system with three distinct specialists:</p>
-<ol style="margin:0 0 16px 18px">
-<li style="margin-bottom:8px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Generalist Agent:</strong> Handles casual conversation and simple questions.</li>
-<li style="margin-bottom:8px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Research Agent:</strong> Equipped with a search tool to answer questions about recent events or complex topics.</li>
-<li style="margin-bottom:8px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Coding Agent:</strong> A specialist focused on generating Python code snippets.</li>
-</ol>
-<p style="margin-bottom:12px;line-height:1.75;font-size:14px;color:var(--muted)">The Meta-Controller will be the &quot;brain&quot; of the operation, examining each user query and deciding which agent is best suited to respond. This creates a flexible and easily extensible system where new capabilities can be added simply by creating a new specialist agent and teaching the controller about it.</p>
-<h4 style="color:var(--muted);margin:24px 0 8px;font-size:14px;text-transform:uppercase;letter-spacing:.06em">Definition</h4>
-<p style="margin-bottom:12px;line-height:1.75;font-size:14px;color:var(--muted)">A <strong style="color:var(--text)">Meta-Controller</strong> (or Router) is a supervisory agent in a multi-agent system that is responsible for analyzing incoming tasks and dispatching them to the appropriate specialized sub-agent or workflow. It acts as an intelligent routing layer, deciding which tool or expert is best suited for the job at hand.</p>
-<h4 style="color:var(--muted);margin:24px 0 8px;font-size:14px;text-transform:uppercase;letter-spacing:.06em">High-level Workflow</h4>
-<ol style="margin:0 0 16px 18px">
-<li style="margin-bottom:8px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Receive Input:</strong> The system receives a user request.</li>
-<li style="margin-bottom:8px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Meta-Controller Analysis:</strong> The Meta-Controller agent examines the request&#x27;s intent, complexity, and content.</li>
-<li style="margin-bottom:8px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Dispatch to Specialist:</strong> Based on its analysis, the Meta-Controller selects the best specialist agent (e.g., &#x27;Researcher&#x27;, &#x27;Coder&#x27;, &#x27;Chatbot&#x27;) from a predefined pool.</li>
-<li style="margin-bottom:8px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Execute Task:</strong> The chosen specialist agent executes the task and generates a result.</li>
-<li style="margin-bottom:8px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Return Result:</strong> The result from the specialist is returned to the user. In more complex workflows, control might return to the Meta-Controller for further steps or monitoring.</li>
-</ol>
-<h4 style="color:var(--muted);margin:24px 0 8px;font-size:14px;text-transform:uppercase;letter-spacing:.06em">When to Use / Applications</h4>
-<ul style="margin:0 0 16px 18px;list-style-type:disc">
-<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Multi-Service AI Platforms:</strong> A single entry point for a platform that offers diverse services like document analysis, data visualization, and creative writing.</li>
-<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Adaptive Personal Assistants:</strong> An assistant that can switch between different modes or tools, such as managing your calendar, searching the web, or controlling smart home devices.</li>
-<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Enterprise Workflows:</strong> Routing customer support tickets to the right department (technical, billing, sales) based on the ticket&#x27;s content.</li>
-</ul>
-<h4 style="color:var(--muted);margin:24px 0 8px;font-size:14px;text-transform:uppercase;letter-spacing:.06em">Strengths &amp; Weaknesses</h4>
-<ul style="margin:0 0 16px 18px;list-style-type:disc">
-<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Strengths:</strong></li>
-<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Flexibility &amp; Modularity:</strong> Extremely easy to add new capabilities by simply adding a new specialist agent and updating the controller&#x27;s routing logic.</li>
-<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Performance:</strong> Allows for highly optimized, expert agents instead of one jack-of-all-trades model that might be mediocre at everything.</li>
-<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Weaknesses:</strong></li>
-<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Controller as a Single Point of Failure:</strong> The quality of the entire system hinges on the controller&#x27;s ability to route tasks correctly. A poor routing decision leads to a suboptimal or incorrect outcome.</li>
-<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Potential for Increased Latency:</strong> The extra step of routing can add a small amount of latency compared to a direct call to a single agent.</li>
-</ul>
-    </div>
+    <p class="layer-def" style="border-color:#378add">一次性路由</p>
   </section>
+  <section class="layer-sec cn-section" id="cn-analysis">
+    <h3 style="border-color:#378add">六维深度分析</h3>
+    <p style="font-size:13px;color:var(--faint);margin-bottom:24px">以下分析基于统一框架的六个核心问题：问题定义 → State 建模 → 拓扑结构 → Router 机制 → 失败模式 → 升级时机</p>
+    <p style="font-size:15px;color:var(--text);line-height:1.9;margin-bottom:24px;padding:16px 20px;background:var(--bg2);border-radius:8px;border-left:3px solid var(--c1)"><strong style="color:var(--c1)">核心洞察：</strong>很多系统并不需要 Blackboard 那种持续调度，它们的问题更像是： <strong style="color:var(--text)">这条请求是研究类，还是编码类，还是通用问答？</strong></p>
+<div style="margin-bottom:32px">
+  <h4 style="font-size:16px;font-weight:600;margin:0 0 12px;color:var(--text)">要解决什么问题？</h4>
+  <div style="padding-left:4px"><p style="margin-bottom:12px;line-height:1.85">很多系统并不需要 Blackboard 那种持续调度，它们的问题更像是： <strong style="color:var(--text)">这条请求是研究类，还是编码类，还是通用问答？</strong></p>
 
-  <section class="layer-sec" id="code">
-    <div class="layer-hdr">
-      <span class="layer-id-badge" style="background:#1a5290;color:rgba(255,255,255,.9)">Implementation</span>
-      <div class="layer-title">Code <small style="font-size:14px;font-weight:400;color:var(--muted)">LangChain + LangGraph</small></div>
-    </div>
-    <div class="codeblock">
-  <div class="cb-head">
+<p style="margin-bottom:12px;line-height:1.85">Meta-Controller 解决的是： <strong style="color:var(--text)">入口分诊。</strong></p></div>
+</div>
+<div style="margin-bottom:32px">
+  <h4 style="font-size:16px;font-weight:600;margin:0 0 12px;color:var(--text)">State 设计</h4>
+  <div style="padding-left:4px"><p style="margin-bottom:12px;line-height:1.85"><div class="codeblock" style="margin:12px 0 20px">
+  <div class="cb-head" style="font-size:11px">
     <span class="cb-dot" style="background:#f85149"></span>
     <span class="cb-dot" style="background:#e3b341"></span>
     <span class="cb-dot" style="background:#28c840"></span>
-    src/src/... · 179 lines
+    agno 实现示例 · 4 行
   </div>
-  <div class="cb-body"><span class="str">&quot;&quot;&quot;
+  <div class="cb-body" style="font-size:12px;line-height:1.8"><span class="kw">class</span> <span class="fn">MetaAgentState</span>(BaseModel)<span class="op">:</span>
+    user_request<span class="op">:</span> <span class="fn">str</span>
+    selected_agent<span class="op">:</span> Optional[<span class="fn">str</span>] <span class="op">=</span> <span class="kw">None</span>
+    result<span class="op">:</span> Optional[<span class="fn">str</span>] <span class="op">=</span> <span class="kw">None</span></div>
+</div></p>
+
+<p style="margin-bottom:12px;line-height:1.85">状态最小而明确：请求是什么、被路由给谁、返回了什么。</p></div>
+</div>
+<div style="margin-bottom:32px">
+  <h4 style="font-size:16px;font-weight:600;margin:0 0 12px;color:var(--text)">拓扑结构</h4>
+  <div style="padding-left:4px"><p style="margin-bottom:12px;line-height:1.85">&#x27; fill=&#x27;%23FFFFFF&#x27;%3E%3Crect x=&#x27;249&#x27; y=&#x27;126&#x27; width=&#x27;1&#x27; height=&#x27;1&#x27;%3E%3C/rect%3E%3C/g%3E%3C/g%3E%3C/svg%3E)</p></div>
+</div>
+<div style="margin-bottom:32px">
+  <h4 style="font-size:16px;font-weight:600;margin:0 0 12px;color:var(--text)">关键代码</h4>
+  <div style="padding-left:4px"><p style="margin-bottom:12px;line-height:1.85">agno 里这是 <code style="font-family:var(--mono);font-size:12px;background:var(--bg3);padding:1px 6px;border-radius:4px;color:var(--c1)">Team(mode=&quot;route&quot;)</code> 的原生场景——leader 只做选择，不做任务：</p>
+
+<p style="margin-bottom:12px;line-height:1.85"><div class="codeblock" style="margin:12px 0 20px">
+  <div class="cb-head" style="font-size:11px">
+    <span class="cb-dot" style="background:#f85149"></span>
+    <span class="cb-dot" style="background:#e3b341"></span>
+    <span class="cb-dot" style="background:#28c840"></span>
+    agno 实现示例 · 37 行
+  </div>
+  <div class="cb-body" style="font-size:12px;line-height:1.8"><span class="kw">from</span> agno.team <span class="kw">import</span> Team
+
+generalist <span class="op">=</span> <span class="fn">Agent</span>(
+    name<span class="op">=</span><span class="str">&quot;generalist&quot;</span>,
+    model<span class="op">=</span><span class="fn">OpenAIChat</span>(id<span class="op">=</span><span class="str">&quot;gpt-5-mini-mini&quot;</span>),
+    role<span class="op">=</span><span class="str">&quot;Handles general Q&amp;A.&quot;</span>,
+    instructions<span class="op">=</span><span class="str">&quot;Answer general knowledge questions directly.&quot;</span>,
+)
+
+researcher <span class="op">=</span> <span class="fn">Agent</span>(
+    name<span class="op">=</span><span class="str">&quot;researcher&quot;</span>,
+    model<span class="op">=</span><span class="fn">OpenAIChat</span>(id<span class="op">=</span><span class="str">&quot;gpt-5-mini&quot;</span>),
+    role<span class="op">=</span><span class="str">&quot;Handles research-heavy queries.&quot;</span>,
+    tools<span class="op">=</span>[<span class="fn">DuckDuckGoTools</span>()],
+    instructions<span class="op">=</span><span class="str">&quot;Do multi-step research using search.&quot;</span>,
+)
+
+coder <span class="op">=</span> <span class="fn">Agent</span>(
+    name<span class="op">=</span><span class="str">&quot;coder&quot;</span>,
+    model<span class="op">=</span><span class="fn">OpenAIChat</span>(id<span class="op">=</span><span class="str">&quot;gpt-5-mini&quot;</span>),
+    role<span class="op">=</span><span class="str">&quot;Handles Python coding tasks.&quot;</span>,
+    instructions<span class="op">=</span><span class="str">&quot;Write, explain and debug Python code.&quot;</span>,
+)
+
+meta <span class="op">=</span> <span class="fn">Team</span>(
+    name<span class="op">=</span><span class="str">&quot;meta_controller&quot;</span>,
+    mode<span class="op">=</span><span class="str">&quot;route&quot;</span>,                      <span class="cm"># 关键：一次性路由</span>
+    model<span class="op">=</span><span class="fn">OpenAIChat</span>(id<span class="op">=</span><span class="str">&quot;gpt-5-mini&quot;</span>),
+    members<span class="op">=</span>[generalist, researcher, coder],
+    instructions<span class="op">=</span>(
+        <span class="str">&quot;Choose exactly one member based on the request type: &quot;</span>
+        <span class="str">&quot;generalist for general Q&amp;A, researcher for research-heavy queries, &quot;</span>
+        <span class="str">&quot;coder for Python coding tasks. Do not do the work yourself.&quot;</span>
+    ),
+)
+
+meta.<span class="fn">print_response</span>(<span class="str">&quot;Write a Python function to compute the LCM of two numbers.&quot;</span>)</div>
+</div></p>
+
+<p style="margin-bottom:12px;line-height:1.85"><code style="font-family:var(--mono);font-size:12px;background:var(--bg3);padding:1px 6px;border-radius:4px;color:var(--c1)">mode=&quot;route&quot;</code> 的精髓不在 graph 多复杂，而在于： <strong style="color:var(--text)">controller 自己不做任务，只做选择。</strong></p></div>
+</div>
+<div style="margin-bottom:32px">
+  <h4 style="font-size:16px;font-weight:600;margin:0 0 12px;color:var(--text)">失败模式</h4>
+  <div style="padding-left:4px"><p style="margin-bottom:12px;line-height:1.85">最核心的就是路由错误，因为它只路由一次，所以一旦第一跳错了，整个请求路径就错了，而且这类错误常常不是显式报错，而是&quot;回答得像那么回事，但方向错了&quot;。</p></div>
+</div>
+  </section>
+  <section class="layer-sec" id="en-intro" style="border-bottom:none">
+    <h3 style="border-color:#378add">英文原版解析</h3>
+    <p style="font-size:12px;color:var(--faint);margin-bottom:16px">来自 Jupyter Notebook 的原始英文概念说明</p>
+    <div style="font-size:13px;line-height:1.8;color:var(--muted)"><h3 style="font-size:16px;font-weight:600;margin:20px 0 8px;color:var(--text)">📘 Agentic Architectures 11: Meta-Controller</h3>
+<p style="margin-bottom:8px;line-height:1.7;font-size:13px;color:var(--muted)">Welcome to the eleventh notebook in our series. Today, we&#x27;re building a <strong style="color:var(--text)">Meta-Controller</strong>, a supervisory agent architecture that orchestrates a team of specialized sub-agents. This pattern is fundamental to creating powerful, multi-talented AI systems.</p>
+<p style="margin-bottom:8px;line-height:1.7;font-size:13px;color:var(--muted)">Instead of building a single, monolithic agent that tries to do everything, the Meta-Controller acts as a smart dispatcher. It receives an incoming request, analyzes its nature, and routes it to the most appropriate specialist from a pool of available agents. This allows each sub-agent to be highly optimized for its specific task, leading to better performance and modularity.</p>
+<p style="margin-bottom:8px;line-height:1.7;font-size:13px;color:var(--muted)">We will demonstrate this by building a system with three distinct specialists:</p>
+<ol style="margin:4px 0 12px 18px">
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Generalist Agent:</strong> Handles casual conversation and simple questions.</li>
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Research Agent:</strong> Equipped with a search tool to answer questions about recent events or complex topics.</li>
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Coding Agent:</strong> A specialist focused on generating Python code snippets.</li>
+</ul>
+<p style="margin-bottom:8px;line-height:1.7;font-size:13px;color:var(--muted)">The Meta-Controller will be the &quot;brain&quot; of the operation, examining each user query and deciding which agent is best suited to respond. This creates a flexible and easily extensible system where new capabilities can be added simply by creating a new specialist agent and teaching the controller about it.</p>
+<p style="font-weight:600;margin:14px 0 4px;font-size:14px">Definition</p>
+<p style="margin-bottom:8px;line-height:1.7;font-size:13px;color:var(--muted)">A <strong style="color:var(--text)">Meta-Controller</strong> (or Router) is a supervisory agent in a multi-agent system that is responsible for analyzing incoming tasks and dispatching them to the appropriate specialized sub-agent or workflow. It acts as an intelligent routing layer, deciding which tool or expert is best suited for the job at hand.</p>
+<p style="font-weight:600;margin:14px 0 4px;font-size:14px">High-level Workflow</p>
+<ol style="margin:4px 0 12px 18px">
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Receive Input:</strong> The system receives a user request.</li>
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Meta-Controller Analysis:</strong> The Meta-Controller agent examines the request&#x27;s intent, complexity, and content.</li>
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Dispatch to Specialist:</strong> Based on its analysis, the Meta-Controller selects the best specialist agent (e.g., &#x27;Researcher&#x27;, &#x27;Coder&#x27;, &#x27;Chatbot&#x27;) from a predefined pool.</li>
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Execute Task:</strong> The chosen specialist agent executes the task and generates a result.</li>
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Return Result:</strong> The result from the specialist is returned to the user. In more complex workflows, control might return to the Meta-Controller for further steps or monitoring.</li>
+</ul>
+<p style="font-weight:600;margin:14px 0 4px;font-size:14px">When to Use / Applications</p>
+<ul style="margin:4px 0 12px 18px;list-style-type:disc">
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Multi-Service AI Platforms:</strong> A single entry point for a platform that offers diverse services like document analysis, data visualization, and creative writing.</li>
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Adaptive Personal Assistants:</strong> An assistant that can switch between different modes or tools, such as managing your calendar, searching the web, or controlling smart home devices.</li>
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Enterprise Workflows:</strong> Routing customer support tickets to the right department (technical, billing, sales) based on the ticket&#x27;s content.</li>
+</ul>
+<p style="font-weight:600;margin:14px 0 4px;font-size:14px">Strengths &amp; Weaknesses</p>
+<ul style="margin:4px 0 12px 18px;list-style-type:disc">
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Strengths:</strong></li>
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Flexibility &amp; Modularity:</strong> Extremely easy to add new capabilities by simply adding a new specialist agent and updating the controller&#x27;s routing logic.</li>
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Performance:</strong> Allows for highly optimized, expert agents instead of one jack-of-all-trades model that might be mediocre at everything.</li>
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Weaknesses:</strong></li>
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Controller as a Single Point of Failure:</strong> The quality of the entire system hinges on the controller&#x27;s ability to route tasks correctly. A poor routing decision leads to a suboptimal or incorrect outcome.</li>
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Potential for Increased Latency:</strong> The extra step of routing can add a small amount of latency compared to a direct call to a single agent.</li>
+</ul></div>
+  </section>
+  <section class="layer-sec" id="code">
+    <h3 style="border-color:#378add">LangChain + LangGraph 实现代码</h3>
+    <p style="font-size:12px;color:var(--faint);margin-bottom:16px">完整的端到端实现代码，可从 src/ 目录直接运行</p>
+    <div class="codeblock">
+  <div class="cb-head">
+    <span class="cb-dot" style="background:#f85149"></span><span class="cb-dot" style="background:#e3b341"></span><span class="cb-dot" style="background:#28c840"></span>
+    src/... · LangChain + LangGraph · 178 行
+  </div>
+  <div class="cb-body" style="font-size:12px;line-height:1.8"><span class="str">&quot;&quot;&quot;
 Meta-Controller - Agentic Architecture
 Extracted from: 11_meta_controller.ipynb
 &quot;&quot;&quot;</span>
@@ -280,8 +367,5 @@ run_agent(&quot;</span>Can you write me a python function to calculate the nth f
 </span></div>
 </div>
   </section>
-
-  <div class="prevnext"><a href="mental-loop.html"><span class="coding">Previous</span><br><span class="pn-strong">← Mental Loop (Simulator)</span></a><a href="graph.html" style="text-align:right"><span class="coding">Next</span><br><span class="pn-strong">Graph (World-Model Memory) →</span></a></div>
-</div><div class="footer">
-  <p>Built from <a href="https://github.com/1998x-stack/all-agentic-architectures" style="color:var(--text)">all-agentic-architectures</a></p>
-</div></body></html>
+  <div class="prevnext"><a href="mental-loop.html"><span class="pn-label">&larr; 上一架构</span>#10 心智循环</a><a href="graph.html" style="text-align:right"><span class="pn-label">下一架构 &rarr;</span>#12 图世界模型记忆</a></div>
+</div><div class="footer"><p>Built from <a href="https://github.com/1998x-stack/all-agentic-architectures" style="color:var(--text)">all-agentic-architectures</a></p></div></body></html>

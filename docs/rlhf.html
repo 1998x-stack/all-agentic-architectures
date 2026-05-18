@@ -1,106 +1,223 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>#15 RLHF (Self-Improvement) — All Agentic Architectures</title>
+<title>#15 自我改进循环 — All Agentic Architectures</title>
 <link rel="stylesheet" href="base-dark.css">
 <style>
-  :root {
-    --c1: #28c840; --c1d: #1a7a2a;
-    --c2: #378add; --c2d: #1a5290;
-    --c3: #a259ff; --c3d: #5a2a8a;
-    --c4: #f0883e; --c4d: #9a4a1a;
-    --c5: #1db0a0; --c5d: #0f6e56;
-  }
-  .hero h1 em {
-    background: linear-gradient(90deg, var(--c1), var(--c2), var(--c3), var(--c4), var(--c5));
-    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-  }
-  .prevnext { display: flex; justify-content: space-between; padding: 32px 0; border-top: 1px solid var(--border); margin-top: 48px; }
-  .prevnext a { color: var(--muted); font-size: 13px; }
-  .prevnext a:hover { color: var(--text); text-decoration: none; }
-  .pn-strong { color: var(--text) !important; font-weight: 500; }
-  .coding { font-size: 11px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); margin-bottom: 4px; }
-  h2 { font-size: 22px; font-weight: 600; margin: 0 0 12px; letter-spacing: -.01em; }
-  h3 { font-size: 18px; font-weight: 600; margin: 32px 0 12px; }
+  :root{--c1:#28c840;--c1d:#1a7a2a;--c2:#378add;--c2d:#1a5290;--c3:#a259ff;--c3d:#5a2a8a;--c4:#f0883e;--c4d:#9a4a1a;--c5:#1db0a0;--c5d:#0f6e56}
+  .hero h1 em{background:linear-gradient(90deg,var(--c1),var(--c2),var(--c3),var(--c4),var(--c5));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+  .prevnext{display:flex;justify-content:space-between;padding:32px 0;border-top:1px solid var(--border);margin-top:56px}
+  .prevnext a{color:var(--muted);font-size:14px;transition:color .15s}
+  .prevnext a:hover{color:var(--text);text-decoration:none}
+  .prevnext .pn-label{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--faint);margin-bottom:4px;display:block}
+  .cn-section{margin-top:48px}
+  .cn-section h3{font-size:20px;font-weight:700;margin-bottom:20px;padding-bottom:8px;border-bottom:1px solid var(--border)}
+  .toc-link{display:inline-block;padding:3px 8px;border-radius:4px;font-size:11px;font-family:var(--mono);color:var(--muted);border:1px solid var(--border);margin:2px 4px 2px 0;transition:all .15s}
+  .toc-link:hover{border-color:var(--c1);color:var(--c1);text-decoration:none}
 </style>
 
 </head>
 <body><nav>
   <div class="nav-inner">
-    <span class="nav-brand">All Agentic Architectures <span>· 17 Patterns</span></span>
-    <a class="nl" href="index.html">Overview</a>
+    <a href="index.html" style="text-decoration:none"><span class="nav-brand">All Agentic Architectures <span>· 17 种架构</span></span></a>
+    <a class="nl" href="index.html">总览</a>
+    <a class="nl" href="index.html#p1">基础</a>
+    <a class="nl" href="index.html#p2">多智能体</a>
+    <a class="nl" href="index.html#p3">记忆推理</a>
+    <a class="nl" href="index.html#p4">安全可靠</a>
+    <a class="nl" href="index.html#p5">学习适应</a>
   </div>
 </nav><div class="page">
-  <section class="hero" style="padding-bottom:32px">
-    <div class="hero-badge"><span class="dot" style="background:var(--c5)"></span> #15 · Learning & Adaptation</div>
-    <h1 style="font-size:36px;color:var(--text)">RLHF (Self-Improvement)</h1>
-    <p style="margin-bottom:20px">High-Quality Content Generation, Continual Learning</p>
-    <div class="tag-row">
-      <span class="ltag" style="color:var(--c5);background:rgba(29,176,160,.08);border-color:rgba(29,176,160,.25)">Part 5</span>
-    </div>
+  <section class="hero" style="padding-bottom:28px">
+    <div class="hero-badge"><span class="dot" style="background:var(--c5)"></span> #15 · 把质量改进做成循环 · iterative refinement loop</div>
+    <h1 style="font-size:34px;color:var(--text);margin-bottom:6px">自我改进循环 <span style="font-size:18px;font-weight:400;color:var(--muted)">RLHF</span></h1>
+    <p style="font-size:14px;color:var(--faint);margin-bottom:8px;font-style:italic">进化回路</p>
+    <p style="margin-bottom:8px;font-size:14px">进化回路</p>
+    <p style="font-size:13px;color:var(--muted);margin-bottom:20px">典型应用：</p>
+    <div class="tag-row"><span class="ltag" style="color:var(--c5);background:rgba(29,176,160,.08);border-color:rgba(29,176,160,.25)">Part 5</span></div>
   </section>
-
-  <section class="layer-sec" style="padding-top:16px;border-bottom:none">
+  <div style="margin-bottom:28px;line-height:2">
+  <span style="font-size:11px;color:var(--faint);text-transform:uppercase;letter-spacing:.06em">快速导航</span><br>
+  <a href="#cn-analysis" class="toc-link">六维分析</a>
+  <a href="#en-intro" class="toc-link">英文解析</a>
+  <a href="#code" class="toc-link">LangGraph 实现</a>
+</div>
+  <section class="layer-sec" style="padding-top:0;border-bottom:none">
     <div class="layer-hdr">
-      <span class="layer-id-badge" style="background:#0f6e56;color:rgba(255,255,255,.9)">Concept</span>
-      <div class="layer-title">How It Works</div>
+      <span class="layer-id-badge" style="background:#0f6e56;color:rgba(255,255,255,.9)">核心概念</span>
+      <div class="layer-title" style="font-size:18px">进化回路</div>
     </div>
-    <p class="layer-def" style="border-color:#1db0a0">Output is critiqued by an editor agent; feedback drives iterative revision. High-quality outputs saved for future improvement.</p>
-    <div style="font-size:14px;line-height:1.85;color:var(--text)">
-      <h2>📘 Agentic Architectures 15: Self-Improvement Loop (Self-Refine &amp; RLHF Analogy)</h2>
-<p style="margin-bottom:12px;line-height:1.75;font-size:14px;color:var(--muted)">Welcome to a deep dive into what is arguably the most advanced agentic pattern: the <strong style="color:var(--text)">Self-Improvement Loop</strong>. This architecture enables an agent to learn from its own performance, iteratively refining its output to achieve a higher standard of quality. It&#x27;s the mechanism that allows an agent to go from a good baseline to expert-level performance over time.</p>
-<p style="margin-bottom:12px;line-height:1.75;font-size:14px;color:var(--muted)">This process mimics the human learning cycle of <code style="font-family:var(--mono);font-size:12px;background:var(--bg3);padding:1px 6px;border-radius:4px;color:var(--code-text)">do -&gt; get feedback -&gt; improve</code>. We will implement this through a <strong style="color:var(--text)">Self-Refine</strong> workflow, where an agent&#x27;s output is immediately evaluated by a critical sub-agent, and if it&#x27;s found lacking, the original agent is tasked with revising its work based on the actionable feedback.</p>
-<p style="margin-bottom:12px;line-height:1.75;font-size:14px;color:var(--muted)">To make this concept tangible and detailed, we will build a <strong style="color:var(--text)">Marketing Copywriter Agent</strong>. The workflow will be:</p>
-<ol style="margin:0 0 16px 18px">
-<li style="margin-bottom:8px;line-height:1.65;font-size:14px;color:var(--text)">A <code style="font-family:var(--mono);font-size:12px;background:var(--bg3);padding:1px 6px;border-radius:4px;color:var(--code-text)">JuniorCopywriter</code> agent generates a first draft of a marketing email.</li>
-<li style="margin-bottom:8px;line-height:1.65;font-size:14px;color:var(--text)">A <code style="font-family:var(--mono);font-size:12px;background:var(--bg3);padding:1px 6px;border-radius:4px;color:var(--code-text)">SeniorEditor</code> agent critiques the draft against a strict rubric (clarity, persuasiveness, call-to-action).</li>
-<li style="margin-bottom:8px;line-height:1.65;font-size:14px;color:var(--text)">If the draft&#x27;s score is below a quality threshold, the <code style="font-family:var(--mono);font-size:12px;background:var(--bg3);padding:1px 6px;border-radius:4px;color:var(--code-text)">JuniorCopywriter</code> is invoked again, but this time with the editor&#x27;s specific feedback, to create a revised draft.</li>
-<li style="margin-bottom:8px;line-height:1.65;font-size:14px;color:var(--text)">This loop continues until the email is approved or a maximum number of revisions is reached.</li>
-</ol>
-<p style="margin-bottom:12px;line-height:1.75;font-size:14px;color:var(--muted)">Furthermore, we will explore how this pattern forms the conceptual basis for <strong style="color:var(--text)">long-term learning</strong>, analogous to RLHF, by saving the best-performing outputs to a persistent memory that informs future generations, creating a system that truly learns.</p>
-<h4 style="color:var(--muted);margin:24px 0 8px;font-size:14px;text-transform:uppercase;letter-spacing:.06em">Definition</h4>
-<p style="margin-bottom:12px;line-height:1.75;font-size:14px;color:var(--muted)">A <strong style="color:var(--text)">Self-Improvement Loop</strong> is an agentic architecture where an agent&#x27;s output is evaluated, either by itself or by another agent, and this evaluation is used as feedback to generate a revised, higher-quality output. When this feedback is stored and used to improve the agent&#x27;s baseline performance over time, it becomes a form of continual learning.</p>
-<h4 style="color:var(--muted);margin:24px 0 8px;font-size:14px;text-transform:uppercase;letter-spacing:.06em">High-level Workflow (Self-Refine)</h4>
-<ol style="margin:0 0 16px 18px">
-<li style="margin-bottom:8px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Generate Initial Output:</strong> The primary agent produces a first version of the solution (the &quot;draft&quot;).</li>
-<li style="margin-bottom:8px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Critique Output:</strong> A critic agent (or the primary agent in a &quot;critique mode&quot;) evaluates the draft against a set of predefined criteria or a general rubric.</li>
-<li style="margin-bottom:8px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Decision:</strong> The system checks if the critique is positive enough to accept the output.</li>
-<li style="margin-bottom:8px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Revise (Loop):</strong> If the output is not accepted, the original draft <em>and</em> the critic&#x27;s feedback are passed back to the primary agent, which is instructed to generate a revised version that addresses the feedback.</li>
-<li style="margin-bottom:8px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Accept:</strong> Once the output meets the quality standard, the loop terminates, and the final version is returned.</li>
-</ol>
-<h4 style="color:var(--muted);margin:24px 0 8px;font-size:14px;text-transform:uppercase;letter-spacing:.06em">When to Use / Applications</h4>
-<ul style="margin:0 0 16px 18px;list-style-type:disc">
-<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">High-Quality Content Generation:</strong> For tasks where a generic first draft is insufficient, such as writing legal documents, detailed technical reports, or persuasive marketing copy.</li>
-<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Continual Learning &amp; Personalization:</strong> An agent that learns a user&#x27;s preferences by generating responses, getting implicit or explicit feedback, and refining its internal strategy for the next interaction.</li>
-<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Complex Problem Solving:</strong> An agent can propose a plan, critique it for flaws or inefficiencies, and then revise the plan before execution.</li>
-</ul>
-<h4 style="color:var(--muted);margin:24px 0 8px;font-size:14px;text-transform:uppercase;letter-spacing:.06em">Strengths &amp; Weaknesses</h4>
-<ul style="margin:0 0 16px 18px;list-style-type:disc">
-<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Strengths:</strong></li>
-<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Dramatically Increases Output Quality:</strong> Iterative refinement consistently produces better results than single-shot generation.</li>
-<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Enables Continual Learning:</strong> Provides a framework for the agent to get better over time, adapting to new information or feedback.</li>
-<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Weaknesses:</strong></li>
-<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Risk of Reinforcing Biases:</strong> If the critic agent has flawed logic or biases, the system can get stuck in a loop that reinforces its own mistakes.</li>
-<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Computationally Expensive:</strong> The iterative nature means multiple LLM calls per task, increasing cost and latency.</li>
-</ul>
-    </div>
+    <p class="layer-def" style="border-color:#1db0a0">进化回路</p>
   </section>
+  <section class="layer-sec cn-section" id="cn-analysis">
+    <h3 style="border-color:#1db0a0">六维深度分析</h3>
+    <p style="font-size:13px;color:var(--faint);margin-bottom:24px">以下分析基于统一框架的六个核心问题：问题定义 → State 建模 → 拓扑结构 → Router 机制 → 失败模式 → 升级时机</p>
+    <p style="font-size:15px;color:var(--text);line-height:1.9;margin-bottom:24px;padding:16px 20px;background:var(--bg2);border-radius:8px;border-left:3px solid var(--c1)"><strong style="color:var(--c1)">核心洞察：</strong>Reflection 只有一次 critique pass，一个追求高质量输出的系统需要的是：生成 → 评估 → 修订 → 再评估 → 不达标继续，也就是把质量优化做成 <strong style="color:var(--text)">进化回路</strong> 。</p>
+<div style="margin-bottom:32px">
+  <h4 style="font-size:16px;font-weight:600;margin:0 0 12px;color:var(--text)">要解决什么问题？</h4>
+  <div style="padding-left:4px"><p style="margin-bottom:12px;line-height:1.85">Reflection 只有一次 critique pass，一个追求高质量输出的系统需要的是：生成 → 评估 → 修订 → 再评估 → 不达标继续，也就是把质量优化做成 <strong style="color:var(--text)">进化回路</strong> 。</p></div>
+</div>
+<div style="margin-bottom:32px">
+  <h4 style="font-size:16px;font-weight:600;margin:0 0 12px;color:var(--text)">关键代码</h4>
+  <div style="padding-left:4px"><p style="margin-bottom:12px;line-height:1.85">最关键的是终止条件，agno 的 <code style="font-family:var(--mono);font-size:12px;background:var(--bg3);padding:1px 6px;border-radius:4px;color:var(--c1)">Loop.end_condition</code> 天然支持这个：</p>
 
-  <section class="layer-sec" id="code">
-    <div class="layer-hdr">
-      <span class="layer-id-badge" style="background:#0f6e56;color:rgba(255,255,255,.9)">Implementation</span>
-      <div class="layer-title">Code <small style="font-size:14px;font-weight:400;color:var(--muted)">LangChain + LangGraph</small></div>
-    </div>
-    <div class="codeblock">
-  <div class="cb-head">
+<p style="margin-bottom:12px;line-height:1.85"><div class="codeblock" style="margin:12px 0 20px">
+  <div class="cb-head" style="font-size:11px">
     <span class="cb-dot" style="background:#f85149"></span>
     <span class="cb-dot" style="background:#e3b341"></span>
     <span class="cb-dot" style="background:#28c840"></span>
-    src/src/... · 252 lines
+    agno 实现示例 · 80 行
   </div>
-  <div class="cb-body"><span class="str">&quot;&quot;&quot;
+  <div class="cb-body" style="font-size:12px;line-height:1.8"><span class="kw">class</span> <span class="fn">EmailCritique</span>(BaseModel)<span class="op">:</span>
+    is_approved<span class="op">:</span> <span class="fn">bool</span>
+    feedback<span class="op">:</span> <span class="fn">str</span>
+
+<span class="kw">class</span> <span class="fn">MarketingEmail</span>(BaseModel)<span class="op">:</span>
+    subject<span class="op">:</span> <span class="fn">str</span>
+    body<span class="op">:</span> <span class="fn">str</span>
+
+generator <span class="op">=</span> <span class="fn">Agent</span>(name<span class="op">=</span><span class="str">&quot;email_gen&quot;</span>, model<span class="op">=</span><span class="fn">OpenAIChat</span>(id<span class="op">=</span><span class="str">&quot;gpt-5-mini&quot;</span>),
+    response_model<span class="op">=</span>MarketingEmail,
+    instructions<span class="op">=</span><span class="str">&quot;Write a marketing email. Follow feedback if provided.&quot;</span>)
+
+critic <span class="op">=</span> <span class="fn">Agent</span>(name<span class="op">=</span><span class="str">&quot;email_critic&quot;</span>, model<span class="op">=</span><span class="fn">OpenAIChat</span>(id<span class="op">=</span><span class="str">&quot;gpt-5-mini&quot;</span>),
+    response_model<span class="op">=</span>EmailCritique,
+    instructions<span class="op">=</span><span class="str">&quot;Approve only if subject is compelling AND body has a clear CTA AND tone is on-brand.&quot;</span>)
+
+<span class="cm"># 跨任务：高质量样例库</span>
+<span class="kw">class</span> GoldStandardMemory<span class="op">:</span>
+    <span class="kw">def</span> <span class="fn">__init__</span>(self)<span class="op">:</span>
+        self.examples<span class="op">:</span> List[MarketingEmail] <span class="op">=</span> []
+
+    <span class="kw">def</span> <span class="fn">few_shot_block</span>(self) <span class="op">-</span><span class="op">&gt;</span> <span class="fn">str</span><span class="op">:</span>
+        <span class="kw">if</span> <span class="kw">not</span> self.examples<span class="op">:</span>
+            <span class="kw">return</span><span class="str">&quot;No gold examples yet.&quot;</span>
+        <span class="kw">return</span><span class="str">&quot;\n\n---\n\n&quot;</span>.<span class="fn">join</span>(
+            f<span class="str">&quot;Subject: {e.subject}\nBody:\n{e.body}&quot;</span><span class="kw">for</span> e <span class="kw">in</span> self.examples[<span class="op">-</span><span class="num">3</span><span class="op">:</span>]
+        )
+
+    <span class="kw">def</span> <span class="fn">add</span>(self, e<span class="op">:</span> MarketingEmail)<span class="op">:</span>
+        self.examples.<span class="fn">append</span>(e)
+
+GOLD <span class="op">=</span> <span class="fn">GoldStandardMemory</span>()
+
+<span class="kw">def</span> <span class="fn">gen_step</span>(si)<span class="op">:</span>
+    state <span class="op">=</span> si.workflow_session_state
+    prior <span class="op">=</span> state.<span class="fn">get</span>(<span class="str">&quot;last_email&quot;</span>)
+    critique <span class="op">=</span> state.<span class="fn">get</span>(<span class="str">&quot;last_critique&quot;</span>)
+    prompt <span class="op">=</span> f<span class="str">&quot;Task: {si.message}\nGold examples:\n{GOLD.few_shot_block()}\n\n&quot;</span>
+    <span class="kw">if</span> prior <span class="kw">and</span> critique<span class="op">:</span>
+        prompt <span class="op">+</span><span class="op">=</span> (f<span class="str">&quot;Previous draft:\nSubject: {prior.subject}\nBody:\n{prior.body}\n&quot;</span>
+                   f<span class="str">&quot;Critic feedback: {critique.feedback}\nRewrite to address the feedback.&quot;</span>)
+    email<span class="op">:</span> MarketingEmail <span class="op">=</span> generator.<span class="fn">run</span>(prompt).content
+    state[<span class="str">&quot;last_email&quot;</span>] <span class="op">=</span> email
+    state[<span class="str">&quot;revision&quot;</span>] <span class="op">=</span> state.<span class="fn">get</span>(<span class="str">&quot;revision&quot;</span>, <span class="num">0</span>) <span class="op">+</span> <span class="num">1</span>
+    <span class="kw">return</span> email
+
+<span class="kw">def</span> <span class="fn">critic_step</span>(si)<span class="op">:</span>
+    email <span class="op">=</span> si.workflow_session_state[<span class="str">&quot;last_email&quot;</span>]
+    verdict<span class="op">:</span> EmailCritique <span class="op">=</span> critic.<span class="fn">run</span>(
+        f<span class="str">&quot;Review:\nSubject: {email.subject}\nBody:\n{email.body}&quot;</span>
+    ).content
+    si.workflow_session_state[<span class="str">&quot;last_critique&quot;</span>] <span class="op">=</span> verdict
+    <span class="kw">if</span> verdict.is_approved<span class="op">:</span>
+        GOLD.<span class="fn">add</span>(email)
+    <span class="kw">return</span> verdict
+
+<span class="kw">def</span> <span class="fn">should_stop</span>(_outputs) <span class="op">-</span><span class="op">&gt;</span> <span class="fn">bool</span><span class="op">:</span>
+    <span class="str">&quot;&quot;&quot;Loop 终止：critic 批准，或达到最大修订次数。&quot;&quot;&quot;</span>
+    state <span class="op">=</span> self_improve_wf.session_state
+    last <span class="op">=</span> state.<span class="fn">get</span>(<span class="str">&quot;last_critique&quot;</span>)
+    <span class="kw">if</span> last <span class="kw">is</span> <span class="kw">not</span> <span class="kw">None</span> <span class="kw">and</span> last.is_approved<span class="op">:</span>
+        <span class="kw">return</span> <span class="kw">True</span>
+    <span class="kw">if</span> state.<span class="fn">get</span>(<span class="str">&quot;revision&quot;</span>, <span class="num">0</span>) <span class="op">&gt;</span><span class="op">=</span> <span class="num">3</span><span class="op">:</span>
+        <span class="kw">return</span> <span class="kw">True</span>
+    <span class="kw">return</span> <span class="kw">False</span>
+
+self_improve_wf <span class="op">=</span> <span class="fn">Workflow</span>(
+    name<span class="op">=</span><span class="str">&quot;self_improve&quot;</span>,
+    session_state<span class="op">=</span>{<span class="str">&quot;revision&quot;</span><span class="op">:</span> <span class="num">0</span>},
+    steps<span class="op">=</span>[
+        <span class="fn">Loop</span>(
+            name<span class="op">=</span><span class="str">&quot;refine_loop&quot;</span>,
+            steps<span class="op">=</span>[
+                <span class="fn">Step</span>(name<span class="op">=</span><span class="str">&quot;gen&quot;</span>, executor<span class="op">=</span>gen_step),
+                <span class="fn">Step</span>(name<span class="op">=</span><span class="str">&quot;critic&quot;</span>, executor<span class="op">=</span>critic_step),
+            ],
+            end_condition<span class="op">=</span>should_stop,
+        ),
+    ],
+)</div>
+</div></p></div>
+</div>
+<div style="margin-bottom:32px">
+  <h4 style="font-size:16px;font-weight:600;margin:0 0 12px;color:var(--text)">失败模式</h4>
+  <div style="padding-left:4px"><ul style="margin:0 0 16px 20px;list-style-type:disc;color:var(--text);font-size:14px"><li style="margin-bottom:8px;line-height:1.75">critic 标准不稳</li>
+<li style="margin-bottom:8px;line-height:1.75">revision 收益递减</li>
+<li style="margin-bottom:8px;line-height:1.75">记忆库积累低质量样本会反向污染未来生成</li>
+</ul>
+<p style="margin-bottom:12px;line-height:1.85">Self-Improve 不是&quot;会自动越来越好&quot;，而是&quot;有机会在严格约束下越来越好&quot;。</p>
+
+<p style="font-size:13px;color:var(--muted);margin:12px 0;padding:8px 16px;border-left:2px solid var(--border);font-style:italic">📎 参考实现： [15\_RLHF.ipynb](https://github.com/FareedKhan-dev/all-agentic-architectures/15_RLHF.ipynb)</p>
+
+<p style="margin-bottom:12px;line-height:1.85">---</p></div>
+</div>
+<div style="margin-bottom:32px">
+  <h4 style="font-size:16px;font-weight:600;margin:0 0 12px;color:var(--text)">新增的能力</h4>
+  <div style="padding-left:4px"><p style="margin-bottom:12px;line-height:1.85">两层： <strong style="color:var(--text)">单次任务内迭代优化</strong> + <strong style="color:var(--text)">跨任务积累高质量样例</strong> （ <code style="font-family:var(--mono);font-size:12px;background:var(--bg3);padding:1px 6px;border-radius:4px;color:var(--c1)">GoldStandardMemory</code> 把批准过的结果注入未来生成），这是它和 Reflection 的本质区别。</p></div>
+</div>
+  </section>
+  <section class="layer-sec" id="en-intro" style="border-bottom:none">
+    <h3 style="border-color:#1db0a0">英文原版解析</h3>
+    <p style="font-size:12px;color:var(--faint);margin-bottom:16px">来自 Jupyter Notebook 的原始英文概念说明</p>
+    <div style="font-size:13px;line-height:1.8;color:var(--muted)"><h3 style="font-size:16px;font-weight:600;margin:20px 0 8px;color:var(--text)">📘 Agentic Architectures 15: Self-Improvement Loop (Self-Refine &amp; RLHF Analogy)</h3>
+<p style="margin-bottom:8px;line-height:1.7;font-size:13px;color:var(--muted)">Welcome to a deep dive into what is arguably the most advanced agentic pattern: the <strong style="color:var(--text)">Self-Improvement Loop</strong>. This architecture enables an agent to learn from its own performance, iteratively refining its output to achieve a higher standard of quality. It&#x27;s the mechanism that allows an agent to go from a good baseline to expert-level performance over time.</p>
+<p style="margin-bottom:8px;line-height:1.7;font-size:13px;color:var(--muted)">This process mimics the human learning cycle of <code style="font-family:var(--mono);font-size:11px;background:var(--bg3);padding:1px 5px;border-radius:3px">do -&gt; get feedback -&gt; improve</code>. We will implement this through a <strong style="color:var(--text)">Self-Refine</strong> workflow, where an agent&#x27;s output is immediately evaluated by a critical sub-agent, and if it&#x27;s found lacking, the original agent is tasked with revising its work based on the actionable feedback.</p>
+<p style="margin-bottom:8px;line-height:1.7;font-size:13px;color:var(--muted)">To make this concept tangible and detailed, we will build a <strong style="color:var(--text)">Marketing Copywriter Agent</strong>. The workflow will be:</p>
+<ol style="margin:4px 0 12px 18px">
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)">A <code style="font-family:var(--mono);font-size:11px;background:var(--bg3);padding:1px 5px;border-radius:3px">JuniorCopywriter</code> agent generates a first draft of a marketing email.</li>
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)">A <code style="font-family:var(--mono);font-size:11px;background:var(--bg3);padding:1px 5px;border-radius:3px">SeniorEditor</code> agent critiques the draft against a strict rubric (clarity, persuasiveness, call-to-action).</li>
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)">If the draft&#x27;s score is below a quality threshold, the <code style="font-family:var(--mono);font-size:11px;background:var(--bg3);padding:1px 5px;border-radius:3px">JuniorCopywriter</code> is invoked again, but this time with the editor&#x27;s specific feedback, to create a revised draft.</li>
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)">This loop continues until the email is approved or a maximum number of revisions is reached.</li>
+</ul>
+<p style="margin-bottom:8px;line-height:1.7;font-size:13px;color:var(--muted)">Furthermore, we will explore how this pattern forms the conceptual basis for <strong style="color:var(--text)">long-term learning</strong>, analogous to RLHF, by saving the best-performing outputs to a persistent memory that informs future generations, creating a system that truly learns.</p>
+<p style="font-weight:600;margin:14px 0 4px;font-size:14px">Definition</p>
+<p style="margin-bottom:8px;line-height:1.7;font-size:13px;color:var(--muted)">A <strong style="color:var(--text)">Self-Improvement Loop</strong> is an agentic architecture where an agent&#x27;s output is evaluated, either by itself or by another agent, and this evaluation is used as feedback to generate a revised, higher-quality output. When this feedback is stored and used to improve the agent&#x27;s baseline performance over time, it becomes a form of continual learning.</p>
+<p style="font-weight:600;margin:14px 0 4px;font-size:14px">High-level Workflow (Self-Refine)</p>
+<ol style="margin:4px 0 12px 18px">
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Generate Initial Output:</strong> The primary agent produces a first version of the solution (the &quot;draft&quot;).</li>
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Critique Output:</strong> A critic agent (or the primary agent in a &quot;critique mode&quot;) evaluates the draft against a set of predefined criteria or a general rubric.</li>
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Decision:</strong> The system checks if the critique is positive enough to accept the output.</li>
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Revise (Loop):</strong> If the output is not accepted, the original draft *and* the critic&#x27;s feedback are passed back to the primary agent, which is instructed to generate a revised version that addresses the feedback.</li>
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Accept:</strong> Once the output meets the quality standard, the loop terminates, and the final version is returned.</li>
+</ul>
+<p style="font-weight:600;margin:14px 0 4px;font-size:14px">When to Use / Applications</p>
+<ul style="margin:4px 0 12px 18px;list-style-type:disc">
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">High-Quality Content Generation:</strong> For tasks where a generic first draft is insufficient, such as writing legal documents, detailed technical reports, or persuasive marketing copy.</li>
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Continual Learning &amp; Personalization:</strong> An agent that learns a user&#x27;s preferences by generating responses, getting implicit or explicit feedback, and refining its internal strategy for the next interaction.</li>
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Complex Problem Solving:</strong> An agent can propose a plan, critique it for flaws or inefficiencies, and then revise the plan before execution.</li>
+</ul>
+<p style="font-weight:600;margin:14px 0 4px;font-size:14px">Strengths &amp; Weaknesses</p>
+<ul style="margin:4px 0 12px 18px;list-style-type:disc">
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Strengths:</strong></li>
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Dramatically Increases Output Quality:</strong> Iterative refinement consistently produces better results than single-shot generation.</li>
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Enables Continual Learning:</strong> Provides a framework for the agent to get better over time, adapting to new information or feedback.</li>
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Weaknesses:</strong></li>
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Risk of Reinforcing Biases:</strong> If the critic agent has flawed logic or biases, the system can get stuck in a loop that reinforces its own mistakes.</li>
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Computationally Expensive:</strong> The iterative nature means multiple LLM calls per task, increasing cost and latency.</li>
+</ul></div>
+  </section>
+  <section class="layer-sec" id="code">
+    <h3 style="border-color:#1db0a0">LangChain + LangGraph 实现代码</h3>
+    <p style="font-size:12px;color:var(--faint);margin-bottom:16px">完整的端到端实现代码，可从 src/ 目录直接运行</p>
+    <div class="codeblock">
+  <div class="cb-head">
+    <span class="cb-dot" style="background:#f85149"></span><span class="cb-dot" style="background:#e3b341"></span><span class="cb-dot" style="background:#28c840"></span>
+    src/... · LangChain + LangGraph · 251 行
+  </div>
+  <div class="cb-body" style="font-size:12px;line-height:1.8"><span class="str">&quot;&quot;&quot;
 RLHF - Agentic Architecture
 Extracted from: 15_RLHF.ipynb
 &quot;&quot;&quot;</span>
@@ -354,8 +471,5 @@ console.<span class="fn">print</span>(email_panel_2)
 </div>
 </div>
   </section>
-
-  <div class="prevnext"><a href="dry-run.html"><span class="coding">Previous</span><br><span class="pn-strong">← Dry-Run Harness</span></a><a href="cellular-automata.html" style="text-align:right"><span class="coding">Next</span><br><span class="pn-strong">Cellular Automata →</span></a></div>
-</div><div class="footer">
-  <p>Built from <a href="https://github.com/1998x-stack/all-agentic-architectures" style="color:var(--text)">all-agentic-architectures</a></p>
-</div></body></html>
+  <div class="prevnext"><a href="dry-run.html"><span class="pn-label">&larr; 上一架构</span>#14 预演校验</a><a href="cellular-automata.html" style="text-align:right"><span class="pn-label">下一架构 &rarr;</span>#16 元胞自动机</a></div>
+</div><div class="footer"><p>Built from <a href="https://github.com/1998x-stack/all-agentic-architectures" style="color:var(--text)">all-agentic-architectures</a></p></div></body></html>

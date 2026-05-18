@@ -1,98 +1,246 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>#05 Multi-Agent Systems — All Agentic Architectures</title>
+<title>#05 多智能体系统 — All Agentic Architectures</title>
 <link rel="stylesheet" href="base-dark.css">
 <style>
-  :root {
-    --c1: #28c840; --c1d: #1a7a2a;
-    --c2: #378add; --c2d: #1a5290;
-    --c3: #a259ff; --c3d: #5a2a8a;
-    --c4: #f0883e; --c4d: #9a4a1a;
-    --c5: #1db0a0; --c5d: #0f6e56;
-  }
-  .hero h1 em {
-    background: linear-gradient(90deg, var(--c1), var(--c2), var(--c3), var(--c4), var(--c5));
-    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-  }
-  .prevnext { display: flex; justify-content: space-between; padding: 32px 0; border-top: 1px solid var(--border); margin-top: 48px; }
-  .prevnext a { color: var(--muted); font-size: 13px; }
-  .prevnext a:hover { color: var(--text); text-decoration: none; }
-  .pn-strong { color: var(--text) !important; font-weight: 500; }
-  .coding { font-size: 11px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); margin-bottom: 4px; }
-  h2 { font-size: 22px; font-weight: 600; margin: 0 0 12px; letter-spacing: -.01em; }
-  h3 { font-size: 18px; font-weight: 600; margin: 32px 0 12px; }
+  :root{--c1:#28c840;--c1d:#1a7a2a;--c2:#378add;--c2d:#1a5290;--c3:#a259ff;--c3d:#5a2a8a;--c4:#f0883e;--c4d:#9a4a1a;--c5:#1db0a0;--c5d:#0f6e56}
+  .hero h1 em{background:linear-gradient(90deg,var(--c1),var(--c2),var(--c3),var(--c4),var(--c5));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+  .prevnext{display:flex;justify-content:space-between;padding:32px 0;border-top:1px solid var(--border);margin-top:56px}
+  .prevnext a{color:var(--muted);font-size:14px;transition:color .15s}
+  .prevnext a:hover{color:var(--text);text-decoration:none}
+  .prevnext .pn-label{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--faint);margin-bottom:4px;display:block}
+  .cn-section{margin-top:48px}
+  .cn-section h3{font-size:20px;font-weight:700;margin-bottom:20px;padding-bottom:8px;border-bottom:1px solid var(--border)}
+  .toc-link{display:inline-block;padding:3px 8px;border-radius:4px;font-size:11px;font-family:var(--mono);color:var(--muted);border:1px solid var(--border);margin:2px 4px 2px 0;transition:all .15s}
+  .toc-link:hover{border-color:var(--c1);color:var(--c1);text-decoration:none}
 </style>
 
 </head>
 <body><nav>
   <div class="nav-inner">
-    <span class="nav-brand">All Agentic Architectures <span>· 17 Patterns</span></span>
-    <a class="nl" href="index.html">Overview</a>
+    <a href="index.html" style="text-decoration:none"><span class="nav-brand">All Agentic Architectures <span>· 17 种架构</span></span></a>
+    <a class="nl" href="index.html">总览</a>
+    <a class="nl" href="index.html#p1">基础</a>
+    <a class="nl" href="index.html#p2">多智能体</a>
+    <a class="nl" href="index.html#p3">记忆推理</a>
+    <a class="nl" href="index.html#p4">安全可靠</a>
+    <a class="nl" href="index.html#p5">学习适应</a>
   </div>
 </nav><div class="page">
-  <section class="hero" style="padding-bottom:32px">
-    <div class="hero-badge"><span class="dot" style="background:var(--c2)"></span> #05 · Multi-Agent Collaboration</div>
-    <h1 style="font-size:36px;color:var(--text)">Multi-Agent Systems</h1>
-    <p style="margin-bottom:20px">Software Dev Pipelines, Creative Brainstorming</p>
-    <div class="tag-row">
-      <span class="ltag" style="color:var(--c2);background:rgba(55,138,221,.08);border-color:rgba(55,138,221,.25)">Part 2</span>
-    </div>
+  <section class="hero" style="padding-bottom:28px">
+    <div class="hero-badge"><span class="dot" style="background:var(--c2)"></span> #05 · 把认知任务拆成角色 · role decomposition</div>
+    <h1 style="font-size:34px;color:var(--text);margin-bottom:6px">多智能体系统 <span style="font-size:18px;font-weight:400;color:var(--muted)">Multi-Agent Systems</span></h1>
+    <p style="font-size:14px;color:var(--faint);margin-bottom:8px;font-style:italic">把认知分工写进图里</p>
+    <p style="margin-bottom:8px;font-size:14px">把认知分工写进图里</p>
+    <p style="font-size:13px;color:var(--muted);margin-bottom:20px">典型应用：</p>
+    <div class="tag-row"><span class="ltag" style="color:var(--c2);background:rgba(55,138,221,.08);border-color:rgba(55,138,221,.25)">Part 2</span></div>
   </section>
-
-  <section class="layer-sec" style="padding-top:16px;border-bottom:none">
+  <div style="margin-bottom:28px;line-height:2">
+  <span style="font-size:11px;color:var(--faint);text-transform:uppercase;letter-spacing:.06em">快速导航</span><br>
+  <a href="#cn-analysis" class="toc-link">六维分析</a>
+  <a href="#en-intro" class="toc-link">英文解析</a>
+  <a href="#code" class="toc-link">LangGraph 实现</a>
+</div>
+  <section class="layer-sec" style="padding-top:0;border-bottom:none">
     <div class="layer-hdr">
-      <span class="layer-id-badge" style="background:#1a5290;color:rgba(255,255,255,.9)">Concept</span>
-      <div class="layer-title">How It Works</div>
+      <span class="layer-id-badge" style="background:#1a5290;color:rgba(255,255,255,.9)">核心概念</span>
+      <div class="layer-title" style="font-size:18px">把认知分工写进图里</div>
     </div>
-    <p class="layer-def" style="border-color:#378add">A team of specialized agents collaborates, dividing labor across roles for superior depth, quality, and structure.</p>
-    <div style="font-size:14px;line-height:1.85;color:var(--text)">
-      <h2>📘 Agentic Architectures 5: Multi-Agent Systems</h2>
-<p style="margin-bottom:12px;line-height:1.75;font-size:14px;color:var(--muted)">In this notebook, we advance to one of the most powerful and flexible architectures: the <strong style="color:var(--text)">Multi-Agent System</strong>. This pattern moves beyond the concept of a single agent, no matter how complex, and instead models a team of specialized agents that collaborate to solve a problem. Each agent has a distinct role, persona, and set of skills, mirroring how human expert teams work.</p>
-<p style="margin-bottom:12px;line-height:1.75;font-size:14px;color:var(--muted)">This approach allows for a profound &#x27;division of labor&#x27;, where complex problems are broken down into sub-tasks and assigned to the agent best suited for the job. To showcase its power, we will conduct a direct comparison. First, we&#x27;ll task a single <strong style="color:var(--text)">monolithic &#x27;generalist&#x27; agent</strong> with creating a comprehensive market analysis report. Then, we will assemble a <strong style="color:var(--text)">specialist team</strong>—a Technical Analyst, a News Analyst, and a Financial Analyst—and have a fourth &#x27;Manager&#x27; agent synthesize their expert inputs into a final report. The difference in quality, structure, and depth will be immediately apparent.</p>
-<h4 style="color:var(--muted);margin:24px 0 8px;font-size:14px;text-transform:uppercase;letter-spacing:.06em">Definition</h4>
-<p style="margin-bottom:12px;line-height:1.75;font-size:14px;color:var(--muted)">A <strong style="color:var(--text)">Multi-Agent System</strong> is an architecture where a group of distinct, specialized agents collaborate (or sometimes compete) to achieve a common goal. A central controller or a defined workflow protocol is used to manage communication and route tasks between the agents.</p>
-<h4 style="color:var(--muted);margin:24px 0 8px;font-size:14px;text-transform:uppercase;letter-spacing:.06em">High-level Workflow</h4>
-<ol style="margin:0 0 16px 18px">
-<li style="margin-bottom:8px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Decomposition:</strong> A main controller or the user provides a complex task.</li>
-<li style="margin-bottom:8px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Role Definition:</strong> The system assigns sub-tasks to specialized agents based on their defined roles (e.g., &#x27;Researcher&#x27;, &#x27;Coder&#x27;, &#x27;Critic&#x27;, &#x27;Writer&#x27;).</li>
-<li style="margin-bottom:8px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Collaboration:</strong> Agents execute their tasks, often in parallel or sequence. They pass their outputs to each other or to a central &#x27;blackboard&#x27;.</li>
-<li style="margin-bottom:8px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Synthesis:</strong> A final &#x27;manager&#x27; or &#x27;synthesizer&#x27; agent collects the outputs from the specialist agents and assembles the final, consolidated response.</li>
-</ol>
-<h4 style="color:var(--muted);margin:24px 0 8px;font-size:14px;text-transform:uppercase;letter-spacing:.06em">When to Use / Applications</h4>
-<ul style="margin:0 0 16px 18px;list-style-type:disc">
-<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Complex Report Generation:</strong> Creating detailed reports that require expertise from multiple domains (e.g., financial analysis, scientific research).</li>
-<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Software Development Pipelines:</strong> Simulating a dev team with a programmer, a code reviewer, a tester, and a project manager.</li>
-<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Creative Brainstorming:</strong> A team of agents with different &#x27;personalities&#x27; (e.g., one optimistic, one cautious, one wildly creative) can generate a more diverse set of ideas.</li>
-</ul>
-<h4 style="color:var(--muted);margin:24px 0 8px;font-size:14px;text-transform:uppercase;letter-spacing:.06em">Strengths &amp; Weaknesses</h4>
-<ul style="margin:0 0 16px 18px;list-style-type:disc">
-<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Strengths:</strong></li>
-<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Specialization &amp; Depth:</strong> Each agent can be fine-tuned with a specific persona and tools, leading to higher-quality work in its domain.</li>
-<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Modularity &amp; Scalability:</strong> It&#x27;s easy to add, remove, or upgrade individual agents without redesigning the entire system.</li>
-<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Parallelism:</strong> Multiple agents can work on their sub-tasks simultaneously, potentially reducing overall task time.</li>
-<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Weaknesses:</strong></li>
-<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Coordination Overhead:</strong> Managing the communication and workflow between agents adds complexity to the system design.</li>
-<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Increased Cost &amp; Latency:</strong> Running multiple agents involves more LLM calls, which can be more expensive and slower than a single-agent approach.</li>
-</ul>
-    </div>
+    <p class="layer-def" style="border-color:#378add">把认知分工写进图里</p>
   </section>
+  <section class="layer-sec cn-section" id="cn-analysis">
+    <h3 style="border-color:#378add">六维深度分析</h3>
+    <p style="font-size:13px;color:var(--faint);margin-bottom:24px">以下分析基于统一框架的六个核心问题：问题定义 → State 建模 → 拓扑结构 → Router 机制 → 失败模式 → 升级时机</p>
+    <p style="font-size:15px;color:var(--text);line-height:1.9;margin-bottom:24px;padding:16px 20px;background:var(--bg2);border-radius:8px;border-left:3px solid var(--c1)"><strong style="color:var(--c1)">核心洞察：</strong>多 agent 的核心不是&quot;多个模型一起跑&quot;，而是把认知分工、调度策略和冗余机制显式写进图结构，真正要分清三件事：固定分工、动态调度、并行冗余。</p>
+<div style="margin-bottom:32px">
+  <h4 style="font-size:16px;font-weight:600;margin:0 0 12px;color:var(--text)">要解决什么问题？</h4>
+  <div style="padding-left:4px"><p style="margin-bottom:12px;line-height:1.85">当单个 agent 的 prompt 同时容纳太多角色时，系统就会变形，最典型的问题不是 token 不够，而是 <strong style="color:var(--text)">角色冲突</strong> ，Multi-Agent 的核心价值是： <strong style="color:var(--text)">把认知分工编码到架构里。</strong></p></div>
+</div>
+<div style="margin-bottom:32px">
+  <h4 style="font-size:16px;font-weight:600;margin:0 0 12px;color:var(--text)">State 设计</h4>
+  <div style="padding-left:4px"><p style="margin-bottom:12px;line-height:1.85">在 agno 里它就是 <code style="font-family:var(--mono);font-size:12px;background:var(--bg3);padding:1px 6px;border-radius:4px;color:var(--c1)">workflow_session_state</code> 里按角色划分的几块区域：</p>
 
-  <section class="layer-sec" id="code">
-    <div class="layer-hdr">
-      <span class="layer-id-badge" style="background:#1a5290;color:rgba(255,255,255,.9)">Implementation</span>
-      <div class="layer-title">Code <small style="font-size:14px;font-weight:400;color:var(--muted)">LangChain + LangGraph</small></div>
-    </div>
-    <div class="codeblock">
-  <div class="cb-head">
+<p style="margin-bottom:12px;line-height:1.85"><div class="codeblock" style="margin:12px 0 20px">
+  <div class="cb-head" style="font-size:11px">
     <span class="cb-dot" style="background:#f85149"></span>
     <span class="cb-dot" style="background:#e3b341"></span>
     <span class="cb-dot" style="background:#28c840"></span>
-    src/src/... · 216 lines
+    agno 实现示例 · 11 行
   </div>
-  <div class="cb-body"><span class="str">&quot;&quot;&quot;
+  <div class="cb-body" style="font-size:12px;line-height:1.8">wf <span class="op">=</span> <span class="fn">Workflow</span>(
+    name<span class="op">=</span><span class="str">&quot;multi_agent&quot;</span>,
+    session_state<span class="op">=</span>{
+        <span class="str">&quot;user_request&quot;</span><span class="op">:</span> <span class="kw">None</span>,
+        <span class="str">&quot;news&quot;</span><span class="op">:</span> <span class="kw">None</span>,        <span class="cm"># 由 news_analyst 写入</span>
+        <span class="str">&quot;tech&quot;</span><span class="op">:</span> <span class="kw">None</span>,        <span class="cm"># 由 technical_analyst 写入</span>
+        <span class="str">&quot;fin&quot;</span><span class="op">:</span> <span class="kw">None</span>,         <span class="cm"># 由 financial_analyst 写入</span>
+        <span class="str">&quot;final_report&quot;</span><span class="op">:</span> <span class="kw">None</span>, <span class="cm"># 由 report_writer 写入</span>
+    },
+    steps<span class="op">=</span>[...],
+)</div>
+</div></p>
+
+<p style="margin-bottom:12px;line-height:1.85">不同角色写入不同字段——state 不再只是&quot;共享上下文&quot;，而开始体现 <strong style="color:var(--text)">角色边界</strong> 。</p></div>
+</div>
+<div style="margin-bottom:32px">
+  <h4 style="font-size:16px;font-weight:600;margin:0 0 12px;color:var(--text)">关键代码</h4>
+  <div style="padding-left:4px"><p style="margin-bottom:12px;line-height:1.85">agno 表达这种固定流水线，有两条路：用 <code style="font-family:var(--mono);font-size:12px;background:var(--bg3);padding:1px 6px;border-radius:4px;color:var(--c1)">Workflow</code> 拼，或者用 <code style="font-family:var(--mono);font-size:12px;background:var(--bg3);padding:1px 6px;border-radius:4px;color:var(--c1)">Team(mode=&quot;coordinate&quot;)</code> 让一个 leader 固定地调度，这里选最直接的做法—— <code style="font-family:var(--mono);font-size:12px;background:var(--bg3);padding:1px 6px;border-radius:4px;color:var(--c1)">Workflow</code> + 多个 <code style="font-family:var(--mono);font-size:12px;background:var(--bg3);padding:1px 6px;border-radius:4px;color:var(--c1)">Agent</code> ：</p>
+
+<p style="margin-bottom:12px;line-height:1.85"><div class="codeblock" style="margin:12px 0 20px">
+  <div class="cb-head" style="font-size:11px">
+    <span class="cb-dot" style="background:#f85149"></span>
+    <span class="cb-dot" style="background:#e3b341"></span>
+    <span class="cb-dot" style="background:#28c840"></span>
+    agno 实现示例 · 58 行
+  </div>
+  <div class="cb-body" style="font-size:12px;line-height:1.8">news_analyst <span class="op">=</span> <span class="fn">Agent</span>(
+    name<span class="op">=</span><span class="str">&quot;news_analyst&quot;</span>,
+    model<span class="op">=</span><span class="fn">OpenAIChat</span>(id<span class="op">=</span><span class="str">&quot;gpt-5-mini&quot;</span>),
+    tools<span class="op">=</span>[<span class="fn">DuckDuckGoTools</span>()],
+    instructions<span class="op">=</span><span class="str">&quot;You are a financial news analyst. Produce a concise markdown section on recent news.&quot;</span>,
+)
+
+technical_analyst <span class="op">=</span> <span class="fn">Agent</span>(
+    name<span class="op">=</span><span class="str">&quot;technical_analyst&quot;</span>,
+    model<span class="op">=</span><span class="fn">OpenAIChat</span>(id<span class="op">=</span><span class="str">&quot;gpt-5-mini&quot;</span>),
+    tools<span class="op">=</span>[<span class="fn">YFinanceTools</span>()],
+    instructions<span class="op">=</span><span class="str">&quot;You are a technical analyst. Produce a concise markdown section on price action and indicators.&quot;</span>,
+)
+
+financial_analyst <span class="op">=</span> <span class="fn">Agent</span>(
+    name<span class="op">=</span><span class="str">&quot;financial_analyst&quot;</span>,
+    model<span class="op">=</span><span class="fn">OpenAIChat</span>(id<span class="op">=</span><span class="str">&quot;gpt-5-mini&quot;</span>),
+    tools<span class="op">=</span>[<span class="fn">YFinanceTools</span>(income_statements<span class="op">=</span><span class="kw">True</span>, key_financial_ratios<span class="op">=</span><span class="kw">True</span>)],
+    instructions<span class="op">=</span><span class="str">&quot;You are a financial analyst. Produce a concise markdown section on fundamentals.&quot;</span>,
+)
+
+report_writer <span class="op">=</span> <span class="fn">Agent</span>(
+    name<span class="op">=</span><span class="str">&quot;report_writer&quot;</span>,
+    model<span class="op">=</span><span class="fn">OpenAIChat</span>(id<span class="op">=</span><span class="str">&quot;gpt-5-mini&quot;</span>),
+    instructions<span class="op">=</span><span class="str">&quot;Compose a final investment memo from the three sub-reports.&quot;</span>,
+)
+
+<span class="kw">def</span> <span class="fn">news_step</span>(si)<span class="op">:</span>
+    out <span class="op">=</span> news_analyst.<span class="fn">run</span>(si.message).content
+    si.workflow_session_state[<span class="str">&quot;news&quot;</span>] <span class="op">=</span> out
+    <span class="kw">return</span> out
+
+<span class="kw">def</span> <span class="fn">tech_step</span>(si)<span class="op">:</span>
+    out <span class="op">=</span> technical_analyst.<span class="fn">run</span>(si.message).content
+    si.workflow_session_state[<span class="str">&quot;tech&quot;</span>] <span class="op">=</span> out
+    <span class="kw">return</span> out
+
+<span class="kw">def</span> <span class="fn">fin_step</span>(si)<span class="op">:</span>
+    out <span class="op">=</span> financial_analyst.<span class="fn">run</span>(si.message).content
+    si.workflow_session_state[<span class="str">&quot;fin&quot;</span>] <span class="op">=</span> out
+    <span class="kw">return</span> out
+
+<span class="kw">def</span> <span class="fn">write_step</span>(si)<span class="op">:</span>
+    s <span class="op">=</span> si.workflow_session_state
+    <span class="kw">return</span> report_writer.<span class="fn">run</span>(
+        f<span class="str">&quot;News:\n{s[&#x27;news&#x27;]}\n\nTechnical:\n{s[&#x27;tech&#x27;]}\n\nFinancial:\n{s[&#x27;fin&#x27;]}&quot;</span>
+    ).content
+
+multi_wf <span class="op">=</span> <span class="fn">Workflow</span>(
+    name<span class="op">=</span><span class="str">&quot;multi_agent&quot;</span>,
+    session_state<span class="op">=</span>{},
+    steps<span class="op">=</span>[
+        <span class="fn">Step</span>(name<span class="op">=</span><span class="str">&quot;news&quot;</span>, executor<span class="op">=</span>news_step),
+        <span class="fn">Step</span>(name<span class="op">=</span><span class="str">&quot;tech&quot;</span>, executor<span class="op">=</span>tech_step),
+        <span class="fn">Step</span>(name<span class="op">=</span><span class="str">&quot;fin&quot;</span>, executor<span class="op">=</span>fin_step),
+        <span class="fn">Step</span>(name<span class="op">=</span><span class="str">&quot;write&quot;</span>, executor<span class="op">=</span>write_step),
+    ],
+)</div>
+</div></p>
+
+<p style="margin-bottom:12px;line-height:1.85">或者，如果你想让&quot;编排也能省掉&quot;，直接用 <code style="font-family:var(--mono);font-size:12px;background:var(--bg3);padding:1px 6px;border-radius:4px;color:var(--c1)">Team</code> 的 coordinate 模式：</p>
+
+<p style="margin-bottom:12px;line-height:1.85"><div class="codeblock" style="margin:12px 0 20px">
+  <div class="cb-head" style="font-size:11px">
+    <span class="cb-dot" style="background:#f85149"></span>
+    <span class="cb-dot" style="background:#e3b341"></span>
+    <span class="cb-dot" style="background:#28c840"></span>
+    agno 实现示例 · 15 行
+  </div>
+  <div class="cb-body" style="font-size:12px;line-height:1.8"><span class="kw">from</span> agno.team <span class="kw">import</span> Team
+
+analysts_team <span class="op">=</span> <span class="fn">Team</span>(
+    name<span class="op">=</span><span class="str">&quot;analysts&quot;</span>,
+    mode<span class="op">=</span><span class="str">&quot;coordinate&quot;</span>,
+    model<span class="op">=</span><span class="fn">OpenAIChat</span>(id<span class="op">=</span><span class="str">&quot;gpt-5-mini&quot;</span>),
+    members<span class="op">=</span>[news_analyst, technical_analyst, financial_analyst],
+    instructions<span class="op">=</span>[
+        <span class="str">&quot;Route each relevant sub-question to the right analyst.&quot;</span>,
+        <span class="str">&quot;Collect their outputs and synthesize a final investment memo.&quot;</span>,
+    ],
+    markdown<span class="op">=</span><span class="kw">True</span>,
+)
+
+analysts_team.<span class="fn">print_response</span>(<span class="str">&quot;Write an investment memo about AAPL.&quot;</span>, stream<span class="op">=</span><span class="kw">True</span>)</div>
+</div></p>
+<p style="margin-bottom:12px;line-height:1.85">&#x27; fill=&#x27;%23FFFFFF&#x27;%3E%3Crect x=&#x27;249&#x27; y=&#x27;126&#x27; width=&#x27;1&#x27; height=&#x27;1&#x27;%3E%3C/rect%3E%3C/g%3E%3C/g%3E%3C/svg%3E)</p></div>
+</div>
+<div style="margin-bottom:32px">
+  <h4 style="font-size:16px;font-weight:600;margin:0 0 12px;color:var(--text)">失败模式</h4>
+  <div style="padding-left:4px"><p style="margin-bottom:12px;line-height:1.85">最大问题是： <strong style="color:var(--text)">流程固定。</strong> 如果执行到一半发现还需要更多新闻背景，固定流水线不会自动返回新闻分析师；如果发现技术分析其实不必要，也不会跳过，解决了&quot;认知拆分&quot;，但没有解决&quot;动态调度&quot;。</p></div>
+</div>
+<div style="margin-bottom:32px">
+  <h4 style="font-size:16px;font-weight:600;margin:0 0 12px;color:var(--text)">何时升级</h4>
+  <div style="padding-left:4px"><p style="margin-bottom:12px;line-height:1.85">当多个角色之间的先后顺序本身也需要动态决定时，你需要 Blackboard。</p>
+
+<p style="font-size:13px;color:var(--muted);margin:12px 0;padding:8px 16px;border-left:2px solid var(--border);font-style:italic">📎 参考实现： [05\_multi\_agent.ipynb](https://github.com/FareedKhan-dev/all-agentic-architectures/05_multi_agent.ipynb)</p>
+
+<p style="margin-bottom:12px;line-height:1.85">---</p></div>
+</div>
+<div style="margin-bottom:32px">
+  <h4 style="font-size:16px;font-weight:600;margin:0 0 12px;color:var(--text)">新增的能力</h4>
+  <div style="padding-left:4px"><p style="margin-bottom:12px;line-height:1.85"><strong style="color:var(--text)">把一个大 prompt 内部的隐式角色切换，变成多个显式节点。</strong> 这带来非常大的工程收益：你可以单独调试某个角色、替换某个角色的 prompt、单独评估某个角色输出、给不同角色不同工具。</p></div>
+</div>
+  </section>
+  <section class="layer-sec" id="en-intro" style="border-bottom:none">
+    <h3 style="border-color:#378add">英文原版解析</h3>
+    <p style="font-size:12px;color:var(--faint);margin-bottom:16px">来自 Jupyter Notebook 的原始英文概念说明</p>
+    <div style="font-size:13px;line-height:1.8;color:var(--muted)"><h3 style="font-size:16px;font-weight:600;margin:20px 0 8px;color:var(--text)">📘 Agentic Architectures 5: Multi-Agent Systems</h3>
+<p style="margin-bottom:8px;line-height:1.7;font-size:13px;color:var(--muted)">In this notebook, we advance to one of the most powerful and flexible architectures: the <strong style="color:var(--text)">Multi-Agent System</strong>. This pattern moves beyond the concept of a single agent, no matter how complex, and instead models a team of specialized agents that collaborate to solve a problem. Each agent has a distinct role, persona, and set of skills, mirroring how human expert teams work.</p>
+<p style="margin-bottom:8px;line-height:1.7;font-size:13px;color:var(--muted)">This approach allows for a profound &#x27;division of labor&#x27;, where complex problems are broken down into sub-tasks and assigned to the agent best suited for the job. To showcase its power, we will conduct a direct comparison. First, we&#x27;ll task a single <strong style="color:var(--text)">monolithic &#x27;generalist&#x27; agent</strong> with creating a comprehensive market analysis report. Then, we will assemble a <strong style="color:var(--text)">specialist team</strong>—a Technical Analyst, a News Analyst, and a Financial Analyst—and have a fourth &#x27;Manager&#x27; agent synthesize their expert inputs into a final report. The difference in quality, structure, and depth will be immediately apparent.</p>
+<p style="font-weight:600;margin:14px 0 4px;font-size:14px">Definition</p>
+<p style="margin-bottom:8px;line-height:1.7;font-size:13px;color:var(--muted)">A <strong style="color:var(--text)">Multi-Agent System</strong> is an architecture where a group of distinct, specialized agents collaborate (or sometimes compete) to achieve a common goal. A central controller or a defined workflow protocol is used to manage communication and route tasks between the agents.</p>
+<p style="font-weight:600;margin:14px 0 4px;font-size:14px">High-level Workflow</p>
+<ol style="margin:4px 0 12px 18px">
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Decomposition:</strong> A main controller or the user provides a complex task.</li>
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Role Definition:</strong> The system assigns sub-tasks to specialized agents based on their defined roles (e.g., &#x27;Researcher&#x27;, &#x27;Coder&#x27;, &#x27;Critic&#x27;, &#x27;Writer&#x27;).</li>
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Collaboration:</strong> Agents execute their tasks, often in parallel or sequence. They pass their outputs to each other or to a central &#x27;blackboard&#x27;.</li>
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Synthesis:</strong> A final &#x27;manager&#x27; or &#x27;synthesizer&#x27; agent collects the outputs from the specialist agents and assembles the final, consolidated response.</li>
+</ul>
+<p style="font-weight:600;margin:14px 0 4px;font-size:14px">When to Use / Applications</p>
+<ul style="margin:4px 0 12px 18px;list-style-type:disc">
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Complex Report Generation:</strong> Creating detailed reports that require expertise from multiple domains (e.g., financial analysis, scientific research).</li>
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Software Development Pipelines:</strong> Simulating a dev team with a programmer, a code reviewer, a tester, and a project manager.</li>
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Creative Brainstorming:</strong> A team of agents with different &#x27;personalities&#x27; (e.g., one optimistic, one cautious, one wildly creative) can generate a more diverse set of ideas.</li>
+</ul>
+<p style="font-weight:600;margin:14px 0 4px;font-size:14px">Strengths &amp; Weaknesses</p>
+<ul style="margin:4px 0 12px 18px;list-style-type:disc">
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Strengths:</strong></li>
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Specialization &amp; Depth:</strong> Each agent can be fine-tuned with a specific persona and tools, leading to higher-quality work in its domain.</li>
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Modularity &amp; Scalability:</strong> It&#x27;s easy to add, remove, or upgrade individual agents without redesigning the entire system.</li>
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Parallelism:</strong> Multiple agents can work on their sub-tasks simultaneously, potentially reducing overall task time.</li>
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Weaknesses:</strong></li>
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Coordination Overhead:</strong> Managing the communication and workflow between agents adds complexity to the system design.</li>
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Increased Cost &amp; Latency:</strong> Running multiple agents involves more LLM calls, which can be more expensive and slower than a single-agent approach.</li>
+</ul></div>
+  </section>
+  <section class="layer-sec" id="code">
+    <h3 style="border-color:#378add">LangChain + LangGraph 实现代码</h3>
+    <p style="font-size:12px;color:var(--faint);margin-bottom:16px">完整的端到端实现代码，可从 src/ 目录直接运行</p>
+    <div class="codeblock">
+  <div class="cb-head">
+    <span class="cb-dot" style="background:#f85149"></span><span class="cb-dot" style="background:#e3b341"></span><span class="cb-dot" style="background:#28c840"></span>
+    src/... · LangChain + LangGraph · 215 行
+  </div>
+  <div class="cb-body" style="font-size:12px;line-height:1.8"><span class="str">&quot;&quot;&quot;
 Multi-Agent - Agentic Architecture
 Extracted from: 05_multi_agent.ipynb
 &quot;&quot;&quot;</span>
@@ -310,8 +458,5 @@ console.<span class="fn">print</span>(multi_agent_evaluation.<span class="fn">mo
 </div>
 </div>
   </section>
-
-  <div class="prevnext"><a href="planning.html"><span class="coding">Previous</span><br><span class="pn-strong">← Planning</span></a><a href="pev.html" style="text-align:right"><span class="coding">Next</span><br><span class="pn-strong">PEV (Plan, Execute, Verify) →</span></a></div>
-</div><div class="footer">
-  <p>Built from <a href="https://github.com/1998x-stack/all-agentic-architectures" style="color:var(--text)">all-agentic-architectures</a></p>
-</div></body></html>
+  <div class="prevnext"><a href="planning.html"><span class="pn-label">&larr; 上一架构</span>#04 显式规划</a><a href="pev.html" style="text-align:right"><span class="pn-label">下一架构 &rarr;</span>#06 计划-执行-验证</a></div>
+</div><div class="footer"><p>Built from <a href="https://github.com/1998x-stack/all-agentic-architectures" style="color:var(--text)">all-agentic-architectures</a></p></div></body></html>

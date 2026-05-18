@@ -1,101 +1,243 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>#06 PEV (Plan, Execute, Verify) — All Agentic Architectures</title>
+<title>#06 计划-执行-验证 — All Agentic Architectures</title>
 <link rel="stylesheet" href="base-dark.css">
 <style>
-  :root {
-    --c1: #28c840; --c1d: #1a7a2a;
-    --c2: #378add; --c2d: #1a5290;
-    --c3: #a259ff; --c3d: #5a2a8a;
-    --c4: #f0883e; --c4d: #9a4a1a;
-    --c5: #1db0a0; --c5d: #0f6e56;
-  }
-  .hero h1 em {
-    background: linear-gradient(90deg, var(--c1), var(--c2), var(--c3), var(--c4), var(--c5));
-    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-  }
-  .prevnext { display: flex; justify-content: space-between; padding: 32px 0; border-top: 1px solid var(--border); margin-top: 48px; }
-  .prevnext a { color: var(--muted); font-size: 13px; }
-  .prevnext a:hover { color: var(--text); text-decoration: none; }
-  .pn-strong { color: var(--text) !important; font-weight: 500; }
-  .coding { font-size: 11px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); margin-bottom: 4px; }
-  h2 { font-size: 22px; font-weight: 600; margin: 0 0 12px; letter-spacing: -.01em; }
-  h3 { font-size: 18px; font-weight: 600; margin: 32px 0 12px; }
+  :root{--c1:#28c840;--c1d:#1a7a2a;--c2:#378add;--c2d:#1a5290;--c3:#a259ff;--c3d:#5a2a8a;--c4:#f0883e;--c4d:#9a4a1a;--c5:#1db0a0;--c5d:#0f6e56}
+  .hero h1 em{background:linear-gradient(90deg,var(--c1),var(--c2),var(--c3),var(--c4),var(--c5));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+  .prevnext{display:flex;justify-content:space-between;padding:32px 0;border-top:1px solid var(--border);margin-top:56px}
+  .prevnext a{color:var(--muted);font-size:14px;transition:color .15s}
+  .prevnext a:hover{color:var(--text);text-decoration:none}
+  .prevnext .pn-label{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--faint);margin-bottom:4px;display:block}
+  .cn-section{margin-top:48px}
+  .cn-section h3{font-size:20px;font-weight:700;margin-bottom:20px;padding-bottom:8px;border-bottom:1px solid var(--border)}
+  .toc-link{display:inline-block;padding:3px 8px;border-radius:4px;font-size:11px;font-family:var(--mono);color:var(--muted);border:1px solid var(--border);margin:2px 4px 2px 0;transition:all .15s}
+  .toc-link:hover{border-color:var(--c1);color:var(--c1);text-decoration:none}
 </style>
 
 </head>
 <body><nav>
   <div class="nav-inner">
-    <span class="nav-brand">All Agentic Architectures <span>· 17 Patterns</span></span>
-    <a class="nl" href="index.html">Overview</a>
+    <a href="index.html" style="text-decoration:none"><span class="nav-brand">All Agentic Architectures <span>· 17 种架构</span></span></a>
+    <a class="nl" href="index.html">总览</a>
+    <a class="nl" href="index.html#p1">基础</a>
+    <a class="nl" href="index.html#p2">多智能体</a>
+    <a class="nl" href="index.html#p3">记忆推理</a>
+    <a class="nl" href="index.html#p4">安全可靠</a>
+    <a class="nl" href="index.html#p5">学习适应</a>
   </div>
 </nav><div class="page">
-  <section class="hero" style="padding-bottom:32px">
-    <div class="hero-badge"><span class="dot" style="background:var(--c4)"></span> #06 · Safety & Reliability</div>
-    <h1 style="font-size:36px;color:var(--text)">PEV (Plan, Execute, Verify)</h1>
-    <p style="margin-bottom:20px">High-Stakes Automation, Finance, Unreliable Tools</p>
-    <div class="tag-row">
-      <span class="ltag" style="color:var(--c4);background:rgba(240,136,62,.08);border-color:rgba(240,136,62,.25)">Part 4</span>
-    </div>
+  <section class="hero" style="padding-bottom:28px">
+    <div class="hero-badge"><span class="dot" style="background:var(--c4)"></span> #06 · 把验证接入主回路 · verification loop</div>
+    <h1 style="font-size:34px;color:var(--text);margin-bottom:6px">计划-执行-验证 <span style="font-size:18px;font-weight:400;color:var(--muted)">PEV</span></h1>
+    <p style="font-size:14px;color:var(--faint);margin-bottom:8px;font-style:italic">把验证提升为控制流的一等公民</p>
+    <p style="margin-bottom:8px;font-size:14px">把验证提升为控制流的一等公民</p>
+    <p style="font-size:13px;color:var(--muted);margin-bottom:20px">典型应用：</p>
+    <div class="tag-row"><span class="ltag" style="color:var(--c4);background:rgba(240,136,62,.08);border-color:rgba(240,136,62,.25)">Part 4</span></div>
   </section>
-
-  <section class="layer-sec" style="padding-top:16px;border-bottom:none">
+  <div style="margin-bottom:28px;line-height:2">
+  <span style="font-size:11px;color:var(--faint);text-transform:uppercase;letter-spacing:.06em">快速导航</span><br>
+  <a href="#cn-analysis" class="toc-link">六维分析</a>
+  <a href="#en-intro" class="toc-link">英文解析</a>
+  <a href="#code" class="toc-link">LangGraph 实现</a>
+</div>
+  <section class="layer-sec" style="padding-top:0;border-bottom:none">
     <div class="layer-hdr">
-      <span class="layer-id-badge" style="background:#9a4a1a;color:rgba(255,255,255,.9)">Concept</span>
-      <div class="layer-title">How It Works</div>
+      <span class="layer-id-badge" style="background:#9a4a1a;color:rgba(255,255,255,.9)">核心概念</span>
+      <div class="layer-title" style="font-size:18px">把验证提升为控制流的一等公民</div>
     </div>
-    <p class="layer-def" style="border-color:#f0883e">A self-correcting loop where a Verifier agent checks each action&#x27;s outcome, enabling error detection and dynamic recovery.</p>
-    <div style="font-size:14px;line-height:1.85;color:var(--text)">
-      <h2>📘 Agentic Architectures 6: Planner → Executor → Verifier (PEV)</h2>
-<p style="margin-bottom:12px;line-height:1.75;font-size:14px;color:var(--muted)">In this notebook, we explore the <strong style="color:var(--text)">Planner → Executor → Verifier (PEV)</strong> architecture, a pattern that introduces a critical layer of robustness and self-correction into agentic systems. This architecture is inspired by rigorous software engineering and quality assurance processes, where work is not considered &#x27;done&#x27; until it has been verified.</p>
-<p style="margin-bottom:12px;line-height:1.75;font-size:14px;color:var(--muted)">While a standard Planning agent brings structure and predictability, it operates on a crucial assumption: that its tools will work perfectly and return valid data every time. In the real world, APIs fail, searches return no results, and data can be malformed. The PEV pattern addresses this by adding a dedicated <strong style="color:var(--text)">Verifier</strong> agent that acts as a quality assurance check after every action, enabling the system to detect failures and dynamically recover.</p>
-<p style="margin-bottom:12px;line-height:1.75;font-size:14px;color:var(--muted)">To demonstrate its value, we will first build a standard <strong style="color:var(--text)">Planner-Executor agent</strong> and show how it fails when a tool returns an error. Then, we will build a full <strong style="color:var(--text)">PEV agent</strong> to show how the Verifier catches the error, triggers a re-planning loop, and ultimately guides the system to a successful outcome.</p>
-<h4 style="color:var(--muted);margin:24px 0 8px;font-size:14px;text-transform:uppercase;letter-spacing:.06em">Definition</h4>
-<p style="margin-bottom:12px;line-height:1.75;font-size:14px;color:var(--muted)">The <strong style="color:var(--text)">Planner → Executor → Verifier (PEV)</strong> architecture is a three-stage workflow that explicitly separates the acts of planning, executing, and verifying. It ensures that the output of each step is validated before the agent proceeds, creating a robust, self-correcting loop.</p>
-<h4 style="color:var(--muted);margin:24px 0 8px;font-size:14px;text-transform:uppercase;letter-spacing:.06em">High-level Workflow</h4>
-<ol style="margin:0 0 16px 18px">
-<li style="margin-bottom:8px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Plan:</strong> A &#x27;Planner&#x27; agent decomposes a high-level goal into a sequence of concrete, executable steps.</li>
-<li style="margin-bottom:8px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Execute:</strong> An &#x27;Executor&#x27; agent takes the <em>next</em> step from the plan and calls the appropriate tool.</li>
-<li style="margin-bottom:8px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Verify:</strong> A &#x27;Verifier&#x27; agent examines the output from the Executor. It checks for correctness, relevance, and potential errors. It then produces a judgment: did the step succeed or fail?</li>
-<li style="margin-bottom:8px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Route &amp; Iterate:</strong> Based on the Verifier&#x27;s judgment, a router decides the next move:</li>
-<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)">If the step <strong style="color:var(--text)">succeeded</strong> and the plan is not complete, loop back to the Executor for the next step.</li>
-<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)">If the step <strong style="color:var(--text)">failed</strong>, loop back to the Planner to create a <em>new</em> plan, often providing the failure context so the new plan can be smarter.</li>
-<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)">If the step <strong style="color:var(--text)">succeeded</strong> and the plan is complete, proceed to a final synthesis step.</li>
-</ol>
-<h4 style="color:var(--muted);margin:24px 0 8px;font-size:14px;text-transform:uppercase;letter-spacing:.06em">When to Use / Applications</h4>
-<ul style="margin:0 0 16px 18px;list-style-type:disc">
-<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Safety-Critical Applications (Finance, Healthcare):</strong> When the cost of an error is high, PEV provides essential guardrails to prevent the agent from acting on bad data.</li>
-<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Systems with Unreliable Tools:</strong> When dealing with external APIs that might be flaky or return inconsistent data, the Verifier can catch failures gracefully.</li>
-<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">High-Precision Tasks (Legal, Scientific):</strong> For tasks requiring a high degree of factual accuracy, the Verifier ensures each piece of retrieved information is valid before it&#x27;s used in downstream reasoning.</li>
-</ul>
-<h4 style="color:var(--muted);margin:24px 0 8px;font-size:14px;text-transform:uppercase;letter-spacing:.06em">Strengths &amp; Weaknesses</h4>
-<ul style="margin:0 0 16px 18px;list-style-type:disc">
-<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Strengths:</strong></li>
-<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Robustness &amp; Reliability:</strong> Its core strength is the ability to detect and recover from errors.</li>
-<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Modularity:</strong> The separation of concerns makes the system easier to debug and maintain.</li>
-<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Weaknesses:</strong></li>
-<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Increased Latency &amp; Cost:</strong> The addition of a verification step after every action adds more LLM calls, making it the slowest and most expensive of the architectures we&#x27;ve covered so far.</li>
-<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Verifier Complexity:</strong> Designing an effective Verifier can be challenging. It needs to be smart enough to distinguish between minor issues and critical failures.</li>
-</ul>
-    </div>
+    <p class="layer-def" style="border-color:#f0883e">把验证提升为控制流的一等公民</p>
   </section>
+  <section class="layer-sec cn-section" id="cn-analysis">
+    <h3 style="border-color:#f0883e">六维深度分析</h3>
+    <p style="font-size:13px;color:var(--faint);margin-bottom:24px">以下分析基于统一框架的六个核心问题：问题定义 → State 建模 → 拓扑结构 → Router 机制 → 失败模式 → 升级时机</p>
+    <p style="font-size:15px;color:var(--text);line-height:1.9;margin-bottom:24px;padding:16px 20px;background:var(--bg2);border-radius:8px;border-left:3px solid var(--c1)"><strong style="color:var(--c1)">核心洞察：</strong>Planning 默认世界是稳定的，但真实世界不是：API 会失败、搜索会返回噪音、数据会缺失、工具会超时。</p>
+<div style="margin-bottom:32px">
+  <h4 style="font-size:16px;font-weight:600;margin:0 0 12px;color:var(--text)">要解决什么问题？</h4>
+  <div style="padding-left:4px"><p style="margin-bottom:12px;line-height:1.85">Planning 默认世界是稳定的，但真实世界不是：API 会失败、搜索会返回噪音、数据会缺失、工具会超时。</p>
 
-  <section class="layer-sec" id="code">
-    <div class="layer-hdr">
-      <span class="layer-id-badge" style="background:#9a4a1a;color:rgba(255,255,255,.9)">Implementation</span>
-      <div class="layer-title">Code <small style="font-size:14px;font-weight:400;color:var(--muted)">LangChain + LangGraph</small></div>
-    </div>
-    <div class="codeblock">
-  <div class="cb-head">
+<p style="margin-bottom:12px;line-height:1.85">PEV（Plan → Execute → Verify）解决的是： <strong style="color:var(--text)">不要把执行结果默认为真，而要显式验证。</strong> 系统现在不再把执行视为&quot;完成了一步&quot;，而是把执行视为&quot;生成了一个待验证结果&quot;。</p></div>
+</div>
+<div style="margin-bottom:32px">
+  <h4 style="font-size:16px;font-weight:600;margin:0 0 12px;color:var(--text)">State 设计</h4>
+  <div style="padding-left:4px"><p style="margin-bottom:12px;line-height:1.85"><div class="codeblock" style="margin:12px 0 20px">
+  <div class="cb-head" style="font-size:11px">
     <span class="cb-dot" style="background:#f85149"></span>
     <span class="cb-dot" style="background:#e3b341"></span>
     <span class="cb-dot" style="background:#28c840"></span>
-    src/src/... · 280 lines
+    agno 实现示例 · 3 行
   </div>
-  <div class="cb-body"><span class="str">&quot;&quot;&quot;
+  <div class="cb-body" style="font-size:12px;line-height:1.8"><span class="kw">class</span> <span class="fn">VerificationResult</span>(BaseModel)<span class="op">:</span>
+    is_successful<span class="op">:</span> <span class="fn">bool</span> <span class="op">=</span> <span class="fn">Field</span>(description<span class="op">=</span><span class="str">&quot;True if the tool execution was successful and the data is valid.&quot;</span>)
+    reasoning<span class="op">:</span> <span class="fn">str</span> <span class="op">=</span> <span class="fn">Field</span>(description<span class="op">=</span><span class="str">&quot;Reasoning for the verification decision.&quot;</span>)</div>
+</div></p>
+
+<p style="margin-bottom:12px;line-height:1.85">verifier 不是随便说一句&quot;好像不对&quot;，而是输出一个结构化 verdict。 <code style="font-family:var(--mono);font-size:12px;background:var(--bg3);padding:1px 6px;border-radius:4px;color:var(--c1)">verification_result</code> 字段一出现，图结构就不再是 <code style="font-family:var(--mono);font-size:12px;background:var(--bg3);padding:1px 6px;border-radius:4px;color:var(--c1)">plan -&gt; execute -&gt; next step</code> ，而是 <code style="font-family:var(--mono);font-size:12px;background:var(--bg3);padding:1px 6px;border-radius:4px;color:var(--c1)">plan -&gt; execute -&gt; verify -&gt; (continue | replan | finish)</code> 。</p></div>
+</div>
+<div style="margin-bottom:32px">
+  <h4 style="font-size:16px;font-weight:600;margin:0 0 12px;color:var(--text)">关键代码</h4>
+  <div style="padding-left:4px"><p style="margin-bottom:12px;line-height:1.85">为了演示为什么需要验证，故意放了一个会失败的工具：</p>
+
+<p style="margin-bottom:12px;line-height:1.85"><div class="codeblock" style="margin:12px 0 20px">
+  <div class="cb-head" style="font-size:11px">
+    <span class="cb-dot" style="background:#f85149"></span>
+    <span class="cb-dot" style="background:#e3b341"></span>
+    <span class="cb-dot" style="background:#28c840"></span>
+    agno 实现示例 · 84 行
+  </div>
+  <div class="cb-body" style="font-size:12px;line-height:1.8"><span class="kw">def</span> <span class="fn">flaky_web_search</span>(query<span class="op">:</span> <span class="fn">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="fn">str</span><span class="op">:</span>
+    <span class="str">&quot;&quot;&quot;Search the web. This tool is intentionally unreliable.&quot;&quot;&quot;</span>
+    <span class="kw">if</span><span class="str">&quot;employee count&quot;</span><span class="kw">in</span> query.<span class="fn">lower</span>()<span class="op">:</span>
+        <span class="kw">return</span><span class="str">&quot;Error: Could not retrieve data. The API endpoint is currently unavailable.&quot;</span>
+    <span class="kw">return</span> f<span class="str">&quot;Mock search result for: {query}&quot;</span>
+
+verifier <span class="op">=</span> <span class="fn">Agent</span>(
+    name<span class="op">=</span><span class="str">&quot;verifier&quot;</span>,
+    model<span class="op">=</span><span class="fn">OpenAIChat</span>(id<span class="op">=</span><span class="str">&quot;gpt-5-mini&quot;</span>),
+    response_model<span class="op">=</span>VerificationResult,
+    instructions<span class="op">=</span>(
+        <span class="str">&quot;Given a sub-question and the raw tool observation, decide if the &quot;</span>
+        <span class="str">&quot;observation actually answers the sub-question. Treat &#x27;Error&#x27;, &quot;</span>
+        <span class="str">&quot;&#x27;unavailable&#x27;, empty strings and obviously irrelevant text as failures.&quot;</span>
+    ),
+)
+
+pev_executor <span class="op">=</span> <span class="fn">Agent</span>(
+    name<span class="op">=</span><span class="str">&quot;pev_executor&quot;</span>,
+    model<span class="op">=</span><span class="fn">OpenAIChat</span>(id<span class="op">=</span><span class="str">&quot;gpt-5-mini&quot;</span>),
+    tools<span class="op">=</span>[flaky_web_search],
+    instructions<span class="op">=</span><span class="str">&quot;Answer exactly one sub-question using tools.&quot;</span>,
+)
+
+<span class="kw">def</span> <span class="fn">pev_execute</span>(step_input)<span class="op">:</span>
+    state <span class="op">=</span> step_input.workflow_session_state
+    next_q <span class="op">=</span> state[<span class="str">&quot;plan&quot;</span>][<span class="num">0</span>]
+    obs <span class="op">=</span> pev_executor.<span class="fn">run</span>(next_q).content
+    state[<span class="str">&quot;last_obs&quot;</span>] <span class="op">=</span> obs
+    state[<span class="str">&quot;last_q&quot;</span>] <span class="op">=</span> next_q
+    <span class="kw">return</span> obs
+
+<span class="kw">def</span> <span class="fn">pev_verify</span>(step_input)<span class="op">:</span>
+    state <span class="op">=</span> step_input.workflow_session_state
+    verdict<span class="op">:</span> VerificationResult <span class="op">=</span> verifier.<span class="fn">run</span>(
+        f<span class="str">&quot;Sub-question: {state[&#x27;last_q&#x27;]}\nObservation:\n{state[&#x27;last_obs&#x27;]}&quot;</span>
+    ).content
+    <span class="kw">if</span> verdict.is_successful<span class="op">:</span>
+        state[<span class="str">&quot;plan&quot;</span>].<span class="fn">pop</span>(<span class="num">0</span>)
+        state[<span class="str">&quot;intermediate&quot;</span>].<span class="fn">append</span>(f<span class="str">&quot;Q: {state[&#x27;last_q&#x27;]}\nA: {state[&#x27;last_obs&#x27;]}&quot;</span>)
+        state[<span class="str">&quot;retries&quot;</span>] <span class="op">=</span> <span class="num">0</span>
+    <span class="kw">else</span><span class="op">:</span>
+        state[<span class="str">&quot;retries&quot;</span>] <span class="op">=</span> state.<span class="fn">get</span>(<span class="str">&quot;retries&quot;</span>, <span class="num">0</span>) <span class="op">+</span> <span class="num">1</span>
+    state[<span class="str">&quot;last_verdict&quot;</span>] <span class="op">=</span> verdict
+    <span class="kw">return</span> verdict
+
+<span class="kw">from</span> agno.workflow.v2 <span class="kw">import</span> Router
+
+<span class="cm"># 先把所有可能用到的 Step 物化一次——Router selector 只能返回 workflow 已知的 Step</span>
+replan_step <span class="op">=</span> <span class="fn">Step</span>(name<span class="op">=</span><span class="str">&quot;replan&quot;</span>, executor<span class="op">=</span>plan_step)
+noop_step <span class="op">=</span> <span class="fn">Step</span>(name<span class="op">=</span><span class="str">&quot;noop&quot;</span>, executor<span class="op">=</span><span class="kw">lambda</span> si<span class="op">:</span> <span class="str">&quot;continue&quot;</span>)
+
+<span class="kw">def</span> <span class="fn">pev_router</span>(step_input)<span class="op">:</span>
+    <span class="str">&quot;&quot;&quot;根据本轮 verdict 决定下一轮是否需要重规划；不需要就放 noop，交给 Loop 判断是否再来一轮。&quot;&quot;&quot;</span>
+    state <span class="op">=</span> step_input.workflow_session_state
+    <span class="kw">if</span> <span class="kw">not</span> state[<span class="str">&quot;plan&quot;</span>]<span class="op">:</span>
+        <span class="kw">return</span> [noop_step]  <span class="cm"># 外层 Loop 的 end_condition 会看到 plan 空，直接终止</span>
+    <span class="kw">if</span> <span class="kw">not</span> state[<span class="str">&quot;last_verdict&quot;</span>].is_successful <span class="kw">and</span> state[<span class="str">&quot;retries&quot;</span>] <span class="op">&gt;</span><span class="op">=</span> <span class="num">2</span><span class="op">:</span>
+        state[<span class="str">&quot;retries&quot;</span>] <span class="op">=</span> <span class="num">0</span>
+        <span class="kw">return</span> [replan_step]
+    <span class="kw">return</span> [noop_step]
+
+<span class="kw">def</span> <span class="fn">pev_loop_done</span>(_outputs) <span class="op">-</span><span class="op">&gt;</span> <span class="fn">bool</span><span class="op">:</span>
+    <span class="str">&quot;&quot;&quot;所有子任务都通过验证后，退出 Loop。&quot;&quot;&quot;</span>
+    <span class="kw">return</span> <span class="fn">len</span>(pev_wf.session_state[<span class="str">&quot;plan&quot;</span>]) <span class="op">=</span><span class="op">=</span> <span class="num">0</span>
+
+pev_wf <span class="op">=</span> <span class="fn">Workflow</span>(
+    name<span class="op">=</span><span class="str">&quot;pev&quot;</span>,
+    session_state<span class="op">=</span>{<span class="str">&quot;plan&quot;</span><span class="op">:</span> [], <span class="str">&quot;intermediate&quot;</span><span class="op">:</span> [], <span class="str">&quot;retries&quot;</span><span class="op">:</span> <span class="num">0</span>,
+                   <span class="str">&quot;last_q&quot;</span><span class="op">:</span> <span class="str">&quot;&quot;</span>, <span class="str">&quot;last_obs&quot;</span><span class="op">:</span> <span class="str">&quot;&quot;</span>, <span class="str">&quot;last_verdict&quot;</span><span class="op">:</span> <span class="kw">None</span>},
+    steps<span class="op">=</span>[
+        <span class="fn">Step</span>(name<span class="op">=</span><span class="str">&quot;plan&quot;</span>, executor<span class="op">=</span>plan_step),
+        <span class="fn">Loop</span>(
+            name<span class="op">=</span><span class="str">&quot;pev_loop&quot;</span>,
+            steps<span class="op">=</span>[
+                <span class="fn">Step</span>(name<span class="op">=</span><span class="str">&quot;pev_execute&quot;</span>, executor<span class="op">=</span>pev_execute),
+                <span class="fn">Step</span>(name<span class="op">=</span><span class="str">&quot;pev_verify&quot;</span>, executor<span class="op">=</span>pev_verify),
+                <span class="fn">Router</span>(name<span class="op">=</span><span class="str">&quot;decide_next&quot;</span>, selector<span class="op">=</span>pev_router),
+            ],
+            end_condition<span class="op">=</span>pev_loop_done,
+        ),
+        <span class="fn">Step</span>(name<span class="op">=</span><span class="str">&quot;synthesize&quot;</span>, executor<span class="op">=</span>synth_step),
+    ],
+)</div>
+</div></p>
+
+<p style="margin-bottom:12px;line-height:1.85">拓扑变成：</p>
+
+<p style="margin-bottom:12px;line-height:1.85">&#x27; fill=&#x27;%23FFFFFF&#x27;%3E%3Crect x=&#x27;249&#x27; y=&#x27;126&#x27; width=&#x27;1&#x27; height=&#x27;1&#x27;%3E%3C/rect%3E%3C/g%3E%3C/g%3E%3C/svg%3E)</p></div>
+</div>
+<div style="margin-bottom:32px">
+  <h4 style="font-size:16px;font-weight:600;margin:0 0 12px;color:var(--text)">失败模式</h4>
+  <div style="padding-left:4px"><ul style="margin:0 0 16px 20px;list-style-type:disc;color:var(--text);font-size:14px"><li style="margin-bottom:8px;line-height:1.75">额外成本高</li>
+<li style="margin-bottom:8px;line-height:1.75">verifier 本身可能误判</li>
+<li style="margin-bottom:8px;line-height:1.75">过度验证会拖慢系统</li>
+<li style="margin-bottom:8px;line-height:1.75">某些任务里&quot;验证&quot;本身比&quot;执行&quot;更难</li></ul></div>
+</div>
+<div style="margin-bottom:32px">
+  <h4 style="font-size:16px;font-weight:600;margin:0 0 12px;color:var(--text)">何时升级</h4>
+  <div style="padding-left:4px"><p style="margin-bottom:12px;line-height:1.85">如果你接下来的问题不是&quot;执行步骤会不会失败&quot;，而是&quot;一个 agent 根本不该包揽所有认知角色&quot;，那就该进入多 agent 时代。</p>
+
+<p style="font-size:13px;color:var(--muted);margin:12px 0;padding:8px 16px;border-left:2px solid var(--border);font-style:italic">📎 参考实现： [06\_PEV.ipynb](https://github.com/FareedKhan-dev/all-agentic-architectures/06_PEV.ipynb)</p>
+
+<p style="margin-bottom:12px;line-height:1.85">---</p></div>
+</div>
+  </section>
+  <section class="layer-sec" id="en-intro" style="border-bottom:none">
+    <h3 style="border-color:#f0883e">英文原版解析</h3>
+    <p style="font-size:12px;color:var(--faint);margin-bottom:16px">来自 Jupyter Notebook 的原始英文概念说明</p>
+    <div style="font-size:13px;line-height:1.8;color:var(--muted)"><h3 style="font-size:16px;font-weight:600;margin:20px 0 8px;color:var(--text)">📘 Agentic Architectures 6: Planner → Executor → Verifier (PEV)</h3>
+<p style="margin-bottom:8px;line-height:1.7;font-size:13px;color:var(--muted)">In this notebook, we explore the <strong style="color:var(--text)">Planner → Executor → Verifier (PEV)</strong> architecture, a pattern that introduces a critical layer of robustness and self-correction into agentic systems. This architecture is inspired by rigorous software engineering and quality assurance processes, where work is not considered &#x27;done&#x27; until it has been verified.</p>
+<p style="margin-bottom:8px;line-height:1.7;font-size:13px;color:var(--muted)">While a standard Planning agent brings structure and predictability, it operates on a crucial assumption: that its tools will work perfectly and return valid data every time. In the real world, APIs fail, searches return no results, and data can be malformed. The PEV pattern addresses this by adding a dedicated <strong style="color:var(--text)">Verifier</strong> agent that acts as a quality assurance check after every action, enabling the system to detect failures and dynamically recover.</p>
+<p style="margin-bottom:8px;line-height:1.7;font-size:13px;color:var(--muted)">To demonstrate its value, we will first build a standard <strong style="color:var(--text)">Planner-Executor agent</strong> and show how it fails when a tool returns an error. Then, we will build a full <strong style="color:var(--text)">PEV agent</strong> to show how the Verifier catches the error, triggers a re-planning loop, and ultimately guides the system to a successful outcome.</p>
+<p style="font-weight:600;margin:14px 0 4px;font-size:14px">Definition</p>
+<p style="margin-bottom:8px;line-height:1.7;font-size:13px;color:var(--muted)">The <strong style="color:var(--text)">Planner → Executor → Verifier (PEV)</strong> architecture is a three-stage workflow that explicitly separates the acts of planning, executing, and verifying. It ensures that the output of each step is validated before the agent proceeds, creating a robust, self-correcting loop.</p>
+<p style="font-weight:600;margin:14px 0 4px;font-size:14px">High-level Workflow</p>
+<ol style="margin:4px 0 12px 18px">
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Plan:</strong> A &#x27;Planner&#x27; agent decomposes a high-level goal into a sequence of concrete, executable steps.</li>
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Execute:</strong> An &#x27;Executor&#x27; agent takes the *next* step from the plan and calls the appropriate tool.</li>
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Verify:</strong> A &#x27;Verifier&#x27; agent examines the output from the Executor. It checks for correctness, relevance, and potential errors. It then produces a judgment: did the step succeed or fail?</li>
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Route &amp; Iterate:</strong> Based on the Verifier&#x27;s judgment, a router decides the next move:</li>
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)">If the step <strong style="color:var(--text)">succeeded</strong> and the plan is not complete, loop back to the Executor for the next step.</li>
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)">If the step <strong style="color:var(--text)">failed</strong>, loop back to the Planner to create a *new* plan, often providing the failure context so the new plan can be smarter.</li>
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)">If the step <strong style="color:var(--text)">succeeded</strong> and the plan is complete, proceed to a final synthesis step.</li>
+</ul>
+<p style="font-weight:600;margin:14px 0 4px;font-size:14px">When to Use / Applications</p>
+<ul style="margin:4px 0 12px 18px;list-style-type:disc">
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Safety-Critical Applications (Finance, Healthcare):</strong> When the cost of an error is high, PEV provides essential guardrails to prevent the agent from acting on bad data.</li>
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Systems with Unreliable Tools:</strong> When dealing with external APIs that might be flaky or return inconsistent data, the Verifier can catch failures gracefully.</li>
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">High-Precision Tasks (Legal, Scientific):</strong> For tasks requiring a high degree of factual accuracy, the Verifier ensures each piece of retrieved information is valid before it&#x27;s used in downstream reasoning.</li>
+</ul>
+<p style="font-weight:600;margin:14px 0 4px;font-size:14px">Strengths &amp; Weaknesses</p>
+<ul style="margin:4px 0 12px 18px;list-style-type:disc">
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Strengths:</strong></li>
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Robustness &amp; Reliability:</strong> Its core strength is the ability to detect and recover from errors.</li>
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Modularity:</strong> The separation of concerns makes the system easier to debug and maintain.</li>
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Weaknesses:</strong></li>
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Increased Latency &amp; Cost:</strong> The addition of a verification step after every action adds more LLM calls, making it the slowest and most expensive of the architectures we&#x27;ve covered so far.</li>
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Verifier Complexity:</strong> Designing an effective Verifier can be challenging. It needs to be smart enough to distinguish between minor issues and critical failures.</li>
+</ul></div>
+  </section>
+  <section class="layer-sec" id="code">
+    <h3 style="border-color:#f0883e">LangChain + LangGraph 实现代码</h3>
+    <p style="font-size:12px;color:var(--faint);margin-bottom:16px">完整的端到端实现代码，可从 src/ 目录直接运行</p>
+    <div class="codeblock">
+  <div class="cb-head">
+    <span class="cb-dot" style="background:#f85149"></span><span class="cb-dot" style="background:#e3b341"></span><span class="cb-dot" style="background:#28c840"></span>
+    src/... · LangChain + LangGraph · 279 行
+  </div>
+  <div class="cb-body" style="font-size:12px;line-height:1.8"><span class="str">&quot;&quot;&quot;
 PEV - Agentic Architecture
 Extracted from: 06_PEV.ipynb
 &quot;&quot;&quot;</span>
@@ -377,8 +519,5 @@ console.<span class="fn">print</span>(pev_agent_evaluation.<span class="fn">mode
 </div>
 </div>
   </section>
-
-  <div class="prevnext"><a href="multi-agent.html"><span class="coding">Previous</span><br><span class="pn-strong">← Multi-Agent Systems</span></a><a href="blackboard.html" style="text-align:right"><span class="coding">Next</span><br><span class="pn-strong">Blackboard Systems →</span></a></div>
-</div><div class="footer">
-  <p>Built from <a href="https://github.com/1998x-stack/all-agentic-architectures" style="color:var(--text)">all-agentic-architectures</a></p>
-</div></body></html>
+  <div class="prevnext"><a href="multi-agent.html"><span class="pn-label">&larr; 上一架构</span>#05 多智能体系统</a><a href="blackboard.html" style="text-align:right"><span class="pn-label">下一架构 &rarr;</span>#07 黑板系统</a></div>
+</div><div class="footer"><p>Built from <a href="https://github.com/1998x-stack/all-agentic-architectures" style="color:var(--text)">all-agentic-architectures</a></p></div></body></html>

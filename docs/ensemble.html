@@ -1,105 +1,206 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>#13 Ensemble — All Agentic Architectures</title>
+<title>#13 集成模式 — All Agentic Architectures</title>
 <link rel="stylesheet" href="base-dark.css">
 <style>
-  :root {
-    --c1: #28c840; --c1d: #1a7a2a;
-    --c2: #378add; --c2d: #1a5290;
-    --c3: #a259ff; --c3d: #5a2a8a;
-    --c4: #f0883e; --c4d: #9a4a1a;
-    --c5: #1db0a0; --c5d: #0f6e56;
-  }
-  .hero h1 em {
-    background: linear-gradient(90deg, var(--c1), var(--c2), var(--c3), var(--c4), var(--c5));
-    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-  }
-  .prevnext { display: flex; justify-content: space-between; padding: 32px 0; border-top: 1px solid var(--border); margin-top: 48px; }
-  .prevnext a { color: var(--muted); font-size: 13px; }
-  .prevnext a:hover { color: var(--text); text-decoration: none; }
-  .pn-strong { color: var(--text) !important; font-weight: 500; }
-  .coding { font-size: 11px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); margin-bottom: 4px; }
-  h2 { font-size: 22px; font-weight: 600; margin: 0 0 12px; letter-spacing: -.01em; }
-  h3 { font-size: 18px; font-weight: 600; margin: 32px 0 12px; }
+  :root{--c1:#28c840;--c1d:#1a7a2a;--c2:#378add;--c2d:#1a5290;--c3:#a259ff;--c3d:#5a2a8a;--c4:#f0883e;--c4d:#9a4a1a;--c5:#1db0a0;--c5d:#0f6e56}
+  .hero h1 em{background:linear-gradient(90deg,var(--c1),var(--c2),var(--c3),var(--c4),var(--c5));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+  .prevnext{display:flex;justify-content:space-between;padding:32px 0;border-top:1px solid var(--border);margin-top:56px}
+  .prevnext a{color:var(--muted);font-size:14px;transition:color .15s}
+  .prevnext a:hover{color:var(--text);text-decoration:none}
+  .prevnext .pn-label{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--faint);margin-bottom:4px;display:block}
+  .cn-section{margin-top:48px}
+  .cn-section h3{font-size:20px;font-weight:700;margin-bottom:20px;padding-bottom:8px;border-bottom:1px solid var(--border)}
+  .toc-link{display:inline-block;padding:3px 8px;border-radius:4px;font-size:11px;font-family:var(--mono);color:var(--muted);border:1px solid var(--border);margin:2px 4px 2px 0;transition:all .15s}
+  .toc-link:hover{border-color:var(--c1);color:var(--c1);text-decoration:none}
 </style>
 
 </head>
 <body><nav>
   <div class="nav-inner">
-    <span class="nav-brand">All Agentic Architectures <span>· 17 Patterns</span></span>
-    <a class="nl" href="index.html">Overview</a>
+    <a href="index.html" style="text-decoration:none"><span class="nav-brand">All Agentic Architectures <span>· 17 种架构</span></span></a>
+    <a class="nl" href="index.html">总览</a>
+    <a class="nl" href="index.html#p1">基础</a>
+    <a class="nl" href="index.html#p2">多智能体</a>
+    <a class="nl" href="index.html#p3">记忆推理</a>
+    <a class="nl" href="index.html#p4">安全可靠</a>
+    <a class="nl" href="index.html#p5">学习适应</a>
   </div>
 </nav><div class="page">
-  <section class="hero" style="padding-bottom:32px">
-    <div class="hero-badge"><span class="dot" style="background:var(--c2)"></span> #13 · Multi-Agent Collaboration</div>
-    <h1 style="font-size:36px;color:var(--text)">Ensemble</h1>
-    <p style="margin-bottom:20px">High-Stakes Decision Support, Fact-Checking</p>
-    <div class="tag-row">
-      <span class="ltag" style="color:var(--c2);background:rgba(55,138,221,.08);border-color:rgba(55,138,221,.25)">Part 2</span>
-    </div>
+  <section class="hero" style="padding-bottom:28px">
+    <div class="hero-badge"><span class="dot" style="background:var(--c2)"></span> #13 · 用冗余换可靠性 · parallel redundancy</div>
+    <h1 style="font-size:34px;color:var(--text);margin-bottom:6px">集成模式 <span style="font-size:18px;font-weight:400;color:var(--muted)">Ensemble</span></h1>
+    <p style="font-size:14px;color:var(--faint);margin-bottom:8px;font-style:italic">它不是分工而是冗余</p>
+    <p style="margin-bottom:8px;font-size:14px">它不是分工而是冗余</p>
+    <p style="font-size:13px;color:var(--muted);margin-bottom:20px">典型应用：</p>
+    <div class="tag-row"><span class="ltag" style="color:var(--c2);background:rgba(55,138,221,.08);border-color:rgba(55,138,221,.25)">Part 2</span></div>
   </section>
-
-  <section class="layer-sec" style="padding-top:16px;border-bottom:none">
+  <div style="margin-bottom:28px;line-height:2">
+  <span style="font-size:11px;color:var(--faint);text-transform:uppercase;letter-spacing:.06em">快速导航</span><br>
+  <a href="#cn-analysis" class="toc-link">六维分析</a>
+  <a href="#en-intro" class="toc-link">英文解析</a>
+  <a href="#code" class="toc-link">LangGraph 实现</a>
+</div>
+  <section class="layer-sec" style="padding-top:0;border-bottom:none">
     <div class="layer-hdr">
-      <span class="layer-id-badge" style="background:#1a5290;color:rgba(255,255,255,.9)">Concept</span>
-      <div class="layer-title">How It Works</div>
+      <span class="layer-id-badge" style="background:#1a5290;color:rgba(255,255,255,.9)">核心概念</span>
+      <div class="layer-title" style="font-size:18px">它不是分工而是冗余</div>
     </div>
-    <p class="layer-def" style="border-color:#378add">Multiple independent agents analyze from different perspectives; an aggregator synthesizes for robust, less biased conclusions.</p>
-    <div style="font-size:14px;line-height:1.85;color:var(--text)">
-      <h2>📘 Agentic Architectures 13: Parallel Exploration + Ensemble Decision</h2>
-<p style="margin-bottom:12px;line-height:1.75;font-size:14px;color:var(--muted)">Welcome to a deep dive into one of the most robust and reliable reasoning architectures: <strong style="color:var(--text)">Parallel Exploration with Ensemble Decision-Making</strong>. This pattern addresses the inherent non-determinism and potential biases of a single LLM by leveraging the &quot;wisdom of the crowd&quot; principle, applied to AI agents.</p>
-<p style="margin-bottom:12px;line-height:1.75;font-size:14px;color:var(--muted)">Instead of relying on a single line of reasoning, this architecture spawns multiple, independent agents to analyze a problem from different perspectives simultaneously. Each agent follows its own reasoning path, much like different experts in a committee. Their individual conclusions are then collected and synthesized by a final &quot;aggregator&quot; agent, which weighs the different viewpoints, identifies consensus and conflict, and produces a final, more nuanced, and reliable answer.</p>
-<p style="margin-bottom:12px;line-height:1.75;font-size:14px;color:var(--muted)">To build a complex and powerful implementation, we will create a <strong style="color:var(--text)">mock AI Investment Committee</strong> tasked with answering a difficult, open-ended question: <strong style="color:var(--text)">&quot;Is NVIDIA (NVDA) a good long-term investment in mid-2024?&quot;</strong></p>
-<p style="margin-bottom:12px;line-height:1.75;font-size:14px;color:var(--muted)">Our committee will consist of three distinct, parallel agents:</p>
-<ol style="margin:0 0 16px 18px">
-<li style="margin-bottom:8px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">The Bullish Growth Analyst:</strong> An optimist who focuses on innovation, market domination, and future potential.</li>
-<li style="margin-bottom:8px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">The Cautious Value Analyst:</strong> A skeptic who scrutinizes financials, valuation, competition, and potential risks.</li>
-<li style="margin-bottom:8px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">The Quantitative Analyst (Quant):</strong> A data-driven expert who looks purely at financial metrics and technical stock indicators.</li>
-</ol>
-<p style="margin-bottom:12px;line-height:1.75;font-size:14px;color:var(--muted)">Finally, a <strong style="color:var(--text)">Chief Investment Officer (CIO)</strong> agent will synthesize their conflicting reports into a final, balanced investment thesis, providing a much more robust answer than any single agent could alone.</p>
-<h4 style="color:var(--muted);margin:24px 0 8px;font-size:14px;text-transform:uppercase;letter-spacing:.06em">Definition</h4>
-<p style="margin-bottom:12px;line-height:1.75;font-size:14px;color:var(--muted)"><strong style="color:var(--text)">Parallel Exploration + Ensemble Decision</strong> is an agentic architecture where a problem is simultaneously processed by multiple independent agents or reasoning paths. The individual outputs are then aggregated, often by a separate agent, through a method like voting, consensus-building, or synthesis to arrive at a final, more robust conclusion.</p>
-<h4 style="color:var(--muted);margin:24px 0 8px;font-size:14px;text-transform:uppercase;letter-spacing:.06em">High-level Workflow</h4>
-<ol style="margin:0 0 16px 18px">
-<li style="margin-bottom:8px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Fan-Out (Parallel Exploration):</strong> A user&#x27;s query is distributed to N independent specialist agents. Crucially, these agents are often given different instructions, personas, or tools to encourage diverse analytical approaches.</li>
-<li style="margin-bottom:8px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Independent Processing:</strong> Each agent works on the problem in isolation, generating its own complete analysis, conclusion, or answer.</li>
-<li style="margin-bottom:8px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Fan-In (Aggregation):</strong> The outputs from all N agents are collected.</li>
-<li style="margin-bottom:8px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Synthesize (Ensemble Decision):</strong> A final &quot;aggregator&quot; or &quot;judge&quot; agent receives all the individual outputs. Its task is to analyze these perspectives, identify common ground, weigh conflicting evidence, and synthesize a comprehensive final answer.</li>
-</ol>
-<h4 style="color:var(--muted);margin:24px 0 8px;font-size:14px;text-transform:uppercase;letter-spacing:.06em">When to Use / Applications</h4>
-<ul style="margin:0 0 16px 18px;list-style-type:disc">
-<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Hard Reasoning Q&amp;A:</strong> For complex, ambiguous questions where a single line of reasoning might easily miss the nuance (e.g., &quot;What was the primary cause of the 2008 financial crisis?&quot;).</li>
-<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Fact-Checking &amp; Verification:</strong> Having multiple agents search for and verify a fact from different sources can drastically reduce hallucinations.</li>
-<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">High-Stakes Decision Support:</strong> In fields like medicine or finance, getting a &quot;second opinion&quot; (or third, or fourth) from different AI personas before making a recommendation.</li>
-</ul>
-<h4 style="color:var(--muted);margin:24px 0 8px;font-size:14px;text-transform:uppercase;letter-spacing:.06em">Strengths &amp; Weaknesses</h4>
-<ul style="margin:0 0 16px 18px;list-style-type:disc">
-<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Strengths:</strong></li>
-<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Boosts Reliability &amp; Accuracy:</strong> Averages out the random errors or biases of a single agent, making the final answer much more likely to be correct and well-rounded.</li>
-<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Reduces Hallucinations:</strong> If one agent hallucinates a fact, the others are unlikely to do the same, and the aggregator can easily spot the outlier.</li>
-<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Weaknesses:</strong></li>
-<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Very High Cost:</strong> This is one of the most expensive architectures, as it multiplies the number of LLM calls by the number of agents in the ensemble (plus the final aggregation call).</li>
-<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Increased Latency:</strong> The system must wait for all parallel paths to complete before the final synthesis can begin.</li>
-</ul>
-    </div>
+    <p class="layer-def" style="border-color:#378add">它不是分工而是冗余</p>
   </section>
+  <section class="layer-sec cn-section" id="cn-analysis">
+    <h3 style="border-color:#378add">六维深度分析</h3>
+    <p style="font-size:13px;color:var(--faint);margin-bottom:24px">以下分析基于统一框架的六个核心问题：问题定义 → State 建模 → 拓扑结构 → Router 机制 → 失败模式 → 升级时机</p>
+    <p style="font-size:15px;color:var(--text);line-height:1.9;margin-bottom:24px;padding:16px 20px;background:var(--bg2);border-radius:8px;border-left:3px solid var(--c1)"><strong style="color:var(--c1)">核心洞察：</strong>前面的多 agent 基本都在解决&quot;分工&quot;问题，Ensemble 解决的是另一类问题： <strong style="color:var(--text)">同一个问题，单个 agent 的结论不够可靠。</strong></p>
+<div style="margin-bottom:32px">
+  <h4 style="font-size:16px;font-weight:600;margin:0 0 12px;color:var(--text)">要解决什么问题？</h4>
+  <div style="padding-left:4px"><p style="margin-bottom:12px;line-height:1.85">前面的多 agent 基本都在解决&quot;分工&quot;问题，Ensemble 解决的是另一类问题： <strong style="color:var(--text)">同一个问题，单个 agent 的结论不够可靠。</strong></p>
 
-  <section class="layer-sec" id="code">
-    <div class="layer-hdr">
-      <span class="layer-id-badge" style="background:#1a5290;color:rgba(255,255,255,.9)">Implementation</span>
-      <div class="layer-title">Code <small style="font-size:14px;font-weight:400;color:var(--muted)">LangChain + LangGraph</small></div>
-    </div>
-    <div class="codeblock">
-  <div class="cb-head">
+<p style="margin-bottom:12px;line-height:1.85">你不是担心&quot;一个 agent 做不完&quot;，而是担心&quot;一个 agent 看法太单一、偏差太大、幻觉太重&quot;。</p></div>
+</div>
+<div style="margin-bottom:32px">
+  <h4 style="font-size:16px;font-weight:600;margin:0 0 12px;color:var(--text)">拓扑结构</h4>
+  <div style="padding-left:4px"><p style="margin-bottom:12px;line-height:1.85">标准 fan-out / fan-in：</p>
+
+<p style="margin-bottom:12px;line-height:1.85">&#x27; fill=&#x27;%23FFFFFF&#x27;%3E%3Crect x=&#x27;249&#x27; y=&#x27;126&#x27; width=&#x27;1&#x27; height=&#x27;1&#x27;%3E%3C/rect%3E%3C/g%3E%3C/g%3E%3C/svg%3E)</p></div>
+</div>
+<div style="margin-bottom:32px">
+  <h4 style="font-size:16px;font-weight:600;margin:0 0 12px;color:var(--text)">关键代码</h4>
+  <div style="padding-left:4px"><p style="margin-bottom:12px;line-height:1.85">agno 的 <code style="font-family:var(--mono);font-size:12px;background:var(--bg3);padding:1px 6px;border-radius:4px;color:var(--c1)">Workflow</code> 支持 <code style="font-family:var(--mono);font-size:12px;background:var(--bg3);padding:1px 6px;border-radius:4px;color:var(--c1)">Parallel</code> step 做 fan-out，再用一个 aggregator step 做 fan-in：</p>
+
+<p style="margin-bottom:12px;line-height:1.85"><div class="codeblock" style="margin:12px 0 20px">
+  <div class="cb-head" style="font-size:11px">
     <span class="cb-dot" style="background:#f85149"></span>
     <span class="cb-dot" style="background:#e3b341"></span>
     <span class="cb-dot" style="background:#28c840"></span>
-    src/src/... · 180 lines
+    agno 实现示例 · 51 行
   </div>
-  <div class="cb-body"><span class="str">&quot;&quot;&quot;
+  <div class="cb-body" style="font-size:12px;line-height:1.8"><span class="kw">from</span> agno.workflow.v2 <span class="kw">import</span> Workflow, Step, Parallel
+
+<span class="kw">class</span> <span class="fn">FinalRecommendation</span>(BaseModel)<span class="op">:</span>
+    final_recommendation<span class="op">:</span> <span class="fn">str</span>
+    confidence_score<span class="op">:</span> <span class="fn">float</span>
+    synthesis_summary<span class="op">:</span> <span class="fn">str</span>
+    identified_opportunities<span class="op">:</span> List[<span class="fn">str</span>]
+    identified_risks<span class="op">:</span> List[<span class="fn">str</span>]
+
+bullish <span class="op">=</span> <span class="fn">Agent</span>(name<span class="op">=</span><span class="str">&quot;bullish&quot;</span>, model<span class="op">=</span><span class="fn">OpenAIChat</span>(id<span class="op">=</span><span class="str">&quot;gpt-5-mini&quot;</span>),
+    instructions<span class="op">=</span><span class="str">&quot;You are a growth-oriented bullish analyst. Argue why to invest.&quot;</span>)
+value <span class="op">=</span> <span class="fn">Agent</span>(name<span class="op">=</span><span class="str">&quot;value&quot;</span>, model<span class="op">=</span><span class="fn">OpenAIChat</span>(id<span class="op">=</span><span class="str">&quot;gpt-5-mini&quot;</span>),
+    instructions<span class="op">=</span><span class="str">&quot;You are a value analyst. Focus on margin of safety.&quot;</span>)
+quant <span class="op">=</span> <span class="fn">Agent</span>(name<span class="op">=</span><span class="str">&quot;quant&quot;</span>, model<span class="op">=</span><span class="fn">OpenAIChat</span>(id<span class="op">=</span><span class="str">&quot;gpt-5-mini&quot;</span>),
+    instructions<span class="op">=</span><span class="str">&quot;You are a quantitative analyst. Focus on ratios and trends.&quot;</span>)
+
+cio <span class="op">=</span> <span class="fn">Agent</span>(name<span class="op">=</span><span class="str">&quot;cio&quot;</span>, model<span class="op">=</span><span class="fn">OpenAIChat</span>(id<span class="op">=</span><span class="str">&quot;gpt-5-mini&quot;</span>),
+    response_model<span class="op">=</span>FinalRecommendation,
+    instructions<span class="op">=</span>(<span class="str">&quot;You are the CIO. Synthesize three analyst views into one final &quot;</span>
+                  <span class="str">&quot;recommendation. Do NOT hide disagreement — explicitly list risks.&quot;</span>))
+
+<span class="kw">def</span> <span class="fn">run_one</span>(agent)<span class="op">:</span>
+    <span class="kw">def</span> <span class="fn">_step</span>(si)<span class="op">:</span>
+        out <span class="op">=</span> agent.<span class="fn">run</span>(si.message).content
+        <span class="cm"># Parallel 各分支并发写入共享 dict</span>
+        si.workflow_session_state.<span class="fn">setdefault</span>(<span class="str">&quot;views&quot;</span>, {})[agent.name] <span class="op">=</span> out
+        <span class="kw">return</span> out
+    <span class="kw">return</span> _step
+
+<span class="kw">def</span> <span class="fn">aggregate_step</span>(si)<span class="op">:</span>
+    views <span class="op">=</span> si.workflow_session_state.<span class="fn">get</span>(<span class="str">&quot;views&quot;</span>, {})
+    body <span class="op">=</span> <span class="str">&quot;\n\n&quot;</span>.<span class="fn">join</span>(f<span class="str">&quot;[{name}]\n{view}&quot;</span><span class="kw">for</span> name, view <span class="kw">in</span> views.<span class="fn">items</span>())
+    <span class="kw">return</span> cio.<span class="fn">run</span>(f<span class="str">&quot;Question: {si.message}\nAnalyst views:\n{body}&quot;</span>).content
+
+ensemble_wf <span class="op">=</span> <span class="fn">Workflow</span>(
+    name<span class="op">=</span><span class="str">&quot;ensemble&quot;</span>,
+    session_state<span class="op">=</span>{<span class="str">&quot;views&quot;</span><span class="op">:</span> {}},
+    steps<span class="op">=</span>[
+        <span class="fn">Parallel</span>(
+            name<span class="op">=</span><span class="str">&quot;analysts&quot;</span>,
+            steps<span class="op">=</span>[
+                <span class="fn">Step</span>(name<span class="op">=</span><span class="str">&quot;bullish&quot;</span>, executor<span class="op">=</span><span class="fn">run_one</span>(bullish)),
+                <span class="fn">Step</span>(name<span class="op">=</span><span class="str">&quot;value&quot;</span>, executor<span class="op">=</span><span class="fn">run_one</span>(value)),
+                <span class="fn">Step</span>(name<span class="op">=</span><span class="str">&quot;quant&quot;</span>, executor<span class="op">=</span><span class="fn">run_one</span>(quant)),
+            ],
+        ),
+        <span class="fn">Step</span>(name<span class="op">=</span><span class="str">&quot;cio_synth&quot;</span>, executor<span class="op">=</span>aggregate_step),
+    ],
+)
+
+ensemble_wf.<span class="fn">run</span>(message<span class="op">=</span><span class="str">&quot;Should I buy AAPL right now?&quot;</span>)</div>
+</div></p></div>
+</div>
+<div style="margin-bottom:32px">
+  <h4 style="font-size:16px;font-weight:600;margin:0 0 12px;color:var(--text)">失败模式</h4>
+  <div style="padding-left:4px"><ul style="margin:0 0 16px 20px;list-style-type:disc;color:var(--text);font-size:14px"><li style="margin-bottom:8px;line-height:1.75">成本线性增长</li>
+<li style="margin-bottom:8px;line-height:1.75">多个 agent 可能共享同样的偏见</li>
+<li style="margin-bottom:8px;line-height:1.75">aggregator 可能强行合并不该合并的冲突</li>
+<li style="margin-bottom:8px;line-height:1.75">最终&quot;综合意见&quot;可能掩盖关键分歧</li>
+</ul>
+<p style="margin-bottom:12px;line-height:1.85">所以 ensemble 的关键不是&quot;取平均&quot;，而是 <strong style="color:var(--text)">保留冲突信息并解释冲突</strong> ，这就是为什么 <code style="font-family:var(--mono);font-size:12px;background:var(--bg3);padding:1px 6px;border-radius:4px;color:var(--c1)">FinalRecommendation</code> 里必须有 <code style="font-family:var(--mono);font-size:12px;background:var(--bg3);padding:1px 6px;border-radius:4px;color:var(--c1)">identified_risks</code> 。</p></div>
+</div>
+<div style="margin-bottom:32px">
+  <h4 style="font-size:16px;font-weight:600;margin:0 0 12px;color:var(--text)">何时升级</h4>
+  <div style="padding-left:4px"><p style="margin-bottom:12px;line-height:1.85">高风险判断、事实核查、投资建议、复杂研究结论——凡是你不想把决定押在一次输出上的场景。</p>
+
+<p style="font-size:13px;color:var(--muted);margin:12px 0;padding:8px 16px;border-left:2px solid var(--border);font-style:italic">📎 参考实现： [13\_ensemble.ipynb](https://github.com/FareedKhan-dev/all-agentic-architectures/13_ensemble.ipynb)</p>
+
+<p style="margin-bottom:12px;line-height:1.85">---</p></div>
+</div>
+<div style="margin-bottom:32px">
+  <h4 style="font-size:16px;font-weight:600;margin:0 0 12px;color:var(--text)">新增的能力</h4>
+  <div style="padding-left:4px"><p style="margin-bottom:12px;line-height:1.85"><strong style="color:var(--text)">用多视角和冗余来降低单次推理偏差。</strong> 和机器学习里的 ensemble 很像：不是因为单个模型不能输出，而是因为多个模型的误差不完全相关。</p></div>
+</div>
+  </section>
+  <section class="layer-sec" id="en-intro" style="border-bottom:none">
+    <h3 style="border-color:#378add">英文原版解析</h3>
+    <p style="font-size:12px;color:var(--faint);margin-bottom:16px">来自 Jupyter Notebook 的原始英文概念说明</p>
+    <div style="font-size:13px;line-height:1.8;color:var(--muted)"><h3 style="font-size:16px;font-weight:600;margin:20px 0 8px;color:var(--text)">📘 Agentic Architectures 13: Parallel Exploration + Ensemble Decision</h3>
+<p style="margin-bottom:8px;line-height:1.7;font-size:13px;color:var(--muted)">Welcome to a deep dive into one of the most robust and reliable reasoning architectures: <strong style="color:var(--text)">Parallel Exploration with Ensemble Decision-Making</strong>. This pattern addresses the inherent non-determinism and potential biases of a single LLM by leveraging the &quot;wisdom of the crowd&quot; principle, applied to AI agents.</p>
+<p style="margin-bottom:8px;line-height:1.7;font-size:13px;color:var(--muted)">Instead of relying on a single line of reasoning, this architecture spawns multiple, independent agents to analyze a problem from different perspectives simultaneously. Each agent follows its own reasoning path, much like different experts in a committee. Their individual conclusions are then collected and synthesized by a final &quot;aggregator&quot; agent, which weighs the different viewpoints, identifies consensus and conflict, and produces a final, more nuanced, and reliable answer.</p>
+<p style="margin-bottom:8px;line-height:1.7;font-size:13px;color:var(--muted)">To build a complex and powerful implementation, we will create a <strong style="color:var(--text)">mock AI Investment Committee</strong> tasked with answering a difficult, open-ended question: <strong style="color:var(--text)">&quot;Is NVIDIA (NVDA) a good long-term investment in mid-2024?&quot;</strong></p>
+<p style="margin-bottom:8px;line-height:1.7;font-size:13px;color:var(--muted)">Our committee will consist of three distinct, parallel agents:</p>
+<ol style="margin:4px 0 12px 18px">
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">The Bullish Growth Analyst:</strong> An optimist who focuses on innovation, market domination, and future potential.</li>
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">The Cautious Value Analyst:</strong> A skeptic who scrutinizes financials, valuation, competition, and potential risks.</li>
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">The Quantitative Analyst (Quant):</strong> A data-driven expert who looks purely at financial metrics and technical stock indicators.</li>
+</ul>
+<p style="margin-bottom:8px;line-height:1.7;font-size:13px;color:var(--muted)">Finally, a <strong style="color:var(--text)">Chief Investment Officer (CIO)</strong> agent will synthesize their conflicting reports into a final, balanced investment thesis, providing a much more robust answer than any single agent could alone.</p>
+<p style="font-weight:600;margin:14px 0 4px;font-size:14px">Definition</p>
+<p style="margin-bottom:8px;line-height:1.7;font-size:13px;color:var(--muted)"><strong style="color:var(--text)">Parallel Exploration + Ensemble Decision</strong> is an agentic architecture where a problem is simultaneously processed by multiple independent agents or reasoning paths. The individual outputs are then aggregated, often by a separate agent, through a method like voting, consensus-building, or synthesis to arrive at a final, more robust conclusion.</p>
+<p style="font-weight:600;margin:14px 0 4px;font-size:14px">High-level Workflow</p>
+<ol style="margin:4px 0 12px 18px">
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Fan-Out (Parallel Exploration):</strong> A user&#x27;s query is distributed to N independent specialist agents. Crucially, these agents are often given different instructions, personas, or tools to encourage diverse analytical approaches.</li>
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Independent Processing:</strong> Each agent works on the problem in isolation, generating its own complete analysis, conclusion, or answer.</li>
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Fan-In (Aggregation):</strong> The outputs from all N agents are collected.</li>
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Synthesize (Ensemble Decision):</strong> A final &quot;aggregator&quot; or &quot;judge&quot; agent receives all the individual outputs. Its task is to analyze these perspectives, identify common ground, weigh conflicting evidence, and synthesize a comprehensive final answer.</li>
+</ul>
+<p style="font-weight:600;margin:14px 0 4px;font-size:14px">When to Use / Applications</p>
+<ul style="margin:4px 0 12px 18px;list-style-type:disc">
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Hard Reasoning Q&amp;A:</strong> For complex, ambiguous questions where a single line of reasoning might easily miss the nuance (e.g., &quot;What was the primary cause of the 2008 financial crisis?&quot;).</li>
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Fact-Checking &amp; Verification:</strong> Having multiple agents search for and verify a fact from different sources can drastically reduce hallucinations.</li>
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">High-Stakes Decision Support:</strong> In fields like medicine or finance, getting a &quot;second opinion&quot; (or third, or fourth) from different AI personas before making a recommendation.</li>
+</ul>
+<p style="font-weight:600;margin:14px 0 4px;font-size:14px">Strengths &amp; Weaknesses</p>
+<ul style="margin:4px 0 12px 18px;list-style-type:disc">
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Strengths:</strong></li>
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Boosts Reliability &amp; Accuracy:</strong> Averages out the random errors or biases of a single agent, making the final answer much more likely to be correct and well-rounded.</li>
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Reduces Hallucinations:</strong> If one agent hallucinates a fact, the others are unlikely to do the same, and the aggregator can easily spot the outlier.</li>
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Weaknesses:</strong></li>
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Very High Cost:</strong> This is one of the most expensive architectures, as it multiplies the number of LLM calls by the number of agents in the ensemble (plus the final aggregation call).</li>
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Increased Latency:</strong> The system must wait for all parallel paths to complete before the final synthesis can begin.</li>
+</ul></div>
+  </section>
+  <section class="layer-sec" id="code">
+    <h3 style="border-color:#378add">LangChain + LangGraph 实现代码</h3>
+    <p style="font-size:12px;color:var(--faint);margin-bottom:16px">完整的端到端实现代码，可从 src/ 目录直接运行</p>
+    <div class="codeblock">
+  <div class="cb-head">
+    <span class="cb-dot" style="background:#f85149"></span><span class="cb-dot" style="background:#e3b341"></span><span class="cb-dot" style="background:#28c840"></span>
+    src/... · LangChain + LangGraph · 179 行
+  </div>
+  <div class="cb-body" style="font-size:12px;line-height:1.8"><span class="str">&quot;&quot;&quot;
 Ensemble - Agentic Architecture
 Extracted from: 13_ensemble.ipynb
 &quot;&quot;&quot;</span>
@@ -281,8 +382,5 @@ final_rec <span class="op">=</span> result[<span class="str">&#x27;final_recomme
 </div>
 </div>
   </section>
-
-  <div class="prevnext"><a href="graph.html"><span class="coding">Previous</span><br><span class="pn-strong">← Graph (World-Model Memory)</span></a><a href="dry-run.html" style="text-align:right"><span class="coding">Next</span><br><span class="pn-strong">Dry-Run Harness →</span></a></div>
-</div><div class="footer">
-  <p>Built from <a href="https://github.com/1998x-stack/all-agentic-architectures" style="color:var(--text)">all-agentic-architectures</a></p>
-</div></body></html>
+  <div class="prevnext"><a href="graph.html"><span class="pn-label">&larr; 上一架构</span>#12 图世界模型记忆</a><a href="dry-run.html" style="text-align:right"><span class="pn-label">下一架构 &rarr;</span>#14 预演校验</a></div>
+</div><div class="footer"><p>Built from <a href="https://github.com/1998x-stack/all-agentic-architectures" style="color:var(--text)">all-agentic-architectures</a></p></div></body></html>

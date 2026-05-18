@@ -1,108 +1,197 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>#10 Mental Loop (Simulator) — All Agentic Architectures</title>
+<title>#10 心智循环 — All Agentic Architectures</title>
 <link rel="stylesheet" href="base-dark.css">
 <style>
-  :root {
-    --c1: #28c840; --c1d: #1a7a2a;
-    --c2: #378add; --c2d: #1a5290;
-    --c3: #a259ff; --c3d: #5a2a8a;
-    --c4: #f0883e; --c4d: #9a4a1a;
-    --c5: #1db0a0; --c5d: #0f6e56;
-  }
-  .hero h1 em {
-    background: linear-gradient(90deg, var(--c1), var(--c2), var(--c3), var(--c4), var(--c5));
-    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-  }
-  .prevnext { display: flex; justify-content: space-between; padding: 32px 0; border-top: 1px solid var(--border); margin-top: 48px; }
-  .prevnext a { color: var(--muted); font-size: 13px; }
-  .prevnext a:hover { color: var(--text); text-decoration: none; }
-  .pn-strong { color: var(--text) !important; font-weight: 500; }
-  .coding { font-size: 11px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); margin-bottom: 4px; }
-  h2 { font-size: 22px; font-weight: 600; margin: 0 0 12px; letter-spacing: -.01em; }
-  h3 { font-size: 18px; font-weight: 600; margin: 32px 0 12px; }
+  :root{--c1:#28c840;--c1d:#1a7a2a;--c2:#378add;--c2d:#1a5290;--c3:#a259ff;--c3d:#5a2a8a;--c4:#f0883e;--c4d:#9a4a1a;--c5:#1db0a0;--c5d:#0f6e56}
+  .hero h1 em{background:linear-gradient(90deg,var(--c1),var(--c2),var(--c3),var(--c4),var(--c5));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+  .prevnext{display:flex;justify-content:space-between;padding:32px 0;border-top:1px solid var(--border);margin-top:56px}
+  .prevnext a{color:var(--muted);font-size:14px;transition:color .15s}
+  .prevnext a:hover{color:var(--text);text-decoration:none}
+  .prevnext .pn-label{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--faint);margin-bottom:4px;display:block}
+  .cn-section{margin-top:48px}
+  .cn-section h3{font-size:20px;font-weight:700;margin-bottom:20px;padding-bottom:8px;border-bottom:1px solid var(--border)}
+  .toc-link{display:inline-block;padding:3px 8px;border-radius:4px;font-size:11px;font-family:var(--mono);color:var(--muted);border:1px solid var(--border);margin:2px 4px 2px 0;transition:all .15s}
+  .toc-link:hover{border-color:var(--c1);color:var(--c1);text-decoration:none}
 </style>
 
 </head>
 <body><nav>
   <div class="nav-inner">
-    <span class="nav-brand">All Agentic Architectures <span>· 17 Patterns</span></span>
-    <a class="nl" href="index.html">Overview</a>
+    <a href="index.html" style="text-decoration:none"><span class="nav-brand">All Agentic Architectures <span>· 17 种架构</span></span></a>
+    <a class="nl" href="index.html">总览</a>
+    <a class="nl" href="index.html#p1">基础</a>
+    <a class="nl" href="index.html#p2">多智能体</a>
+    <a class="nl" href="index.html#p3">记忆推理</a>
+    <a class="nl" href="index.html#p4">安全可靠</a>
+    <a class="nl" href="index.html#p5">学习适应</a>
   </div>
 </nav><div class="page">
-  <section class="hero" style="padding-bottom:32px">
-    <div class="hero-badge"><span class="dot" style="background:var(--c4)"></span> #10 · Safety & Reliability</div>
-    <h1 style="font-size:36px;color:var(--text)">Mental Loop (Simulator)</h1>
-    <p style="margin-bottom:20px">Robotics, Financial Trading, Safety-Critical Systems</p>
-    <div class="tag-row">
-      <span class="ltag" style="color:var(--c4);background:rgba(240,136,62,.08);border-color:rgba(240,136,62,.25)">Part 4</span>
-    </div>
+  <section class="hero" style="padding-bottom:28px">
+    <div class="hero-badge"><span class="dot" style="background:var(--c4)"></span> #10 · 把行动前评估做成模拟 · counterfactual execution</div>
+    <h1 style="font-size:34px;color:var(--text);margin-bottom:6px">心智循环 <span style="font-size:18px;font-weight:400;color:var(--muted)">Mental Loop</span></h1>
+    <p style="font-size:14px;color:var(--faint);margin-bottom:8px;font-style:italic">行动之前先在内部世界试错</p>
+    <p style="margin-bottom:8px;font-size:14px">行动之前先在内部世界试错</p>
+    <p style="font-size:13px;color:var(--muted);margin-bottom:20px">典型应用：</p>
+    <div class="tag-row"><span class="ltag" style="color:var(--c4);background:rgba(240,136,62,.08);border-color:rgba(240,136,62,.25)">Part 4</span></div>
   </section>
-
-  <section class="layer-sec" style="padding-top:16px;border-bottom:none">
+  <div style="margin-bottom:28px;line-height:2">
+  <span style="font-size:11px;color:var(--faint);text-transform:uppercase;letter-spacing:.06em">快速导航</span><br>
+  <a href="#cn-analysis" class="toc-link">六维分析</a>
+  <a href="#en-intro" class="toc-link">英文解析</a>
+  <a href="#code" class="toc-link">LangGraph 实现</a>
+</div>
+  <section class="layer-sec" style="padding-top:0;border-bottom:none">
     <div class="layer-hdr">
-      <span class="layer-id-badge" style="background:#9a4a1a;color:rgba(255,255,255,.9)">Concept</span>
-      <div class="layer-title">How It Works</div>
+      <span class="layer-id-badge" style="background:#9a4a1a;color:rgba(255,255,255,.9)">核心概念</span>
+      <div class="layer-title" style="font-size:18px">行动之前先在内部世界试错</div>
     </div>
-    <p class="layer-def" style="border-color:#f0883e">Tests actions in an internal mental model to predict outcomes and assess risk before real-world execution.</p>
-    <div style="font-size:14px;line-height:1.85;color:var(--text)">
-      <h2>📘 Agentic Architectures 10: Simulator / Mental-Model-in-the-Loop</h2>
-<p style="margin-bottom:12px;line-height:1.75;font-size:14px;color:var(--muted)">Welcome to the tenth notebook in our series. Today, we explore a sophisticated architecture designed for safety and robust decision-making in high-stakes environments: the <strong style="color:var(--text)">Simulator</strong>, also known as a <strong style="color:var(--text)">Mental-Model-in-the-Loop</strong>.</p>
-<p style="margin-bottom:12px;line-height:1.75;font-size:14px;color:var(--muted)">The core idea is to give an agent the ability to &quot;think before it acts&quot; in a very concrete way. Instead of committing to an action in the real world immediately, the agent first tests its proposed action in an internal, simulated version of the environment. By observing the likely consequences in this safe sandbox, it can evaluate risks, refine its strategy, and only then execute a more considered action in reality.</p>
-<p style="margin-bottom:12px;line-height:1.75;font-size:14px;color:var(--muted)">We will build a simple <strong style="color:var(--text)">stock trading agent</strong> to demonstrate this. The &quot;real world&quot; will be a market simulator that advances one step at a time. Before making a trade, our agent will:</p>
-<ol style="margin:0 0 16px 18px">
-<li style="margin-bottom:8px;line-height:1.65;font-size:14px;color:var(--text)">Propose a general strategy (e.g., &quot;buy aggressively&quot;).</li>
-<li style="margin-bottom:8px;line-height:1.65;font-size:14px;color:var(--text)">Run that strategy through a <em>forked</em> version of the market simulator for multiple future steps to see potential outcomes.</li>
-<li style="margin-bottom:8px;line-height:1.65;font-size:14px;color:var(--text)">Analyze the simulation results to assess risk and reward.</li>
-<li style="margin-bottom:8px;line-height:1.65;font-size:14px;color:var(--text)">Make a final, refined decision (e.g., &quot;The simulation shows high volatility; let&#x27;s buy a smaller amount.&quot;).</li>
-<li style="margin-bottom:8px;line-height:1.65;font-size:14px;color:var(--text)">Execute that refined trade in the real market.</li>
-</ol>
-<p style="margin-bottom:12px;line-height:1.75;font-size:14px;color:var(--muted)">This pattern is crucial for moving agents from informational tasks to performing actions in the real world, where mistakes can have real consequences.</p>
-<h4 style="color:var(--muted);margin:24px 0 8px;font-size:14px;text-transform:uppercase;letter-spacing:.06em">Definition</h4>
-<p style="margin-bottom:12px;line-height:1.75;font-size:14px;color:var(--muted)">A <strong style="color:var(--text)">Simulator</strong> or <strong style="color:var(--text)">Mental-Model-in-the-Loop</strong> architecture involves an agent that uses an internal model of its environment to simulate the outcomes of potential actions before executing any of them. This allows the agent to perform what-if analysis, anticipate consequences, and refine its plan for safety and effectiveness.</p>
-<h4 style="color:var(--muted);margin:24px 0 8px;font-size:14px;text-transform:uppercase;letter-spacing:.06em">High-level Workflow</h4>
-<ol style="margin:0 0 16px 18px">
-<li style="margin-bottom:8px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Observe:</strong> The agent observes the current state of the real environment.</li>
-<li style="margin-bottom:8px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Propose Action:</strong> Based on its goals and the current state, the agent&#x27;s planning module generates a high-level proposed action or strategy.</li>
-<li style="margin-bottom:8px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Simulate:</strong> The agent forks the current state of the environment into a sandboxed simulation. It applies the proposed action and runs the simulation forward to observe a range of possible outcomes.</li>
-<li style="margin-bottom:8px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Assess &amp; Refine:</strong> The agent analyzes the results from the simulation. Did the action lead to the desired outcome? Were there unforeseen negative consequences? Based on this assessment, it refines its initial proposal into a final, concrete action.</li>
-<li style="margin-bottom:8px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Execute:</strong> The agent executes the final, refined action in the <em>real</em> environment.</li>
-<li style="margin-bottom:8px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Repeat:</strong> The loop begins again from the new state of the real environment.</li>
-</ol>
-<h4 style="color:var(--muted);margin:24px 0 8px;font-size:14px;text-transform:uppercase;letter-spacing:.06em">When to Use / Applications</h4>
-<ul style="margin:0 0 16px 18px;list-style-type:disc">
-<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Robotics:</strong> Simulating a grasp or a path before moving a physical arm to avoid collisions or damage.</li>
-<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">High-Stakes Decision-Making:</strong> In finance, simulating a trade&#x27;s impact on a portfolio under different market conditions. In healthcare, simulating a treatment plan&#x27;s potential effects.</li>
-<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Complex Game AI:</strong> An AI in a strategy game simulating several moves ahead to choose the optimal one.</li>
-</ul>
-<h4 style="color:var(--muted);margin:24px 0 8px;font-size:14px;text-transform:uppercase;letter-spacing:.06em">Strengths &amp; Weaknesses</h4>
-<ul style="margin:0 0 16px 18px;list-style-type:disc">
-<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Strengths:</strong></li>
-<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Safety &amp; Risk Reduction:</strong> Massively reduces the chance of harmful or costly mistakes by vetting actions in a safe environment first.</li>
-<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Improved Performance:</strong> Leads to more robust and well-considered decisions by allowing for lookahead and planning.</li>
-<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Weaknesses:</strong></li>
-<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Simulation-Reality Gap:</strong> The effectiveness is entirely dependent on the fidelity of the simulator. If the model of the world is inaccurate, the agent&#x27;s plans may be based on false assumptions.</li>
-<li style="margin-bottom:6px;line-height:1.65;font-size:14px;color:var(--text)"><strong style="color:var(--text)">Computational Cost:</strong> Running simulations, especially multiple scenarios, is computationally expensive and slower than acting directly.</li>
-</ul>
-    </div>
+    <p class="layer-def" style="border-color:#f0883e">行动之前先在内部世界试错</p>
   </section>
+  <section class="layer-sec cn-section" id="cn-analysis">
+    <h3 style="border-color:#f0883e">六维深度分析</h3>
+    <p style="font-size:13px;color:var(--faint);margin-bottom:24px">以下分析基于统一框架的六个核心问题：问题定义 → State 建模 → 拓扑结构 → Router 机制 → 失败模式 → 升级时机</p>
+    <p style="font-size:15px;color:var(--text);line-height:1.9;margin-bottom:24px;padding:16px 20px;background:var(--bg2);border-radius:8px;border-left:3px solid var(--c1)"><strong style="color:var(--c1)">核心洞察：</strong>在机器人、交易、生产系统配置变更这类任务里，试错有代价。 Mental Loop 要 <strong style="color:var(--text)">把试错从真实世界搬进模拟世界</strong> 。</p>
+<div style="margin-bottom:32px">
+  <h4 style="font-size:16px;font-weight:600;margin:0 0 12px;color:var(--text)">要解决什么问题？</h4>
+  <div style="padding-left:4px"><p style="margin-bottom:12px;line-height:1.85">在机器人、交易、生产系统配置变更这类任务里，试错有代价。 Mental Loop 要 <strong style="color:var(--text)">把试错从真实世界搬进模拟世界</strong> 。</p></div>
+</div>
+<div style="margin-bottom:32px">
+  <h4 style="font-size:16px;font-weight:600;margin:0 0 12px;color:var(--text)">关键代码</h4>
+  <div style="padding-left:4px"><p style="margin-bottom:12px;line-height:1.85">模拟器就是一个普通 Python 对象，决策 agent 通过工具把它当成&quot;可以快照 可以推进 可以回滚&quot;的沙箱：</p>
 
-  <section class="layer-sec" id="code">
-    <div class="layer-hdr">
-      <span class="layer-id-badge" style="background:#9a4a1a;color:rgba(255,255,255,.9)">Implementation</span>
-      <div class="layer-title">Code <small style="font-size:14px;font-weight:400;color:var(--muted)">LangChain + LangGraph</small></div>
-    </div>
-    <div class="codeblock">
-  <div class="cb-head">
+<p style="margin-bottom:12px;line-height:1.85"><div class="codeblock" style="margin:12px 0 20px">
+  <div class="cb-head" style="font-size:11px">
     <span class="cb-dot" style="background:#f85149"></span>
     <span class="cb-dot" style="background:#e3b341"></span>
     <span class="cb-dot" style="background:#28c840"></span>
-    src/src/... · 232 lines
+    agno 实现示例 · 56 行
   </div>
-  <div class="cb-body"><span class="str">&quot;&quot;&quot;
+  <div class="cb-body" style="font-size:12px;line-height:1.8"><span class="kw">import</span> copy
+<span class="kw">import</span> numpy <span class="kw">as</span> np
+
+<span class="kw">class</span> <span class="fn">Portfolio</span>(BaseModel)<span class="op">:</span>
+    cash<span class="op">:</span> <span class="fn">float</span> <span class="op">=</span> <span class="num">10000.0</span>
+    shares<span class="op">:</span> <span class="fn">int</span> <span class="op">=</span> <span class="num">0</span>
+    <span class="kw">def</span> <span class="fn">value</span>(self, price<span class="op">:</span> <span class="fn">float</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="fn">float</span><span class="op">:</span>
+        <span class="kw">return</span> self.cash <span class="op">+</span> self.shares <span class="op">*</span> price
+
+<span class="kw">class</span> <span class="fn">MarketSimulator</span>(BaseModel)<span class="op">:</span>
+    day<span class="op">:</span> <span class="fn">int</span> <span class="op">=</span> <span class="num">0</span>
+    price<span class="op">:</span> <span class="fn">float</span> <span class="op">=</span> <span class="num">100.0</span>
+    volatility<span class="op">:</span> <span class="fn">float</span> <span class="op">=</span> <span class="num">0.1</span>
+    drift<span class="op">:</span> <span class="fn">float</span> <span class="op">=</span> <span class="num">0.01</span>
+    portfolio<span class="op">:</span> Portfolio <span class="op">=</span> <span class="fn">Field</span>(default_factory<span class="op">=</span>Portfolio)
+
+    <span class="kw">class</span> Config<span class="op">:</span>
+        arbitrary_types_allowed <span class="op">=</span> <span class="kw">True</span>
+
+    <span class="kw">def</span> <span class="fn">step</span>(self, action<span class="op">:</span> <span class="fn">str</span>, amount<span class="op">:</span> <span class="fn">float</span> <span class="op">=</span> <span class="num">0.0</span>)<span class="op">:</span>
+        <span class="kw">if</span> action <span class="op">=</span><span class="op">=</span> <span class="str">&quot;buy&quot;</span><span class="op">:</span>
+            n <span class="op">=</span> <span class="fn">int</span>(amount); cost <span class="op">=</span> n <span class="op">*</span> self.price
+            <span class="kw">if</span> self.portfolio.cash <span class="op">&gt;</span><span class="op">=</span> cost<span class="op">:</span>
+                self.portfolio.shares <span class="op">+</span><span class="op">=</span> n; self.portfolio.cash <span class="op">-</span><span class="op">=</span> cost
+        <span class="kw">elif</span> action <span class="op">=</span><span class="op">=</span> <span class="str">&quot;sell&quot;</span><span class="op">:</span>
+            n <span class="op">=</span> <span class="fn">min</span>(<span class="fn">int</span>(amount), self.portfolio.shares)
+            self.portfolio.shares <span class="op">-</span><span class="op">=</span> n; self.portfolio.cash <span class="op">+</span><span class="op">=</span> n <span class="op">*</span> self.price
+        self.price <span class="op">*</span><span class="op">=</span> <span class="num">1</span> <span class="op">+</span> <span class="fn">float</span>(np.random.<span class="fn">normal</span>(self.drift, self.volatility))
+        self.day <span class="op">+</span><span class="op">=</span> <span class="num">1</span>
+
+REAL <span class="op">=</span> <span class="fn">MarketSimulator</span>()
+
+<span class="kw">def</span> <span class="fn">simulate_action</span>(action<span class="op">:</span> <span class="fn">str</span>, amount<span class="op">:</span> <span class="fn">float</span>, horizon<span class="op">:</span> <span class="fn">int</span> <span class="op">=</span> <span class="num">5</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="fn">str</span><span class="op">:</span>
+    <span class="str">&quot;&quot;&quot;Roll out an action on a forked copy of the market for \`horizon\` days.&quot;&quot;&quot;</span>
+    sim <span class="op">=</span> copy.<span class="fn">deepcopy</span>(REAL)
+    sim.<span class="fn">step</span>(action, amount)
+    <span class="kw">for</span> _ <span class="kw">in</span> <span class="fn">range</span>(horizon <span class="op">-</span> <span class="num">1</span>)<span class="op">:</span>
+        sim.<span class="fn">step</span>(<span class="str">&quot;hold&quot;</span>)
+    <span class="kw">return</span> f<span class="str">&quot;Simulated value after {horizon} days: ${sim.portfolio.value(sim.price):.2f}&quot;</span>
+
+<span class="kw">def</span> <span class="fn">execute_action</span>(action<span class="op">:</span> <span class="fn">str</span>, amount<span class="op">:</span> <span class="fn">float</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="fn">str</span><span class="op">:</span>
+    <span class="str">&quot;&quot;&quot;Commit the action to the REAL market.&quot;&quot;&quot;</span>
+    REAL.<span class="fn">step</span>(action, amount)
+    <span class="kw">return</span> f<span class="str">&quot;Executed: {action} {amount}. Portfolio now ${REAL.portfolio.value(REAL.price):.2f}.&quot;</span>
+
+trader <span class="op">=</span> <span class="fn">Agent</span>(
+    model<span class="op">=</span><span class="fn">OpenAIChat</span>(id<span class="op">=</span><span class="str">&quot;gpt-5-mini&quot;</span>),
+    tools<span class="op">=</span>[simulate_action, execute_action],
+    instructions<span class="op">=</span>[
+        <span class="str">&quot;Before committing any action with execute_action, first call simulate_action.&quot;</span>,
+        <span class="str">&quot;If the simulated outcome is worse than holding, do not execute.&quot;</span>,
+    ],
+    show_tool_calls<span class="op">=</span><span class="kw">True</span>,
+)
+
+trader.<span class="fn">print_response</span>(<span class="str">&quot;Decide whether to buy AAPL today, and how much.&quot;</span>)</div>
+</div></p></div>
+</div>
+<div style="margin-bottom:32px">
+  <h4 style="font-size:16px;font-weight:600;margin:0 0 12px;color:var(--text)">失败模式</h4>
+  <div style="padding-left:4px"><p style="margin-bottom:12px;line-height:1.85">simulation-reality gap，模拟器越不真实，agent 越可能做出&quot;模拟里完美，现实里灾难&quot;的决定，这个架构的上限往往不是 LLM，而是 simulator 的保真度。</p>
+
+<p style="font-size:13px;color:var(--muted);margin:12px 0;padding:8px 16px;border-left:2px solid var(--border);font-style:italic">📎 参考实现： [10\_mental\_loop.ipynb](https://github.com/FareedKhan-dev/all-agentic-architectures/10_mental_loop.ipynb)</p>
+
+<p style="margin-bottom:12px;line-height:1.85">---</p></div>
+</div>
+<div style="margin-bottom:32px">
+  <h4 style="font-size:16px;font-weight:600;margin:0 0 12px;color:var(--text)">新增的能力</h4>
+  <div style="padding-left:4px"><p style="margin-bottom:12px;line-height:1.85"><strong style="color:var(--text)">反事实执行（counterfactual execution）。</strong> 系统不再直接问&quot;下一步做什么&quot;，而是先问：如果我这么做会发生什么？</p></div>
+</div>
+  </section>
+  <section class="layer-sec" id="en-intro" style="border-bottom:none">
+    <h3 style="border-color:#f0883e">英文原版解析</h3>
+    <p style="font-size:12px;color:var(--faint);margin-bottom:16px">来自 Jupyter Notebook 的原始英文概念说明</p>
+    <div style="font-size:13px;line-height:1.8;color:var(--muted)"><h3 style="font-size:16px;font-weight:600;margin:20px 0 8px;color:var(--text)">📘 Agentic Architectures 10: Simulator / Mental-Model-in-the-Loop</h3>
+<p style="margin-bottom:8px;line-height:1.7;font-size:13px;color:var(--muted)">Welcome to the tenth notebook in our series. Today, we explore a sophisticated architecture designed for safety and robust decision-making in high-stakes environments: the <strong style="color:var(--text)">Simulator</strong>, also known as a <strong style="color:var(--text)">Mental-Model-in-the-Loop</strong>.</p>
+<p style="margin-bottom:8px;line-height:1.7;font-size:13px;color:var(--muted)">The core idea is to give an agent the ability to &quot;think before it acts&quot; in a very concrete way. Instead of committing to an action in the real world immediately, the agent first tests its proposed action in an internal, simulated version of the environment. By observing the likely consequences in this safe sandbox, it can evaluate risks, refine its strategy, and only then execute a more considered action in reality.</p>
+<p style="margin-bottom:8px;line-height:1.7;font-size:13px;color:var(--muted)">We will build a simple <strong style="color:var(--text)">stock trading agent</strong> to demonstrate this. The &quot;real world&quot; will be a market simulator that advances one step at a time. Before making a trade, our agent will:</p>
+<ol style="margin:4px 0 12px 18px">
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)">Propose a general strategy (e.g., &quot;buy aggressively&quot;).</li>
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)">Run that strategy through a *forked* version of the market simulator for multiple future steps to see potential outcomes.</li>
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)">Analyze the simulation results to assess risk and reward.</li>
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)">Make a final, refined decision (e.g., &quot;The simulation shows high volatility; let&#x27;s buy a smaller amount.&quot;).</li>
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)">Execute that refined trade in the real market.</li>
+</ul>
+<p style="margin-bottom:8px;line-height:1.7;font-size:13px;color:var(--muted)">This pattern is crucial for moving agents from informational tasks to performing actions in the real world, where mistakes can have real consequences.</p>
+<p style="font-weight:600;margin:14px 0 4px;font-size:14px">Definition</p>
+<p style="margin-bottom:8px;line-height:1.7;font-size:13px;color:var(--muted)">A <strong style="color:var(--text)">Simulator</strong> or <strong style="color:var(--text)">Mental-Model-in-the-Loop</strong> architecture involves an agent that uses an internal model of its environment to simulate the outcomes of potential actions before executing any of them. This allows the agent to perform what-if analysis, anticipate consequences, and refine its plan for safety and effectiveness.</p>
+<p style="font-weight:600;margin:14px 0 4px;font-size:14px">High-level Workflow</p>
+<ol style="margin:4px 0 12px 18px">
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Observe:</strong> The agent observes the current state of the real environment.</li>
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Propose Action:</strong> Based on its goals and the current state, the agent&#x27;s planning module generates a high-level proposed action or strategy.</li>
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Simulate:</strong> The agent forks the current state of the environment into a sandboxed simulation. It applies the proposed action and runs the simulation forward to observe a range of possible outcomes.</li>
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Assess &amp; Refine:</strong> The agent analyzes the results from the simulation. Did the action lead to the desired outcome? Were there unforeseen negative consequences? Based on this assessment, it refines its initial proposal into a final, concrete action.</li>
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Execute:</strong> The agent executes the final, refined action in the *real* environment.</li>
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Repeat:</strong> The loop begins again from the new state of the real environment.</li>
+</ul>
+<p style="font-weight:600;margin:14px 0 4px;font-size:14px">When to Use / Applications</p>
+<ul style="margin:4px 0 12px 18px;list-style-type:disc">
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Robotics:</strong> Simulating a grasp or a path before moving a physical arm to avoid collisions or damage.</li>
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">High-Stakes Decision-Making:</strong> In finance, simulating a trade&#x27;s impact on a portfolio under different market conditions. In healthcare, simulating a treatment plan&#x27;s potential effects.</li>
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Complex Game AI:</strong> An AI in a strategy game simulating several moves ahead to choose the optimal one.</li>
+</ul>
+<p style="font-weight:600;margin:14px 0 4px;font-size:14px">Strengths &amp; Weaknesses</p>
+<ul style="margin:4px 0 12px 18px;list-style-type:disc">
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Strengths:</strong></li>
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Safety &amp; Risk Reduction:</strong> Massively reduces the chance of harmful or costly mistakes by vetting actions in a safe environment first.</li>
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Improved Performance:</strong> Leads to more robust and well-considered decisions by allowing for lookahead and planning.</li>
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Weaknesses:</strong></li>
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Simulation-Reality Gap:</strong> The effectiveness is entirely dependent on the fidelity of the simulator. If the model of the world is inaccurate, the agent&#x27;s plans may be based on false assumptions.</li>
+<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Computational Cost:</strong> Running simulations, especially multiple scenarios, is computationally expensive and slower than acting directly.</li>
+</ul></div>
+  </section>
+  <section class="layer-sec" id="code">
+    <h3 style="border-color:#f0883e">LangChain + LangGraph 实现代码</h3>
+    <p style="font-size:12px;color:var(--faint);margin-bottom:16px">完整的端到端实现代码，可从 src/ 目录直接运行</p>
+    <div class="codeblock">
+  <div class="cb-head">
+    <span class="cb-dot" style="background:#f85149"></span><span class="cb-dot" style="background:#e3b341"></span><span class="cb-dot" style="background:#28c840"></span>
+    src/... · LangChain + LangGraph · 231 行
+  </div>
+  <div class="cb-body" style="font-size:12px;line-height:1.8"><span class="str">&quot;&quot;&quot;
 Mental Loop - Agentic Architecture
 Extracted from: 10_mental_loop.ipynb
 &quot;&quot;&quot;</span>
@@ -336,8 +425,5 @@ real_market <span class="op">=</span> final_state[<span class="str">&#x27;real_m
 </div>
 </div>
   </section>
-
-  <div class="prevnext"><a href="tree-of-thoughts.html"><span class="coding">Previous</span><br><span class="pn-strong">← Tree of Thoughts (ToT)</span></a><a href="meta-controller.html" style="text-align:right"><span class="coding">Next</span><br><span class="pn-strong">Meta-Controller →</span></a></div>
-</div><div class="footer">
-  <p>Built from <a href="https://github.com/1998x-stack/all-agentic-architectures" style="color:var(--text)">all-agentic-architectures</a></p>
-</div></body></html>
+  <div class="prevnext"><a href="tree-of-thoughts.html"><span class="pn-label">&larr; 上一架构</span>#09 思维树</a><a href="meta-controller.html" style="text-align:right"><span class="pn-label">下一架构 &rarr;</span>#11 元控制器</a></div>
+</div><div class="footer"><p>Built from <a href="https://github.com/1998x-stack/all-agentic-architectures" style="color:var(--text)">all-agentic-architectures</a></p></div></body></html>
