@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="工具使用（Tool Use）— 文本世界到结构化世界的跨越 — All Agentic Architectures: 17 种 AI Agent 架构的完整解析与实现">
 <title>#02 工具使用 — All Agentic Architectures</title>
 <link rel="stylesheet" href="base-dark.css">
 <style>
@@ -12,12 +13,9 @@
   .prevnext a{color:var(--muted);font-size:14px;transition:color .15s}
   .prevnext a:hover{color:var(--text);text-decoration:none}
   .prevnext .pn-label{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--faint);margin-bottom:4px;display:block}
-  .cn-section{margin-top:48px}
-  .cn-section h3{font-size:20px;font-weight:700;margin-bottom:20px;padding-bottom:8px;border-bottom:1px solid var(--border)}
   .toc-link{display:inline-block;padding:3px 8px;border-radius:4px;font-size:11px;font-family:var(--mono);color:var(--muted);border:1px solid var(--border);margin:2px 4px 2px 0;transition:all .15s}
   .toc-link:hover{border-color:var(--c1);color:var(--c1);text-decoration:none}
 </style>
-
 </head>
 <body><nav>
   <div class="nav-inner">
@@ -34,9 +32,9 @@
     <div class="hero-badge"><span class="dot" style="background:var(--c1)"></span> #02 · 与世界交互 · tool interface</div>
     <h1 style="font-size:34px;color:var(--text);margin-bottom:6px">工具使用 <span style="font-size:18px;font-weight:400;color:var(--muted)">Tool Use</span></h1>
     <p style="font-size:14px;color:var(--faint);margin-bottom:8px;font-style:italic">文本世界到结构化世界的跨越</p>
-    <p style="margin-bottom:8px;font-size:14px">文本世界到结构化世界的跨越</p>
-    <p style="font-size:13px;color:var(--muted);margin-bottom:20px">典型应用：</p>
-    <div class="tag-row"><span class="ltag" style="color:var(--c1);background:rgba(40,200,64,.08);border-color:rgba(40,200,64,.25)">Part 1</span></div>
+    <p style="margin-bottom:8px;font-size:14px">把外部 API / 函数挂成结构化工具接口，打破参数知识边界和上下文封闭性。</p>
+    <p style="font-size:13px;color:var(--muted);margin-bottom:20px">典型应用：实时研究助手、企业机器人、动态数据查询</p>
+    <div class="tag-row"><span class="ltag" style="color:var(--c1);background:rgba(40,200,64,.08);border-color:rgba(40,200,64,.25)">第一部分</span></div>
   </section>
   <div style="margin-bottom:28px;line-height:2">
   <span style="font-size:11px;color:var(--faint);text-transform:uppercase;letter-spacing:.06em">快速导航</span><br>
@@ -49,7 +47,7 @@
       <span class="layer-id-badge" style="background:#1a7a2a;color:rgba(255,255,255,.9)">核心概念</span>
       <div class="layer-title" style="font-size:18px">文本世界到结构化世界的跨越</div>
     </div>
-    <p class="layer-def" style="border-color:#28c840">文本世界到结构化世界的跨越</p>
+    <p class="layer-def" style="border-color:#28c840">打破 LLM 的封闭性——通过结构化工具接口让模型调用外部 API / 函数，解决知识截止日期和上下文封闭性问题。</p>
   </section>
   <section class="layer-sec cn-section" id="cn-analysis">
     <h3 style="border-color:#28c840">六维深度分析</h3>
@@ -67,7 +65,7 @@
 </div>
 <div style="margin-bottom:32px">
   <h4 style="font-size:16px;font-weight:600;margin:0 0 12px;color:var(--text)">关键代码</h4>
-  <div style="padding-left:4px"><p style="margin-bottom:12px;line-height:1.85"><div class="codeblock" style="margin:12px 0 20px">
+  <div style="padding-left:4px"><div class="codeblock" style="margin:12px 0 20px">
   <div class="cb-head" style="font-size:11px">
     <span class="cb-dot" style="background:#f85149"></span>
     <span class="cb-dot" style="background:#e3b341"></span>
@@ -90,11 +88,11 @@ tool_agent <span class="op">=</span> <span class="fn">Agent</span>(
 )
 
 tool_agent.<span class="fn">run</span>(<span class="str">&quot;What is Apple&#x27;s current stock price?&quot;</span>)</div>
-</div></p>
+</div>
 
 <p style="margin-bottom:12px;line-height:1.85">底层等价于：</p>
 
-<p style="margin-bottom:12px;line-height:1.85"><div class="codeblock" style="margin:12px 0 20px">
+<div class="codeblock" style="margin:12px 0 20px">
   <div class="cb-head" style="font-size:11px">
     <span class="cb-dot" style="background:#f85149"></span>
     <span class="cb-dot" style="background:#e3b341"></span>
@@ -110,7 +108,7 @@ tool_agent.<span class="fn">run</span>(<span class="str">&quot;What is Apple&#x2
     <span class="kw">for</span> call <span class="kw">in</span> response.tool_calls<span class="op">:</span>
         observation <span class="op">=</span> tool_registry[call.name](<span class="op">*</span><span class="op">*</span>call.args)
         messages.<span class="fn">append</span>(<span class="fn">ToolMessage</span>(observation, tool_call_id<span class="op">=</span>call.id))</div>
-</div></p>
+</div>
 
 <p style="margin-bottom:12px;line-height:1.85">这个 while 循环是 agno <code style="font-family:var(--mono);font-size:12px;background:var(--bg3);padding:1px 6px;border-radius:4px;color:var(--c1)">Agent</code> 帮你内置的。</p></div>
 </div>
@@ -122,9 +120,7 @@ tool_agent.<span class="fn">run</span>(<span class="str">&quot;What is Apple&#x2
   <h4 style="font-size:16px;font-weight:600;margin:0 0 12px;color:var(--text)">何时升级</h4>
   <div style="padding-left:4px"><p style="margin-bottom:12px;line-height:1.85">因为 Tool Use 没有显式规定&quot;一定要循环&quot;，在最原始的实现里，模型可能只调一次工具就收尾，你需要真正的观察-行动闭环——这就是 ReAct。</p>
 
-<p style="font-size:13px;color:var(--muted);margin:12px 0;padding:8px 16px;border-left:2px solid var(--border);font-style:italic">📎 参考实现： [02\_tool\_use.ipynb](https://github.com/FareedKhan-dev/all-agentic-architectures/02_tool_use.ipynb)</p>
-
-<p style="margin-bottom:12px;line-height:1.85">---</p></div>
+<blockquote style="font-size:13px;color:var(--muted);margin:12px 0;padding:8px 16px;border-left:2px solid var(--border);font-style:italic">📎 参考实现： [02\_tool\_use.ipynb](https://github.com/FareedKhan-dev/all-agentic-architectures/02_tool_use.ipynb)</blockquote></div>
 </div>
 <div style="margin-bottom:32px">
   <h4 style="font-size:16px;font-weight:600;margin:0 0 12px;color:var(--text)">新增的能力</h4>
@@ -146,7 +142,7 @@ tool_agent.<span class="fn">run</span>(<span class="str">&quot;What is Apple&#x2
 <li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Action:</strong> If a tool is needed, the agent formats a call to that tool (e.g., a specific function with the right arguments).</li>
 <li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Observation:</strong> The system executes the tool call, and the result (the &quot;observation&quot;) is returned to the agent.</li>
 <li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Synthesis:</strong> The agent integrates the tool&#x27;s output into its reasoning process to generate a final, grounded answer for the user.</li>
-</ul>
+</ol>
 <p style="font-weight:600;margin:14px 0 4px;font-size:14px">When to Use / Applications</p>
 <ul style="margin:4px 0 12px 18px;list-style-type:disc">
 <li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Research Assistants:</strong> Answering questions that require up-to-the-minute information by using a web search API.</li>

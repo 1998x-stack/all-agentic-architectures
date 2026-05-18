@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="思维树（Tree of Thoughts (ToT)）— 不是让模型想更多，而是让系统搜更多 — All Agentic Architectures: 17 种 AI Agent 架构的完整解析与实现">
 <title>#09 思维树 — All Agentic Architectures</title>
 <link rel="stylesheet" href="base-dark.css">
 <style>
@@ -12,12 +13,9 @@
   .prevnext a{color:var(--muted);font-size:14px;transition:color .15s}
   .prevnext a:hover{color:var(--text);text-decoration:none}
   .prevnext .pn-label{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--faint);margin-bottom:4px;display:block}
-  .cn-section{margin-top:48px}
-  .cn-section h3{font-size:20px;font-weight:700;margin-bottom:20px;padding-bottom:8px;border-bottom:1px solid var(--border)}
   .toc-link{display:inline-block;padding:3px 8px;border-radius:4px;font-size:11px;font-family:var(--mono);color:var(--muted);border:1px solid var(--border);margin:2px 4px 2px 0;transition:all .15s}
   .toc-link:hover{border-color:var(--c1);color:var(--c1);text-decoration:none}
 </style>
-
 </head>
 <body><nav>
   <div class="nav-inner">
@@ -32,11 +30,11 @@
 </nav><div class="page">
   <section class="hero" style="padding-bottom:28px">
     <div class="hero-badge"><span class="dot" style="background:var(--c3)"></span> #09 · 把推理变成搜索 · search tree</div>
-    <h1 style="font-size:34px;color:var(--text);margin-bottom:6px">思维树 <span style="font-size:18px;font-weight:400;color:var(--muted)">Tree of Thoughts</span></h1>
-    <p style="font-size:14px;color:var(--faint);margin-bottom:8px;font-style:italic">不是让模型想更多</p>
-    <p style="margin-bottom:8px;font-size:14px">不是让模型想更多</p>
-    <p style="font-size:13px;color:var(--muted);margin-bottom:20px">典型应用：</p>
-    <div class="tag-row"><span class="ltag" style="color:var(--c3);background:rgba(162,89,255,.08);border-color:rgba(162,89,255,.25)">Part 3</span></div>
+    <h1 style="font-size:34px;color:var(--text);margin-bottom:6px">思维树 <span style="font-size:18px;font-weight:400;color:var(--muted)">Tree of Thoughts (ToT)</span></h1>
+    <p style="font-size:14px;color:var(--faint);margin-bottom:8px;font-style:italic">不是让模型想更多，而是让系统搜更多</p>
+    <p style="margin-bottom:8px;font-size:14px">展开多条思路形成树，边展开边打分、剪枝，把推理变成搜索。</p>
+    <p style="font-size:13px;color:var(--muted);margin-bottom:20px">典型应用：逻辑谜题、约束规划、需要探索多路径的复杂问题</p>
+    <div class="tag-row"><span class="ltag" style="color:var(--c3);background:rgba(162,89,255,.08);border-color:rgba(162,89,255,.25)">第三部分</span></div>
   </section>
   <div style="margin-bottom:28px;line-height:2">
   <span style="font-size:11px;color:var(--faint);text-transform:uppercase;letter-spacing:.06em">快速导航</span><br>
@@ -47,9 +45,9 @@
   <section class="layer-sec" style="padding-top:0;border-bottom:none">
     <div class="layer-hdr">
       <span class="layer-id-badge" style="background:#5a2a8a;color:rgba(255,255,255,.9)">核心概念</span>
-      <div class="layer-title" style="font-size:18px">不是让模型想更多</div>
+      <div class="layer-title" style="font-size:18px">不是让模型想更多，而是让系统搜更多</div>
     </div>
-    <p class="layer-def" style="border-color:#a259ff">不是让模型想更多</p>
+    <p class="layer-def" style="border-color:#a259ff">不再是一条思路走到底，而是展开多条思路形成树，边展开边打分、剪枝——把推理变成搜索。从线性推理到搜索式推理的范式转变。</p>
   </section>
   <section class="layer-sec cn-section" id="cn-analysis">
     <h3 style="border-color:#a259ff">六维深度分析</h3>
@@ -61,7 +59,7 @@
 </div>
 <div style="margin-bottom:32px">
   <h4 style="font-size:16px;font-weight:600;margin:0 0 12px;color:var(--text)">State 设计</h4>
-  <div style="padding-left:4px"><p style="margin-bottom:12px;line-height:1.85"><div class="codeblock" style="margin:12px 0 20px">
+  <div style="padding-left:4px"><div class="codeblock" style="margin:12px 0 20px">
   <div class="cb-head" style="font-size:11px">
     <span class="cb-dot" style="background:#f85149"></span>
     <span class="cb-dot" style="background:#e3b341"></span>
@@ -72,7 +70,7 @@
     problem<span class="op">:</span> <span class="fn">str</span>
     active_paths<span class="op">:</span> List[List[<span class="str">&quot;PuzzleState&quot;</span>]]
     solution<span class="op">:</span> Optional[List[<span class="str">&quot;PuzzleState&quot;</span>]] <span class="op">=</span> <span class="kw">None</span></div>
-</div></p>
+</div>
 
 <p style="margin-bottom:12px;line-height:1.85">state 的单位已经不是&quot;一个当前答案&quot;，而是&quot;多条候选路径&quot;。</p></div>
 </div>
@@ -80,7 +78,7 @@
   <h4 style="font-size:16px;font-weight:600;margin:0 0 12px;color:var(--text)">关键代码</h4>
   <div style="padding-left:4px"><p style="margin-bottom:12px;line-height:1.85">经典的 wolf-goat-cabbage 谜题——标准 BFS 回溯场景，在 agno 里，LLM 负责 *生成候选动作* ，程序化代码负责 *搜索树的扩展和剪枝* 。 这是 ToT 里重要的架构判断： <strong style="color:var(--text)">不要把搜索控制交给 LLM，交给代码。</strong></p>
 
-<p style="margin-bottom:12px;line-height:1.85"><div class="codeblock" style="margin:12px 0 20px">
+<div class="codeblock" style="margin:12px 0 20px">
   <div class="cb-head" style="font-size:11px">
     <span class="cb-dot" style="background:#f85149"></span>
     <span class="cb-dot" style="background:#e3b341"></span>
@@ -134,19 +132,17 @@ proposer <span class="op">=</span> <span class="fn">Agent</span>(
                 new_paths.<span class="fn">append</span>(new_path)
         active_paths <span class="op">=</span> new_paths
     <span class="kw">return</span> <span class="kw">None</span></div>
-</div></p></div>
+</div></div>
 </div>
 <div style="margin-bottom:32px">
   <h4 style="font-size:16px;font-weight:600;margin:0 0 12px;color:var(--text)">失败模式</h4>
   <div style="padding-left:4px"><p style="margin-bottom:12px;line-height:1.85">组合爆炸，ToT 不是通用架构，只该用于&quot;必须回溯和搜索&quot;的专用场景。</p>
 
-<p style="font-size:13px;color:var(--muted);margin:12px 0;padding:8px 16px;border-left:2px solid var(--border);font-style:italic">📎 参考实现： [09\_tree\_of\_thoughts.ipynb](https://github.com/FareedKhan-dev/all-agentic-architectures/09_tree_of_thoughts.ipynb)</p>
-
-<p style="margin-bottom:12px;line-height:1.85">---</p></div>
+<blockquote style="font-size:13px;color:var(--muted);margin:12px 0;padding:8px 16px;border-left:2px solid var(--border);font-style:italic">📎 参考实现： [09\_tree\_of\_thoughts.ipynb](https://github.com/FareedKhan-dev/all-agentic-architectures/09_tree_of_thoughts.ipynb)</blockquote></div>
 </div>
 <div style="margin-bottom:32px">
   <h4 style="font-size:16px;font-weight:600;margin:0 0 12px;color:var(--text)">新增的能力</h4>
-  <div style="padding-left:4px"><p style="margin-bottom:12px;line-height:1.85">&#x27; fill=&#x27;%23FFFFFF&#x27;%3E%3Crect x=&#x27;249&#x27; y=&#x27;126&#x27; width=&#x27;1&#x27; height=&#x27;1&#x27;%3E%3C/rect%3E%3C/g%3E%3C/g%3E%3C/svg%3E)</p>
+  <div style="padding-left:4px"><p style="margin-bottom:12px;line-height:1.85">&#x27; fill=&#x27;%23FFFFFF&#x27;%3E)</p>
 
 <p style="margin-bottom:12px;line-height:1.85">ToT 新增的是： <strong style="color:var(--text)">把推理问题转写成搜索问题。</strong> 这和 ReAct、Planning 都不一样。前者做控制流设计，ToT 做搜索空间设计。</p></div>
 </div>
@@ -170,7 +166,7 @@ proposer <span class="op">=</span> <span class="fn">Agent</span>(
 <li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Heuristics:</strong> Is this path likely to succeed?</li>
 <li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Pruning &amp; Expansion:</strong> Invalid or unpromising branches are pruned. The agent then proceeds from the most promising active branches, repeating the thought generation process.</li>
 <li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Solution:</strong> The process continues until a goal state is reached. The solution is the path of thoughts from the root to the goal.</li>
-</ul>
+</ol>
 <p style="font-weight:600;margin:14px 0 4px;font-size:14px">When to Use / Applications</p>
 <ul style="margin:4px 0 12px 18px;list-style-type:disc">
 <li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Logic Puzzles &amp; Math Problems:</strong> Problems with clear rules and goal states that require multi-step, non-linear reasoning (e.g., Sudoku, river crossing puzzles).</li>
@@ -440,5 +436,5 @@ console.<span class="fn">print</span>(<span class="fn">Markdown</span>(cot_resul
 </div>
 </div>
   </section>
-  <div class="prevnext"><a href="episodic-semantic.html"><span class="pn-label">&larr; 上一架构</span>#08 情景 + 语义双记忆</a><a href="mental-loop.html" style="text-align:right"><span class="pn-label">下一架构 &rarr;</span>#10 心智循环</a></div>
+  <div class="prevnext"><a href="episodic-semantic.html"><span class="pn-label">&larr; 上一架构</span>#08 情景 + 语义双记忆</a><a href="mental-loop.html" style="text-align:right"><span class="pn-label">下一架构 &rarr;</span>#10 心智循环（模拟器）</a></div>
 </div><div class="footer"><p>Built from <a href="https://github.com/1998x-stack/all-agentic-architectures" style="color:var(--text)">all-agentic-architectures</a></p></div></body></html>

@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="元胞自动机（Cellular Automata）— LLM 退出主循环，智能从局部规则中涌现 — All Agentic Architectures: 17 种 AI Agent 架构的完整解析与实现">
 <title>#16 元胞自动机 — All Agentic Architectures</title>
 <link rel="stylesheet" href="base-dark.css">
 <style>
@@ -12,12 +13,9 @@
   .prevnext a{color:var(--muted);font-size:14px;transition:color .15s}
   .prevnext a:hover{color:var(--text);text-decoration:none}
   .prevnext .pn-label{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--faint);margin-bottom:4px;display:block}
-  .cn-section{margin-top:48px}
-  .cn-section h3{font-size:20px;font-weight:700;margin-bottom:20px;padding-bottom:8px;border-bottom:1px solid var(--border)}
   .toc-link{display:inline-block;padding:3px 8px;border-radius:4px;font-size:11px;font-family:var(--mono);color:var(--muted);border:1px solid var(--border);margin:2px 4px 2px 0;transition:all .15s}
   .toc-link:hover{border-color:var(--c1);color:var(--c1);text-decoration:none}
 </style>
-
 </head>
 <body><nav>
   <div class="nav-inner">
@@ -33,10 +31,10 @@
   <section class="hero" style="padding-bottom:28px">
     <div class="hero-badge"><span class="dot" style="background:var(--c5)"></span> #16 · 去中心化计算 · emergence</div>
     <h1 style="font-size:34px;color:var(--text);margin-bottom:6px">元胞自动机 <span style="font-size:18px;font-weight:400;color:var(--muted)">Cellular Automata</span></h1>
-    <p style="font-size:14px;color:var(--faint);margin-bottom:8px;font-style:italic">LLM 退出主循环</p>
-    <p style="margin-bottom:8px;font-size:14px">LLM 退出主循环</p>
-    <p style="font-size:13px;color:var(--muted);margin-bottom:20px">典型应用：</p>
-    <div class="tag-row"><span class="ltag" style="color:var(--c5);background:rgba(29,176,160,.08);border-color:rgba(29,176,160,.25)">Part 5</span></div>
+    <p style="font-size:14px;color:var(--faint);margin-bottom:8px;font-style:italic">LLM 退出主循环，智能从局部规则中涌现</p>
+    <p style="margin-bottom:8px;font-size:14px">没有中心 LLM，每个单元只跑简单局部规则，全局行为从局部交互涌现。</p>
+    <p style="font-size:13px;color:var(--muted);margin-bottom:20px">典型应用：空间推理、物流优化、复杂系统模拟</p>
+    <div class="tag-row"><span class="ltag" style="color:var(--c5);background:rgba(29,176,160,.08);border-color:rgba(29,176,160,.25)">第五部分</span></div>
   </section>
   <div style="margin-bottom:28px;line-height:2">
   <span style="font-size:11px;color:var(--faint);text-transform:uppercase;letter-spacing:.06em">快速导航</span><br>
@@ -47,9 +45,9 @@
   <section class="layer-sec" style="padding-top:0;border-bottom:none">
     <div class="layer-hdr">
       <span class="layer-id-badge" style="background:#0f6e56;color:rgba(255,255,255,.9)">核心概念</span>
-      <div class="layer-title" style="font-size:18px">LLM 退出主循环</div>
+      <div class="layer-title" style="font-size:18px">LLM 退出主循环，智能从局部规则中涌现</div>
     </div>
-    <p class="layer-def" style="border-color:#1db0a0">LLM 退出主循环</p>
+    <p class="layer-def" style="border-color:#1db0a0">没有中心 LLM 在推理——每个格子/单元只跑简单局部规则，全局行为从局部交互中涌现出来。去中心化计算范式：复杂行为不来自复杂规则。</p>
   </section>
   <section class="layer-sec cn-section" id="cn-analysis">
     <h3 style="border-color:#1db0a0">六维深度分析</h3>
@@ -61,7 +59,7 @@
 </div>
 <div style="margin-bottom:32px">
   <h4 style="font-size:16px;font-weight:600;margin:0 0 12px;color:var(--text)">关键代码</h4>
-  <div style="padding-left:4px"><p style="margin-bottom:12px;line-height:1.85"><div class="codeblock" style="margin:12px 0 20px">
+  <div style="padding-left:4px"><div class="codeblock" style="margin:12px 0 20px">
   <div class="cb-head" style="font-size:11px">
     <span class="cb-dot" style="background:#f85149"></span>
     <span class="cb-dot" style="background:#e3b341"></span>
@@ -97,11 +95,11 @@
         <span class="kw">for</span> r <span class="kw">in</span> <span class="fn">range</span>(<span class="fn">len</span>(grid))<span class="op">:</span>
             <span class="kw">for</span> c <span class="kw">in</span> <span class="fn">range</span>(<span class="fn">len</span>(grid[<span class="num">0</span>]))<span class="op">:</span>
                 grid[r][c].<span class="fn">update</span>(<span class="fn">neighbors_of</span>(snapshot, r, c))</div>
-</div></p>
+</div>
 
 <p style="margin-bottom:12px;line-height:1.85">在 agno 里，LLM 退到了纯&quot;规则设计者/解释者&quot;的位置：</p>
 
-<p style="margin-bottom:12px;line-height:1.85"><div class="codeblock" style="margin:12px 0 20px">
+<div class="codeblock" style="margin:12px 0 20px">
   <div class="cb-head" style="font-size:11px">
     <span class="cb-dot" style="background:#f85149"></span>
     <span class="cb-dot" style="background:#e3b341"></span>
@@ -122,7 +120,7 @@ rule_designer.<span class="fn">print_response</span>(
     <span class="str">&quot;Design a CA rule so that every empty cell eventually stores the shortest &quot;</span>
     <span class="str">&quot;path length to the nearest GOAL, treating OBSTACLE as impassable.&quot;</span>
 )</div>
-</div></p></div>
+</div></div>
 </div>
 <div style="margin-bottom:32px">
   <h4 style="font-size:16px;font-weight:600;margin:0 0 12px;color:var(--text)">失败模式</h4>
@@ -132,9 +130,7 @@ rule_designer.<span class="fn">print_response</span>(
 </ul>
 <p style="margin-bottom:12px;line-height:1.85">但一旦规则设计得对，它能解决很多用中央 planner 反而很笨重的问题。</p>
 
-<p style="font-size:13px;color:var(--muted);margin:12px 0;padding:8px 16px;border-left:2px solid var(--border);font-style:italic">📎 参考实现： [16\_cellular\_automata.ipynb](https://github.com/FareedKhan-dev/all-agentic-architectures/16_cellular_automata.ipynb)</p>
-
-<p style="margin-bottom:12px;line-height:1.85">---</p></div>
+<blockquote style="font-size:13px;color:var(--muted);margin:12px 0;padding:8px 16px;border-left:2px solid var(--border);font-style:italic">📎 参考实现： [16\_cellular\_automata.ipynb](https://github.com/FareedKhan-dev/all-agentic-architectures/16_cellular_automata.ipynb)</blockquote></div>
 </div>
 <div style="margin-bottom:32px">
   <h4 style="font-size:16px;font-weight:600;margin:0 0 12px;color:var(--text)">新增的能力</h4>
@@ -158,7 +154,7 @@ rule_designer.<span class="fn">print_response</span>(
 <li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Emergence:</strong> As the system ticks, information propagates across the grid like a wave. This can create gradients, paths, and other complex structures.</li>
 <li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">State Stabilization:</strong> The system runs until the grid state stabilizes (no more changes occur), indicating that the computation is complete.</li>
 <li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Readout:</strong> The solution to the problem is then read directly from the final state of the grid (e.g., by following a computed gradient).</li>
-</ul>
+</ol>
 <p style="font-weight:600;margin:14px 0 4px;font-size:14px">When to Use / Applications</p>
 <ul style="margin:4px 0 12px 18px;list-style-type:disc">
 <li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Spatial Reasoning &amp; Logistics:</strong> Optimal pathfinding in dynamic environments (like our warehouse example).</li>

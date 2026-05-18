@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="图世界模型记忆（Graph (World-Model Memory)）— 当你需要的不是回忆，而是关系推理 — All Agentic Architectures: 17 种 AI Agent 架构的完整解析与实现">
 <title>#12 图世界模型记忆 — All Agentic Architectures</title>
 <link rel="stylesheet" href="base-dark.css">
 <style>
@@ -12,12 +13,9 @@
   .prevnext a{color:var(--muted);font-size:14px;transition:color .15s}
   .prevnext a:hover{color:var(--text);text-decoration:none}
   .prevnext .pn-label{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--faint);margin-bottom:4px;display:block}
-  .cn-section{margin-top:48px}
-  .cn-section h3{font-size:20px;font-weight:700;margin-bottom:20px;padding-bottom:8px;border-bottom:1px solid var(--border)}
   .toc-link{display:inline-block;padding:3px 8px;border-radius:4px;font-size:11px;font-family:var(--mono);color:var(--muted);border:1px solid var(--border);margin:2px 4px 2px 0;transition:all .15s}
   .toc-link:hover{border-color:var(--c1);color:var(--c1);text-decoration:none}
 </style>
-
 </head>
 <body><nav>
   <div class="nav-inner">
@@ -32,11 +30,11 @@
 </nav><div class="page">
   <section class="hero" style="padding-bottom:28px">
     <div class="hero-badge"><span class="dot" style="background:var(--c3)"></span> #12 · 把历史状态纳入系统 · structured knowledge graph</div>
-    <h1 style="font-size:34px;color:var(--text);margin-bottom:6px">图世界模型记忆 <span style="font-size:18px;font-weight:400;color:var(--muted)">Graph</span></h1>
-    <p style="font-size:14px;color:var(--faint);margin-bottom:8px;font-style:italic">当你需要的不是回忆</p>
-    <p style="margin-bottom:8px;font-size:14px">当你需要的不是回忆</p>
-    <p style="font-size:13px;color:var(--muted);margin-bottom:20px">典型应用：</p>
-    <div class="tag-row"><span class="ltag" style="color:var(--c3);background:rgba(162,89,255,.08);border-color:rgba(162,89,255,.25)">Part 3</span></div>
+    <h1 style="font-size:34px;color:var(--text);margin-bottom:6px">图世界模型记忆 <span style="font-size:18px;font-weight:400;color:var(--muted)">Graph (World-Model Memory)</span></h1>
+    <p style="font-size:14px;color:var(--faint);margin-bottom:8px;font-style:italic">当你需要的不是回忆，而是关系推理</p>
+    <p style="margin-bottom:8px;font-size:14px">把知识存成实体-关系图，通过遍历图实现复杂多跳推理。</p>
+    <p style="font-size:13px;color:var(--muted);margin-bottom:20px">典型应用：企业情报、高级研究、知识图谱推理</p>
+    <div class="tag-row"><span class="ltag" style="color:var(--c3);background:rgba(162,89,255,.08);border-color:rgba(162,89,255,.25)">第三部分</span></div>
   </section>
   <div style="margin-bottom:28px;line-height:2">
   <span style="font-size:11px;color:var(--faint);text-transform:uppercase;letter-spacing:.06em">快速导航</span><br>
@@ -47,9 +45,9 @@
   <section class="layer-sec" style="padding-top:0;border-bottom:none">
     <div class="layer-hdr">
       <span class="layer-id-badge" style="background:#5a2a8a;color:rgba(255,255,255,.9)">核心概念</span>
-      <div class="layer-title" style="font-size:18px">当你需要的不是回忆</div>
+      <div class="layer-title" style="font-size:18px">当你需要的不是回忆，而是关系推理</div>
     </div>
-    <p class="layer-def" style="border-color:#a259ff">当你需要的不是回忆</p>
+    <p class="layer-def" style="border-color:#a259ff">把知识存成实体-关系图，通过遍历图上的连接实现复杂多跳推理。基于结构化关系进行推理——从查到了什么到推导出了什么。</p>
   </section>
   <section class="layer-sec cn-section" id="cn-analysis">
     <h3 style="border-color:#a259ff">六维深度分析</h3>
@@ -61,7 +59,7 @@
 </div>
 <div style="margin-bottom:32px">
   <h4 style="font-size:16px;font-weight:600;margin:0 0 12px;color:var(--text)">关键代码</h4>
-  <div style="padding-left:4px"><p style="margin-bottom:12px;line-height:1.85"><div class="codeblock" style="margin:12px 0 20px">
+  <div style="padding-left:4px"><div class="codeblock" style="margin:12px 0 20px">
   <div class="cb-head" style="font-size:11px">
     <span class="cb-dot" style="background:#f85149"></span>
     <span class="cb-dot" style="background:#e3b341"></span>
@@ -108,7 +106,7 @@ graph_query_agent <span class="op">=</span> <span class="fn">Agent</span>(
 kg <span class="op">=</span> graph_maker.<span class="fn">run</span>(<span class="str">&quot;Tim Cook is the CEO of Apple. Apple acquired Beats in 2014.&quot;</span>).content
 <span class="cm"># 2) 写入图库（省略 write_triples），然后查询</span>
 graph_query_agent.<span class="fn">print_response</span>(<span class="str">&quot;Which companies did Apple acquire and in which year?&quot;</span>)</div>
-</div></p></div>
+</div></div>
 </div>
 <div style="margin-bottom:32px">
   <h4 style="font-size:16px;font-weight:600;margin:0 0 12px;color:var(--text)">失败模式</h4>
@@ -119,9 +117,7 @@ graph_query_agent.<span class="fn">print_response</span>(<span class="str">&quot
 </ul>
 <p style="margin-bottom:12px;line-height:1.85">Graph Memory 的关键不只是 LLM，而是整个知识建模链条。</p>
 
-<p style="font-size:13px;color:var(--muted);margin:12px 0;padding:8px 16px;border-left:2px solid var(--border);font-style:italic">📎 参考实现： [12\_graph.ipynb](https://github.com/FareedKhan-dev/all-agentic-architectures/12_graph.ipynb)</p>
-
-<p style="margin-bottom:12px;line-height:1.85">---</p></div>
+<blockquote style="font-size:13px;color:var(--muted);margin:12px 0;padding:8px 16px;border-left:2px solid var(--border);font-style:italic">📎 参考实现： [12\_graph.ipynb](https://github.com/FareedKhan-dev/all-agentic-architectures/12_graph.ipynb)</blockquote></div>
 </div>
 <div style="margin-bottom:32px">
   <h4 style="font-size:16px;font-weight:600;margin:0 0 12px;color:var(--text)">新增的能力</h4>
@@ -133,7 +129,7 @@ graph_query_agent.<span class="fn">print_response</span>(<span class="str">&quot
 
 <p style="margin-bottom:12px;line-height:1.85">1. 从非结构化文本里抽实体和关系</p>
 <p style="margin-bottom:12px;line-height:1.85">2. 让自然语言问题转成图查询</p>
-<p style="margin-bottom:12px;line-height:1.85"><div class="codeblock" style="margin:12px 0 20px">
+<div class="codeblock" style="margin:12px 0 20px">
   <div class="cb-head" style="font-size:11px">
     <span class="cb-dot" style="background:#f85149"></span>
     <span class="cb-dot" style="background:#e3b341"></span>
@@ -141,7 +137,7 @@ graph_query_agent.<span class="fn">print_response</span>(<span class="str">&quot
     agno 实现示例 · 1 行
   </div>
   <div class="cb-body" style="font-size:12px;line-height:1.8">Text <span class="op">-</span><span class="op">&gt;</span> Knowledge Graph <span class="op">-</span><span class="op">&gt;</span> Text<span class="op">-</span>to<span class="op">-</span>Cypher <span class="op">-</span><span class="op">&gt;</span> Query <span class="op">-</span><span class="op">&gt;</span> Answer</div>
-</div></p></div>
+</div></div>
 </div>
   </section>
   <section class="layer-sec" id="en-intro" style="border-bottom:none">
@@ -155,7 +151,7 @@ graph_query_agent.<span class="fn">print_response</span>(<span class="str">&quot
 <li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Ingest Unstructured Reports:</strong> Read text documents about companies, people, and products.</li>
 <li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Construct a Knowledge Graph:</strong> Use an LLM to extract entities (e.g., <code style="font-family:var(--mono);font-size:11px;background:var(--bg3);padding:1px 5px;border-radius:3px">Company</code>, <code style="font-family:var(--mono);font-size:11px;background:var(--bg3);padding:1px 5px;border-radius:3px">Person</code>) and relationships (e.g., <code style="font-family:var(--mono);font-size:11px;background:var(--bg3);padding:1px 5px;border-radius:3px">ACQUIRED</code>, <code style="font-family:var(--mono);font-size:11px;background:var(--bg3);padding:1px 5px;border-radius:3px">WORKS_FOR</code>, <code style="font-family:var(--mono);font-size:11px;background:var(--bg3);padding:1px 5px;border-radius:3px">COMPETES_WITH</code>) and populate a Neo4j graph database.</li>
 <li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Answer Complex, Multi-Hop Questions:</strong> Use the graph to answer questions that require connecting multiple pieces of information, such as &quot;*Who works for the company that acquired BetaSolutions?*&quot;—a query that is extremely difficult for standard vector search.</li>
-</ul>
+</ol>
 <p style="font-weight:600;margin:14px 0 4px;font-size:14px">Definition</p>
 <p style="margin-bottom:8px;line-height:1.7;font-size:13px;color:var(--muted)">A <strong style="color:var(--text)">Graph / World-Model Memory</strong> is an agentic architecture where knowledge is stored in a structured graph database. Information is represented as nodes (entities like people, places, concepts) and edges (the relationships between them). This creates a dynamic &quot;world model&quot; that the agent can reason over.</p>
 <p style="font-weight:600;margin:14px 0 4px;font-size:14px">High-level Workflow</p>
@@ -164,7 +160,7 @@ graph_query_agent.<span class="fn">print_response</span>(<span class="str">&quot
 <li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Knowledge Extraction:</strong> An LLM-powered process parses the information, identifying key entities and the relationships that connect them.</li>
 <li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Graph Update:</strong> The extracted nodes and edges are added to or updated in a persistent graph database (like Neo4j).</li>
 <li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Question Answering / Reasoning:</strong> When asked a question, the agent:</li>
-</ul>
+</ol>
 <p style="margin-bottom:8px;line-height:1.7;font-size:13px;color:var(--muted)">a. Converts the natural language question into a formal graph query language (e.g., Cypher for Neo4j).</p>
 <p style="margin-bottom:8px;line-height:1.7;font-size:13px;color:var(--muted)">b. Executes the query against the graph to retrieve relevant subgraphs or facts.</p>
 <p style="margin-bottom:8px;line-height:1.7;font-size:13px;color:var(--muted)">c. Synthesizes the query results into a natural language answer.</p>

@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="17 种 AI Agent 架构完整解析 — All Agentic Architectures: 17 种 AI Agent 架构的完整解析与实现">
 <title>总览 — All Agentic Architectures</title>
 <link rel="stylesheet" href="base-dark.css">
 <style>
@@ -12,12 +13,9 @@
   .prevnext a{color:var(--muted);font-size:14px;transition:color .15s}
   .prevnext a:hover{color:var(--text);text-decoration:none}
   .prevnext .pn-label{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--faint);margin-bottom:4px;display:block}
-  .cn-section{margin-top:48px}
-  .cn-section h3{font-size:20px;font-weight:700;margin-bottom:20px;padding-bottom:8px;border-bottom:1px solid var(--border)}
   .toc-link{display:inline-block;padding:3px 8px;border-radius:4px;font-size:11px;font-family:var(--mono);color:var(--muted);border:1px solid var(--border);margin:2px 4px 2px 0;transition:all .15s}
   .toc-link:hover{border-color:var(--c1);color:var(--c1);text-decoration:none}
 </style>
-
 </head>
 <body><nav>
   <div class="nav-inner">
@@ -47,33 +45,33 @@
     <div style="font-size:20px;font-weight:600;margin-bottom:8px">从简单到自感知</div>
     <p style="font-size:14px;color:var(--muted);margin-bottom:32px;max-width:760px;line-height:1.8">每种架构都建立在前一种的局限性之上。从简单的自我批判循环，逐步演进为能规划、协作、记忆、模拟并最终理解自身边界的系统。</p>
     <div class="flow-track"><div class="flow-box" style="border-color:rgba(40,200,64,0.25)">
-  <div class="fb-tag" style="color:var(--c1)">PART 1</div>
+  <div class="fb-tag" style="color:var(--c1)">基础模式</div>
   <div class="fb-name">第一部分：基础模式</div>
-  <div class="fb-sub">让单个 agent 更强大的基础构件</div>
+  <div class="fb-sub">让单个 agent 更强大的基础构件——从自我批判到工具交互，从自适应推理到结构化规划。</div>
 </div><div class="flow-arrow"><div class="arr-icon">→</div><div class="arr-text">演化到</div></div><div class="flow-box" style="border-color:rgba(55,138,221,0.25)">
-  <div class="fb-tag" style="color:var(--c2)">PART 2</div>
+  <div class="fb-tag" style="color:var(--c2)">多智能体协作</div>
   <div class="fb-name">第二部分：多智能体协作</div>
-  <div class="fb-sub">Agent 如何协作</div>
+  <div class="fb-sub">Agent 如何协作——专业分工、智能路由、共享工作空间、集成分析，产出更稳健多样的结果。</div>
 </div><div class="flow-arrow"><div class="arr-icon">→</div><div class="arr-text">演化到</div></div><div class="flow-box" style="border-color:rgba(162,89,255,0.25)">
-  <div class="fb-tag" style="color:var(--c3)">PART 3</div>
+  <div class="fb-tag" style="color:var(--c3)">高级记忆与推理</div>
   <div class="fb-name">第三部分：高级记忆与推理</div>
-  <div class="fb-sub">Agent 如何深度思考和记忆</div>
+  <div class="fb-sub">Agent 如何深度思考和记忆——双记忆系统、图知识库、多路径树搜索，实现复杂推理。</div>
 </div><div class="flow-arrow"><div class="arr-icon">→</div><div class="arr-text">演化到</div></div><div class="flow-box" style="border-color:rgba(240,136,62,0.25)">
-  <div class="fb-tag" style="color:var(--c4)">PART 4</div>
+  <div class="fb-tag" style="color:var(--c4)">安全与可靠性</div>
   <div class="fb-name">第四部分：安全与可靠性</div>
-  <div class="fb-sub">让 agent 在生产环境中可被信任</div>
+  <div class="fb-sub">让 agent 在生产环境中可被信任——预演校验、心智模拟、自动纠错、自我边界建模。</div>
 </div><div class="flow-arrow"><div class="arr-icon">→</div><div class="arr-text">演化到</div></div><div class="flow-box" style="border-color:rgba(29,176,160,0.25)">
-  <div class="fb-tag" style="color:var(--c5)">PART 5</div>
+  <div class="fb-tag" style="color:var(--c5)">学习与适应</div>
   <div class="fb-name">第五部分：学习与适应</div>
-  <div class="fb-sub">Agent 如何随时间进化</div>
+  <div class="fb-sub">Agent 如何随时间进化和以新颖方式解决问题——反馈驱动的自我改进与从简单规则涌现的复杂行为。</div>
 </div></div>
   </section>
   <section class="layer-sec" id="p1">
   <div class="layer-hdr">
-    <span class="layer-id-badge" style="background:#1a7a2a;color:rgba(255,255,255,.9)">Part 1</span>
+    <span class="layer-id-badge" style="background:#1a7a2a;color:rgba(255,255,255,.9)">第一部分</span>
     <div class="layer-title" style="font-size:24px">第一部分：基础模式</div>
   </div>
-  <p class="layer-def" style="border-color:#28c840">让单个 agent 更强大的基础构件</p>
+  <p class="layer-def" style="border-color:#28c840">让单个 agent 更强大的基础构件——从自我批判到工具交互，从自适应推理到结构化规划。</p>
   <div class="grid2"><div class="card">
   <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
     <span style="font-size:11px;font-weight:700;color:var(--c1);letter-spacing:.05em">#01</span>
@@ -81,7 +79,7 @@
   </div>
   <div style="font-size:15px;font-weight:600;margin-bottom:4px;color:var(--text)">反思模式 <span style="font-size:12px;font-weight:400;color:var(--muted)">Reflection</span></div>
   <div style="font-size:11px;color:var(--muted);margin-bottom:8px;background:var(--bg3);display:inline-block;padding:2px 8px;border-radius:4px">critique pass</div>
-  <div style="font-size:13px;color:var(--muted);line-height:1.65">最小质量闭环</div>
+  <div style="font-size:13px;color:var(--muted);line-height:1.65">让模型先出一版，再自己挑毛病改掉，把生成拆成 generator + critic + refiner 三步。</div>
 </div><div class="card">
   <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
     <span style="font-size:11px;font-weight:700;color:var(--c1);letter-spacing:.05em">#02</span>
@@ -89,7 +87,7 @@
   </div>
   <div style="font-size:15px;font-weight:600;margin-bottom:4px;color:var(--text)">工具使用 <span style="font-size:12px;font-weight:400;color:var(--muted)">Tool Use</span></div>
   <div style="font-size:11px;color:var(--muted);margin-bottom:8px;background:var(--bg3);display:inline-block;padding:2px 8px;border-radius:4px">tool interface</div>
-  <div style="font-size:13px;color:var(--muted);line-height:1.65">文本世界到结构化世界的跨越</div>
+  <div style="font-size:13px;color:var(--muted);line-height:1.65">把外部 API / 函数挂成结构化工具接口，打破参数知识边界和上下文封闭性。</div>
 </div><div class="card">
   <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
     <span style="font-size:11px;font-weight:700;color:var(--c1);letter-spacing:.05em">#03</span>
@@ -97,7 +95,7 @@
   </div>
   <div style="font-size:15px;font-weight:600;margin-bottom:4px;color:var(--text)">推理与行动循环 <span style="font-size:12px;font-weight:400;color:var(--muted)">ReAct</span></div>
   <div style="font-size:11px;color:var(--muted);margin-bottom:8px;background:var(--bg3);display:inline-block;padding:2px 8px;border-radius:4px">observation loop</div>
-  <div style="font-size:13px;color:var(--muted);line-height:1.65">Agent 真正成形的地方</div>
+  <div style="font-size:13px;color:var(--muted);line-height:1.65">Thought → Action → Observation 循环，上一步观察决定下一步动作。</div>
 </div><div class="card">
   <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
     <span style="font-size:11px;font-weight:700;color:var(--c1);letter-spacing:.05em">#04</span>
@@ -105,14 +103,14 @@
   </div>
   <div style="font-size:15px;font-weight:600;margin-bottom:4px;color:var(--text)">显式规划 <span style="font-size:12px;font-weight:400;color:var(--muted)">Planning</span></div>
   <div style="font-size:11px;color:var(--muted);margin-bottom:8px;background:var(--bg3);display:inline-block;padding:2px 8px;border-radius:4px">explicit planning</div>
-  <div style="font-size:13px;color:var(--muted);line-height:1.65">把控制流本身变成模型输出</div>
+  <div style="font-size:13px;color:var(--muted);line-height:1.65">先让模型产出步骤清单，再按清单逐步执行，把控制流做成可审计对象。</div>
 </div></div>
 </section><section class="layer-sec" id="p2">
   <div class="layer-hdr">
-    <span class="layer-id-badge" style="background:#1a5290;color:rgba(255,255,255,.9)">Part 2</span>
+    <span class="layer-id-badge" style="background:#1a5290;color:rgba(255,255,255,.9)">第二部分</span>
     <div class="layer-title" style="font-size:24px">第二部分：多智能体协作</div>
   </div>
-  <p class="layer-def" style="border-color:#378add">Agent 如何协作</p>
+  <p class="layer-def" style="border-color:#378add">Agent 如何协作——专业分工、智能路由、共享工作空间、集成分析，产出更稳健多样的结果。</p>
   <div class="grid2"><div class="card">
   <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
     <span style="font-size:11px;font-weight:700;color:var(--c2);letter-spacing:.05em">#05</span>
@@ -120,7 +118,7 @@
   </div>
   <div style="font-size:15px;font-weight:600;margin-bottom:4px;color:var(--text)">多智能体系统 <span style="font-size:12px;font-weight:400;color:var(--muted)">Multi-Agent Systems</span></div>
   <div style="font-size:11px;color:var(--muted);margin-bottom:8px;background:var(--bg3);display:inline-block;padding:2px 8px;border-radius:4px">role decomposition</div>
-  <div style="font-size:13px;color:var(--muted);line-height:1.65">把认知分工写进图里</div>
+  <div style="font-size:13px;color:var(--muted);line-height:1.65">把研究员、写作、审阅等角色拆开，用流水线或图把它们串起来。</div>
 </div><div class="card">
   <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
     <span style="font-size:11px;font-weight:700;color:var(--c2);letter-spacing:.05em">#07</span>
@@ -128,7 +126,7 @@
   </div>
   <div style="font-size:15px;font-weight:600;margin-bottom:4px;color:var(--text)">黑板系统 <span style="font-size:12px;font-weight:400;color:var(--muted)">Blackboard Systems</span></div>
   <div style="font-size:11px;color:var(--muted);margin-bottom:8px;background:var(--bg3);display:inline-block;padding:2px 8px;border-radius:4px">shared workspace</div>
-  <div style="font-size:13px;color:var(--muted);line-height:1.65">共享状态成为系统中心</div>
+  <div style="font-size:13px;color:var(--muted);line-height:1.65">把中间产物写到共享黑板上，controller 根据黑板状态动态调度。</div>
 </div><div class="card">
   <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
     <span style="font-size:11px;font-weight:700;color:var(--c2);letter-spacing:.05em">#11</span>
@@ -136,7 +134,7 @@
   </div>
   <div style="font-size:15px;font-weight:600;margin-bottom:4px;color:var(--text)">元控制器 <span style="font-size:12px;font-weight:400;color:var(--muted)">Meta-Controller</span></div>
   <div style="font-size:11px;color:var(--muted);margin-bottom:8px;background:var(--bg3);display:inline-block;padding:2px 8px;border-radius:4px">entry routing</div>
-  <div style="font-size:13px;color:var(--muted);line-height:1.65">一次性路由</div>
+  <div style="font-size:13px;color:var(--muted);line-height:1.65">在请求入口先分类，把任务路由到最合适的专家子 agent。</div>
 </div><div class="card">
   <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
     <span style="font-size:11px;font-weight:700;color:var(--c2);letter-spacing:.05em">#13</span>
@@ -144,61 +142,61 @@
   </div>
   <div style="font-size:15px;font-weight:600;margin-bottom:4px;color:var(--text)">集成模式 <span style="font-size:12px;font-weight:400;color:var(--muted)">Ensemble</span></div>
   <div style="font-size:11px;color:var(--muted);margin-bottom:8px;background:var(--bg3);display:inline-block;padding:2px 8px;border-radius:4px">parallel redundancy</div>
-  <div style="font-size:13px;color:var(--muted);line-height:1.65">它不是分工而是冗余</div>
+  <div style="font-size:13px;color:var(--muted);line-height:1.65">同一问题同时交给多个独立 agent 处理，再由 aggregator 融合投票。</div>
 </div></div>
 </section><section class="layer-sec" id="p3">
   <div class="layer-hdr">
-    <span class="layer-id-badge" style="background:#5a2a8a;color:rgba(255,255,255,.9)">Part 3</span>
+    <span class="layer-id-badge" style="background:#5a2a8a;color:rgba(255,255,255,.9)">第三部分</span>
     <div class="layer-title" style="font-size:24px">第三部分：高级记忆与推理</div>
   </div>
-  <p class="layer-def" style="border-color:#a259ff">Agent 如何深度思考和记忆</p>
+  <p class="layer-def" style="border-color:#a259ff">Agent 如何深度思考和记忆——双记忆系统、图知识库、多路径树搜索，实现复杂推理。</p>
   <div class="grid2"><div class="card">
   <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
     <span style="font-size:11px;font-weight:700;color:var(--c3);letter-spacing:.05em">#08</span>
     <a href="episodic-semantic.html" style="font-size:12px;color:var(--muted);border:1px solid var(--border);padding:3px 10px;border-radius:6px;transition:all .15s" onmouseover="this.style.borderColor='var(--c3)';this.style.color='var(--c3)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--muted)'">探索 &rarr;</a>
   </div>
-  <div style="font-size:15px;font-weight:600;margin-bottom:4px;color:var(--text)">情景 + 语义双记忆 <span style="font-size:12px;font-weight:400;color:var(--muted)">Episodic + Semantic</span></div>
+  <div style="font-size:15px;font-weight:600;margin-bottom:4px;color:var(--text)">情景 + 语义双记忆 <span style="font-size:12px;font-weight:400;color:var(--muted)">Episodic + Semantic Memory</span></div>
   <div style="font-size:11px;color:var(--muted);margin-bottom:8px;background:var(--bg3);display:inline-block;padding:2px 8px;border-radius:4px">long-term memory</div>
-  <div style="font-size:13px;color:var(--muted);line-height:1.65">记忆不是把对话塞回上下文</div>
+  <div style="font-size:13px;color:var(--muted);line-height:1.65">把对话片段放进向量库，结构化事实放进图/KV，让系统记得住、查得到。</div>
 </div><div class="card">
   <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
     <span style="font-size:11px;font-weight:700;color:var(--c3);letter-spacing:.05em">#09</span>
     <a href="tree-of-thoughts.html" style="font-size:12px;color:var(--muted);border:1px solid var(--border);padding:3px 10px;border-radius:6px;transition:all .15s" onmouseover="this.style.borderColor='var(--c3)';this.style.color='var(--c3)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--muted)'">探索 &rarr;</a>
   </div>
-  <div style="font-size:15px;font-weight:600;margin-bottom:4px;color:var(--text)">思维树 <span style="font-size:12px;font-weight:400;color:var(--muted)">Tree of Thoughts</span></div>
+  <div style="font-size:15px;font-weight:600;margin-bottom:4px;color:var(--text)">思维树 <span style="font-size:12px;font-weight:400;color:var(--muted)">Tree of Thoughts (ToT)</span></div>
   <div style="font-size:11px;color:var(--muted);margin-bottom:8px;background:var(--bg3);display:inline-block;padding:2px 8px;border-radius:4px">search tree</div>
-  <div style="font-size:13px;color:var(--muted);line-height:1.65">不是让模型想更多</div>
+  <div style="font-size:13px;color:var(--muted);line-height:1.65">展开多条思路形成树，边展开边打分、剪枝，把推理变成搜索。</div>
 </div><div class="card">
   <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
     <span style="font-size:11px;font-weight:700;color:var(--c3);letter-spacing:.05em">#12</span>
     <a href="graph.html" style="font-size:12px;color:var(--muted);border:1px solid var(--border);padding:3px 10px;border-radius:6px;transition:all .15s" onmouseover="this.style.borderColor='var(--c3)';this.style.color='var(--c3)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--muted)'">探索 &rarr;</a>
   </div>
-  <div style="font-size:15px;font-weight:600;margin-bottom:4px;color:var(--text)">图世界模型记忆 <span style="font-size:12px;font-weight:400;color:var(--muted)">Graph</span></div>
+  <div style="font-size:15px;font-weight:600;margin-bottom:4px;color:var(--text)">图世界模型记忆 <span style="font-size:12px;font-weight:400;color:var(--muted)">Graph (World-Model Memory)</span></div>
   <div style="font-size:11px;color:var(--muted);margin-bottom:8px;background:var(--bg3);display:inline-block;padding:2px 8px;border-radius:4px">structured knowledge graph</div>
-  <div style="font-size:13px;color:var(--muted);line-height:1.65">当你需要的不是回忆</div>
+  <div style="font-size:13px;color:var(--muted);line-height:1.65">把知识存成实体-关系图，通过遍历图实现复杂多跳推理。</div>
 </div></div>
 </section><section class="layer-sec" id="p4">
   <div class="layer-hdr">
-    <span class="layer-id-badge" style="background:#9a4a1a;color:rgba(255,255,255,.9)">Part 4</span>
+    <span class="layer-id-badge" style="background:#9a4a1a;color:rgba(255,255,255,.9)">第四部分</span>
     <div class="layer-title" style="font-size:24px">第四部分：安全与可靠性</div>
   </div>
-  <p class="layer-def" style="border-color:#f0883e">让 agent 在生产环境中可被信任</p>
+  <p class="layer-def" style="border-color:#f0883e">让 agent 在生产环境中可被信任——预演校验、心智模拟、自动纠错、自我边界建模。</p>
   <div class="grid2"><div class="card">
   <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
     <span style="font-size:11px;font-weight:700;color:var(--c4);letter-spacing:.05em">#06</span>
     <a href="pev.html" style="font-size:12px;color:var(--muted);border:1px solid var(--border);padding:3px 10px;border-radius:6px;transition:all .15s" onmouseover="this.style.borderColor='var(--c4)';this.style.color='var(--c4)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--muted)'">探索 &rarr;</a>
   </div>
-  <div style="font-size:15px;font-weight:600;margin-bottom:4px;color:var(--text)">计划-执行-验证 <span style="font-size:12px;font-weight:400;color:var(--muted)">PEV</span></div>
+  <div style="font-size:15px;font-weight:600;margin-bottom:4px;color:var(--text)">计划-执行-验证 <span style="font-size:12px;font-weight:400;color:var(--muted)">PEV (Plan, Execute, Verify)</span></div>
   <div style="font-size:11px;color:var(--muted);margin-bottom:8px;background:var(--bg3);display:inline-block;padding:2px 8px;border-radius:4px">verification loop</div>
-  <div style="font-size:13px;color:var(--muted);line-height:1.65">把验证提升为控制流的一等公民</div>
+  <div style="font-size:13px;color:var(--muted);line-height:1.65">每一步执行完都强制过一次 verifier，失败就重规划。</div>
 </div><div class="card">
   <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
     <span style="font-size:11px;font-weight:700;color:var(--c4);letter-spacing:.05em">#10</span>
     <a href="mental-loop.html" style="font-size:12px;color:var(--muted);border:1px solid var(--border);padding:3px 10px;border-radius:6px;transition:all .15s" onmouseover="this.style.borderColor='var(--c4)';this.style.color='var(--c4)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--muted)'">探索 &rarr;</a>
   </div>
-  <div style="font-size:15px;font-weight:600;margin-bottom:4px;color:var(--text)">心智循环 <span style="font-size:12px;font-weight:400;color:var(--muted)">Mental Loop</span></div>
+  <div style="font-size:15px;font-weight:600;margin-bottom:4px;color:var(--text)">心智循环（模拟器） <span style="font-size:12px;font-weight:400;color:var(--muted)">Mental Loop (Simulator)</span></div>
   <div style="font-size:11px;color:var(--muted);margin-bottom:8px;background:var(--bg3);display:inline-block;padding:2px 8px;border-radius:4px">counterfactual execution</div>
-  <div style="font-size:13px;color:var(--muted);line-height:1.65">行动之前先在内部世界试错</div>
+  <div style="font-size:13px;color:var(--muted);line-height:1.65">先在内部世界模型里预演，评估风险收益，再决定是否真执行。</div>
 </div><div class="card">
   <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
     <span style="font-size:11px;font-weight:700;color:var(--c4);letter-spacing:.05em">#14</span>
@@ -206,7 +204,7 @@
   </div>
   <div style="font-size:15px;font-weight:600;margin-bottom:4px;color:var(--text)">预演校验 <span style="font-size:12px;font-weight:400;color:var(--muted)">Dry-Run Harness</span></div>
   <div style="font-size:11px;color:var(--muted);margin-bottom:8px;background:var(--bg3);display:inline-block;padding:2px 8px;border-radius:4px">side-effect gating</div>
-  <div style="font-size:13px;color:var(--muted);line-height:1.65">真正把副作用关进闸门里</div>
+  <div style="font-size:13px;color:var(--muted);line-height:1.65">有副作用的动作必须先 dry-run + 审核通过，才允许真实执行。</div>
 </div><div class="card">
   <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
     <span style="font-size:11px;font-weight:700;color:var(--c4);letter-spacing:.05em">#17</span>
@@ -214,22 +212,22 @@
   </div>
   <div style="font-size:15px;font-weight:600;margin-bottom:4px;color:var(--text)">自反式元认知 <span style="font-size:12px;font-weight:400;color:var(--muted)">Reflexive Metacognitive</span></div>
   <div style="font-size:11px;color:var(--muted);margin-bottom:8px;background:var(--bg3);display:inline-block;padding:2px 8px;border-radius:4px">self-boundary reasoning</div>
-  <div style="font-size:13px;color:var(--muted);line-height:1.65">系统第一次显式思考自己的边界</div>
+  <div style="font-size:13px;color:var(--muted);line-height:1.65">系统维护自我模型，知道自己擅长什么，据此选择亲自做、调工具还是交给人。</div>
 </div></div>
 </section><section class="layer-sec" id="p5">
   <div class="layer-hdr">
-    <span class="layer-id-badge" style="background:#0f6e56;color:rgba(255,255,255,.9)">Part 5</span>
+    <span class="layer-id-badge" style="background:#0f6e56;color:rgba(255,255,255,.9)">第五部分</span>
     <div class="layer-title" style="font-size:24px">第五部分：学习与适应</div>
   </div>
-  <p class="layer-def" style="border-color:#1db0a0">Agent 如何随时间进化</p>
+  <p class="layer-def" style="border-color:#1db0a0">Agent 如何随时间进化和以新颖方式解决问题——反馈驱动的自我改进与从简单规则涌现的复杂行为。</p>
   <div class="grid2"><div class="card">
   <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
     <span style="font-size:11px;font-weight:700;color:var(--c5);letter-spacing:.05em">#15</span>
     <a href="rlhf.html" style="font-size:12px;color:var(--muted);border:1px solid var(--border);padding:3px 10px;border-radius:6px;transition:all .15s" onmouseover="this.style.borderColor='var(--c5)';this.style.color='var(--c5)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--muted)'">探索 &rarr;</a>
   </div>
-  <div style="font-size:15px;font-weight:600;margin-bottom:4px;color:var(--text)">自我改进循环 <span style="font-size:12px;font-weight:400;color:var(--muted)">RLHF</span></div>
+  <div style="font-size:15px;font-weight:600;margin-bottom:4px;color:var(--text)">自我改进循环 <span style="font-size:12px;font-weight:400;color:var(--muted)">RLHF (Self-Improvement)</span></div>
   <div style="font-size:11px;color:var(--muted);margin-bottom:8px;background:var(--bg3);display:inline-block;padding:2px 8px;border-radius:4px">iterative refinement loop</div>
-  <div style="font-size:13px;color:var(--muted);line-height:1.65">进化回路</div>
+  <div style="font-size:13px;color:var(--muted);line-height:1.65">editor 打分给意见，writer 按意见改稿，高分样本沉淀用于持续改进。</div>
 </div><div class="card">
   <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
     <span style="font-size:11px;font-weight:700;color:var(--c5);letter-spacing:.05em">#16</span>
@@ -237,7 +235,7 @@
   </div>
   <div style="font-size:15px;font-weight:600;margin-bottom:4px;color:var(--text)">元胞自动机 <span style="font-size:12px;font-weight:400;color:var(--muted)">Cellular Automata</span></div>
   <div style="font-size:11px;color:var(--muted);margin-bottom:8px;background:var(--bg3);display:inline-block;padding:2px 8px;border-radius:4px">emergence</div>
-  <div style="font-size:13px;color:var(--muted);line-height:1.65">LLM 退出主循环</div>
+  <div style="font-size:13px;color:var(--muted);line-height:1.65">没有中心 LLM，每个单元只跑简单局部规则，全局行为从局部交互涌现。</div>
 </div></div>
 </section>
 </div><div class="footer"><p>Built from <a href="https://github.com/1998x-stack/all-agentic-architectures" style="color:var(--text)">all-agentic-architectures</a></p></div></body></html>

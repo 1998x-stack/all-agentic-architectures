@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="推理与行动循环（ReAct）— Agent 真正成形的地方 — All Agentic Architectures: 17 种 AI Agent 架构的完整解析与实现">
 <title>#03 推理与行动循环 — All Agentic Architectures</title>
 <link rel="stylesheet" href="base-dark.css">
 <style>
@@ -12,12 +13,9 @@
   .prevnext a{color:var(--muted);font-size:14px;transition:color .15s}
   .prevnext a:hover{color:var(--text);text-decoration:none}
   .prevnext .pn-label{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--faint);margin-bottom:4px;display:block}
-  .cn-section{margin-top:48px}
-  .cn-section h3{font-size:20px;font-weight:700;margin-bottom:20px;padding-bottom:8px;border-bottom:1px solid var(--border)}
   .toc-link{display:inline-block;padding:3px 8px;border-radius:4px;font-size:11px;font-family:var(--mono);color:var(--muted);border:1px solid var(--border);margin:2px 4px 2px 0;transition:all .15s}
   .toc-link:hover{border-color:var(--c1);color:var(--c1);text-decoration:none}
 </style>
-
 </head>
 <body><nav>
   <div class="nav-inner">
@@ -34,9 +32,9 @@
     <div class="hero-badge"><span class="dot" style="background:var(--c1)"></span> #03 · 基于观察持续行动 · observation loop</div>
     <h1 style="font-size:34px;color:var(--text);margin-bottom:6px">推理与行动循环 <span style="font-size:18px;font-weight:400;color:var(--muted)">ReAct</span></h1>
     <p style="font-size:14px;color:var(--faint);margin-bottom:8px;font-style:italic">Agent 真正成形的地方</p>
-    <p style="margin-bottom:8px;font-size:14px">Agent 真正成形的地方</p>
-    <p style="font-size:13px;color:var(--muted);margin-bottom:20px">典型应用：</p>
-    <div class="tag-row"><span class="ltag" style="color:var(--c1);background:rgba(40,200,64,.08);border-color:rgba(40,200,64,.25)">Part 1</span></div>
+    <p style="margin-bottom:8px;font-size:14px">Thought → Action → Observation 循环，上一步观察决定下一步动作。</p>
+    <p style="font-size:13px;color:var(--muted);margin-bottom:20px">典型应用：多跳问答、网页导航与研究、复杂问题诊断</p>
+    <div class="tag-row"><span class="ltag" style="color:var(--c1);background:rgba(40,200,64,.08);border-color:rgba(40,200,64,.25)">第一部分</span></div>
   </section>
   <div style="margin-bottom:28px;line-height:2">
   <span style="font-size:11px;color:var(--faint);text-transform:uppercase;letter-spacing:.06em">快速导航</span><br>
@@ -49,7 +47,7 @@
       <span class="layer-id-badge" style="background:#1a7a2a;color:rgba(255,255,255,.9)">核心概念</span>
       <div class="layer-title" style="font-size:18px">Agent 真正成形的地方</div>
     </div>
-    <p class="layer-def" style="border-color:#28c840">Agent 真正成形的地方</p>
+    <p class="layer-def" style="border-color:#28c840">Thought → Action → Observation 滚动循环——上一步的观察决定下一步的动作。一个持续的、自适应的感知-决策-行动回路。</p>
   </section>
   <section class="layer-sec cn-section" id="cn-analysis">
     <h3 style="border-color:#28c840">六维深度分析</h3>
@@ -67,7 +65,7 @@
   <h4 style="font-size:16px;font-weight:600;margin:0 0 12px;color:var(--text)">拓扑结构</h4>
   <div style="padding-left:4px"><p style="margin-bottom:12px;line-height:1.85">最小闭环：</p>
 
-<p style="margin-bottom:12px;line-height:1.85">&#x27; fill=&#x27;%23FFFFFF&#x27;%3E%3Crect x=&#x27;249&#x27; y=&#x27;126&#x27; width=&#x27;1&#x27; height=&#x27;1&#x27;%3E%3C/rect%3E%3C/g%3E%3C/g%3E%3C/svg%3E)</p>
+<p style="margin-bottom:12px;line-height:1.85">&#x27; fill=&#x27;%23FFFFFF&#x27;%3E)</p>
 
 <p style="margin-bottom:12px;line-height:1.85">系统终于从&quot;线性流程&quot;进入&quot;持续交互系统&quot;。</p></div>
 </div>
@@ -75,7 +73,7 @@
   <h4 style="font-size:16px;font-weight:600;margin:0 0 12px;color:var(--text)">关键代码</h4>
   <div style="padding-left:4px"><p style="margin-bottom:12px;line-height:1.85">agno 内置的 <code style="font-family:var(--mono);font-size:12px;background:var(--bg3);padding:1px 6px;border-radius:4px;color:var(--c1)">reasoning=True</code> 会把 ReAct 的&quot;Thought Action Observation&quot;显式写进 trace：</p>
 
-<p style="margin-bottom:12px;line-height:1.85"><div class="codeblock" style="margin:12px 0 20px">
+<div class="codeblock" style="margin:12px 0 20px">
   <div class="cb-head" style="font-size:11px">
     <span class="cb-dot" style="background:#f85149"></span>
     <span class="cb-dot" style="background:#e3b341"></span>
@@ -104,7 +102,7 @@ react_agent.<span class="fn">print_response</span>(
     <span class="str">&quot;Based on the latest news, should I be worried about AAPL next quarter?&quot;</span>,
     stream<span class="op">=</span><span class="kw">True</span>,
 )</div>
-</div></p>
+</div>
 
 <p style="margin-bottom:12px;line-height:1.85">关键不是某一行代码，而是 agno 内部那条&quot;回边&quot;： <strong style="color:var(--text)">只要 model 回复里还有 tool\_calls，就回到 model 再跑一次</strong> 。 这条 <code style="font-family:var(--mono);font-size:12px;background:var(--bg3);padding:1px 6px;border-radius:4px;color:var(--c1)">tool → model</code> 的循环边，是整个 agent architecture 里最重要的回边之一——它把&quot;单次调用&quot;变成了&quot;持续交互&quot;。</p></div>
 </div>
@@ -116,9 +114,7 @@ react_agent.<span class="fn">print_response</span>(
   <h4 style="font-size:16px;font-weight:600;margin:0 0 12px;color:var(--text)">何时升级</h4>
   <div style="padding-left:4px"><p style="margin-bottom:12px;line-height:1.85">当任务需要显式的步骤顺序控制，就该上 Planning。</p>
 
-<p style="font-size:13px;color:var(--muted);margin:12px 0;padding:8px 16px;border-left:2px solid var(--border);font-style:italic">📎 参考实现： [03\_ReAct.ipynb](https://github.com/FareedKhan-dev/all-agentic-architectures/03_ReAct.ipynb)</p>
-
-<p style="margin-bottom:12px;line-height:1.85">---</p></div>
+<blockquote style="font-size:13px;color:var(--muted);margin:12px 0;padding:8px 16px;border-left:2px solid var(--border);font-style:italic">📎 参考实现： [03\_ReAct.ipynb](https://github.com/FareedKhan-dev/all-agentic-architectures/03_ReAct.ipynb)</blockquote></div>
 </div>
   </section>
   <section class="layer-sec" id="en-intro" style="border-bottom:none">
@@ -136,7 +132,7 @@ react_agent.<span class="fn">print_response</span>(
 <li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Act:</strong> Based on its thought, the agent executes an action, typically calling a tool (e.g., <code style="font-family:var(--mono);font-size:11px;background:var(--bg3);padding:1px 5px;border-radius:3px">search_api(&#x27;X&#x27;)</code>).</li>
 <li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Observe:</strong> The agent receives the result from the tool.</li>
 <li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Repeat:</strong> The agent incorporates the observation into its context and returns to step 2, generating a new thought (e.g., *&quot;Okay, now that I have X, I need to use it to find Y.&quot;*). This loop continues until the overall goal is satisfied.</li>
-</ul>
+</ol>
 <p style="font-weight:600;margin:14px 0 4px;font-size:14px">When to Use / Applications</p>
 <ul style="margin:4px 0 12px 18px;list-style-type:disc">
 <li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Multi-hop Question Answering:</strong> When answering a question requires finding several pieces of information in sequence (e.g., &quot;Who is the CEO of the company that makes the iPhone?&quot;).</li>

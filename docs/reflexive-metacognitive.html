@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="自反式元认知（Reflexive Metacognitive）— 系统第一次显式思考自己的边界 — All Agentic Architectures: 17 种 AI Agent 架构的完整解析与实现">
 <title>#17 自反式元认知 — All Agentic Architectures</title>
 <link rel="stylesheet" href="base-dark.css">
 <style>
@@ -12,12 +13,9 @@
   .prevnext a{color:var(--muted);font-size:14px;transition:color .15s}
   .prevnext a:hover{color:var(--text);text-decoration:none}
   .prevnext .pn-label{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--faint);margin-bottom:4px;display:block}
-  .cn-section{margin-top:48px}
-  .cn-section h3{font-size:20px;font-weight:700;margin-bottom:20px;padding-bottom:8px;border-bottom:1px solid var(--border)}
   .toc-link{display:inline-block;padding:3px 8px;border-radius:4px;font-size:11px;font-family:var(--mono);color:var(--muted);border:1px solid var(--border);margin:2px 4px 2px 0;transition:all .15s}
   .toc-link:hover{border-color:var(--c1);color:var(--c1);text-decoration:none}
 </style>
-
 </head>
 <body><nav>
   <div class="nav-inner">
@@ -34,9 +32,9 @@
     <div class="hero-badge"><span class="dot" style="background:var(--c4)"></span> #17 · 把自我边界建模 · self-boundary reasoning</div>
     <h1 style="font-size:34px;color:var(--text);margin-bottom:6px">自反式元认知 <span style="font-size:18px;font-weight:400;color:var(--muted)">Reflexive Metacognitive</span></h1>
     <p style="font-size:14px;color:var(--faint);margin-bottom:8px;font-style:italic">系统第一次显式思考自己的边界</p>
-    <p style="margin-bottom:8px;font-size:14px">系统第一次显式思考自己的边界</p>
-    <p style="font-size:13px;color:var(--muted);margin-bottom:20px">典型应用：</p>
-    <div class="tag-row"><span class="ltag" style="color:var(--c4);background:rgba(240,136,62,.08);border-color:rgba(240,136,62,.25)">Part 4</span></div>
+    <p style="margin-bottom:8px;font-size:14px">系统维护自我模型，知道自己擅长什么，据此选择亲自做、调工具还是交给人。</p>
+    <p style="font-size:13px;color:var(--muted);margin-bottom:20px">典型应用：高风险咨询（医疗、法律、金融）、自主决策系统</p>
+    <div class="tag-row"><span class="ltag" style="color:var(--c4);background:rgba(240,136,62,.08);border-color:rgba(240,136,62,.25)">第四部分</span></div>
   </section>
   <div style="margin-bottom:28px;line-height:2">
   <span style="font-size:11px;color:var(--faint);text-transform:uppercase;letter-spacing:.06em">快速导航</span><br>
@@ -49,7 +47,7 @@
       <span class="layer-id-badge" style="background:#9a4a1a;color:rgba(255,255,255,.9)">核心概念</span>
       <div class="layer-title" style="font-size:18px">系统第一次显式思考自己的边界</div>
     </div>
-    <p class="layer-def" style="border-color:#f0883e">系统第一次显式思考自己的边界</p>
+    <p class="layer-def" style="border-color:#f0883e">系统维护一份自我模型，知道自己擅长什么、不擅长什么——据此选择亲自做、调工具，还是交给人。agent 安全性的终极形态：知之为知之，不知为不知。</p>
   </section>
   <section class="layer-sec cn-section" id="cn-analysis">
     <h3 style="border-color:#f0883e">六维深度分析</h3>
@@ -61,7 +59,7 @@
 </div>
 <div style="margin-bottom:32px">
   <h4 style="font-size:16px;font-weight:600;margin:0 0 12px;color:var(--text)">关键代码</h4>
-  <div style="padding-left:4px"><p style="margin-bottom:12px;line-height:1.85"><div class="codeblock" style="margin:12px 0 20px">
+  <div style="padding-left:4px"><div class="codeblock" style="margin:12px 0 20px">
   <div class="cb-head" style="font-size:11px">
     <span class="cb-dot" style="background:#f85149"></span>
     <span class="cb-dot" style="background:#e3b341"></span>
@@ -122,7 +120,7 @@ metacog_wf <span class="op">=</span> <span class="fn">Workflow</span>(
         <span class="fn">Router</span>(name<span class="op">=</span><span class="str">&quot;route_strategy&quot;</span>, selector<span class="op">=</span>meta_router),
     ],
 )</div>
-</div></p></div>
+</div></div>
 </div>
 <div style="margin-bottom:32px">
   <h4 style="font-size:16px;font-weight:600;margin:0 0 12px;color:var(--text)">失败模式</h4>
@@ -130,7 +128,7 @@ metacog_wf <span class="op">=</span> <span class="fn">Workflow</span>(
 </div>
 <div style="margin-bottom:32px">
   <h4 style="font-size:16px;font-weight:600;margin:0 0 12px;color:var(--text)">新增的能力</h4>
-  <div style="padding-left:4px"><p style="margin-bottom:12px;line-height:1.85">&#x27; fill=&#x27;%23FFFFFF&#x27;%3E%3Crect x=&#x27;249&#x27; y=&#x27;126&#x27; width=&#x27;1&#x27; height=&#x27;1&#x27;%3E%3C/rect%3E%3C/g%3E%3C/g%3E%3C/svg%3E)</p>
+  <div style="padding-left:4px"><p style="margin-bottom:12px;line-height:1.85">&#x27; fill=&#x27;%23FFFFFF&#x27;%3E)</p>
 
 <p style="margin-bottom:12px;line-height:1.85">它新增的是： <strong style="color:var(--text)">边界感知。</strong> 系统开始知道：我知道什么、不知道什么、需要什么工具、什么时候该把问题交给人类。</p></div>
 </div>
@@ -159,7 +157,7 @@ metacog_wf <span class="op">=</span> <span class="fn">Workflow</span>(
 <li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Escalate/Refuse:</strong> For low-confidence, high-risk, or out-of-scope queries.</li>
 <li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Execute Strategy:</strong> The chosen path is executed.</li>
 <li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Respond:</strong> The agent provides the result, which could be a direct answer, a tool-augmented answer, or a safe refusal with instructions to consult an expert.</li>
-</ul>
+</ol>
 <p style="font-weight:600;margin:14px 0 4px;font-size:14px">When to Use / Applications</p>
 <ul style="margin:4px 0 12px 18px;list-style-type:disc">
 <li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">High-Stakes Advisory Systems:</strong> Any system providing information in domains like healthcare, law, or finance, where an agent must be able to say &quot;I don&#x27;t know&quot; or &quot;You should consult a professional.&quot;</li>

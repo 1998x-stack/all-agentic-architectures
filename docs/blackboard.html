@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="黑板系统（Blackboard Systems）— 共享状态成为系统中心 — All Agentic Architectures: 17 种 AI Agent 架构的完整解析与实现">
 <title>#07 黑板系统 — All Agentic Architectures</title>
 <link rel="stylesheet" href="base-dark.css">
 <style>
@@ -12,12 +13,9 @@
   .prevnext a{color:var(--muted);font-size:14px;transition:color .15s}
   .prevnext a:hover{color:var(--text);text-decoration:none}
   .prevnext .pn-label{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--faint);margin-bottom:4px;display:block}
-  .cn-section{margin-top:48px}
-  .cn-section h3{font-size:20px;font-weight:700;margin-bottom:20px;padding-bottom:8px;border-bottom:1px solid var(--border)}
   .toc-link{display:inline-block;padding:3px 8px;border-radius:4px;font-size:11px;font-family:var(--mono);color:var(--muted);border:1px solid var(--border);margin:2px 4px 2px 0;transition:all .15s}
   .toc-link:hover{border-color:var(--c1);color:var(--c1);text-decoration:none}
 </style>
-
 </head>
 <body><nav>
   <div class="nav-inner">
@@ -34,9 +32,9 @@
     <div class="hero-badge"><span class="dot" style="background:var(--c2)"></span> #07 · 把中间状态显式共享 · shared workspace</div>
     <h1 style="font-size:34px;color:var(--text);margin-bottom:6px">黑板系统 <span style="font-size:18px;font-weight:400;color:var(--muted)">Blackboard Systems</span></h1>
     <p style="font-size:14px;color:var(--faint);margin-bottom:8px;font-style:italic">共享状态成为系统中心</p>
-    <p style="margin-bottom:8px;font-size:14px">共享状态成为系统中心</p>
-    <p style="font-size:13px;color:var(--muted);margin-bottom:20px">典型应用：</p>
-    <div class="tag-row"><span class="ltag" style="color:var(--c2);background:rgba(55,138,221,.08);border-color:rgba(55,138,221,.25)">Part 2</span></div>
+    <p style="margin-bottom:8px;font-size:14px">把中间产物写到共享黑板上，controller 根据黑板状态动态调度。</p>
+    <p style="font-size:13px;color:var(--muted);margin-bottom:20px">典型应用：复杂诊断、动态信息整合、机会主义问题求解</p>
+    <div class="tag-row"><span class="ltag" style="color:var(--c2);background:rgba(55,138,221,.08);border-color:rgba(55,138,221,.25)">第二部分</span></div>
   </section>
   <div style="margin-bottom:28px;line-height:2">
   <span style="font-size:11px;color:var(--faint);text-transform:uppercase;letter-spacing:.06em">快速导航</span><br>
@@ -49,7 +47,7 @@
       <span class="layer-id-badge" style="background:#1a5290;color:rgba(255,255,255,.9)">核心概念</span>
       <div class="layer-title" style="font-size:18px">共享状态成为系统中心</div>
     </div>
-    <p class="layer-def" style="border-color:#378add">共享状态成为系统中心</p>
+    <p class="layer-def" style="border-color:#378add">把中间产物写到一块共享黑板上，controller 根据黑板当前状态动态决定下一个该谁上场。基于共享记忆的机会主义调度。</p>
   </section>
   <section class="layer-sec cn-section" id="cn-analysis">
     <h3 style="border-color:#378add">六维深度分析</h3>
@@ -61,7 +59,7 @@
 </div>
 <div style="margin-bottom:32px">
   <h4 style="font-size:16px;font-weight:600;margin:0 0 12px;color:var(--text)">State 设计</h4>
-  <div style="padding-left:4px"><p style="margin-bottom:12px;line-height:1.85"><div class="codeblock" style="margin:12px 0 20px">
+  <div style="padding-left:4px"><div class="codeblock" style="margin:12px 0 20px">
   <div class="cb-head" style="font-size:11px">
     <span class="cb-dot" style="background:#f85149"></span>
     <span class="cb-dot" style="background:#e3b341"></span>
@@ -73,13 +71,13 @@
     blackboard<span class="op">:</span> <span class="fn">dict</span>
     next_agent<span class="op">:</span> Optional[<span class="fn">str</span>] <span class="op">=</span> <span class="kw">None</span>
     is_complete<span class="op">:</span> <span class="fn">bool</span> <span class="op">=</span> <span class="kw">False</span></div>
-</div></p>
+</div>
 
 <p style="margin-bottom:12px;line-height:1.85">之前的 state 更像&quot;按字段分区的结果容器&quot;；现在的 state 变成了一个 <strong style="color:var(--text)">共享工作台</strong> 。所有专家都围绕这块黑板读写。</p></div>
 </div>
 <div style="margin-bottom:32px">
   <h4 style="font-size:16px;font-weight:600;margin:0 0 12px;color:var(--text)">关键代码</h4>
-  <div style="padding-left:4px"><p style="margin-bottom:12px;line-height:1.85"><div class="codeblock" style="margin:12px 0 20px">
+  <div style="padding-left:4px"><div class="codeblock" style="margin:12px 0 20px">
   <div class="cb-head" style="font-size:11px">
     <span class="cb-dot" style="background:#f85149"></span>
     <span class="cb-dot" style="background:#e3b341"></span>
@@ -148,11 +146,11 @@ blackboard_wf <span class="op">=</span> <span class="fn">Workflow</span>(
         ),
     ],
 )</div>
-</div></p>
+</div>
 
 <p style="margin-bottom:12px;line-height:1.85">拓扑不是固定链，而是一个 <strong style="color:var(--text)">持续调度回路</strong> ：</p>
 
-<p style="margin-bottom:12px;line-height:1.85">&#x27; fill=&#x27;%23FFFFFF&#x27;%3E%3Crect x=&#x27;249&#x27; y=&#x27;126&#x27; width=&#x27;1&#x27; height=&#x27;1&#x27;%3E%3C/rect%3E%3C/g%3E%3C/g%3E%3C/svg%3E)</p>
+<p style="margin-bottom:12px;line-height:1.85">&#x27; fill=&#x27;%23FFFFFF&#x27;%3E)</p>
 
 <p style="margin-bottom:12px;line-height:1.85">系统控制中心从 &quot;预定义工作流&quot; 转向 &quot;共享状态 + 调度器&quot;。</p></div>
 </div>
@@ -169,9 +167,7 @@ blackboard_wf <span class="op">=</span> <span class="fn">Workflow</span>(
   <h4 style="font-size:16px;font-weight:600;margin:0 0 12px;color:var(--text)">何时升级</h4>
   <div style="padding-left:4px"><p style="margin-bottom:12px;line-height:1.85">如果问题的顺序本来就很固定，用 Blackboard 反而是过度设计，但如果你真正需要的不是持续调度，而只是&quot;请求进来时先分诊一次&quot;，那就该看 Meta-Controller。</p>
 
-<p style="font-size:13px;color:var(--muted);margin:12px 0;padding:8px 16px;border-left:2px solid var(--border);font-style:italic">📎 参考实现： [07\_blackboard.ipynb](https://github.com/FareedKhan-dev/all-agentic-architectures/07_blackboard.ipynb)</p>
-
-<p style="margin-bottom:12px;line-height:1.85">---</p></div>
+<blockquote style="font-size:13px;color:var(--muted);margin:12px 0;padding:8px 16px;border-left:2px solid var(--border);font-style:italic">📎 参考实现： [07\_blackboard.ipynb](https://github.com/FareedKhan-dev/all-agentic-architectures/07_blackboard.ipynb)</blockquote></div>
 </div>
 <div style="margin-bottom:32px">
   <h4 style="font-size:16px;font-weight:600;margin:0 0 12px;color:var(--text)">新增的能力</h4>
@@ -194,7 +190,7 @@ blackboard_wf <span class="op">=</span> <span class="fn">Workflow</span>(
 <li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Controller:</strong> A central &#x27;controller&#x27; agent also monitors the blackboard. Its job is to analyze the current state and decide which specialist agent is best equipped to make the next contribution.</li>
 <li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Opportunistic Activation:</strong> The Controller activates the chosen agent. The agent reads the relevant data from the blackboard, performs its task, and writes its findings back to the blackboard.</li>
 <li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Iteration:</strong> The process repeats, with the Controller activating different agents in a dynamic sequence, until it determines that the solution on the blackboard is complete.</li>
-</ul>
+</ol>
 <p style="font-weight:600;margin:14px 0 4px;font-size:14px">When to Use / Applications</p>
 <ul style="margin:4px 0 12px 18px;list-style-type:disc">
 <li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Complex, Ill-Structured Problems:</strong> Ideal for problems where the solution path is not known in advance and requires an emergent, opportunistic strategy (e.g., complex diagnostics, scientific discovery).</li>

@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="反思模式（Reflection）— 最小质量闭环 — All Agentic Architectures: 17 种 AI Agent 架构的完整解析与实现">
 <title>#01 反思模式 — All Agentic Architectures</title>
 <link rel="stylesheet" href="base-dark.css">
 <style>
@@ -12,12 +13,9 @@
   .prevnext a{color:var(--muted);font-size:14px;transition:color .15s}
   .prevnext a:hover{color:var(--text);text-decoration:none}
   .prevnext .pn-label{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--faint);margin-bottom:4px;display:block}
-  .cn-section{margin-top:48px}
-  .cn-section h3{font-size:20px;font-weight:700;margin-bottom:20px;padding-bottom:8px;border-bottom:1px solid var(--border)}
   .toc-link{display:inline-block;padding:3px 8px;border-radius:4px;font-size:11px;font-family:var(--mono);color:var(--muted);border:1px solid var(--border);margin:2px 4px 2px 0;transition:all .15s}
   .toc-link:hover{border-color:var(--c1);color:var(--c1);text-decoration:none}
 </style>
-
 </head>
 <body><nav>
   <div class="nav-inner">
@@ -34,9 +32,9 @@
     <div class="hero-badge"><span class="dot" style="background:var(--c1)"></span> #01 · 单次生成优化 · critique pass</div>
     <h1 style="font-size:34px;color:var(--text);margin-bottom:6px">反思模式 <span style="font-size:18px;font-weight:400;color:var(--muted)">Reflection</span></h1>
     <p style="font-size:14px;color:var(--faint);margin-bottom:8px;font-style:italic">最小质量闭环</p>
-    <p style="margin-bottom:8px;font-size:14px">最小质量闭环</p>
-    <p style="font-size:13px;color:var(--muted);margin-bottom:20px">典型应用：</p>
-    <div class="tag-row"><span class="ltag" style="color:var(--c1);background:rgba(40,200,64,.08);border-color:rgba(40,200,64,.25)">Part 1</span></div>
+    <p style="margin-bottom:8px;font-size:14px">让模型先出一版，再自己挑毛病改掉，把生成拆成 generator + critic + refiner 三步。</p>
+    <p style="font-size:13px;color:var(--muted);margin-bottom:20px">典型应用：高质量代码生成、复杂摘要、创意写作</p>
+    <div class="tag-row"><span class="ltag" style="color:var(--c1);background:rgba(40,200,64,.08);border-color:rgba(40,200,64,.25)">第一部分</span></div>
   </section>
   <div style="margin-bottom:28px;line-height:2">
   <span style="font-size:11px;color:var(--faint);text-transform:uppercase;letter-spacing:.06em">快速导航</span><br>
@@ -49,7 +47,7 @@
       <span class="layer-id-badge" style="background:#1a7a2a;color:rgba(255,255,255,.9)">核心概念</span>
       <div class="layer-title" style="font-size:18px">最小质量闭环</div>
     </div>
-    <p class="layer-def" style="border-color:#28c840">最小质量闭环</p>
+    <p class="layer-def" style="border-color:#28c840">不是让模型会反思，而是第一次把生成过程拆成两个不同职能的 pass：生成和评估。把单步生成改成三阶段控制流：生成 → 评估 → 修改。</p>
   </section>
   <section class="layer-sec cn-section" id="cn-analysis">
     <h3 style="border-color:#28c840">六维深度分析</h3>
@@ -63,7 +61,7 @@
   <h4 style="font-size:16px;font-weight:600;margin:0 0 12px;color:var(--text)">State 设计</h4>
   <div style="padding-left:4px"><p style="margin-bottom:12px;line-height:1.85">核心三个字段是 <code style="font-family:var(--mono);font-size:12px;background:var(--bg3);padding:1px 6px;border-radius:4px;color:var(--c1)">draft / critique / refined_code</code> ，在 agno 里直接用 Pydantic 把它们定义成结构化输出：</p>
 
-<p style="margin-bottom:12px;line-height:1.85"><div class="codeblock" style="margin:12px 0 20px">
+<div class="codeblock" style="margin:12px 0 20px">
   <div class="cb-head" style="font-size:11px">
     <span class="cb-dot" style="background:#f85149"></span>
     <span class="cb-dot" style="background:#e3b341"></span>
@@ -86,7 +84,7 @@
 <span class="kw">class</span> <span class="fn">RefinedCode</span>(BaseModel)<span class="op">:</span>
     refined_code<span class="op">:</span> <span class="fn">str</span>
     refinement_summary<span class="op">:</span> <span class="fn">str</span></div>
-</div></p>
+</div>
 
 <p style="margin-bottom:12px;line-height:1.85">系统第一次把&quot;中间思考结果&quot;显式写进 state，而不是埋在上下文里， <code style="font-family:var(--mono);font-size:12px;background:var(--bg3);padding:1px 6px;border-radius:4px;color:var(--c1)">response_model=...</code> 让这件事几乎零成本。</p></div>
 </div>
@@ -94,11 +92,11 @@
   <h4 style="font-size:16px;font-weight:600;margin:0 0 12px;color:var(--text)">拓扑结构</h4>
   <div style="padding-left:4px"><p style="margin-bottom:12px;line-height:1.85">纯线性：</p>
 
-<p style="margin-bottom:12px;line-height:1.85">&#x27; fill=&#x27;%23FFFFFF&#x27;%3E%3Crect x=&#x27;249&#x27; y=&#x27;126&#x27; width=&#x27;1&#x27; height=&#x27;1&#x27;%3E%3C/rect%3E%3C/g%3E%3C/g%3E%3C/svg%3E)</p>
+<p style="margin-bottom:12px;line-height:1.85">&#x27; fill=&#x27;%23FFFFFF&#x27;%3E)</p>
 
 <p style="margin-bottom:12px;line-height:1.85">用 agno 写出来：</p>
 
-<p style="margin-bottom:12px;line-height:1.85"><div class="codeblock" style="margin:12px 0 20px">
+<div class="codeblock" style="margin:12px 0 20px">
   <div class="cb-head" style="font-size:11px">
     <span class="cb-dot" style="background:#f85149"></span>
     <span class="cb-dot" style="background:#e3b341"></span>
@@ -147,7 +145,7 @@ reflection_wf <span class="op">=</span> <span class="fn">Workflow</span>(
 )
 
 reflection_wf.<span class="fn">run</span>(message<span class="op">=</span><span class="str">&quot;Write a Python function to find the nth Fibonacci number.&quot;</span>)</div>
-</div></p>
+</div>
 
 <p style="margin-bottom:12px;line-height:1.85"><code style="font-family:var(--mono);font-size:12px;background:var(--bg3);padding:1px 6px;border-radius:4px;color:var(--c1)">Workflow.steps</code> 列表里的顺序就是确定性边：上一步的输出自动作为下一步的 <code style="font-family:var(--mono);font-size:12px;background:var(--bg3);padding:1px 6px;border-radius:4px;color:var(--c1)">previous_step_output</code> ，每一步的 state 流动由 agno 托管—— <code style="font-family:var(--mono);font-size:12px;background:var(--bg3);padding:1px 6px;border-radius:4px;color:var(--c1)">previous_step_output</code> 是一个 <code style="font-family:var(--mono);font-size:12px;background:var(--bg3);padding:1px 6px;border-radius:4px;color:var(--c1)">StepOutput</code> ，它的 <code style="font-family:var(--mono);font-size:12px;background:var(--bg3);padding:1px 6px;border-radius:4px;color:var(--c1)">.content</code> 才是上一步 <code style="font-family:var(--mono);font-size:12px;background:var(--bg3);padding:1px 6px;border-radius:4px;color:var(--c1)">response_model</code> 的实例；跨非相邻步骤的数据用 <code style="font-family:var(--mono);font-size:12px;background:var(--bg3);padding:1px 6px;border-radius:4px;color:var(--c1)">workflow_session_state</code> 显式传递。</p></div>
 </div>
@@ -163,9 +161,7 @@ reflection_wf.<span class="fn">run</span>(message<span class="op">=</span><span 
   <h4 style="font-size:16px;font-weight:600;margin:0 0 12px;color:var(--text)">何时升级</h4>
   <div style="padding-left:4px"><p style="margin-bottom:12px;line-height:1.85">当你需要系统根据中间结果继续行动，就必须进入下一代：要么让它接触世界（Tool Use），要么形成持续观察-行动回路（ReAct）。</p>
 
-<p style="font-size:13px;color:var(--muted);margin:12px 0;padding:8px 16px;border-left:2px solid var(--border);font-style:italic">📎 参考实现： [01\_reflection.ipynb](https://github.com/FareedKhan-dev/all-agentic-architectures/01_reflection.ipynb)</p>
-
-<p style="margin-bottom:12px;line-height:1.85">---</p></div>
+<blockquote style="font-size:13px;color:var(--muted);margin:12px 0;padding:8px 16px;border-left:2px solid var(--border);font-style:italic">📎 参考实现： [01\_reflection.ipynb](https://github.com/FareedKhan-dev/all-agentic-architectures/01_reflection.ipynb)</blockquote></div>
 </div>
 <div style="margin-bottom:32px">
   <h4 style="font-size:16px;font-weight:600;margin:0 0 12px;color:var(--text)">附加洞察</h4>
@@ -185,7 +181,7 @@ reflection_wf.<span class="fn">run</span>(message<span class="op">=</span><span 
 <li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Generate:</strong> The agent produces an initial draft or solution based on the user&#x27;s prompt.</li>
 <li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Critique:</strong> The agent then switches roles to become a critic. It asks itself questions like: *&quot;What could be wrong with this answer?&quot;*, *&quot;What is missing?&quot;*, *&quot;Is this solution optimal?&quot;*, or *&quot;Are there any logical flaws or bugs?&quot;*.</li>
 <li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Refine:</strong> Using the insights from its self-critique, the agent generates a final, improved version of the output.</li>
-</ul>
+</ol>
 <p style="font-weight:600;margin:14px 0 4px;font-size:14px">When to Use / Applications</p>
 <ul style="margin:4px 0 12px 18px;list-style-type:disc">
 <li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Code Generation:</strong> The initial code might have bugs, be inefficient, or lack comments. Reflection allows the agent to act as its own code reviewer, catching errors and improving style before presenting the final script.</li>

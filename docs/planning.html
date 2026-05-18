@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="显式规划（Planning）— 把控制流本身变成模型输出 — All Agentic Architectures: 17 种 AI Agent 架构的完整解析与实现">
 <title>#04 显式规划 — All Agentic Architectures</title>
 <link rel="stylesheet" href="base-dark.css">
 <style>
@@ -12,12 +13,9 @@
   .prevnext a{color:var(--muted);font-size:14px;transition:color .15s}
   .prevnext a:hover{color:var(--text);text-decoration:none}
   .prevnext .pn-label{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--faint);margin-bottom:4px;display:block}
-  .cn-section{margin-top:48px}
-  .cn-section h3{font-size:20px;font-weight:700;margin-bottom:20px;padding-bottom:8px;border-bottom:1px solid var(--border)}
   .toc-link{display:inline-block;padding:3px 8px;border-radius:4px;font-size:11px;font-family:var(--mono);color:var(--muted);border:1px solid var(--border);margin:2px 4px 2px 0;transition:all .15s}
   .toc-link:hover{border-color:var(--c1);color:var(--c1);text-decoration:none}
 </style>
-
 </head>
 <body><nav>
   <div class="nav-inner">
@@ -34,9 +32,9 @@
     <div class="hero-badge"><span class="dot" style="background:var(--c1)"></span> #04 · 先生成控制流再执行 · explicit planning</div>
     <h1 style="font-size:34px;color:var(--text);margin-bottom:6px">显式规划 <span style="font-size:18px;font-weight:400;color:var(--muted)">Planning</span></h1>
     <p style="font-size:14px;color:var(--faint);margin-bottom:8px;font-style:italic">把控制流本身变成模型输出</p>
-    <p style="margin-bottom:8px;font-size:14px">把控制流本身变成模型输出</p>
-    <p style="font-size:13px;color:var(--muted);margin-bottom:20px">典型应用：</p>
-    <div class="tag-row"><span class="ltag" style="color:var(--c1);background:rgba(40,200,64,.08);border-color:rgba(40,200,64,.25)">Part 1</span></div>
+    <p style="margin-bottom:8px;font-size:14px">先让模型产出步骤清单，再按清单逐步执行，把控制流做成可审计对象。</p>
+    <p style="font-size:13px;color:var(--muted);margin-bottom:20px">典型应用：可预测的报告生成、项目管理、多步骤任务</p>
+    <div class="tag-row"><span class="ltag" style="color:var(--c1);background:rgba(40,200,64,.08);border-color:rgba(40,200,64,.25)">第一部分</span></div>
   </section>
   <div style="margin-bottom:28px;line-height:2">
   <span style="font-size:11px;color:var(--faint);text-transform:uppercase;letter-spacing:.06em">快速导航</span><br>
@@ -49,7 +47,7 @@
       <span class="layer-id-badge" style="background:#1a7a2a;color:rgba(255,255,255,.9)">核心概念</span>
       <div class="layer-title" style="font-size:18px">把控制流本身变成模型输出</div>
     </div>
-    <p class="layer-def" style="border-color:#28c840">把控制流本身变成模型输出</p>
+    <p class="layer-def" style="border-color:#28c840">先让模型产出一份可检视的步骤清单，再按清单逐步执行——把控制流本身做成可审计对象。这是从局部决策到全局规划的关键跨越。</p>
   </section>
   <section class="layer-sec cn-section" id="cn-analysis">
     <h3 style="border-color:#28c840">六维深度分析</h3>
@@ -63,7 +61,7 @@
 </div>
 <div style="margin-bottom:32px">
   <h4 style="font-size:16px;font-weight:600;margin:0 0 12px;color:var(--text)">State 设计</h4>
-  <div style="padding-left:4px"><p style="margin-bottom:12px;line-height:1.85"><div class="codeblock" style="margin:12px 0 20px">
+  <div style="padding-left:4px"><div class="codeblock" style="margin:12px 0 20px">
   <div class="cb-head" style="font-size:11px">
     <span class="cb-dot" style="background:#f85149"></span>
     <span class="cb-dot" style="background:#e3b341"></span>
@@ -72,11 +70,11 @@
   </div>
   <div class="cb-body" style="font-size:12px;line-height:1.8"><span class="kw">class</span> <span class="fn">Plan</span>(BaseModel)<span class="op">:</span>
     steps<span class="op">:</span> List[<span class="fn">str</span>] <span class="op">=</span> <span class="fn">Field</span>(description<span class="op">=</span><span class="str">&quot;Ordered list of tool/sub-questions.&quot;</span>)</div>
-</div></p>
+</div>
 
 <p style="margin-bottom:12px;line-height:1.85">workflow 的 <code style="font-family:var(--mono);font-size:12px;background:var(--bg3);padding:1px 6px;border-radius:4px;color:var(--c1)">session_state</code> 里还要带上中间结果：</p>
 
-<p style="margin-bottom:12px;line-height:1.85"><div class="codeblock" style="margin:12px 0 20px">
+<div class="codeblock" style="margin:12px 0 20px">
   <div class="cb-head" style="font-size:11px">
     <span class="cb-dot" style="background:#f85149"></span>
     <span class="cb-dot" style="background:#e3b341"></span>
@@ -84,7 +82,7 @@
     agno 实现示例 · 1 行
   </div>
   <div class="cb-body" style="font-size:12px;line-height:1.8">session_state <span class="op">=</span> {<span class="str">&quot;plan&quot;</span><span class="op">:</span> [], <span class="str">&quot;intermediate&quot;</span><span class="op">:</span> []}</div>
-</div></p>
+</div>
 
 <p style="margin-bottom:12px;line-height:1.85">在 ReAct 里下一步做什么是临时决定的，在 Planning 里下一步做什么 <strong style="color:var(--text)">先被生成出来</strong> ，然后才执行。</p></div>
 </div>
@@ -92,7 +90,7 @@
   <h4 style="font-size:16px;font-weight:600;margin:0 0 12px;color:var(--text)">关键代码</h4>
   <div style="padding-left:4px"><p style="margin-bottom:12px;line-height:1.85">agno 的 <code style="font-family:var(--mono);font-size:12px;background:var(--bg3);padding:1px 6px;border-radius:4px;color:var(--c1)">Workflow</code> 提供 <code style="font-family:var(--mono);font-size:12px;background:var(--bg3);padding:1px 6px;border-radius:4px;color:var(--c1)">Loop</code> step，天然表达&quot;循环执行直到 plan 空&quot;：</p>
 
-<p style="margin-bottom:12px;line-height:1.85"><div class="codeblock" style="margin:12px 0 20px">
+<div class="codeblock" style="margin:12px 0 20px">
   <div class="cb-head" style="font-size:11px">
     <span class="cb-dot" style="background:#f85149"></span>
     <span class="cb-dot" style="background:#e3b341"></span>
@@ -151,11 +149,11 @@ planning_wf <span class="op">=</span> <span class="fn">Workflow</span>(
 )
 
 planning_wf.<span class="fn">run</span>(message<span class="op">=</span><span class="str">&quot;Compare the latest revenue of AAPL and MSFT and explain the gap.&quot;</span>)</div>
-</div></p>
+</div>
 
 <p style="margin-bottom:12px;line-height:1.85">路由逻辑从&quot;LLM 在 prompt 里决定下一步&quot;变成了&quot;一个数据结构是否还有剩余项&quot;——这才是 Planning 真正的结构变化。</p>
 
-<p style="margin-bottom:12px;line-height:1.85">&#x27; fill=&#x27;%23FFFFFF&#x27;%3E%3Crect x=&#x27;249&#x27; y=&#x27;126&#x27; width=&#x27;1&#x27; height=&#x27;1&#x27;%3E%3C/rect%3E%3C/g%3E%3C/g%3E%3C/svg%3E)</p></div>
+<p style="margin-bottom:12px;line-height:1.85">&#x27; fill=&#x27;%23FFFFFF&#x27;%3E)</p></div>
 </div>
 <div style="margin-bottom:32px">
   <h4 style="font-size:16px;font-weight:600;margin:0 0 12px;color:var(--text)">失败模式</h4>
@@ -165,9 +163,7 @@ planning_wf.<span class="fn">run</span>(message<span class="op">=</span><span cl
   <h4 style="font-size:16px;font-weight:600;margin:0 0 12px;color:var(--text)">何时升级</h4>
   <div style="padding-left:4px"><p style="margin-bottom:12px;line-height:1.85">当你不再相信工具会稳定成功，就必须上 PEV。</p>
 
-<p style="font-size:13px;color:var(--muted);margin:12px 0;padding:8px 16px;border-left:2px solid var(--border);font-style:italic">📎 参考实现： [04\_planning.ipynb](https://github.com/FareedKhan-dev/all-agentic-architectures/04_planning.ipynb)</p>
-
-<p style="margin-bottom:12px;line-height:1.85">---</p></div>
+<blockquote style="font-size:13px;color:var(--muted);margin:12px 0;padding:8px 16px;border-left:2px solid var(--border);font-style:italic">📎 参考实现： [04\_planning.ipynb](https://github.com/FareedKhan-dev/all-agentic-architectures/04_planning.ipynb)</blockquote></div>
 </div>
   </section>
   <section class="layer-sec" id="en-intro" style="border-bottom:none">
@@ -184,7 +180,7 @@ planning_wf.<span class="fn">run</span>(message<span class="op">=</span><span cl
 <li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Plan:</strong> A dedicated &#x27;Planner&#x27; component analyzes the goal and generates an ordered list of sub-tasks required to achieve it. For example: <code style="font-family:var(--mono);font-size:11px;background:var(--bg3);padding:1px 5px;border-radius:3px">[&quot;Find fact A&quot;, &quot;Find fact B&quot;, &quot;Calculate C using A and B&quot;]</code>.</li>
 <li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Execute:</strong> An &#x27;Executor&#x27; component takes the plan and carries out each sub-task in sequence, using tools as needed.</li>
 <li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Synthesize:</strong> Once all steps in the plan are complete, a final component synthesizes the results from the executed steps into a coherent final answer.</li>
-</ul>
+</ol>
 <p style="font-weight:600;margin:14px 0 4px;font-size:14px">When to Use / Applications</p>
 <ul style="margin:4px 0 12px 18px;list-style-type:disc">
 <li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Multi-Step Workflows:</strong> Ideal for tasks where the sequence of operations is known and critical, such as generating a report that requires fetching data, processing it, and then summarizing it.</li>

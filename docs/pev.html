@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="计划-执行-验证（PEV (Plan, Execute, Verify)）— 把验证提升为控制流的一等公民 — All Agentic Architectures: 17 种 AI Agent 架构的完整解析与实现">
 <title>#06 计划-执行-验证 — All Agentic Architectures</title>
 <link rel="stylesheet" href="base-dark.css">
 <style>
@@ -12,12 +13,9 @@
   .prevnext a{color:var(--muted);font-size:14px;transition:color .15s}
   .prevnext a:hover{color:var(--text);text-decoration:none}
   .prevnext .pn-label{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--faint);margin-bottom:4px;display:block}
-  .cn-section{margin-top:48px}
-  .cn-section h3{font-size:20px;font-weight:700;margin-bottom:20px;padding-bottom:8px;border-bottom:1px solid var(--border)}
   .toc-link{display:inline-block;padding:3px 8px;border-radius:4px;font-size:11px;font-family:var(--mono);color:var(--muted);border:1px solid var(--border);margin:2px 4px 2px 0;transition:all .15s}
   .toc-link:hover{border-color:var(--c1);color:var(--c1);text-decoration:none}
 </style>
-
 </head>
 <body><nav>
   <div class="nav-inner">
@@ -32,11 +30,11 @@
 </nav><div class="page">
   <section class="hero" style="padding-bottom:28px">
     <div class="hero-badge"><span class="dot" style="background:var(--c4)"></span> #06 · 把验证接入主回路 · verification loop</div>
-    <h1 style="font-size:34px;color:var(--text);margin-bottom:6px">计划-执行-验证 <span style="font-size:18px;font-weight:400;color:var(--muted)">PEV</span></h1>
+    <h1 style="font-size:34px;color:var(--text);margin-bottom:6px">计划-执行-验证 <span style="font-size:18px;font-weight:400;color:var(--muted)">PEV (Plan, Execute, Verify)</span></h1>
     <p style="font-size:14px;color:var(--faint);margin-bottom:8px;font-style:italic">把验证提升为控制流的一等公民</p>
-    <p style="margin-bottom:8px;font-size:14px">把验证提升为控制流的一等公民</p>
-    <p style="font-size:13px;color:var(--muted);margin-bottom:20px">典型应用：</p>
-    <div class="tag-row"><span class="ltag" style="color:var(--c4);background:rgba(240,136,62,.08);border-color:rgba(240,136,62,.25)">Part 4</span></div>
+    <p style="margin-bottom:8px;font-size:14px">每一步执行完都强制过一次 verifier，失败就重规划。</p>
+    <p style="font-size:13px;color:var(--muted);margin-bottom:20px">典型应用：高风险自动化、金融交易、不可靠工具环境</p>
+    <div class="tag-row"><span class="ltag" style="color:var(--c4);background:rgba(240,136,62,.08);border-color:rgba(240,136,62,.25)">第四部分</span></div>
   </section>
   <div style="margin-bottom:28px;line-height:2">
   <span style="font-size:11px;color:var(--faint);text-transform:uppercase;letter-spacing:.06em">快速导航</span><br>
@@ -49,7 +47,7 @@
       <span class="layer-id-badge" style="background:#9a4a1a;color:rgba(255,255,255,.9)">核心概念</span>
       <div class="layer-title" style="font-size:18px">把验证提升为控制流的一等公民</div>
     </div>
-    <p class="layer-def" style="border-color:#f0883e">把验证提升为控制流的一等公民</p>
+    <p class="layer-def" style="border-color:#f0883e">每一步执行完都强制过一次 verifier，失败就回到重规划——验证不再是事后检查，而是内嵌在控制回路中的强制环节。</p>
   </section>
   <section class="layer-sec cn-section" id="cn-analysis">
     <h3 style="border-color:#f0883e">六维深度分析</h3>
@@ -63,7 +61,7 @@
 </div>
 <div style="margin-bottom:32px">
   <h4 style="font-size:16px;font-weight:600;margin:0 0 12px;color:var(--text)">State 设计</h4>
-  <div style="padding-left:4px"><p style="margin-bottom:12px;line-height:1.85"><div class="codeblock" style="margin:12px 0 20px">
+  <div style="padding-left:4px"><div class="codeblock" style="margin:12px 0 20px">
   <div class="cb-head" style="font-size:11px">
     <span class="cb-dot" style="background:#f85149"></span>
     <span class="cb-dot" style="background:#e3b341"></span>
@@ -73,7 +71,7 @@
   <div class="cb-body" style="font-size:12px;line-height:1.8"><span class="kw">class</span> <span class="fn">VerificationResult</span>(BaseModel)<span class="op">:</span>
     is_successful<span class="op">:</span> <span class="fn">bool</span> <span class="op">=</span> <span class="fn">Field</span>(description<span class="op">=</span><span class="str">&quot;True if the tool execution was successful and the data is valid.&quot;</span>)
     reasoning<span class="op">:</span> <span class="fn">str</span> <span class="op">=</span> <span class="fn">Field</span>(description<span class="op">=</span><span class="str">&quot;Reasoning for the verification decision.&quot;</span>)</div>
-</div></p>
+</div>
 
 <p style="margin-bottom:12px;line-height:1.85">verifier 不是随便说一句&quot;好像不对&quot;，而是输出一个结构化 verdict。 <code style="font-family:var(--mono);font-size:12px;background:var(--bg3);padding:1px 6px;border-radius:4px;color:var(--c1)">verification_result</code> 字段一出现，图结构就不再是 <code style="font-family:var(--mono);font-size:12px;background:var(--bg3);padding:1px 6px;border-radius:4px;color:var(--c1)">plan -&gt; execute -&gt; next step</code> ，而是 <code style="font-family:var(--mono);font-size:12px;background:var(--bg3);padding:1px 6px;border-radius:4px;color:var(--c1)">plan -&gt; execute -&gt; verify -&gt; (continue | replan | finish)</code> 。</p></div>
 </div>
@@ -81,7 +79,7 @@
   <h4 style="font-size:16px;font-weight:600;margin:0 0 12px;color:var(--text)">关键代码</h4>
   <div style="padding-left:4px"><p style="margin-bottom:12px;line-height:1.85">为了演示为什么需要验证，故意放了一个会失败的工具：</p>
 
-<p style="margin-bottom:12px;line-height:1.85"><div class="codeblock" style="margin:12px 0 20px">
+<div class="codeblock" style="margin:12px 0 20px">
   <div class="cb-head" style="font-size:11px">
     <span class="cb-dot" style="background:#f85149"></span>
     <span class="cb-dot" style="background:#e3b341"></span>
@@ -172,11 +170,11 @@ pev_wf <span class="op">=</span> <span class="fn">Workflow</span>(
         <span class="fn">Step</span>(name<span class="op">=</span><span class="str">&quot;synthesize&quot;</span>, executor<span class="op">=</span>synth_step),
     ],
 )</div>
-</div></p>
+</div>
 
 <p style="margin-bottom:12px;line-height:1.85">拓扑变成：</p>
 
-<p style="margin-bottom:12px;line-height:1.85">&#x27; fill=&#x27;%23FFFFFF&#x27;%3E%3Crect x=&#x27;249&#x27; y=&#x27;126&#x27; width=&#x27;1&#x27; height=&#x27;1&#x27;%3E%3C/rect%3E%3C/g%3E%3C/g%3E%3C/svg%3E)</p></div>
+<p style="margin-bottom:12px;line-height:1.85">&#x27; fill=&#x27;%23FFFFFF&#x27;%3E)</p></div>
 </div>
 <div style="margin-bottom:32px">
   <h4 style="font-size:16px;font-weight:600;margin:0 0 12px;color:var(--text)">失败模式</h4>
@@ -189,9 +187,7 @@ pev_wf <span class="op">=</span> <span class="fn">Workflow</span>(
   <h4 style="font-size:16px;font-weight:600;margin:0 0 12px;color:var(--text)">何时升级</h4>
   <div style="padding-left:4px"><p style="margin-bottom:12px;line-height:1.85">如果你接下来的问题不是&quot;执行步骤会不会失败&quot;，而是&quot;一个 agent 根本不该包揽所有认知角色&quot;，那就该进入多 agent 时代。</p>
 
-<p style="font-size:13px;color:var(--muted);margin:12px 0;padding:8px 16px;border-left:2px solid var(--border);font-style:italic">📎 参考实现： [06\_PEV.ipynb](https://github.com/FareedKhan-dev/all-agentic-architectures/06_PEV.ipynb)</p>
-
-<p style="margin-bottom:12px;line-height:1.85">---</p></div>
+<blockquote style="font-size:13px;color:var(--muted);margin:12px 0;padding:8px 16px;border-left:2px solid var(--border);font-style:italic">📎 参考实现： [06\_PEV.ipynb](https://github.com/FareedKhan-dev/all-agentic-architectures/06_PEV.ipynb)</blockquote></div>
 </div>
   </section>
   <section class="layer-sec" id="en-intro" style="border-bottom:none">
@@ -212,7 +208,7 @@ pev_wf <span class="op">=</span> <span class="fn">Workflow</span>(
 <li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)">If the step <strong style="color:var(--text)">succeeded</strong> and the plan is not complete, loop back to the Executor for the next step.</li>
 <li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)">If the step <strong style="color:var(--text)">failed</strong>, loop back to the Planner to create a *new* plan, often providing the failure context so the new plan can be smarter.</li>
 <li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)">If the step <strong style="color:var(--text)">succeeded</strong> and the plan is complete, proceed to a final synthesis step.</li>
-</ul>
+</ol>
 <p style="font-weight:600;margin:14px 0 4px;font-size:14px">When to Use / Applications</p>
 <ul style="margin:4px 0 12px 18px;list-style-type:disc">
 <li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Safety-Critical Applications (Finance, Healthcare):</strong> When the cost of an error is high, PEV provides essential guardrails to prevent the agent from acting on bad data.</li>

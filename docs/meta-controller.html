@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="元控制器（Meta-Controller）— 一次性路由，而不是持续编排 — All Agentic Architectures: 17 种 AI Agent 架构的完整解析与实现">
 <title>#11 元控制器 — All Agentic Architectures</title>
 <link rel="stylesheet" href="base-dark.css">
 <style>
@@ -12,12 +13,9 @@
   .prevnext a{color:var(--muted);font-size:14px;transition:color .15s}
   .prevnext a:hover{color:var(--text);text-decoration:none}
   .prevnext .pn-label{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--faint);margin-bottom:4px;display:block}
-  .cn-section{margin-top:48px}
-  .cn-section h3{font-size:20px;font-weight:700;margin-bottom:20px;padding-bottom:8px;border-bottom:1px solid var(--border)}
   .toc-link{display:inline-block;padding:3px 8px;border-radius:4px;font-size:11px;font-family:var(--mono);color:var(--muted);border:1px solid var(--border);margin:2px 4px 2px 0;transition:all .15s}
   .toc-link:hover{border-color:var(--c1);color:var(--c1);text-decoration:none}
 </style>
-
 </head>
 <body><nav>
   <div class="nav-inner">
@@ -33,10 +31,10 @@
   <section class="hero" style="padding-bottom:28px">
     <div class="hero-badge"><span class="dot" style="background:var(--c2)"></span> #11 · 把入口做成路由系统 · entry routing</div>
     <h1 style="font-size:34px;color:var(--text);margin-bottom:6px">元控制器 <span style="font-size:18px;font-weight:400;color:var(--muted)">Meta-Controller</span></h1>
-    <p style="font-size:14px;color:var(--faint);margin-bottom:8px;font-style:italic">一次性路由</p>
-    <p style="margin-bottom:8px;font-size:14px">一次性路由</p>
-    <p style="font-size:13px;color:var(--muted);margin-bottom:20px">典型应用：</p>
-    <div class="tag-row"><span class="ltag" style="color:var(--c2);background:rgba(55,138,221,.08);border-color:rgba(55,138,221,.25)">Part 2</span></div>
+    <p style="font-size:14px;color:var(--faint);margin-bottom:8px;font-style:italic">一次性路由，而不是持续编排</p>
+    <p style="margin-bottom:8px;font-size:14px">在请求入口先分类，把任务路由到最合适的专家子 agent。</p>
+    <p style="font-size:13px;color:var(--muted);margin-bottom:20px">典型应用：多服务平台、自适应助手、任务分发系统</p>
+    <div class="tag-row"><span class="ltag" style="color:var(--c2);background:rgba(55,138,221,.08);border-color:rgba(55,138,221,.25)">第二部分</span></div>
   </section>
   <div style="margin-bottom:28px;line-height:2">
   <span style="font-size:11px;color:var(--faint);text-transform:uppercase;letter-spacing:.06em">快速导航</span><br>
@@ -47,9 +45,9 @@
   <section class="layer-sec" style="padding-top:0;border-bottom:none">
     <div class="layer-hdr">
       <span class="layer-id-badge" style="background:#1a5290;color:rgba(255,255,255,.9)">核心概念</span>
-      <div class="layer-title" style="font-size:18px">一次性路由</div>
+      <div class="layer-title" style="font-size:18px">一次性路由，而不是持续编排</div>
     </div>
-    <p class="layer-def" style="border-color:#378add">一次性路由</p>
+    <p class="layer-def" style="border-color:#378add">在请求入口先分类一次，把任务路由到最合适的专家子 agent——避免一个 agent 背负所有能力。前台统一、后台分治的架构模式。</p>
   </section>
   <section class="layer-sec cn-section" id="cn-analysis">
     <h3 style="border-color:#378add">六维深度分析</h3>
@@ -63,7 +61,7 @@
 </div>
 <div style="margin-bottom:32px">
   <h4 style="font-size:16px;font-weight:600;margin:0 0 12px;color:var(--text)">State 设计</h4>
-  <div style="padding-left:4px"><p style="margin-bottom:12px;line-height:1.85"><div class="codeblock" style="margin:12px 0 20px">
+  <div style="padding-left:4px"><div class="codeblock" style="margin:12px 0 20px">
   <div class="cb-head" style="font-size:11px">
     <span class="cb-dot" style="background:#f85149"></span>
     <span class="cb-dot" style="background:#e3b341"></span>
@@ -74,19 +72,19 @@
     user_request<span class="op">:</span> <span class="fn">str</span>
     selected_agent<span class="op">:</span> Optional[<span class="fn">str</span>] <span class="op">=</span> <span class="kw">None</span>
     result<span class="op">:</span> Optional[<span class="fn">str</span>] <span class="op">=</span> <span class="kw">None</span></div>
-</div></p>
+</div>
 
 <p style="margin-bottom:12px;line-height:1.85">状态最小而明确：请求是什么、被路由给谁、返回了什么。</p></div>
 </div>
 <div style="margin-bottom:32px">
   <h4 style="font-size:16px;font-weight:600;margin:0 0 12px;color:var(--text)">拓扑结构</h4>
-  <div style="padding-left:4px"><p style="margin-bottom:12px;line-height:1.85">&#x27; fill=&#x27;%23FFFFFF&#x27;%3E%3Crect x=&#x27;249&#x27; y=&#x27;126&#x27; width=&#x27;1&#x27; height=&#x27;1&#x27;%3E%3C/rect%3E%3C/g%3E%3C/g%3E%3C/svg%3E)</p></div>
+  <div style="padding-left:4px"><p style="margin-bottom:12px;line-height:1.85">&#x27; fill=&#x27;%23FFFFFF&#x27;%3E)</p></div>
 </div>
 <div style="margin-bottom:32px">
   <h4 style="font-size:16px;font-weight:600;margin:0 0 12px;color:var(--text)">关键代码</h4>
   <div style="padding-left:4px"><p style="margin-bottom:12px;line-height:1.85">agno 里这是 <code style="font-family:var(--mono);font-size:12px;background:var(--bg3);padding:1px 6px;border-radius:4px;color:var(--c1)">Team(mode=&quot;route&quot;)</code> 的原生场景——leader 只做选择，不做任务：</p>
 
-<p style="margin-bottom:12px;line-height:1.85"><div class="codeblock" style="margin:12px 0 20px">
+<div class="codeblock" style="margin:12px 0 20px">
   <div class="cb-head" style="font-size:11px">
     <span class="cb-dot" style="background:#f85149"></span>
     <span class="cb-dot" style="background:#e3b341"></span>
@@ -130,7 +128,7 @@ meta <span class="op">=</span> <span class="fn">Team</span>(
 )
 
 meta.<span class="fn">print_response</span>(<span class="str">&quot;Write a Python function to compute the LCM of two numbers.&quot;</span>)</div>
-</div></p>
+</div>
 
 <p style="margin-bottom:12px;line-height:1.85"><code style="font-family:var(--mono);font-size:12px;background:var(--bg3);padding:1px 6px;border-radius:4px;color:var(--c1)">mode=&quot;route&quot;</code> 的精髓不在 graph 多复杂，而在于： <strong style="color:var(--text)">controller 自己不做任务，只做选择。</strong></p></div>
 </div>
@@ -150,7 +148,7 @@ meta.<span class="fn">print_response</span>(<span class="str">&quot;Write a Pyth
 <li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Generalist Agent:</strong> Handles casual conversation and simple questions.</li>
 <li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Research Agent:</strong> Equipped with a search tool to answer questions about recent events or complex topics.</li>
 <li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Coding Agent:</strong> A specialist focused on generating Python code snippets.</li>
-</ul>
+</ol>
 <p style="margin-bottom:8px;line-height:1.7;font-size:13px;color:var(--muted)">The Meta-Controller will be the &quot;brain&quot; of the operation, examining each user query and deciding which agent is best suited to respond. This creates a flexible and easily extensible system where new capabilities can be added simply by creating a new specialist agent and teaching the controller about it.</p>
 <p style="font-weight:600;margin:14px 0 4px;font-size:14px">Definition</p>
 <p style="margin-bottom:8px;line-height:1.7;font-size:13px;color:var(--muted)">A <strong style="color:var(--text)">Meta-Controller</strong> (or Router) is a supervisory agent in a multi-agent system that is responsible for analyzing incoming tasks and dispatching them to the appropriate specialized sub-agent or workflow. It acts as an intelligent routing layer, deciding which tool or expert is best suited for the job at hand.</p>
@@ -161,7 +159,7 @@ meta.<span class="fn">print_response</span>(<span class="str">&quot;Write a Pyth
 <li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Dispatch to Specialist:</strong> Based on its analysis, the Meta-Controller selects the best specialist agent (e.g., &#x27;Researcher&#x27;, &#x27;Coder&#x27;, &#x27;Chatbot&#x27;) from a predefined pool.</li>
 <li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Execute Task:</strong> The chosen specialist agent executes the task and generates a result.</li>
 <li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Return Result:</strong> The result from the specialist is returned to the user. In more complex workflows, control might return to the Meta-Controller for further steps or monitoring.</li>
-</ul>
+</ol>
 <p style="font-weight:600;margin:14px 0 4px;font-size:14px">When to Use / Applications</p>
 <ul style="margin:4px 0 12px 18px;list-style-type:disc">
 <li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Multi-Service AI Platforms:</strong> A single entry point for a platform that offers diverse services like document analysis, data visualization, and creative writing.</li>
@@ -367,5 +365,5 @@ run_agent(&quot;</span>Can you write me a python function to calculate the nth f
 </span></div>
 </div>
   </section>
-  <div class="prevnext"><a href="mental-loop.html"><span class="pn-label">&larr; 上一架构</span>#10 心智循环</a><a href="graph.html" style="text-align:right"><span class="pn-label">下一架构 &rarr;</span>#12 图世界模型记忆</a></div>
+  <div class="prevnext"><a href="mental-loop.html"><span class="pn-label">&larr; 上一架构</span>#10 心智循环（模拟器）</a><a href="graph.html" style="text-align:right"><span class="pn-label">下一架构 &rarr;</span>#12 图世界模型记忆</a></div>
 </div><div class="footer"><p>Built from <a href="https://github.com/1998x-stack/all-agentic-architectures" style="color:var(--text)">all-agentic-architectures</a></p></div></body></html>

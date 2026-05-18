@@ -82,30 +82,39 @@ def get_nb_md(num):
 
 def nb2html(txt):
     if not txt: return ""
-    result=[]; in_ul=False
+    result=[]; in_list=False; list_tag="ul"
     for line in txt.strip().split("\n"):
         s=line.strip()
         if not s:
-            if in_ul: result.append("</ul>"); in_ul=False
+            if in_list: result.append(f"</{list_tag}>"); in_list=False
             continue
-        if s.startswith("# "): result.append(f'<h3 style="font-size:16px;font-weight:600;margin:20px 0 8px;color:var(--text)">{h_esc(s[2:])}</h3>')
-        elif s.startswith("## "): result.append(f'<h4 style="font-size:14px;font-weight:600;margin:16px 0 6px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em">{h_esc(s[3:])}</h4>')
+        if s.startswith("# "): 
+            if in_list: result.append(f"</{list_tag}>"); in_list=False
+            result.append(f'<h3 style="font-size:16px;font-weight:600;margin:20px 0 8px;color:var(--text)">{h_esc(s[2:])}</h3>')
+        elif s.startswith("## "): 
+            if in_list: result.append(f"</{list_tag}>"); in_list=False
+            result.append(f'<h4 style="font-size:14px;font-weight:600;margin:16px 0 6px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em">{h_esc(s[3:])}</h4>')
         elif s.startswith("### "):
-            if in_ul: result.append("</ul>"); in_ul=False
+            if in_list: result.append(f"</{list_tag}>"); in_list=False
             result.append(f'<p style="font-weight:600;margin:14px 0 4px;font-size:14px">{md_inline(s[4:])}</p>')
         elif s.startswith("*   "):
-            if not in_ul: result.append('<ul style="margin:4px 0 12px 18px;list-style-type:disc">'); in_ul=True
+            if not in_list: result.append('<ul style="margin:4px 0 12px 18px;list-style-type:disc">'); in_list=True; list_tag="ul"
             result.append(f'<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)">{md_inline(s[4:])}</li>')
         elif s.startswith("* "):
-            if not in_ul: result.append('<ul style="margin:4px 0 12px 18px;list-style-type:disc">'); in_ul=True
+            if not in_list: result.append('<ul style="margin:4px 0 12px 18px;list-style-type:disc">'); in_list=True; list_tag="ul"
             result.append(f'<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)">{md_inline(s[2:])}</li>')
         elif re.match(r"^\d+\.\s",s):
-            if not in_ul: result.append('<ol style="margin:4px 0 12px 18px">'); in_ul=True
+            if not in_list or list_tag!="ol": 
+                if in_list: result.append(f"</{list_tag}>")
+                result.append('<ol style="margin:4px 0 12px 18px">'); in_list=True; list_tag="ol"
             result.append(f'<li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)">{md_inline(re.sub(r"^\d+\.\s+","",s))}</li>')
+        elif s == "---" or s == "***" or s == "___":
+            if in_list: result.append(f"</{list_tag}>"); in_list=False
+            continue
         else:
-            if in_ul: result.append("</ul>"); in_ul=False
+            if in_list: result.append(f"</{list_tag}>"); in_list=False
             result.append(f'<p style="margin-bottom:8px;line-height:1.7;font-size:13px;color:var(--muted)">{md_inline(s)}</p>')
-    if in_ul: result.append("</ul>")
+    if in_list: result.append(f"</{list_tag}>")
     return "\n".join(result)
 
 def md_inline(t):
@@ -118,6 +127,7 @@ def cn_inline(t):
     t=h_esc(t)
     t=re.sub(r"\*\*(.+?)\*\*",r'<strong style="color:var(--text)">\1</strong>',t)
     t=re.sub(r"`([^`]+)`",r'<code style="font-family:var(--mono);font-size:12px;background:var(--bg3);padding:1px 6px;border-radius:4px;color:var(--c1)">\1</code>',t)
+    t=re.sub(r"!\[.*?\]\([^)]*\)","",t)
     return t
 
 def parse_cn():
@@ -135,18 +145,23 @@ def parse_cn():
             nl = sub.find('\n')
             if nl==-1: continue
             hdr = sub[:nl].strip(); body = sub[nl:].strip()
-            body = re.sub(r'!\[.*?\]\(data:image/svg\+xml[^)]*\)','',body).strip()
-            parsed[hdr.lower()]=body
+            body = re.sub(r'!\[.*?\]\(data:[^)]+\)','',body)
+            body = re.sub(r'&#x27;.+?&#x27;','',body)
+            body = re.sub(r'%3C.+?%3E','',body)
+            body = re.sub(r'^---\s*$','',body,flags=re.MULTILINE)
+            body = body.strip()
+            if body:
+                parsed[hdr.lower()]=body
         secs[sn]=parsed
     return secs
 
 def cn2html(cn_sec):
     if not cn_sec: return ""
     parts = []
+
     fp_raw = cn_sec.get("raw","").strip()
-    fp_lines = fp_raw.split("\n")
     fp = ""
-    for line in fp_lines:
+    for line in fp_raw.split("\n"):
         s = line.strip()
         if s.startswith("###") or not s:
             continue
@@ -182,24 +197,44 @@ def cn2html(cn_sec):
 
         cbs = []
         def sc(m):
-            cbs.append(m.group(1)); return f"__CB{len(cbs)-1}__"
+            cbs.append(m.group(1).strip()); return f"__CB{len(cbs)-1}__"
         bc = re.sub(r'```.*?\n(.*?)```', sc, body, flags=re.DOTALL)
 
         hlines=[]
+        pending_cb_list=[]
+        in_code=False
+
         for line in bc.split("\n"):
             s=line.strip()
-            if not s: hlines.append(""); continue
-            for j,cb in enumerate(cbs):
-                line=line.replace(f"__CB{j}__",f'<code class="pill">{h_esc(cb[:60])}...</code>')
-            if s.startswith("> "): hlines.append(f'<p style="font-size:13px;color:var(--muted);margin:12px 0;padding:8px 16px;border-left:2px solid var(--border);font-style:italic">{cn_inline(s[2:])}</p>')
-            elif s.startswith("- "): hlines.append(f'<li style="margin-bottom:8px;line-height:1.75">{cn_inline(s[2:])}</li>')
-            else: hlines.append(f'<p style="margin-bottom:12px;line-height:1.85">{cn_inline(s)}</p>')
+
+            if re.match(r'^__CB\d+__$', s):
+                hlines.append(s)
+                continue
+
+            if not s:
+                hlines.append("")
+                continue
+
+            if s == "---":
+                continue
+
+            has_cb = any(f"__CB{j}__" in s for j in range(len(cbs)))
+
+            if s.startswith("> "):
+                hlines.append(f'<blockquote style="font-size:13px;color:var(--muted);margin:12px 0;padding:8px 16px;border-left:2px solid var(--border);font-style:italic">{cn_inline(s[2:])}</blockquote>')
+            elif s.startswith("- "):
+                hlines.append(f'<li style="margin-bottom:8px;line-height:1.75">{cn_inline(s[2:])}</li>')
+            elif has_cb:
+                hlines.append(f'<p style="margin-bottom:12px;line-height:1.85">{cn_inline(s)}</p>')
+            else:
+                hlines.append(f'<p style="margin-bottom:12px;line-height:1.85">{cn_inline(s)}</p>')
+
         bh="\n".join(hlines)
+
         if "<li" in bh:
             bh=re.sub(r'(<li.*?</li>\n?)+',r'<ul style="margin:0 0 16px 20px;list-style-type:disc;color:var(--text);font-size:14px">\g<0></ul>',bh)
 
         for j,cb in enumerate(cbs):
-            lang="python"
             cc=cb.strip()
             hl=py_hl(cc)
             ch=f"""<div class="codeblock" style="margin:12px 0 20px">
@@ -211,7 +246,9 @@ def cn2html(cn_sec):
   </div>
   <div class="cb-body" style="font-size:12px;line-height:1.8">{hl}</div>
 </div>"""
-            bh=bh.replace(f"__CB{j}__",ch)
+            token = f"__CB{j}__"
+            bh = bh.replace(token, ch)
+            bh = re.sub(f'<p[^>]*>{re.escape(ch)}</p>', ch, bh)
 
         parts.append(f"""<div style="margin-bottom:32px">
   <h4 style="font-size:16px;font-weight:600;margin:0 0 12px;color:var(--text)">{dtitle}</h4>
@@ -220,12 +257,13 @@ def cn2html(cn_sec):
 
     return "\n".join(parts)
 
-def page_head(title, xtra=""):
+def page_head(title, desc=""):
     return f"""<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="{desc or title} — All Agentic Architectures: 17 种 AI Agent 架构的完整解析与实现">
 <title>{title} — All Agentic Architectures</title>
 <link rel="stylesheet" href="base-dark.css">
 <style>
@@ -235,12 +273,9 @@ def page_head(title, xtra=""):
   .prevnext a{{color:var(--muted);font-size:14px;transition:color .15s}}
   .prevnext a:hover{{color:var(--text);text-decoration:none}}
   .prevnext .pn-label{{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--faint);margin-bottom:4px;display:block}}
-  .cn-section{{margin-top:48px}}
-  .cn-section h3{{font-size:20px;font-weight:700;margin-bottom:20px;padding-bottom:8px;border-bottom:1px solid var(--border)}}
   .toc-link{{display:inline-block;padding:3px 8px;border-radius:4px;font-size:11px;font-family:var(--mono);color:var(--muted);border:1px solid var(--border);margin:2px 4px 2px 0;transition:all .15s}}
   .toc-link:hover{{border-color:var(--c1);color:var(--c1);text-decoration:none}}
 </style>
-{xtra}
 </head>
 <body>"""
 
@@ -265,8 +300,9 @@ def build_index():
     for idx,part in enumerate(PARTS):
         cn=part["cn"]; arr=""
         if idx<len(PARTS)-1: arr=f'<div class="flow-arrow"><div class="arr-icon">→</div><div class="arr-text">演化到</div></div>'
+        part_tag = part['name_cn'].replace('第一部分：','').replace('第二部分：','').replace('第三部分：','').replace('第四部分：','').replace('第五部分：','')
         fboxes+=f"""<div class="flow-box" style="border-color:rgba({hex2rgb(part['color'])},0.25)">
-  <div class="fb-tag" style="color:var(--{cn})">{part['name'].split(':')[0].upper()}</div>
+  <div class="fb-tag" style="color:var(--{cn})">{part_tag}</div>
   <div class="fb-name">{part['name_cn']}</div>
   <div class="fb-sub">{part['desc_cn']}</div>
 </div>{arr}"""
@@ -274,9 +310,11 @@ def build_index():
     secs=""
     for part in PARTS:
         cn=part["cn"]; cd=part["colord"]; col=part["color"]
+        part_tag = part['name_cn'].split('：')[0] if '：' in part['name_cn'] else part['name_cn']
         cards=""
         for num in part["archs"]:
             a=ARCHS[num]
+            brief = a.get('cn_brief', a.get('subtitle_cn', ''))
             cards+=f"""<div class="card">
   <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
     <span style="font-size:11px;font-weight:700;color:var(--{cn});letter-spacing:.05em">#{num}</span>
@@ -284,19 +322,19 @@ def build_index():
   </div>
   <div style="font-size:15px;font-weight:600;margin-bottom:4px;color:var(--text)">{h_esc(a['name_cn'])} <span style="font-size:12px;font-weight:400;color:var(--muted)">{h_esc(a['name'])}</span></div>
   <div style="font-size:11px;color:var(--muted);margin-bottom:8px;background:var(--bg3);display:inline-block;padding:2px 8px;border-radius:4px">{h_esc(a['cn_capability'])}</div>
-  <div style="font-size:13px;color:var(--muted);line-height:1.65">{h_esc(a['cn_brief'])}</div>
+  <div style="font-size:13px;color:var(--muted);line-height:1.65">{h_esc(brief)}</div>
 </div>"""
         ncols="grid2" if len(part["archs"])<=4 else "grid3"
         secs+=f"""<section class="layer-sec" id="{part['id']}">
   <div class="layer-hdr">
-    <span class="layer-id-badge" style="background:{cd};color:rgba(255,255,255,.9)">{part['name'].split(':')[0]}</span>
+    <span class="layer-id-badge" style="background:{cd};color:rgba(255,255,255,.9)">{part_tag}</span>
     <div class="layer-title" style="font-size:24px">{part['name_cn']}</div>
   </div>
   <p class="layer-def" style="border-color:{col}">{h_esc(part['desc_cn'])}</p>
   <div class="{ncols}">{cards}</div>
 </section>"""
 
-    return page_head("总览")+_nav()+f"""<div class="page">
+    return page_head("总览","17 种 AI Agent 架构完整解析")+_nav()+f"""<div class="page">
   <section class="hero">
     <div class="hero-badge"><span class="dot"></span> 教育项目 · 17 种实现 · 2026</div>
     <h1>17 种 <em>Agentic 架构</em></h1>
@@ -321,6 +359,7 @@ def build_index():
 def build_detail(num, cn_secs):
     a=ARCHS[num]; part=next(p for p in PARTS if p["id"]==a["part"])
     cn=part["cn"]; cd=part["colord"]; col=part["color"]
+    part_tag = part['name_cn'].split('：')[0] if '：' in part['name_cn'] else part['name_cn']
 
     cn_sec=cn_secs.get(a["cn_section"],{})
     cn_html=cn2html(cn_sec) if cn_sec else ""
@@ -357,22 +396,26 @@ def build_detail(num, cn_secs):
   <a href="#code" class="toc-link">LangGraph 实现</a>
 </div>"""
 
-    return page_head(f"#{num} {a['name_cn']}")+_nav()+f"""<div class="page">
+    core = a.get('core_cn', '') or a.get('subtitle_cn', '')
+    usecase = a.get('usecase_cn', '')
+    brief = a.get('cn_brief', '')
+
+    return page_head(f"#{num} {a['name_cn']}",f"{a['name_cn']}（{a['name']}）— {a.get('subtitle_cn','')}")+_nav()+f"""<div class="page">
   <section class="hero" style="padding-bottom:28px">
-    <div class="hero-badge"><span class="dot" style="background:var(--{cn})"></span> #{num} · {h_esc(a['cn_stage'])} · {h_esc(a['cn_capability'])}</div>
+    <div class="hero-badge"><span class="dot" style="background:var(--{cn})"></span> #{num} · {h_esc(a.get('cn_stage',''))} · {h_esc(a.get('cn_capability',''))}</div>
     <h1 style="font-size:34px;color:var(--text);margin-bottom:6px">{h_esc(a['name_cn'])} <span style="font-size:18px;font-weight:400;color:var(--muted)">{h_esc(a['name'])}</span></h1>
-    <p style="font-size:14px;color:var(--faint);margin-bottom:8px;font-style:italic">{h_esc(a['subtitle_cn'])}</p>
-    <p style="margin-bottom:8px;font-size:14px">{h_esc(a['cn_brief'])}</p>
-    <p style="font-size:13px;color:var(--muted);margin-bottom:20px">典型应用：{h_esc(a['usecase_cn'])}</p>
-    <div class="tag-row"><span class="ltag" style="color:var(--{cn});background:rgba({hex2rgb(col)},.08);border-color:rgba({hex2rgb(col)},.25)">{part['name'].split(':')[0]}</span></div>
+    <p style="font-size:14px;color:var(--faint);margin-bottom:8px;font-style:italic">{h_esc(a.get('subtitle_cn',''))}</p>
+    <p style="margin-bottom:8px;font-size:14px">{h_esc(brief)}</p>""" + (f"""
+    <p style="font-size:13px;color:var(--muted);margin-bottom:20px">典型应用：{h_esc(usecase)}</p>""" if usecase else "") + f"""
+    <div class="tag-row"><span class="ltag" style="color:var(--{cn});background:rgba({hex2rgb(col)},.08);border-color:rgba({hex2rgb(col)},.25)">{part_tag}</span></div>
   </section>
   {toc}
   <section class="layer-sec" style="padding-top:0;border-bottom:none">
     <div class="layer-hdr">
       <span class="layer-id-badge" style="background:{cd};color:rgba(255,255,255,.9)">核心概念</span>
-      <div class="layer-title" style="font-size:18px">{h_esc(a['subtitle_cn'])}</div>
+      <div class="layer-title" style="font-size:18px">{h_esc(a.get('subtitle_cn',''))}</div>
     </div>
-    <p class="layer-def" style="border-color:{col}">{h_esc(a['core_cn'])}</p>
+    <p class="layer-def" style="border-color:{col}">{h_esc(core)}</p>
   </section>
   <section class="layer-sec cn-section" id="cn-analysis">
     <h3 style="border-color:{col}">六维深度分析</h3>

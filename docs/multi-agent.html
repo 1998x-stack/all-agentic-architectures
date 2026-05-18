@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="多智能体系统（Multi-Agent Systems）— 把认知分工写进图里 — All Agentic Architectures: 17 种 AI Agent 架构的完整解析与实现">
 <title>#05 多智能体系统 — All Agentic Architectures</title>
 <link rel="stylesheet" href="base-dark.css">
 <style>
@@ -12,12 +13,9 @@
   .prevnext a{color:var(--muted);font-size:14px;transition:color .15s}
   .prevnext a:hover{color:var(--text);text-decoration:none}
   .prevnext .pn-label{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--faint);margin-bottom:4px;display:block}
-  .cn-section{margin-top:48px}
-  .cn-section h3{font-size:20px;font-weight:700;margin-bottom:20px;padding-bottom:8px;border-bottom:1px solid var(--border)}
   .toc-link{display:inline-block;padding:3px 8px;border-radius:4px;font-size:11px;font-family:var(--mono);color:var(--muted);border:1px solid var(--border);margin:2px 4px 2px 0;transition:all .15s}
   .toc-link:hover{border-color:var(--c1);color:var(--c1);text-decoration:none}
 </style>
-
 </head>
 <body><nav>
   <div class="nav-inner">
@@ -34,9 +32,9 @@
     <div class="hero-badge"><span class="dot" style="background:var(--c2)"></span> #05 · 把认知任务拆成角色 · role decomposition</div>
     <h1 style="font-size:34px;color:var(--text);margin-bottom:6px">多智能体系统 <span style="font-size:18px;font-weight:400;color:var(--muted)">Multi-Agent Systems</span></h1>
     <p style="font-size:14px;color:var(--faint);margin-bottom:8px;font-style:italic">把认知分工写进图里</p>
-    <p style="margin-bottom:8px;font-size:14px">把认知分工写进图里</p>
-    <p style="font-size:13px;color:var(--muted);margin-bottom:20px">典型应用：</p>
-    <div class="tag-row"><span class="ltag" style="color:var(--c2);background:rgba(55,138,221,.08);border-color:rgba(55,138,221,.25)">Part 2</span></div>
+    <p style="margin-bottom:8px;font-size:14px">把研究员、写作、审阅等角色拆开，用流水线或图把它们串起来。</p>
+    <p style="font-size:13px;color:var(--muted);margin-bottom:20px">典型应用：软件开发流水线、创意头脑风暴、复杂报告生成</p>
+    <div class="tag-row"><span class="ltag" style="color:var(--c2);background:rgba(55,138,221,.08);border-color:rgba(55,138,221,.25)">第二部分</span></div>
   </section>
   <div style="margin-bottom:28px;line-height:2">
   <span style="font-size:11px;color:var(--faint);text-transform:uppercase;letter-spacing:.06em">快速导航</span><br>
@@ -49,7 +47,7 @@
       <span class="layer-id-badge" style="background:#1a5290;color:rgba(255,255,255,.9)">核心概念</span>
       <div class="layer-title" style="font-size:18px">把认知分工写进图里</div>
     </div>
-    <p class="layer-def" style="border-color:#378add">把认知分工写进图里</p>
+    <p class="layer-def" style="border-color:#378add">不再让一个 agent 什么都干——把研究员、写作者、审阅者等角色拆开，用流水线或图串起来。每个 agent 只做自己最擅长的事。</p>
   </section>
   <section class="layer-sec cn-section" id="cn-analysis">
     <h3 style="border-color:#378add">六维深度分析</h3>
@@ -63,7 +61,7 @@
   <h4 style="font-size:16px;font-weight:600;margin:0 0 12px;color:var(--text)">State 设计</h4>
   <div style="padding-left:4px"><p style="margin-bottom:12px;line-height:1.85">在 agno 里它就是 <code style="font-family:var(--mono);font-size:12px;background:var(--bg3);padding:1px 6px;border-radius:4px;color:var(--c1)">workflow_session_state</code> 里按角色划分的几块区域：</p>
 
-<p style="margin-bottom:12px;line-height:1.85"><div class="codeblock" style="margin:12px 0 20px">
+<div class="codeblock" style="margin:12px 0 20px">
   <div class="cb-head" style="font-size:11px">
     <span class="cb-dot" style="background:#f85149"></span>
     <span class="cb-dot" style="background:#e3b341"></span>
@@ -81,7 +79,7 @@
     },
     steps<span class="op">=</span>[...],
 )</div>
-</div></p>
+</div>
 
 <p style="margin-bottom:12px;line-height:1.85">不同角色写入不同字段——state 不再只是&quot;共享上下文&quot;，而开始体现 <strong style="color:var(--text)">角色边界</strong> 。</p></div>
 </div>
@@ -89,7 +87,7 @@
   <h4 style="font-size:16px;font-weight:600;margin:0 0 12px;color:var(--text)">关键代码</h4>
   <div style="padding-left:4px"><p style="margin-bottom:12px;line-height:1.85">agno 表达这种固定流水线，有两条路：用 <code style="font-family:var(--mono);font-size:12px;background:var(--bg3);padding:1px 6px;border-radius:4px;color:var(--c1)">Workflow</code> 拼，或者用 <code style="font-family:var(--mono);font-size:12px;background:var(--bg3);padding:1px 6px;border-radius:4px;color:var(--c1)">Team(mode=&quot;coordinate&quot;)</code> 让一个 leader 固定地调度，这里选最直接的做法—— <code style="font-family:var(--mono);font-size:12px;background:var(--bg3);padding:1px 6px;border-radius:4px;color:var(--c1)">Workflow</code> + 多个 <code style="font-family:var(--mono);font-size:12px;background:var(--bg3);padding:1px 6px;border-radius:4px;color:var(--c1)">Agent</code> ：</p>
 
-<p style="margin-bottom:12px;line-height:1.85"><div class="codeblock" style="margin:12px 0 20px">
+<div class="codeblock" style="margin:12px 0 20px">
   <div class="cb-head" style="font-size:11px">
     <span class="cb-dot" style="background:#f85149"></span>
     <span class="cb-dot" style="background:#e3b341"></span>
@@ -154,11 +152,11 @@ multi_wf <span class="op">=</span> <span class="fn">Workflow</span>(
         <span class="fn">Step</span>(name<span class="op">=</span><span class="str">&quot;write&quot;</span>, executor<span class="op">=</span>write_step),
     ],
 )</div>
-</div></p>
+</div>
 
 <p style="margin-bottom:12px;line-height:1.85">或者，如果你想让&quot;编排也能省掉&quot;，直接用 <code style="font-family:var(--mono);font-size:12px;background:var(--bg3);padding:1px 6px;border-radius:4px;color:var(--c1)">Team</code> 的 coordinate 模式：</p>
 
-<p style="margin-bottom:12px;line-height:1.85"><div class="codeblock" style="margin:12px 0 20px">
+<div class="codeblock" style="margin:12px 0 20px">
   <div class="cb-head" style="font-size:11px">
     <span class="cb-dot" style="background:#f85149"></span>
     <span class="cb-dot" style="background:#e3b341"></span>
@@ -180,8 +178,8 @@ analysts_team <span class="op">=</span> <span class="fn">Team</span>(
 )
 
 analysts_team.<span class="fn">print_response</span>(<span class="str">&quot;Write an investment memo about AAPL.&quot;</span>, stream<span class="op">=</span><span class="kw">True</span>)</div>
-</div></p>
-<p style="margin-bottom:12px;line-height:1.85">&#x27; fill=&#x27;%23FFFFFF&#x27;%3E%3Crect x=&#x27;249&#x27; y=&#x27;126&#x27; width=&#x27;1&#x27; height=&#x27;1&#x27;%3E%3C/rect%3E%3C/g%3E%3C/g%3E%3C/svg%3E)</p></div>
+</div>
+<p style="margin-bottom:12px;line-height:1.85">&#x27; fill=&#x27;%23FFFFFF&#x27;%3E)</p></div>
 </div>
 <div style="margin-bottom:32px">
   <h4 style="font-size:16px;font-weight:600;margin:0 0 12px;color:var(--text)">失败模式</h4>
@@ -191,9 +189,7 @@ analysts_team.<span class="fn">print_response</span>(<span class="str">&quot;Wri
   <h4 style="font-size:16px;font-weight:600;margin:0 0 12px;color:var(--text)">何时升级</h4>
   <div style="padding-left:4px"><p style="margin-bottom:12px;line-height:1.85">当多个角色之间的先后顺序本身也需要动态决定时，你需要 Blackboard。</p>
 
-<p style="font-size:13px;color:var(--muted);margin:12px 0;padding:8px 16px;border-left:2px solid var(--border);font-style:italic">📎 参考实现： [05\_multi\_agent.ipynb](https://github.com/FareedKhan-dev/all-agentic-architectures/05_multi_agent.ipynb)</p>
-
-<p style="margin-bottom:12px;line-height:1.85">---</p></div>
+<blockquote style="font-size:13px;color:var(--muted);margin:12px 0;padding:8px 16px;border-left:2px solid var(--border);font-style:italic">📎 参考实现： [05\_multi\_agent.ipynb](https://github.com/FareedKhan-dev/all-agentic-architectures/05_multi_agent.ipynb)</blockquote></div>
 </div>
 <div style="margin-bottom:32px">
   <h4 style="font-size:16px;font-weight:600;margin:0 0 12px;color:var(--text)">新增的能力</h4>
@@ -214,7 +210,7 @@ analysts_team.<span class="fn">print_response</span>(<span class="str">&quot;Wri
 <li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Role Definition:</strong> The system assigns sub-tasks to specialized agents based on their defined roles (e.g., &#x27;Researcher&#x27;, &#x27;Coder&#x27;, &#x27;Critic&#x27;, &#x27;Writer&#x27;).</li>
 <li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Collaboration:</strong> Agents execute their tasks, often in parallel or sequence. They pass their outputs to each other or to a central &#x27;blackboard&#x27;.</li>
 <li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Synthesis:</strong> A final &#x27;manager&#x27; or &#x27;synthesizer&#x27; agent collects the outputs from the specialist agents and assembles the final, consolidated response.</li>
-</ul>
+</ol>
 <p style="font-weight:600;margin:14px 0 4px;font-size:14px">When to Use / Applications</p>
 <ul style="margin:4px 0 12px 18px;list-style-type:disc">
 <li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Complex Report Generation:</strong> Creating detailed reports that require expertise from multiple domains (e.g., financial analysis, scientific research).</li>

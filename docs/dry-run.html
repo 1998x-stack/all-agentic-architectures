@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="预演校验（Dry-Run Harness）— 真正把副作用关进闸门里 — All Agentic Architectures: 17 种 AI Agent 架构的完整解析与实现">
 <title>#14 预演校验 — All Agentic Architectures</title>
 <link rel="stylesheet" href="base-dark.css">
 <style>
@@ -12,12 +13,9 @@
   .prevnext a{color:var(--muted);font-size:14px;transition:color .15s}
   .prevnext a:hover{color:var(--text);text-decoration:none}
   .prevnext .pn-label{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--faint);margin-bottom:4px;display:block}
-  .cn-section{margin-top:48px}
-  .cn-section h3{font-size:20px;font-weight:700;margin-bottom:20px;padding-bottom:8px;border-bottom:1px solid var(--border)}
   .toc-link{display:inline-block;padding:3px 8px;border-radius:4px;font-size:11px;font-family:var(--mono);color:var(--muted);border:1px solid var(--border);margin:2px 4px 2px 0;transition:all .15s}
   .toc-link:hover{border-color:var(--c1);color:var(--c1);text-decoration:none}
 </style>
-
 </head>
 <body><nav>
   <div class="nav-inner">
@@ -34,9 +32,9 @@
     <div class="hero-badge"><span class="dot" style="background:var(--c4)"></span> #14 · 把副作用关进闸门 · side-effect gating</div>
     <h1 style="font-size:34px;color:var(--text);margin-bottom:6px">预演校验 <span style="font-size:18px;font-weight:400;color:var(--muted)">Dry-Run Harness</span></h1>
     <p style="font-size:14px;color:var(--faint);margin-bottom:8px;font-style:italic">真正把副作用关进闸门里</p>
-    <p style="margin-bottom:8px;font-size:14px">真正把副作用关进闸门里</p>
-    <p style="font-size:13px;color:var(--muted);margin-bottom:20px">典型应用：</p>
-    <div class="tag-row"><span class="ltag" style="color:var(--c4);background:rgba(240,136,62,.08);border-color:rgba(240,136,62,.25)">Part 4</span></div>
+    <p style="margin-bottom:8px;font-size:14px">有副作用的动作必须先 dry-run + 审核通过，才允许真实执行。</p>
+    <p style="font-size:13px;color:var(--muted);margin-bottom:20px">典型应用：生产环境 Agent 部署、调试、高风险操作</p>
+    <div class="tag-row"><span class="ltag" style="color:var(--c4);background:rgba(240,136,62,.08);border-color:rgba(240,136,62,.25)">第四部分</span></div>
   </section>
   <div style="margin-bottom:28px;line-height:2">
   <span style="font-size:11px;color:var(--faint);text-transform:uppercase;letter-spacing:.06em">快速导航</span><br>
@@ -49,7 +47,7 @@
       <span class="layer-id-badge" style="background:#9a4a1a;color:rgba(255,255,255,.9)">核心概念</span>
       <div class="layer-title" style="font-size:18px">真正把副作用关进闸门里</div>
     </div>
-    <p class="layer-def" style="border-color:#f0883e">真正把副作用关进闸门里</p>
+    <p class="layer-def" style="border-color:#f0883e">任何有副作用的动作必须先 dry-run + 审核（人或自动检查）通过后，才允许落到真实环境。在真实执行和系统输出之间插入一道强制审批。</p>
   </section>
   <section class="layer-sec cn-section" id="cn-analysis">
     <h3 style="border-color:#f0883e">六维深度分析</h3>
@@ -65,7 +63,7 @@
   <h4 style="font-size:16px;font-weight:600;margin:0 0 12px;color:var(--text)">关键代码</h4>
   <div style="padding-left:4px"><p style="margin-bottom:12px;line-height:1.85">agno 里实现 dry-run 有两个关键设计：工具本身带 <code style="font-family:var(--mono);font-size:12px;background:var(--bg3);padding:1px 6px;border-radius:4px;color:var(--c1)">dry_run</code> 参数； <code style="font-family:var(--mono);font-size:12px;background:var(--bg3);padding:1px 6px;border-radius:4px;color:var(--c1)">Workflow</code> 里显式插入一个人工审批 step：</p>
 
-<p style="margin-bottom:12px;line-height:1.85"><div class="codeblock" style="margin:12px 0 20px">
+<div class="codeblock" style="margin:12px 0 20px">
   <div class="cb-head" style="font-size:11px">
     <span class="cb-dot" style="background:#f85149"></span>
     <span class="cb-dot" style="background:#e3b341"></span>
@@ -119,7 +117,7 @@ dryrun_wf <span class="op">=</span> <span class="fn">Workflow</span>(
         <span class="fn">Step</span>(name<span class="op">=</span><span class="str">&quot;commit&quot;</span>, executor<span class="op">=</span>commit_step),
     ],
 )</div>
-</div></p></div>
+</div></div>
 </div>
 <div style="margin-bottom:32px">
   <h4 style="font-size:16px;font-weight:600;margin:0 0 12px;color:var(--text)">失败模式</h4>
@@ -129,13 +127,11 @@ dryrun_wf <span class="op">=</span> <span class="fn">Workflow</span>(
 </ul>
 <p style="margin-bottom:12px;line-height:1.85">但即便如此，这种架构在真实生产系统里几乎是必须的。</p>
 
-<p style="font-size:13px;color:var(--muted);margin:12px 0;padding:8px 16px;border-left:2px solid var(--border);font-style:italic">📎 参考实现： [14\_dry\_run.ipynb](https://github.com/FareedKhan-dev/all-agentic-architectures/14_dry_run.ipynb)</p>
-
-<p style="margin-bottom:12px;line-height:1.85">---</p></div>
+<blockquote style="font-size:13px;color:var(--muted);margin:12px 0;padding:8px 16px;border-left:2px solid var(--border);font-style:italic">📎 参考实现： [14\_dry\_run.ipynb](https://github.com/FareedKhan-dev/all-agentic-architectures/14_dry_run.ipynb)</blockquote></div>
 </div>
 <div style="margin-bottom:32px">
   <h4 style="font-size:16px;font-weight:600;margin:0 0 12px;color:var(--text)">新增的能力</h4>
-  <div style="padding-left:4px"><p style="margin-bottom:12px;line-height:1.85">&#x27; fill=&#x27;%23FFFFFF&#x27;%3E%3Crect x=&#x27;249&#x27; y=&#x27;126&#x27; width=&#x27;1&#x27; height=&#x27;1&#x27;%3E%3C/rect%3E%3C/g%3E%3C/g%3E%3C/svg%3E)</p>
+  <div style="padding-left:4px"><p style="margin-bottom:12px;line-height:1.85">&#x27; fill=&#x27;%23FFFFFF&#x27;%3E)</p>
 
 <p style="margin-bottom:12px;line-height:1.85">不是更智能，而是： <strong style="color:var(--text)">让副作用在控制流上变成可审批对象。</strong> 很多 agent 系统的问题不在 reasoning，而在 side effects。Dry-Run 把它显式纳入架构。</p></div>
 </div>
@@ -152,7 +148,7 @@ dryrun_wf <span class="op">=</span> <span class="fn">Workflow</span>(
 <li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Perform a Dry Run:</strong> The agent will call the <code style="font-family:var(--mono);font-size:11px;background:var(--bg3);padding:1px 5px;border-radius:3px">publish</code> function in a sandboxed <code style="font-family:var(--mono);font-size:11px;background:var(--bg3);padding:1px 5px;border-radius:3px">dry_run=True</code> mode, generating logs of what *would* happen.</li>
 <li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Human-in-the-Loop Review:</strong> A human operator is shown the exact post content and the dry-run trace. They must type <code style="font-family:var(--mono);font-size:11px;background:var(--bg3);padding:1px 5px;border-radius:3px">approve</code> to proceed.</li>
 <li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Execute Live Action:</strong> Only upon approval is the <code style="font-family:var(--mono);font-size:11px;background:var(--bg3);padding:1px 5px;border-radius:3px">publish</code> function called again, this time with <code style="font-family:var(--mono);font-size:11px;background:var(--bg3);padding:1px 5px;border-radius:3px">dry_run=False</code>, to perform the real action.</li>
-</ul>
+</ol>
 <p style="margin-bottom:8px;line-height:1.7;font-size:13px;color:var(--muted)">This pattern is the bedrock of responsible agent deployment, providing the transparency and control needed to operate AI safely in production.</p>
 <p style="font-weight:600;margin:14px 0 4px;font-size:14px">Definition</p>
 <p style="margin-bottom:8px;line-height:1.7;font-size:13px;color:var(--muted)">An <strong style="color:var(--text)">Observability and Dry-Run Harness</strong> is a testing and deployment architecture that intercepts an agent&#x27;s actions. It first executes them in a &quot;dry run&quot; or &quot;sandboxed&quot; mode that simulates the action without causing real-world effects. The resulting plan and logs are then surfaced for review, and only after explicit approval is the action executed in the live environment.</p>
@@ -164,7 +160,7 @@ dryrun_wf <span class="op">=</span> <span class="fn">Workflow</span>(
 <li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Human/Automated Review:</strong> This observability data is presented to a reviewer. A human can check for correctness, safety, and alignment with goals. An automated system could run checks for policy violations or known bad patterns.</li>
 <li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Go/No-Go Decision:</strong> The reviewer makes an <code style="font-family:var(--mono);font-size:11px;background:var(--bg3);padding:1px 5px;border-radius:3px">approve</code> or <code style="font-family:var(--mono);font-size:11px;background:var(--bg3);padding:1px 5px;border-radius:3px">reject</code> decision.</li>
 <li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Live Execution (on &#x27;Go&#x27;):</strong> If approved, the harness re-executes the agent&#x27;s action, this time with <code style="font-family:var(--mono);font-size:11px;background:var(--bg3);padding:1px 5px;border-radius:3px">dry_run=False</code>, causing it to have a real-world effect.</li>
-</ul>
+</ol>
 <p style="font-weight:600;margin:14px 0 4px;font-size:14px">When to Use / Applications</p>
 <ul style="margin:4px 0 12px 18px;list-style-type:disc">
 <li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Debugging and Testing:</strong> In development, to understand exactly how an agent is interpreting a task and what actions it&#x27;s taking without side effects.</li>

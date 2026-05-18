@@ -3,7 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>#10 心智循环 — All Agentic Architectures</title>
+<meta name="description" content="心智循环（模拟器）（Mental Loop (Simulator)）— 行动之前，先在内部世界里试错 — All Agentic Architectures: 17 种 AI Agent 架构的完整解析与实现">
+<title>#10 心智循环（模拟器） — All Agentic Architectures</title>
 <link rel="stylesheet" href="base-dark.css">
 <style>
   :root{--c1:#28c840;--c1d:#1a7a2a;--c2:#378add;--c2d:#1a5290;--c3:#a259ff;--c3d:#5a2a8a;--c4:#f0883e;--c4d:#9a4a1a;--c5:#1db0a0;--c5d:#0f6e56}
@@ -12,12 +13,9 @@
   .prevnext a{color:var(--muted);font-size:14px;transition:color .15s}
   .prevnext a:hover{color:var(--text);text-decoration:none}
   .prevnext .pn-label{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--faint);margin-bottom:4px;display:block}
-  .cn-section{margin-top:48px}
-  .cn-section h3{font-size:20px;font-weight:700;margin-bottom:20px;padding-bottom:8px;border-bottom:1px solid var(--border)}
   .toc-link{display:inline-block;padding:3px 8px;border-radius:4px;font-size:11px;font-family:var(--mono);color:var(--muted);border:1px solid var(--border);margin:2px 4px 2px 0;transition:all .15s}
   .toc-link:hover{border-color:var(--c1);color:var(--c1);text-decoration:none}
 </style>
-
 </head>
 <body><nav>
   <div class="nav-inner">
@@ -32,11 +30,11 @@
 </nav><div class="page">
   <section class="hero" style="padding-bottom:28px">
     <div class="hero-badge"><span class="dot" style="background:var(--c4)"></span> #10 · 把行动前评估做成模拟 · counterfactual execution</div>
-    <h1 style="font-size:34px;color:var(--text);margin-bottom:6px">心智循环 <span style="font-size:18px;font-weight:400;color:var(--muted)">Mental Loop</span></h1>
-    <p style="font-size:14px;color:var(--faint);margin-bottom:8px;font-style:italic">行动之前先在内部世界试错</p>
-    <p style="margin-bottom:8px;font-size:14px">行动之前先在内部世界试错</p>
-    <p style="font-size:13px;color:var(--muted);margin-bottom:20px">典型应用：</p>
-    <div class="tag-row"><span class="ltag" style="color:var(--c4);background:rgba(240,136,62,.08);border-color:rgba(240,136,62,.25)">Part 4</span></div>
+    <h1 style="font-size:34px;color:var(--text);margin-bottom:6px">心智循环（模拟器） <span style="font-size:18px;font-weight:400;color:var(--muted)">Mental Loop (Simulator)</span></h1>
+    <p style="font-size:14px;color:var(--faint);margin-bottom:8px;font-style:italic">行动之前，先在内部世界里试错</p>
+    <p style="margin-bottom:8px;font-size:14px">先在内部世界模型里预演，评估风险收益，再决定是否真执行。</p>
+    <p style="font-size:13px;color:var(--muted);margin-bottom:20px">典型应用：机器人控制、金融交易、安全关键系统</p>
+    <div class="tag-row"><span class="ltag" style="color:var(--c4);background:rgba(240,136,62,.08);border-color:rgba(240,136,62,.25)">第四部分</span></div>
   </section>
   <div style="margin-bottom:28px;line-height:2">
   <span style="font-size:11px;color:var(--faint);text-transform:uppercase;letter-spacing:.06em">快速导航</span><br>
@@ -47,9 +45,9 @@
   <section class="layer-sec" style="padding-top:0;border-bottom:none">
     <div class="layer-hdr">
       <span class="layer-id-badge" style="background:#9a4a1a;color:rgba(255,255,255,.9)">核心概念</span>
-      <div class="layer-title" style="font-size:18px">行动之前先在内部世界试错</div>
+      <div class="layer-title" style="font-size:18px">行动之前，先在内部世界里试错</div>
     </div>
-    <p class="layer-def" style="border-color:#f0883e">行动之前先在内部世界试错</p>
+    <p class="layer-def" style="border-color:#f0883e">真正动手之前，先在内部世界模型里预演一遍，评估风险和收益，再决定是否真执行。这是一种反事实推理——如果这样做会怎样？</p>
   </section>
   <section class="layer-sec cn-section" id="cn-analysis">
     <h3 style="border-color:#f0883e">六维深度分析</h3>
@@ -63,7 +61,7 @@
   <h4 style="font-size:16px;font-weight:600;margin:0 0 12px;color:var(--text)">关键代码</h4>
   <div style="padding-left:4px"><p style="margin-bottom:12px;line-height:1.85">模拟器就是一个普通 Python 对象，决策 agent 通过工具把它当成&quot;可以快照 可以推进 可以回滚&quot;的沙箱：</p>
 
-<p style="margin-bottom:12px;line-height:1.85"><div class="codeblock" style="margin:12px 0 20px">
+<div class="codeblock" style="margin:12px 0 20px">
   <div class="cb-head" style="font-size:11px">
     <span class="cb-dot" style="background:#f85149"></span>
     <span class="cb-dot" style="background:#e3b341"></span>
@@ -126,15 +124,13 @@ trader <span class="op">=</span> <span class="fn">Agent</span>(
 )
 
 trader.<span class="fn">print_response</span>(<span class="str">&quot;Decide whether to buy AAPL today, and how much.&quot;</span>)</div>
-</div></p></div>
+</div></div>
 </div>
 <div style="margin-bottom:32px">
   <h4 style="font-size:16px;font-weight:600;margin:0 0 12px;color:var(--text)">失败模式</h4>
   <div style="padding-left:4px"><p style="margin-bottom:12px;line-height:1.85">simulation-reality gap，模拟器越不真实，agent 越可能做出&quot;模拟里完美，现实里灾难&quot;的决定，这个架构的上限往往不是 LLM，而是 simulator 的保真度。</p>
 
-<p style="font-size:13px;color:var(--muted);margin:12px 0;padding:8px 16px;border-left:2px solid var(--border);font-style:italic">📎 参考实现： [10\_mental\_loop.ipynb](https://github.com/FareedKhan-dev/all-agentic-architectures/10_mental_loop.ipynb)</p>
-
-<p style="margin-bottom:12px;line-height:1.85">---</p></div>
+<blockquote style="font-size:13px;color:var(--muted);margin:12px 0;padding:8px 16px;border-left:2px solid var(--border);font-style:italic">📎 参考实现： [10\_mental\_loop.ipynb](https://github.com/FareedKhan-dev/all-agentic-architectures/10_mental_loop.ipynb)</blockquote></div>
 </div>
 <div style="margin-bottom:32px">
   <h4 style="font-size:16px;font-weight:600;margin:0 0 12px;color:var(--text)">新增的能力</h4>
@@ -154,7 +150,7 @@ trader.<span class="fn">print_response</span>(<span class="str">&quot;Decide whe
 <li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)">Analyze the simulation results to assess risk and reward.</li>
 <li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)">Make a final, refined decision (e.g., &quot;The simulation shows high volatility; let&#x27;s buy a smaller amount.&quot;).</li>
 <li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)">Execute that refined trade in the real market.</li>
-</ul>
+</ol>
 <p style="margin-bottom:8px;line-height:1.7;font-size:13px;color:var(--muted)">This pattern is crucial for moving agents from informational tasks to performing actions in the real world, where mistakes can have real consequences.</p>
 <p style="font-weight:600;margin:14px 0 4px;font-size:14px">Definition</p>
 <p style="margin-bottom:8px;line-height:1.7;font-size:13px;color:var(--muted)">A <strong style="color:var(--text)">Simulator</strong> or <strong style="color:var(--text)">Mental-Model-in-the-Loop</strong> architecture involves an agent that uses an internal model of its environment to simulate the outcomes of potential actions before executing any of them. This allows the agent to perform what-if analysis, anticipate consequences, and refine its plan for safety and effectiveness.</p>
@@ -166,7 +162,7 @@ trader.<span class="fn">print_response</span>(<span class="str">&quot;Decide whe
 <li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Assess &amp; Refine:</strong> The agent analyzes the results from the simulation. Did the action lead to the desired outcome? Were there unforeseen negative consequences? Based on this assessment, it refines its initial proposal into a final, concrete action.</li>
 <li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Execute:</strong> The agent executes the final, refined action in the *real* environment.</li>
 <li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Repeat:</strong> The loop begins again from the new state of the real environment.</li>
-</ul>
+</ol>
 <p style="font-weight:600;margin:14px 0 4px;font-size:14px">When to Use / Applications</p>
 <ul style="margin:4px 0 12px 18px;list-style-type:disc">
 <li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Robotics:</strong> Simulating a grasp or a path before moving a physical arm to avoid collisions or damage.</li>

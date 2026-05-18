@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="自我改进循环（RLHF (Self-Improvement)）— 进化回路 — All Agentic Architectures: 17 种 AI Agent 架构的完整解析与实现">
 <title>#15 自我改进循环 — All Agentic Architectures</title>
 <link rel="stylesheet" href="base-dark.css">
 <style>
@@ -12,12 +13,9 @@
   .prevnext a{color:var(--muted);font-size:14px;transition:color .15s}
   .prevnext a:hover{color:var(--text);text-decoration:none}
   .prevnext .pn-label{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--faint);margin-bottom:4px;display:block}
-  .cn-section{margin-top:48px}
-  .cn-section h3{font-size:20px;font-weight:700;margin-bottom:20px;padding-bottom:8px;border-bottom:1px solid var(--border)}
   .toc-link{display:inline-block;padding:3px 8px;border-radius:4px;font-size:11px;font-family:var(--mono);color:var(--muted);border:1px solid var(--border);margin:2px 4px 2px 0;transition:all .15s}
   .toc-link:hover{border-color:var(--c1);color:var(--c1);text-decoration:none}
 </style>
-
 </head>
 <body><nav>
   <div class="nav-inner">
@@ -32,11 +30,11 @@
 </nav><div class="page">
   <section class="hero" style="padding-bottom:28px">
     <div class="hero-badge"><span class="dot" style="background:var(--c5)"></span> #15 · 把质量改进做成循环 · iterative refinement loop</div>
-    <h1 style="font-size:34px;color:var(--text);margin-bottom:6px">自我改进循环 <span style="font-size:18px;font-weight:400;color:var(--muted)">RLHF</span></h1>
+    <h1 style="font-size:34px;color:var(--text);margin-bottom:6px">自我改进循环 <span style="font-size:18px;font-weight:400;color:var(--muted)">RLHF (Self-Improvement)</span></h1>
     <p style="font-size:14px;color:var(--faint);margin-bottom:8px;font-style:italic">进化回路</p>
-    <p style="margin-bottom:8px;font-size:14px">进化回路</p>
-    <p style="font-size:13px;color:var(--muted);margin-bottom:20px">典型应用：</p>
-    <div class="tag-row"><span class="ltag" style="color:var(--c5);background:rgba(29,176,160,.08);border-color:rgba(29,176,160,.25)">Part 5</span></div>
+    <p style="margin-bottom:8px;font-size:14px">editor 打分给意见，writer 按意见改稿，高分样本沉淀用于持续改进。</p>
+    <p style="font-size:13px;color:var(--muted);margin-bottom:20px">典型应用：高质量内容生成、持续学习、自动质量改进</p>
+    <div class="tag-row"><span class="ltag" style="color:var(--c5);background:rgba(29,176,160,.08);border-color:rgba(29,176,160,.25)">第五部分</span></div>
   </section>
   <div style="margin-bottom:28px;line-height:2">
   <span style="font-size:11px;color:var(--faint);text-transform:uppercase;letter-spacing:.06em">快速导航</span><br>
@@ -49,7 +47,7 @@
       <span class="layer-id-badge" style="background:#0f6e56;color:rgba(255,255,255,.9)">核心概念</span>
       <div class="layer-title" style="font-size:18px">进化回路</div>
     </div>
-    <p class="layer-def" style="border-color:#1db0a0">进化回路</p>
+    <p class="layer-def" style="border-color:#1db0a0">editor agent 对输出打分并给出修改意见，writer 按意见改稿，高分样本沉淀下来用于持续改进。将 RLHF 的思想内置到 agent 运行时中。</p>
   </section>
   <section class="layer-sec cn-section" id="cn-analysis">
     <h3 style="border-color:#1db0a0">六维深度分析</h3>
@@ -63,7 +61,7 @@
   <h4 style="font-size:16px;font-weight:600;margin:0 0 12px;color:var(--text)">关键代码</h4>
   <div style="padding-left:4px"><p style="margin-bottom:12px;line-height:1.85">最关键的是终止条件，agno 的 <code style="font-family:var(--mono);font-size:12px;background:var(--bg3);padding:1px 6px;border-radius:4px;color:var(--c1)">Loop.end_condition</code> 天然支持这个：</p>
 
-<p style="margin-bottom:12px;line-height:1.85"><div class="codeblock" style="margin:12px 0 20px">
+<div class="codeblock" style="margin:12px 0 20px">
   <div class="cb-head" style="font-size:11px">
     <span class="cb-dot" style="background:#f85149"></span>
     <span class="cb-dot" style="background:#e3b341"></span>
@@ -150,7 +148,7 @@ self_improve_wf <span class="op">=</span> <span class="fn">Workflow</span>(
         ),
     ],
 )</div>
-</div></p></div>
+</div></div>
 </div>
 <div style="margin-bottom:32px">
   <h4 style="font-size:16px;font-weight:600;margin:0 0 12px;color:var(--text)">失败模式</h4>
@@ -160,9 +158,7 @@ self_improve_wf <span class="op">=</span> <span class="fn">Workflow</span>(
 </ul>
 <p style="margin-bottom:12px;line-height:1.85">Self-Improve 不是&quot;会自动越来越好&quot;，而是&quot;有机会在严格约束下越来越好&quot;。</p>
 
-<p style="font-size:13px;color:var(--muted);margin:12px 0;padding:8px 16px;border-left:2px solid var(--border);font-style:italic">📎 参考实现： [15\_RLHF.ipynb](https://github.com/FareedKhan-dev/all-agentic-architectures/15_RLHF.ipynb)</p>
-
-<p style="margin-bottom:12px;line-height:1.85">---</p></div>
+<blockquote style="font-size:13px;color:var(--muted);margin:12px 0;padding:8px 16px;border-left:2px solid var(--border);font-style:italic">📎 参考实现： [15\_RLHF.ipynb](https://github.com/FareedKhan-dev/all-agentic-architectures/15_RLHF.ipynb)</blockquote></div>
 </div>
 <div style="margin-bottom:32px">
   <h4 style="font-size:16px;font-weight:600;margin:0 0 12px;color:var(--text)">新增的能力</h4>
@@ -181,7 +177,7 @@ self_improve_wf <span class="op">=</span> <span class="fn">Workflow</span>(
 <li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)">A <code style="font-family:var(--mono);font-size:11px;background:var(--bg3);padding:1px 5px;border-radius:3px">SeniorEditor</code> agent critiques the draft against a strict rubric (clarity, persuasiveness, call-to-action).</li>
 <li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)">If the draft&#x27;s score is below a quality threshold, the <code style="font-family:var(--mono);font-size:11px;background:var(--bg3);padding:1px 5px;border-radius:3px">JuniorCopywriter</code> is invoked again, but this time with the editor&#x27;s specific feedback, to create a revised draft.</li>
 <li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)">This loop continues until the email is approved or a maximum number of revisions is reached.</li>
-</ul>
+</ol>
 <p style="margin-bottom:8px;line-height:1.7;font-size:13px;color:var(--muted)">Furthermore, we will explore how this pattern forms the conceptual basis for <strong style="color:var(--text)">long-term learning</strong>, analogous to RLHF, by saving the best-performing outputs to a persistent memory that informs future generations, creating a system that truly learns.</p>
 <p style="font-weight:600;margin:14px 0 4px;font-size:14px">Definition</p>
 <p style="margin-bottom:8px;line-height:1.7;font-size:13px;color:var(--muted)">A <strong style="color:var(--text)">Self-Improvement Loop</strong> is an agentic architecture where an agent&#x27;s output is evaluated, either by itself or by another agent, and this evaluation is used as feedback to generate a revised, higher-quality output. When this feedback is stored and used to improve the agent&#x27;s baseline performance over time, it becomes a form of continual learning.</p>
@@ -192,7 +188,7 @@ self_improve_wf <span class="op">=</span> <span class="fn">Workflow</span>(
 <li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Decision:</strong> The system checks if the critique is positive enough to accept the output.</li>
 <li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Revise (Loop):</strong> If the output is not accepted, the original draft *and* the critic&#x27;s feedback are passed back to the primary agent, which is instructed to generate a revised version that addresses the feedback.</li>
 <li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">Accept:</strong> Once the output meets the quality standard, the loop terminates, and the final version is returned.</li>
-</ul>
+</ol>
 <p style="font-weight:600;margin:14px 0 4px;font-size:14px">When to Use / Applications</p>
 <ul style="margin:4px 0 12px 18px;list-style-type:disc">
 <li style="margin-bottom:4px;font-size:13px;line-height:1.6;color:var(--muted)"><strong style="color:var(--text)">High-Quality Content Generation:</strong> For tasks where a generic first draft is insufficient, such as writing legal documents, detailed technical reports, or persuasive marketing copy.</li>
